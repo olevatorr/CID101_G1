@@ -1,0 +1,28 @@
+// base 基本設置
+@import 'base/var';
+@import 'base/reset';
+@import 'base/font';
+@import 'base/grid';
+@import 'base/rwd';
+
+// 其他全局樣式或特定頁面的樣式
+section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    box-sizing: border-box;
+}
+
+// mixin
+@import 'mixin/img.scss';
+
+// component 元件
+@import 'component/eventcard';
+// layout 共用nav / footer
+@import 'layout/nav';
+@import 'layout/footer';
+
+// page 各頁
+@import 'page/index';
+@import 'page/aboutus';
+@import 'page/member';
+@import 'page/knowledge';

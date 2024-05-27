@@ -1,0 +1,202 @@
+.body-member {
+    background-image: url(../../../../public/img/member/member1.jpg);
+    background-size: cover;
+}
+
+.member-box-img img {
+    width: 100%;
+}
+
+.member-logo-box {
+    width: 30rem;
+}
+
+.member-logo-box span {
+    color: $color-white;
+    font-size: 2rem;
+    display: inline-block;
+}
+
+.member-box {
+    display: flex;
+    margin-top: 6rem;
+    position: relative;
+    justify-content: center;
+    padding: 0 8rem;
+}
+
+.member-logo-box {
+    width: 25rem;
+    position: absolute;
+    top: 21rem;
+    left: 19rem;
+    text-align: center;
+}
+
+.member-logo-box>img,
+.member-logo-box>span {
+    padding-bottom: 2rem;
+}
+
+.member-logo-box img {
+    padding-left: 4rem;
+}
+
+.member-logo-box span {
+    padding-right: 5rem;
+}
+
+.member-txt {
+    text-align: center;
+    background-color: $color-white;
+}
+
+.member-login {
+    margin-left: auto;
+    margin-right: auto;
+    width: 27rem;
+    text-align: left;
+}
+
+.member-login {
+    padding: 9rem 0;
+}
+
+.member-login label {
+    display: block;
+    font-size: 2rem;
+    margin-bottom: 6rem;
+}
+
+.member-login label:nth-of-type(2) {
+    margin-top: 5rem;
+}
+
+.member-login input[type='password'],
+.member-login input[type='text'] {
+    width: 100%;
+    border: 0rem;
+    border-bottom: 0.2rem solid #000;
+    box-sizing: border-box;
+    background: none;
+    outline: none;
+}
+
+.forget {
+    line-height: 4;
+}
+
+.member-button button:nth-child(1) {
+    margin-bottom: 2rem;
+    margin-left: 3rem;
+    margin-right: 5rem;
+}
+
+.member-txt p {
+    display: flex;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.member-txt p::before {
+    content: '';
+    flex: 4 1 0%;
+    display: block;
+    border-top: 1px solid black;
+    margin-right: 2rem;
+    margin-top: 1.5rem;
+    margin-left: 6rem;
+}
+
+.member-txt p::after {
+    content: '';
+    flex: 4 1 0%;
+    display: block;
+    border-top: 1px solid black;
+    margin-left: 2rem;
+    margin-top: 1.5rem;
+    margin-right: 6rem;
+}
+
+.member-txt i {
+    font-size: 5rem;
+}
+
+.member-txt a:nth-last-of-type(3) {
+    color: #e03f33;
+    padding-right: 2rem;
+}
+
+.member-txt a:nth-last-of-type(2) {
+    color: #2d55a8;
+    padding-right: 2rem;
+}
+
+.member-txt a:nth-last-of-type(1) {
+    color: #06c755;
+}
+
+@media screen and (max-width: 576px) {
+    .member-box-img {
+        display: none;
+    }
+
+    .member-button button:nth-child(1) {
+        margin-left: 2rem;
+        margin-right: 10rem;
+    }
+
+    .member-txt {
+        background-color: unset;
+        text-align: center;
+    }
+
+    .body-member {
+        background-image: url(../../../../public/img/member/member4.jpg);
+        background-size: cover;
+    }
+
+    .member-txt {
+        position: relative;
+    }
+
+    .forget {
+        position: absolute;
+        top: 65%;
+        right: 15%;
+        color: #000;
+    }
+
+}
+
+@media screen and (max-width: 768px) {
+    .member-box-img {
+        width: auto;
+    }
+
+    .member-logo-box {
+        left: 9rem;
+    }
+
+    .member-button button:nth-child(1) {
+        margin-left: 2rem;
+        margin-right: 10rem;
+    }
+
+    .member-login {
+        padding-top: 6rem;
+        padding-bottom: 3rem;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .member-logo-box {
+        top: 14rem;
+        left: 5rem;
+    }
+
+    .member-button button:nth-child(1) {
+        margin-left: 2rem;
+        margin-right: 3rem;
+    }
+}

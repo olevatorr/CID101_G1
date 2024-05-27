@@ -1,0 +1,65 @@
+@use 'sass:math';
+@mixin create-col($size) {
+    @for $i from 1 through 12 {
+        .col#{$size}-#{$i} {
+            width: math.div($i, 12) * 100%;
+        }
+    }
+}
+
+@mixin create-row-cols($size) {
+    @for $i from 1 through 6 {
+        .row-cols#{$size}-#{$i}>.col {
+            width: math.div(1, $i) * 100%;
+        }
+    }
+}
+
+.container {
+    --gap: #{$gap};
+    max-width: $max-width;
+    margin: auto;
+    padding-left: var(--gap);
+    padding-right: var(--gap);
+
+    &.ori {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: calc(var(--gap) * -1);
+    margin-right: calc(var(--gap) * -1);
+}
+
+[class*='col-'],
+[class*='row-cols']>.col {
+    box-sizing: border-box;
+    padding-left: var(--gap);
+    padding-right: var(--gap);
+}
+
+@include create-col("");
+
+@media screen and (min-width: $breakpoint-sm) {
+    @include create-col("-sm");
+    @include create-row-cols("-sm");
+}
+
+@media screen and (min-width: $breakpoint-md) {
+    @include create-col("-md");
+    @include create-row-cols("-md");
+}
+
+@media screen and (min-width: $breakpoint-lg) {
+    @include create-col("-lg");
+    @include create-row-cols("-lg");
+}
+
+@media screen and (min-width: $breakpoint-xl) {
+    @include create-col("-xl");
+    @include create-row-cols("-xl");
+}

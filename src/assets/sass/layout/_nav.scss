@@ -1,0 +1,175 @@
+header {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0;
+    mix-blend-mode: difference;
+    z-index: 99999;
+    transition: mix-blend-mode 0.3s;
+}
+
+header.blend-unset {
+    mix-blend-mode: unset;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 60px;
+}
+
+@media screen and (max-width: 767px) {
+    nav {
+        padding: 5px 40px;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    nav {
+        padding: 5px 20px;
+    }
+}
+
+nav .nav-logo {
+    height: 80px;
+}
+
+nav .nav-logo img {
+    height: 100%;
+}
+
+nav .navbar {
+    display: flex;
+    gap: 3rem;
+}
+
+nav .navbar i {
+    color: #fff;
+    display: none;
+}
+
+nav .navbar li {
+    position: relative;
+}
+
+nav .navbar .subnav-toggle {
+    position: relative;
+}
+
+nav .navbar .subnav {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    max-height: 0;
+    min-width: 160px;
+    padding-top: 10px;
+    overflow: hidden;
+    transition: max-height 0.3s;
+    background-color: transparent;
+    a {
+        color: #fff;
+    }
+}
+
+nav .navbar .subnav.active {
+    max-height: 200px;
+}
+
+nav .navbar .subnav li a {
+    color: #000;
+}
+
+nav .navbar li>.subnav {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    max-height: 0;
+    min-width: 160px;
+    padding-top: 10px;
+    overflow: hidden;
+    transition: .3s;
+}
+
+nav .navbar li:hover>.subnav {
+    max-height: 200px;
+}
+
+nav .navbar li a {
+    color: #fff;
+}
+
+nav .navbar .nav-member {
+    margin-left: 5px;
+    position: relative;
+}
+
+nav .navbar .nav-member::before {
+    content: '';
+    position: absolute;
+    width: 1px;
+    height: 30px;
+    background-color: #fff;
+    left: -25%;
+}
+
+#nav-switch {
+    display: none;
+}
+
+nav .hb {
+    display: none;
+}
+
+@media screen and (max-width: 991px) {
+    nav .hb {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+
+    nav .hb span {
+        width: 80%;
+        height: 2px;
+        background-color: #fff;
+    }
+
+    nav .navbar {
+        position: absolute;
+        flex-direction: column;
+        top: 100px;
+        left: 0;
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+    }
+
+    nav .navbar.active {
+        max-height: 1000px;
+    }
+
+    nav .navbar li {
+        display: flex;
+        text-align: center;
+    }
+
+    nav .navbar li a {
+        flex-grow: 2;
+    }
+
+    nav .navbar i {
+        display: block;
+    }
+
+    nav .navbar .subnav {
+        display: none;
+        background-color: rgba(0, 0, 0, 0.6);
+    }
+    nav .navbar .subnav {
+        background-color: #fff;
+        color: #000;
+    }
+}

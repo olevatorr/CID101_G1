@@ -1,0 +1,103 @@
+@mixin heading-styles($font-size, $letter-spacing, $margin-bottom: 0) {
+    font-size: $font-size;
+    letter-spacing: $letter-spacing;
+    line-height: $line-height-heading;
+    font-weight: bold;
+    margin-bottom: $margin-bottom;
+}
+
+html {
+    font-size: 10px;
+}
+
+body {
+    font-family: $font-family-base;
+}
+
+h1 {
+    @include heading-styles($font-size-h1, $letter-spacing-heading);
+}
+
+h2 {
+    @include heading-styles($font-size-h2, $letter-spacing-h2, 3rem);
+
+    &.ori {
+        margin-bottom: 0;
+    }
+}
+
+h3 {
+    @include heading-styles($font-size-h3, $letter-spacing-h3);
+    
+}
+
+h4 {
+    @include heading-styles($font-size-h4, $letter-spacing-h4);
+}
+
+h5 {
+    @include heading-styles($font-size-h5, $letter-spacing-h5);
+}
+
+h6 {
+    @include heading-styles($font-size-h6, $letter-spacing-h6);
+}
+
+p {
+    font-size: $font-size-base;
+    letter-spacing: $letter-spacing-base;
+    line-height: $line-height-base;
+    font-weight: normal;
+
+    &.b {
+        font-weight: bold;
+    }
+}
+
+a {
+    font-size: $font-size-base;
+    letter-spacing: $letter-spacing-base;
+    line-height: $line-height-base;
+    font-weight: normal;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+button,
+input[type="button"] {
+    font-size: $font-size-base;
+    letter-spacing: $letter-spacing-heading;
+    line-height: $line-height-heading;
+    font-weight: bold;
+    background-color: $color-highlight;
+    color: $color-white;
+    padding: 0.75rem 4rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: $font-family-base;
+
+    &:hover {
+        background-color: $color-highlight-dark;
+    }
+
+    &:active {
+        background-color: $color-highlight-darker;
+    }
+}
+
+ul,
+ol {
+    font-size: $font-size-base;
+    letter-spacing: $letter-spacing-base;
+    line-height: $line-height-base;
+}
+
+blockquote {
+    margin: 1.6rem 0;
+    padding: 1.6rem;
+    border-left: 0.4rem solid $color-border;
+    font-size: $font-size-base;
+    letter-spacing: $letter-spacing-base;
+    line-height: $line-height-base;
+}

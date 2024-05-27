@@ -1,0 +1,15 @@
+// 讓所有照片可以置中/且大小相同
+@mixin img-box($width, $height) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: $width;
+    height: $height;
+    overflow: hidden;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}

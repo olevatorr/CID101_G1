@@ -1,0 +1,45 @@
+// Font family
+$font-family-base: "Inconsolata", monospace, 'jf open 粉圓 2.0', truetype;
+
+
+// Font sizes
+$font-size-base: 1.6rem;
+$font-size-h1: 3rem;
+$font-size-h2: 2.5rem;
+$font-size-h3: 2rem;
+$font-size-h4: 1.75rem;
+$font-size-h5: 1.5rem;
+$font-size-h6: 1.25rem;
+
+// Line heights
+$line-height-base: 1.8;
+$line-height-heading: 1.2;
+
+// Letter spacing
+$letter-spacing-base: 0.08em;
+$letter-spacing-heading: 0.1em;
+$letter-spacing-h2: 0.08em;
+$letter-spacing-h3: 0.06em;
+$letter-spacing-h4: 0.06em;
+$letter-spacing-h5: 0.04em;
+$letter-spacing-h6: 0.04em;
+
+// Colors
+$color-primary: #005FA1;
+$color-subprimary: #4E97CA;
+$color-highlight: #E7A600;
+$color-highlight-dark: rgb(177, 93, 19);
+$color-highlight-darker: rgb(156, 80, 14);
+$color-white: #fff;
+$color-border: #ccc;
+
+// Grid system
+$gap: 15px;
+$max-width: 1200px;
+$breakpoints: ("md": 768px, "lg": 1024px, "xl": 1200px);
+
+// Breakpoints
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
