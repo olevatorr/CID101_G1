@@ -1,21 +1,158 @@
 .section-knowledge-banner {
-    width: 100%;
-    height: 80vh;
-    background: white;
-    overflow: hidden;
+    height: 100vh;
     background: url(../../../../public/img/knowledge/banner1.png)no-repeat 50% 50% / cover;
     color: #fff;
 
     .container {
-        margin-top: 150px;
-        text-align: center;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        justify-content: center;
 
         h1,
         h2,
         p {
-            line-height: 50px; //測試
+            text-align: center;
+            // line-height:;
         }
 
+        p {
+            margin-bottom: 130px;
+        }
+    }
+
+}
+
+.section-bg {
+    background-color: #ffffff;
+
+    .trash-txt {
+        h3 {
+            line-height: 100px;
+        }
+    }
+
+    .trash-pic {
+        height: 100%;
+    }
+
+}
+
+.section-data{
+    background-color: #fff;
+    .button-area{
+        margin-left: -3px;
+        button{
+            margin: 1px;
+        }
+
+    } 
+}
+
+.news-filter select {   
+    background: #E7A600;
+    color: #ffffff;
+    margin-top: 10px;
+    width: 150px;
+    height: 3em;
+    padding: 10px;
+    border: none;
+    // appearance: none;
+    // -moz-appearance: none;
+     // -webkit-appearance: none;
+}
+
+section{
+    background-color: #fff;
+    .card-data{
+        h3{
+            margin: 20px auto;
+            text-align: center;
+        }
+        .span-flex {
+            display: flex;
+            justify-content: center;
+            margin: 10px auto;
+            span{
+                display: flex;
+            .red-box{
+                margin: auto 5px;
+                width: 35px;
+                height: 10px;
+                background: #D35656;
+                }
+            .blue-box{
+                margin: auto 5px;
+                width: 35px;
+                height: 10px;
+                background: #2F80DE;
+                }
+            }
+        }
+    }
+}
+
+.section  .flex{
+    display: flex;
+    .card-type{
+        display: flex;
+        align-self: flex-end;
+        .p-type{
+            margin: 10px;
+            .color-box{
+            display: flex;
+            .blue-box{
+                width: 35px;
+                height: 10px;
+                background: #00ADF3;
+                margin: auto 5px ;
+            }
+            .yellow-box{
+                width: 35px;
+                height: 10px;
+                background: #E7A600;
+                margin: auto 5px;
+            }
+            .red-box{
+                width: 35px;
+                height: 10px;
+                background: #D35656;
+                margin: auto 5px ;
+            }
+            }
+        }
+    }
+}
+
+.trash-card{
+        text-align: center;
+}
+
+.section-knowledge{
+    h2{
+        text-align: center;
+    }
+
+}
+
+.section-game{
+    text-align: center;
+    .content{
+        margin: 100px;
+
+        .card-row{
+            display: flex;
+            flex-direction: row;
+            border: 1px solid black;
+            margin: 10px;
+        }
+        .card-p{
+            border: 1px solid black;
+            p{
+                margin: 10px 0;
+                background-color: #D35656;
+            }
+        }
     }
 
 }
