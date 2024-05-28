@@ -3,14 +3,6 @@
     background-size: cover;
 }
 
-.member-box-img img {
-    width: 100%;
-}
-
-.member-logo-box {
-    width: 30rem;
-}
-
 .member-logo-box span {
     color: $color-white;
     font-size: 2rem;
@@ -28,8 +20,8 @@
 .member-logo-box {
     width: 25rem;
     position: absolute;
-    top: 21rem;
-    left: 19rem;
+    top: 30%;
+    left: 18%;
     text-align: center;
 }
 
@@ -54,18 +46,15 @@
 .member-login {
     margin-left: auto;
     margin-right: auto;
-    width: 27rem;
+    padding: 6rem 5rem;
     text-align: left;
-}
-
-.member-login {
-    padding: 9rem 0;
 }
 
 .member-login label {
     display: block;
     font-size: 2rem;
-    margin-bottom: 6rem;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
 }
 
 .member-login label:nth-of-type(2) {
@@ -75,20 +64,32 @@
 .member-login input[type='password'],
 .member-login input[type='text'] {
     width: 100%;
+    font-size: 16px;
     border: 0rem;
     border-bottom: 0.2rem solid #000;
     box-sizing: border-box;
     background: none;
     outline: none;
+    height: 4rem;
 }
 
 .forget {
     line-height: 4;
 }
 
+
+.member-button {
+    position: relative;
+}
+
+.member-btn {
+    position: absolute;
+    left: -70%;
+}
+
 .member-button button:nth-child(1) {
     margin-bottom: 2rem;
-    margin-left: 3rem;
+    margin-left: 5rem;
     margin-right: 5rem;
 }
 
@@ -136,9 +137,49 @@
     color: #06c755;
 }
 
+@media screen and (max-width: 1024px) {
+
+    .member-button button:nth-child(1) {
+        margin-left: 2rem;
+        margin-right: 3rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+
+    .member-logo-box {
+        left: 10rem;
+    }
+
+    .member-button button:nth-child(1) {
+        margin-left: 2rem;
+    }
+
+    .member-login {
+        padding-top: 8rem;
+        padding-bottom: 3rem;
+    }
+
+    .member-txt p::before {
+        margin-left: 1rem;
+    }
+
+    .member-txt p::after {
+        margin-right: 1rem;
+    }
+}
+
 @media screen and (max-width: 576px) {
     .member-box-img {
         display: none;
+    }
+
+    .member-box {
+        padding: 0 0px;
+    }
+
+    .member-btn {
+        position: unset;
     }
 
     .member-button button:nth-child(1) {
@@ -160,43 +201,25 @@
         position: relative;
     }
 
+    .member-login {
+        padding: 6rem 0;
+        margin: 0 -3rem;
+    }
+
+    .member-txt p::before {
+        margin-left: -4rem;
+    }
+
+    .member-txt p::after {
+        margin-right: -4rem;
+    }
+
     .forget {
         position: absolute;
-        top: 65%;
-        right: 15%;
+        top: 60%;
+        right: -10%;
         color: #000;
     }
 
-}
 
-@media screen and (max-width: 768px) {
-    .member-box-img {
-        width: auto;
-    }
-
-    .member-logo-box {
-        left: 9rem;
-    }
-
-    .member-button button:nth-child(1) {
-        margin-left: 2rem;
-        margin-right: 10rem;
-    }
-
-    .member-login {
-        padding-top: 6rem;
-        padding-bottom: 3rem;
-    }
-}
-
-@media screen and (max-width: 1024px) {
-    .member-logo-box {
-        top: 14rem;
-        left: 5rem;
-    }
-
-    .member-button button:nth-child(1) {
-        margin-left: 2rem;
-        margin-right: 3rem;
-    }
 }
