@@ -91,7 +91,7 @@ onMounted(() => {
         <li>
           <RouterLink to="/events">活動</RouterLink>
         </li>
-        <li><a href="#">最新消息</a></li>
+        <li><RouterLink to="/news">最新消息</RouterLink></li>
         <li class="nav-member"><RouterLink to="/Member">會員登入</RouterLink></li>
       </ul>
     </nav>
