@@ -28,23 +28,43 @@
           <div class="area-list">
             <div class="area">
               <h3>北部</h3>
-              <p>北海岸環保淨灘行動</p>
+              <div class="activities">
+                <p>北海岸環保淨灘行動</p>
+                <p>系統自動帶入當天活動資訊</p>
+                <p>系統自動帶入當天活動資訊</p>
+              </div>
             </div>
             <div class="area">
               <h3>中部</h3>
-              <p>台中海洋守護淨灘</p>
+              <div class="activities">
+                <p>台中海洋守護淨灘</p>
+                <p>系統自動帶入當天活動資訊</p>
+                <p>系統自動帶入當天活動資訊</p>
+              </div>
             </div>
             <div class="area">
               <h3>南部</h3>
-              <p>南台灣淨灘大會</p>
+              <div class="activities">
+                <p>南台灣淨灘大會</p>
+                <p>系統自動帶入當天活動資訊</p>
+                <p>系統自動帶入當天活動資訊</p>
+              </div>
             </div>
             <div class="area">
               <h3>東部</h3>
-              <p>東部海岸守護者淨灘</p>
+              <div class="activities">
+                <p>東部海岸守護者淨灘</p>
+                <p>系統自動帶入當天活動資訊</p>
+                <p>系統自動帶入當天活動資訊</p>
+              </div>
             </div>
             <div class="area">
               <h3>離島</h3>
-              <p>綠島海岸守護者淨灘</p>
+              <div class="activities">
+                <p>綠島海岸守護者淨灘</p>
+                <p>系統自動帶入當天活動資訊</p>
+                <p>系統自動帶入當天活動資訊</p>
+              </div>
             </div>
           </div>
         </div>
@@ -68,8 +88,8 @@
         <div class="col-12 col-md-6 col-lg-3">
           <div class="event-card">
             <div class="text">
-              <h3 class="theme">北海岸環保淨灘行動</h3>
-              <p class="place">新北市漁人碼頭</p>
+              <h3>北海岸環保淨灘行動</h3>
+              <p>新北市漁人碼頭</p>
               <p>活動日期：2024年6月15日</p>
               <p>截止日期：2024年6月10日</p>
             </div>
@@ -78,7 +98,7 @@
             </div>
             <div class="addnew">
               <span>報名人數：100/150</span>
-              <a href="#"><i class="fa-solid fa-user-plus"></i></a>
+              <i class="fa-solid fa-user-plus"></i>
             </div>
           </div>
         </div>
@@ -248,7 +268,7 @@
     <h2>活動分享</h2>
     <div class="container">
       <div class="row">
-        <div class="col-12 col-md-6 col-lg-4">
+        <div class="col-12 col-md-6 col-lg-3">
           <div class="event-card">
             <div class="pic">
               <img src="../../public/img/event/event_01.jpg" />
@@ -256,254 +276,19 @@
             <div class="text">
               <div class="theme">
                 <div class="event-name">
-                  <p>活動名稱：北海岸愛地球淨灘活動</p>
+                  <h3>北海岸愛地球淨灘活動</h3>
                 </div>
                 <div class="report">
-                  <a href="#"
-                    ><i class="fa-solid fa-circle-exclamation" style="color: #e7a600"></i
-                  ></a>
+                  <i class="fa-solid fa-circle-exclamation"></i
+                  >
                 </div>
               </div>
-              <p class="place">活動地點：新北市淡水區漁人碼頭</p>
-              <p>活動日期：2024年6月15日</p>
-              <p>分享人：林小美</p>
-              <p>
+              <span>活動地點：新北市淡水區漁人碼頭</span>
+              <span>活動日期：2024年6月15日</span>
+              <span>分享人：林小美</span>
+              <p class="Thoughts">
                 參加心得： 這次活動讓我深刻體會到海洋保護的重要性。看到大家一起努力...
-                <a href="#" class="seemore">閱讀更多</a>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <div class="event-card">
-            <div class="pic">
-              <img src="../../public/img/event/event_01.jpg" />
-            </div>
-            <div class="text">
-              <div class="theme">
-                <div class="event-name">
-                  <p>活動名稱：北海岸愛地球淨灘活動</p>
-                </div>
-                <div class="report">
-                  <a href="#"
-                    ><i class="fa-solid fa-circle-exclamation" style="color: #e7a600"></i
-                  ></a>
-                </div>
-              </div>
-              <p class="place">活動地點：新北市淡水區漁人碼頭</p>
-              <p>活動日期：2024年6月15日</p>
-              <p>分享人：林小美</p>
-              <p>
-                參加心得： 這次活動讓我深刻體會到海洋保護的重要性。看到大家一起努力...
-                <a href="#" class="seemore">閱讀更多</a>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <div class="event-card">
-            <div class="pic">
-              <img src="../../public/img/event/event_01.jpg" />
-            </div>
-            <div class="text">
-              <div class="theme">
-                <div class="event-name">
-                  <p>活動名稱：北海岸愛地球淨灘活動</p>
-                </div>
-                <div class="report">
-                  <a href="#"
-                    ><i class="fa-solid fa-circle-exclamation" style="color: #e7a600"></i
-                  ></a>
-                </div>
-              </div>
-              <p class="place">活動地點：新北市淡水區漁人碼頭</p>
-              <p>活動日期：2024年6月15日</p>
-              <p>分享人：林小美</p>
-              <p>
-                參加心得： 這次活動讓我深刻體會到海洋保護的重要性。看到大家一起努力...
-                <a href="#" class="seemore">閱讀更多</a>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <div class="event-card">
-            <div class="pic">
-              <img src="../../public/img/event/event_01.jpg" />
-            </div>
-            <div class="text">
-              <div class="theme">
-                <div class="event-name">
-                  <p>活動名稱：北海岸愛地球淨灘活動</p>
-                </div>
-                <div class="report">
-                  <a href="#"
-                    ><i class="fa-solid fa-circle-exclamation" style="color: #e7a600"></i
-                  ></a>
-                </div>
-              </div>
-              <p class="place">活動地點：新北市淡水區漁人碼頭</p>
-              <p>活動日期：2024年6月15日</p>
-              <p>分享人：林小美</p>
-              <p>
-                參加心得： 這次活動讓我深刻體會到海洋保護的重要性。看到大家一起努力...
-                <a href="#" class="seemore">閱讀更多</a>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <div class="event-card">
-            <div class="pic">
-              <img src="../../public/img/event/event_01.jpg" />
-            </div>
-            <div class="text">
-              <div class="theme">
-                <div class="event-name">
-                  <p>活動名稱：北海岸愛地球淨灘活動</p>
-                </div>
-                <div class="report">
-                  <a href="#"
-                    ><i class="fa-solid fa-circle-exclamation" style="color: #e7a600"></i
-                  ></a>
-                </div>
-              </div>
-              <p class="place">活動地點：新北市淡水區漁人碼頭</p>
-              <p>活動日期：2024年6月15日</p>
-              <p>分享人：林小美</p>
-              <p>
-                參加心得： 這次活動讓我深刻體會到海洋保護的重要性。看到大家一起努力...
-                <a href="#" class="seemore">閱讀更多</a>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <div class="event-card">
-            <div class="pic">
-              <img src="../../public/img/event/event_01.jpg" />
-            </div>
-            <div class="text">
-              <div class="theme">
-                <div class="event-name">
-                  <p>活動名稱：北海岸愛地球淨灘活動</p>
-                </div>
-                <div class="report">
-                  <a href="#"
-                    ><i class="fa-solid fa-circle-exclamation" style="color: #e7a600"></i
-                  ></a>
-                </div>
-              </div>
-              <p class="place">活動地點：新北市淡水區漁人碼頭</p>
-              <p>活動日期：2024年6月15日</p>
-              <p>分享人：林小美</p>
-              <p>
-                參加心得： 這次活動讓我深刻體會到海洋保護的重要性。看到大家一起努力...
-                <a href="#" class="seemore">閱讀更多</a>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <div class="event-card">
-            <div class="pic">
-              <img src="../../public/img/event/event_01.jpg" />
-            </div>
-            <div class="text">
-              <div class="theme">
-                <div class="event-name">
-                  <p>活動名稱：北海岸愛地球淨灘活動</p>
-                </div>
-                <div class="report">
-                  <a href="#"
-                    ><i class="fa-solid fa-circle-exclamation" style="color: #e7a600"></i
-                  ></a>
-                </div>
-              </div>
-              <p class="place">活動地點：新北市淡水區漁人碼頭</p>
-              <p>活動日期：2024年6月15日</p>
-              <p>分享人：林小美</p>
-              <p>
-                參加心得： 這次活動讓我深刻體會到海洋保護的重要性。看到大家一起努力...
-                <a href="#" class="seemore">閱讀更多</a>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <div class="event-card">
-            <div class="pic">
-              <img src="../../public/img/event/event_01.jpg" />
-            </div>
-            <div class="text">
-              <div class="theme">
-                <div class="event-name">
-                  <p>活動名稱：北海岸愛地球淨灘活動</p>
-                </div>
-                <div class="report">
-                  <a href="#"
-                    ><i class="fa-solid fa-circle-exclamation" style="color: #e7a600"></i
-                  ></a>
-                </div>
-              </div>
-              <p class="place">活動地點：新北市淡水區漁人碼頭</p>
-              <p>活動日期：2024年6月15日</p>
-              <p>分享人：林小美</p>
-              <p>
-                參加心得： 這次活動讓我深刻體會到海洋保護的重要性。看到大家一起努力...
-                <a href="#" class="seemore">閱讀更多</a>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <div class="event-card">
-            <div class="pic">
-              <img src="../../public/img/event/event_01.jpg" />
-            </div>
-            <div class="text">
-              <div class="theme">
-                <div class="event-name">
-                  <p>活動名稱：北海岸愛地球淨灘活動</p>
-                </div>
-                <div class="report">
-                  <a href="#"
-                    ><i class="fa-solid fa-circle-exclamation" style="color: #e7a600"></i
-                  ></a>
-                </div>
-              </div>
-              <p class="place">活動地點：新北市淡水區漁人碼頭</p>
-              <p>活動日期：2024年6月15日</p>
-              <p>分享人：林小美</p>
-              <p>
-                參加心得： 這次活動讓我深刻體會到海洋保護的重要性。看到大家一起努力...
-                <a href="#" class="seemore">閱讀更多</a>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <div class="event-card">
-            <div class="pic">
-              <img src="../../public/img/event/event_01.jpg" />
-            </div>
-            <div class="text">
-              <div class="theme">
-                <div class="event-name">
-                  <p>活動名稱：北海岸愛地球淨灘活動</p>
-                </div>
-                <div class="report">
-                  <a href="#"
-                    ><i class="fa-solid fa-circle-exclamation" style="color: #e7a600"></i
-                  ></a>
-                </div>
-              </div>
-              <p class="place">活動地點：新北市淡水區漁人碼頭</p>
-              <p>活動日期：2024年6月15日</p>
-              <p>分享人：林小美</p>
-              <p>
-                參加心得： 這次活動讓我深刻體會到海洋保護的重要性。看到大家一起努力...
-                <a href="#" class="seemore">閱讀更多</a>
+                <a href="#">閱讀更多</a>
               </p>
             </div>
           </div>
@@ -565,7 +350,7 @@
           <div class="activity-area">
             <div class="text">
               <div class="close">
-                <i class="fa-regular fa-circle-xmark" style="color: #b6b6b6"></i>
+                <i class="fa-regular fa-circle-xmark"></i>
               </div>
               <h3>北海岸環保淨灘行動</h3>
               <p>活動地點：淡水漁人碼頭Subheading</p>
@@ -603,7 +388,7 @@
     <div class="container">
       <div class="apply-wrap">
         <div class="close">
-          <i class="fa-regular fa-circle-xmark" style="color: #b6b6b6"></i>
+          <i class="fa-regular fa-circle-xmark"></i>
         </div>
         <div class="text">
           <h3>北海岸環保淨灘行動</h3>
@@ -624,7 +409,7 @@
     <div class="upload">
       <h2>活動分享</h2>
       <div class="close">
-        <i class="fa-regular fa-circle-xmark" style="color: #b6b6b6"></i>
+        <i class="fa-regular fa-circle-xmark"></i>
       </div>
     </div>
     <form>
@@ -693,12 +478,13 @@ export default defineComponent({
       },
       events: [
         {
-          title: 'All Day Event',
+          title: '北海岸環境淨灘行動',
           start: '2024-05-19'
         },
         {
           title: 'Time Event',
-          start: '2024-05-20 12:00:00'
+          start: '2024-05-29 00:00:00',
+          end:   '2024-06-10 24:00:00'
         }
       ],
       eventClick: function (info) {
