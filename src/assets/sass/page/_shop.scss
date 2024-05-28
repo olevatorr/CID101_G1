@@ -100,6 +100,7 @@
         bottom: 70px;
         left: 16px;
         cursor: pointer;
+        text-decoration: none;
     }
 
     .cart span {
@@ -107,8 +108,8 @@
     }
 
     .hot {
-        width: 40px;
-        padding: 6px 10px;
+        width: 60px;
+        padding: 2px 4px;
         background-color: #027B00;
         border: 1px solid white;
         color: white;
@@ -116,6 +117,8 @@
         position: absolute;
         top: 0;
         left: 16px;
+        font-size: 12px;
+        text-decoration: none;
     }
 }
 
