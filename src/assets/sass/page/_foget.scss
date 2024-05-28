@@ -1,0 +1,124 @@
+.section-foget {
+    background-image: url(../../../../public/img/member/member9.png);
+    background-size: cover;
+}
+
+.foget-box {
+    position: relative;
+}
+
+.foget-img img {
+    margin: 10rem 0;
+    width: 100%;
+    height: auto;
+}
+
+.foget-txt {
+    position: absolute;
+    top: 40%;
+    left: 36%;
+    text-align: center;
+}
+
+.foget-txt .form-group {
+    margin: 10px 0;
+    width: 100%;
+}
+
+
+.foget-txt input {
+    padding: 1rem;
+    font-size: 16px;
+    border: 0rem;
+    border-bottom: 0.2rem solid #000;
+    box-sizing: border-box;
+    background: none;
+    outline: none;
+    height: 4rem;
+    max-width: 25rem;
+    margin-right: 20px;
+}
+
+
+.foget-txt label {
+    margin-right: 2rem;
+    font-size: 2rem;
+    text-align: right;
+    vertical-align:bottom
+}
+
+.input-ch1 label:first-of-type {
+    margin-left: 4rem;
+}
+
+.foget-txt button {
+    padding: 1.5rem 4rem;
+    margin: 2rem auto;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+@media screen and (max-width: 576px) {
+    
+    .section-foget {
+        background-size: unset;
+        background-position: right;
+    }
+
+    .foget-img {
+        display: none;
+    }
+
+    .foget-txt {
+        height: 60rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: unset;
+
+    }
+
+    .foget-txt .form-group {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .input-ch1 input:first-of-type {
+        margin-left: .5rem;
+    }
+
+    .foget-txt label {
+        flex: 1;
+        font-size: 1.4rem;
+        padding-top: 2rem;
+    }
+
+    .input-ch1 label:first-of-type {
+        margin-right: 1.5rem;
+        margin-left: 3rem;
+    }
+
+    .foget-txt input {
+        flex: 2;
+    }
+
+    .foget-txt button {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .foget-txt {
+        top: 30%;
+        left: 28%;
+    }
+
+    .foget-txt label {
+        font-size: 1.8rem;
+    }
+}
