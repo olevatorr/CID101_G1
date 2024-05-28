@@ -33,7 +33,6 @@ const router = createRouter({
       component: () => import('../views/KnowledgeView.vue')
     },
     {
-<<<<<<< HEAD
       path: '/ForgetPasswordView',
       name: 'ForgetPasswordView',
       component: () => import('../views/ForgetPasswordView.vue')
@@ -42,7 +41,8 @@ const router = createRouter({
       path: '/RegisterView',
       name: 'RegisterView',
       component: () => import('../views/RegisterView.vue')
-=======
+    },
+    {
       path: '/shop',
       name: 'shop',
       component: () => import('../views/ShopView.vue')
@@ -52,12 +52,11 @@ const router = createRouter({
       name: 'productinfo',
       component: () => import('../views/ProductinfoView.vue')
     },
-    {
-      path: '/news',
-      name: 'news',
-      component: () => import('../views/NewsView.vue')
->>>>>>> 13df1fd7f7d1c4d9d74c760ba68b24f1c5ccc0da
-    }
+    // {
+    //   path: '/news',
+    //   name: 'news',
+    //   component: () => import('../views/NewsView.vue')
+    // }
   ]
 })
 

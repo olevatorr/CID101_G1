@@ -73,26 +73,17 @@
     height: 4rem;
 }
 
-.forget {
-    line-height: 4;
-}
-
 
 .member-button {
     position: relative;
+    display: flex;
+    justify-content: center;
 }
 
 .member-btn {
     position: absolute;
     left: -70%;
 }
-
-.member-button button:nth-child(1) {
-    margin-bottom: 2rem;
-    margin-left: 5rem;
-    margin-right: 5rem;
-}
-
 .member-txt p {
     display: flex;
     margin-top: 2rem;
@@ -137,22 +128,10 @@
     color: #06c755;
 }
 
-@media screen and (max-width: 1024px) {
-
-    .member-button button:nth-child(1) {
-        margin-left: 2rem;
-        margin-right: 3rem;
-    }
-}
-
 @media screen and (max-width: 768px) {
 
     .member-logo-box {
         left: 10rem;
-    }
-
-    .member-button button:nth-child(1) {
-        margin-left: 2rem;
     }
 
     .member-login {
@@ -180,11 +159,6 @@
 
     .member-btn {
         position: unset;
-    }
-
-    .member-button button:nth-child(1) {
-        margin-left: 2rem;
-        margin-right: 10rem;
     }
 
     .member-txt {

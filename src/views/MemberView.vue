@@ -19,7 +19,7 @@
                         <div class="member-button">
                             <button>&emsp;&emsp;登入&emsp;&emsp;</button>
                             <button class="member-btn">
-                                <RouterLink to="/Register">加入會員</RouterLink>
+                                <RouterLink to="/RegisterView">加入會員</RouterLink>
                             </button>
                         </div>
                         <a class="forgot">
