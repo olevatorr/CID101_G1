@@ -73,6 +73,10 @@
     height: 4rem;
 }
 
+.forget {
+    line-height: 4;
+}
+
 
 .member-button {
     position: relative;
@@ -83,6 +87,10 @@
 .member-btn {
     position: absolute;
     left: -70%;
+}
+
+.member-btn button:nth-last-of-type(2){
+    line-height: 1.9rem;
 }
 .member-txt p {
     display: flex;
