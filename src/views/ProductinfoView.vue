@@ -1,0 +1,84 @@
+<template>
+    <section class="section section-production-picture">
+        <div class="container">
+            <div class="pic-group">
+                <div class="big-pic">
+                    <img src="../../public/img/productioninfo/01.png" alt="">
+                </div>
+                <div class="small-pic">
+                    <img src="../../public/img/productioninfo/02.png" alt="">
+                    <img src="../../public/img/productioninfo/03.png" alt="">
+                    <img src="../../public/img/productioninfo/04.png" alt="">
+                </div>
+            </div>    
+        </div>
+    </section>
+
+    <section class="section section-production-info">
+        <div class="container">
+            <div class="info-group">
+                <div class="title">
+                    <h3>【側背包經典款-鯨魚】</h3>
+                </div>
+                <div class="content">
+                    <h5>這款環保帆布包的設計理念源自於對大自然的熱愛與尊重。<br>我們希望透過這個產品,呼籲人們重視環境保護,減少對地球<br>資源的過度消耗和破壞。</h5>
+                </div>
+                <div class="line">
+                </div>
+                <div class="amount">
+                    <h3>數量 : - 1 +</h3>
+                </div>
+                <div class="price">
+                    <h3>金額總計 $520 元</h3>
+                </div>
+                <div class="button">
+                    <input type="立即購買">
+                    <input type="加入購物車">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-backgroup">
+        <div class="container">
+            <div class="pic">
+                <img src="../../public/img/productioninfo/sea.png" alt="">
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-introduce">
+        <div class="container">
+            <div class="text-group">
+                <div class="title">
+                    <h3>產品介紹</h3>
+                </div>
+                <div class="text">
+                    <h3>這款100%環保帆布包,專為熱愛時尚且關注環境永續的現代人而設計。<br>包身採用12oz重磅再生棉帆布製造,混紡再生寶特瓶纖維及有機棉,具備出色的耐磨性和透氣性。</h3>
+                </div>
+                <div class="pic">
+                    <img src="../../public/img/productioninfo/05.png" alt="">
+                </div>
+                <div class="title2">
+                    <h3>規格說明</h3>
+                </div>
+                <div class="directions">
+                    <div class="text">
+                        <p>材質 : 帆布 </p>
+                        <p>尺寸 : 20x26x6</p>
+                        <p>顏色 : 米白色</p>
+                    </div>
+                    <div class="pic">
+                        <img src="../../public/img/productioninfo/06.png" alt="">
+                    </div>
+                    <div class="text2">
+                        <p>手工測量有1-3公分誤差，由於顯示器及拍照光線等<br>不可抗拒因素，色差不可避免。</p>
+                    </div>
+                    <div class="disclaimer">
+                        <p>下訂購買表示已詳閱賣場購物須知，且100%同意依賣場製作流程、規則出貨！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</template>

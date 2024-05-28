@@ -87,7 +87,7 @@ onMounted(() => {
           </ul>
         </li>
         <li><a href="#">捐款</a></li>
-        <li><a href="#">商品</a></li>
+        <li><RouterLink to="/shop">商品</RouterLink></li>
         <li>
           <RouterLink to="/events">活動</RouterLink>
         </li>
