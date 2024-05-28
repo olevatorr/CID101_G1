@@ -82,7 +82,7 @@ onMounted(() => {
           <i class="fa-solid" :class="{ 'fa-caret-down': !isSubmenuOpen, 'fa-caret-up': isSubmenuOpen }"></i>
           <ul class="subnav" :class="{ 'active': isSubmenuOpen }">
             <li><a href="">教育</a></li>
-            <li><a href="">海廢小遊戲</a></li>
+            <li><RouterLink to="/BeachgameView">淨灘大作戰</RouterLink></li>
             <li><a href="">海廢人格測驗</a></li>
           </ul>
         </li>
