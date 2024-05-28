@@ -1,5 +1,4 @@
 <template>
-    <main>
         <section class="section section-register">
             <div class="container">
                 <div class="register-box col-md-12">
@@ -38,5 +37,4 @@
                 </div>
             </div>
         </section>
-    </main>
 </template>

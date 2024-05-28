@@ -31,6 +31,16 @@ const router = createRouter({
       path: '/KnowledgeView',
       name: 'Knowledge',
       component: () => import('../views/KnowledgeView.vue')
+    },
+    {
+      path: '/ForgetPasswordView',
+      name: 'ForgetPasswordView',
+      component: () => import('../views/ForgetPasswordView.vue')
+    },
+    {
+      path: '/RegisterView',
+      name: 'RegisterView',
+      component: () => import('../views/RegisterView.vue')
     }
   ]
 })

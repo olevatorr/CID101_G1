@@ -1,6 +1,5 @@
 <template>
-    <main class="body-member">
-        <section class="section section-member">
+        <section class="section section-member body-member">
             <div class="container">
                 <div class="member-box col-md-12">
                     <div class="member-box-img col-sm-6 col-md-6">
@@ -23,9 +22,9 @@
                                 <RouterLink to="/Register">加入會員</RouterLink>
                             </button>
                         </div>
-                        <div class="forgot">
-                            <RouterLink to="/ForgetPSW">忘記密碼?</RouterLink>
-                        </div>
+                        <a class="forgot">
+                            <RouterLink to="/ForgetPasswordView">忘記密碼?</RouterLink>
+                        </a>
                         <p>其他登入方式</p>
                         <a href="#"><i class="fa-brands fa-google-plus"></i></a>
                         <a href="#"><i class="fa-brands fa-facebook"></i></a>
@@ -34,5 +33,4 @@
                 </div>
             </div>
         </section>
-    </main>
 </template>
