@@ -43,8 +43,8 @@
         </h3>
         <div class="row">
           <div class="col-12 col-lg-6">
-            <ul class="debris-sort" v-for="sort in hebrisSort" :key="sort.id">
-              <li>
+            <ul class="debris-sort">
+              <li v-for="sort in hebrisSort" :key="sort.id">
                 <span class="material-symbols-outlined">line_end</span> {{ sort.area }}
               </li>
             </ul>
@@ -74,8 +74,8 @@
     <section class="section section-comparation">
       <div class="container">
         <h3>
-            COMPARATION<br>
-            對比照
+          COMPARATION<br>
+          對比照
         </h3>
       </div>
       <div class="control"></div>
@@ -91,13 +91,14 @@
         <div class="survey-card">
           <h3>海廢知多少</h3>
           <p>透過回答以下5個問題,讓我們一起檢視您對海洋環保的了解程度。這個測驗旨在幫助您:</p>
-            <ul>
-              <li><i class="fa-solid fa-earth-asia"></i>  若得分低於80分,建議您先前往我們的教育中心,深入學習海洋環保知識,充實自己的環保知識基礎,再參與實際的環保行動,讓您的每一份努力都更有意義。</li>
-              <li><i class="fa-solid fa-earth-asia"></i>  若得分高於或等於80分,歡迎您前往我們的活動頁面,尋找適合您的海洋保護行動,用實際行動為海洋盡一份心力。</li>
-            </ul>
+          <ul>
+            <li><i class="fa-solid fa-earth-asia"></i>
+              若得分低於80分,建議您先前往我們的教育中心,深入學習海洋環保知識,充實自己的環保知識基礎,再參與實際的環保行動,讓您的每一份努力都更有意義。</li>
+            <li><i class="fa-solid fa-earth-asia"></i> 若得分高於或等於80分,歡迎您前往我們的活動頁面,尋找適合您的海洋保護行動,用實際行動為海洋盡一份心力。</li>
+          </ul>
           <p>
             無論結果如何,我們都感謝您對海洋環保的關注和努力。了解自己的知識水平,是成為一個負責任的環保行動者的第一步。讓我們攜手,以知識和行動,共創潔淨、永續的海洋環境!<br>
-            準備好開始這趟自我探索之旅了嗎?現在就開始測驗吧! 
+            準備好開始這趟自我探索之旅了嗎?現在就開始測驗吧!
           </p>
           <button>立即測驗</button>
         </div>
@@ -106,28 +107,79 @@
     <section class="section section-donation-summary">
       <div class="container">
         <h3>
-            DONATION<br>
-            捐款總攬
+          DONATION<br>
+          捐款總攬
         </h3>
         <div class="row">
           <div class="col-12 col-lg-6 donate-num">
             <div class="clean-tons">
-                <span class="debris-word">總金額</span>
-                <span class="debris-num">9,309,090</span>
-                <span class="debris-word">元</span>
-              </div>
+              <span class="debris-word">總金額</span>
+              <span class="debris-num">9,309,090</span>
+              <span class="debris-word">元</span>
+            </div>
           </div>
           <div class="col-12 col-lg-6 donate-num">
             <div class="clean-tons donate-balance">
-                <span class="debris-word">剩餘</span>
-                <span class="debris-num">920,090</span>
-                <span class="debris-word">元</span>
-              </div>
+              <span class="debris-word">剩餘</span>
+              <span class="debris-num">920,090</span>
+              <span class="debris-word">元</span>
+            </div>
           </div>
-          <div class="col-lg-6">
+          <div class="col-12 col-lg-6">
             <canvas ref="donateChart" width="100%" height="500"></canvas>
           </div>
+          <div class="col-12 col-lg-6">
+            <table>
+              <thead>
+                <tr>
+                  <th class="donate-col">類別</th>
+                  <th class="donate-col">名目</th>
+                  <th class="donate-col">金額</th>
+                  <th class="donate-col">日期</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in donateList" :key="item.id">
+                  <th>{{ item.sort }}</th>
+                  <td>{{ item.title }}</td>
+                  <td>{{ item.amount }}</td>
+                  <td>{{ item.date }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>*最新的六筆支出</p>
+          </div>
         </div>
+        <div class="donate-btn">
+          <div class="donate-btn-circle">
+            <i class="fa-solid fa-dollar-sign"></i>
+          </div>
+          立即捐款
+        </div>
+      </div>
+    </section>
+    <section class="section section-index-event">
+      <div class="container">
+        <h3>
+          EVENT<br>
+          活動
+        </h3>
+      </div>
+    </section>
+    <section class="section section-index-news">
+      <div class="container">
+        <h3>
+          NEWS<br>
+          最新消息
+        </h3>
+      </div>
+    </section>
+    <section class="section section-index-event-feedback">
+      <div class="container">
+        <h3>
+          FEEDBACK OF EVENT<br>
+          活動分享
+        </h3>
       </div>
     </section>
   </main>
@@ -150,6 +202,51 @@ export default {
       { id: 5, area: '東部' },
       { id: 6, area: '離島' }
     ];
+
+    const donateList = [
+      {
+        "id": 1,
+        "sort": "海洋生態保育專案",
+        "title": "珊瑚礁復育計畫資助",
+        "amount": 300000,
+        "date": "2023/7/1"
+      },
+      {
+        "id": 2,
+        "sort": "相關研究計畫",
+        "title": "海洋塑膠污染研究項目",
+        "amount": 200000,
+        "date": "2023/8/15"
+      },
+      {
+        "id": 3,
+        "sort": "淨灘活動",
+        "title": "全國淨灘日活動經費",
+        "amount": 180000,
+        "date": "2023/9/20"
+      },
+      {
+        "id": 4,
+        "sort": "教育宣導活動",
+        "title": "校園海洋環保講座系列",
+        "amount": 150000,
+        "date": "2023/10/5"
+      },
+      {
+        "id": 5,
+        "sort": "行政及人事開支",
+        "title": "海洋保護組織運營費用",
+        "amount": 150000,
+        "date": "2023/11/10"
+      },
+      {
+        "id": 6,
+        "sort": "網站維運及更新",
+        "title": "海洋環保資料庫建設",
+        "amount": 20000,
+        "date": "2023/12/1"
+      }
+    ]
 
     const donateDistribution = [
       { id: 1, sort: '海洋生態保育專案', data: 30, color: '#6CE5E8' },
@@ -256,7 +353,8 @@ export default {
     return {
       hebrisSort,
       mapContainer,
-      donateChart
+      donateChart,
+      donateList
     };
   }
 };

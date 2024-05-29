@@ -1,0 +1,321 @@
+.section-production-picture{
+    background-color: #F2F7FB;
+    padding: 0 -15px;
+    .container{
+        width: 1200px;
+        display: flex;
+        height: 100%;
+        position: relative;
+    }
+    .breadcrumb{
+        position: absolute;
+        top: 60px;
+        left: 42px;
+    }
+    .breadcrumb a{
+        text-decoration: none;
+    }
+    .pic-group{
+        width: 485px;
+        float:left; 
+        padding-top: 100px;
+        padding-left: 80px;
+    }
+    .pic-group .big-pic{
+        width: 100%;
+        overflow: hidden;
+    }
+    .pic-group .small-pic{
+        padding-top: 20px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .info-group{
+        padding-left: 70px;
+        width: 500px;
+        float:right;
+        padding-top: 100px;
+    }
+    .info-group .content{
+        padding-left: 10px;
+        padding-top: 40px;   
+    }
+    .info-group .content h5{
+        line-height: 30px;
+    }
+    .info-group .line{
+        margin-top: 60px;
+        text-align: center;
+        width: 500px;
+        border: 1px solid black;
+    }
+    .info-group .amount h3{
+        display: inline-block;
+        padding-top: 60px;
+    }
+    .info-group .amount h3:nth-child(1){
+        padding-right: 20px;
+    }
+    .info-group .amount h3:nth-child(2){
+        border: 1px solid black;
+        padding: 2px 10px;
+    }
+    .info-group .amount h3:nth-child(3){
+        border: 1px solid black;
+        padding: 2px 40px;
+    }
+    .info-group .amount h3:nth-child(4){
+        border: 1px solid black;
+        padding: 2px 10px;
+    }
+    .info-group .price{
+        padding-top: 20px;
+    }
+    .info-group .button{
+        padding-top: 80px;
+        display: flex;
+        justify-content: space-around;
+    }
+}
+
+.section-backgroup{
+    position: relative;
+    .sea2-img {
+        width: 100%;
+        overflow: hidden;
+        position: absolute;
+        bottom: -24px;
+        left: 0;
+    }
+}
+
+.section-introduce{
+    .text-group{
+        text-align: center;
+    }
+    .text-group .title{
+        padding: 10px 0;
+    }
+    .text-group .text{
+        padding-top: 20px;
+    }
+    .text-group .text h4{
+        line-height: 30px;
+    }
+    .text-group .pic{
+        padding: 30px 0;
+        margin: auto;
+    }
+    .text-group .title2{
+        padding-bottom: 30px;
+    }
+    .text-group .directions{
+        width: 650px;
+        border: 1.5px solid rgb(58, 58, 58);
+        display: block;
+        margin: 0 auto;
+        padding-bottom: 20px;
+    }
+    .text-group .disclaimer{
+        padding: 10px 20px 0 20px;
+        background-color: #F6F6F6;
+        width: 620px;
+        margin: 40px auto 20px auto;
+    }
+    .text-group .directions .pic img{
+        width: 100%;
+        overflow: hidden;
+    }
+}
+
+@media screen and (max-width: 992px){
+    .section-production-picture{
+        .container{
+            width: 80%;
+            margin: 0;
+            padding: 0;
+        }
+        .info-group .line{
+            margin-top: 60px;
+            text-align: center;
+            width: 290px;
+            border: 1px solid black;
+            }
+        .pic-group{
+            width: 400px;
+            float:left; 
+            padding-top: 100px;
+            padding-left: 110px;
+            }
+        .info-group .content{
+            padding-left: 10px;
+            padding-top: 40px;   
+        }
+        .info-group .content h5{
+            line-height: 20px;
+        }
+        .info-group .button{
+            padding-top: 80px;
+            display: flex;
+            justify-content: start;
+            justify-content: space-around;
+        }
+    } 
+}
+@media screen and (max-width: 768px){
+    .section-production-picture{
+        .container{
+            width: 60%;
+            margin: 0;
+            padding: 0;
+        }
+        .info-group .line{
+            margin-top: 60px;
+            text-align: center;
+            width: 290px;
+            border: 1px solid black;
+            }
+        .pic-group{
+            width: 300px;
+            float:left; 
+            padding-top: 100px;
+            padding-left: 60px;
+            }
+        .pic-group .big-pic{
+            width: 320px;
+            overflow: hidden;
+        }
+        .pic-group .big-pic img{
+            width: 100%;
+            overflow: hidden;
+        }
+        .pic-group .small-pic{
+            width: 320px;
+            padding-top: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .pic-group .small-pic img{
+            width: 100%;
+            overflow: hidden;
+        }
+        .info-group .content h5{
+            line-height: 18px;
+        }
+        .info-group{
+            padding-left: 50px;
+            width: 400px;
+            float:right;
+            padding-top: 100px;
+        }
+    } 
+}
+.section-backgroup{
+    position: relative;
+    .sea2-img {
+        width: 100%;
+        overflow: hidden;
+        position: absolute;
+        bottom: -32px;
+        left: 0;
+    }
+}
+@media screen and (max-width: 576px){
+    .section-production-picture{
+        .container{
+            width: 90%;
+            margin: 0;
+            padding: 0;
+        }
+        .info-group .line{
+            margin-top: 60px;
+            text-align: center;
+            width: 240px;
+            border: 1px solid black;
+            }
+        .pic-group{
+            width: 300px;
+            float:left; 
+            padding-top: 100px;
+            padding-left: 26px;
+            }
+        .pic-group .big-pic{
+            width: 260px;
+            overflow: hidden;
+        }
+        .pic-group .big-pic img{
+            width: 100%;
+            overflow: hidden;
+        }
+        .pic-group .small-pic{
+            width: 260px;
+            padding-top: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .pic-group .small-pic img{
+            width: 100%;
+            overflow: hidden;
+        }
+        .info-group .content h5{
+            line-height: 20px;
+        }
+        .info-group{
+            padding-left: 20px;
+            width: 400px;
+            float:right;
+            padding-top: 100px;
+        }
+    } 
+}
+.section-backgroup{
+    position: relative;
+    .sea2-img {
+        width: 100%;
+        overflow: hidden;
+        position: absolute;
+        bottom: -30px;
+        left: 0;
+    }
+}
+.section-introduce{
+    .text-group{
+        text-align: center;
+    }
+    .text-group .title{
+        padding: 10px 0;
+    }
+    .text-group .text{
+        padding-top: 20px;
+    }
+    .text-group .text h4{
+        line-height: 30px;
+    }
+    .text-group .pic{
+        width: 550px;
+        padding: 30px 0;
+    }
+    .text-group .pic img{
+        width: 100%;
+        overflow: hidden;
+    }
+    .text-group .directions{
+        width: 530px;
+        border: 1.5px solid rgb(58, 58, 58);
+        display: block;
+        margin: 0 auto;
+        padding-bottom: 20px;
+    }
+    .text-group .directions .pic{
+        width: 400px;
+        margin: 0 auto;
+    }
+    .text-group .directions .pic img{
+        width: 100%;
+        overflow: hidden;
+    }
+    .text-group .disclaimer{
+        width: 500px;
+        text-align: center;
+    }
+}
