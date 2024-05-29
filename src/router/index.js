@@ -61,7 +61,12 @@ const router = createRouter({
       path: '/beachgameView',
       name: 'beachgame',
       component: () => import('../views/BeachgameView.vue')
-    }
+    },
+    {
+      path: '/mbti',
+      name: 'mbti',
+      component: () => import('../views/MbtiView.vue')
+    },
   ]
 })
 
