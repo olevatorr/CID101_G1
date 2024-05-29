@@ -53,7 +53,6 @@ const router = createRouter({
       component: () => import('../views/ProductinfoView.vue')
     },
     {
-<<<<<<< HEAD
       path: '/news',
       name: 'news',
       component: () => import('../views/NewsView.vue')
@@ -68,17 +67,16 @@ const router = createRouter({
       name: 'mbti',
       component: () => import('../views/MbtiView.vue')
     },
-=======
+    {
       path: '/mallcart',
       name: 'mallcart',
       component: () => import('../views/MallcartView.vue')
-    }
+    },
     // {
     //   path: '/news',
     //   name: 'news',
     //   component: () => import('../views/NewsView.vue')
-    // }
->>>>>>> shop
+    // },
   ]
 })
 
