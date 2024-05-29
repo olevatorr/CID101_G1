@@ -1,0 +1,96 @@
+.section-register {
+    background-image: url(../../../../public/img/member/member5.png);
+    background-size: cover;
+}
+
+.register-login {
+    margin: 6rem .5rem;
+    text-align: center;
+    max-width: 20rem;
+}
+
+.register-login input,
+.register-login input[type='text'] {
+    width: 60%;
+    font-size: 16px;
+    border: 0rem;
+    border-bottom: 0.2rem solid #000;
+    box-sizing: border-box;
+    background: none;
+    outline: none;
+    height: 4rem;
+}
+
+.register-login button {
+    margin: 2rem 0;
+}
+
+.other-login p {
+    display: flex;
+    margin-bottom: 2rem;
+    max-width: 100%;
+}
+
+.other-login p::before {
+    content: '';
+    flex: 4 1 0%;
+    display: block;
+    border-top: 1px solid black;
+    margin-right: 2rem;
+    margin-top: 1.5rem;
+    margin-left: 6rem;
+}
+
+.other-login p::after {
+    content: '';
+    flex: 4 1 0%;
+    display: block;
+    border-top: 1px solid black;
+    margin-left: 2rem;
+    margin-top: 1.5rem;
+    margin-right: 6rem;
+}
+
+.other-login {
+    text-align: center;
+}
+
+.other-login i {
+    font-size: 5rem;
+}
+
+.other-login a:nth-last-of-type(3) {
+    color: #e03f33;
+    padding-right: 2rem;
+}
+
+.other-login a:nth-last-of-type(2) {
+    color: #2d55a8;
+    padding-right: 2rem;
+}
+
+.other-login a:nth-last-of-type(1) {
+    color: #06c755;
+}
+
+@media screen and (max-width: 576px) {
+
+    .register-box-img {
+        display: none;
+    }
+
+    .register-login label {
+        font-size: 1.4rem;
+    }
+
+    .other-login p::before {
+        margin-left: 1rem;
+        margin-top: 1rem;
+    }
+
+    .other-login p::after {
+        margin-right: 1rem;
+        margin-top: 1rem;
+    }
+
+}

@@ -82,7 +82,7 @@ onMounted(() => {
           <i class="fa-solid" :class="{ 'fa-caret-down': !isSubmenuOpen, 'fa-caret-up': isSubmenuOpen }"></i>
           <ul class="subnav" :class="{ 'active': isSubmenuOpen }">
             <li><a href="">教育</a></li>
-            <li><a href="">海廢小遊戲</a></li>
+            <li><RouterLink to="/BeachgameView">淨灘大作戰</RouterLink></li>
             <li><a href="">海廢人格測驗</a></li>
           </ul>
         </li>
@@ -91,7 +91,7 @@ onMounted(() => {
         <li>
           <RouterLink to="/events">活動</RouterLink>
         </li>
-        <li><a href="#">最新消息</a></li>
+        <li><RouterLink to="/news">最新消息</RouterLink></li>
         <li class="nav-member"><RouterLink to="/Member">會員登入</RouterLink></li>
       </ul>
     </nav>
