@@ -1,3 +1,7 @@
+<script setup>
+import { RouterLink } from 'vue-router';
+</script>
+
 <template>
     <section class="section section-production-picture">
         <div class="container">
@@ -35,7 +39,9 @@
                     <h3>金額總計 $520 元</h3>
                 </div>
                 <div class="button">
-                    <input type="button" value="立即購買">
+                    <RouterLink  to="/mallcart">
+                        <input type="button" value="立即購買">
+                    </RouterLink>
                     <input type="button" value="加入購物車">
                 </div>
             </div>

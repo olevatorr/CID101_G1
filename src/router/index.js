@@ -52,6 +52,11 @@ const router = createRouter({
       name: 'productinfo',
       component: () => import('../views/ProductinfoView.vue')
     },
+    {
+      path: '/mallcart',
+      name: 'mallcart',
+      component: () => import('../views/MallcartView.vue')
+    }
     // {
     //   path: '/news',
     //   name: 'news',
