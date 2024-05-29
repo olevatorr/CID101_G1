@@ -398,16 +398,10 @@
       align-items: center;
       margin-bottom: 10px;
       width: 100%;
-<<<<<<< HEAD
-
-      p {
-        flex-basis: 50%;
-=======
       label{
         flex-basis: 40%;
         font-size: 1.5rem;
         letter-spacing: .2em;
->>>>>>> dev
         text-align: right;
       }
 
@@ -420,35 +414,17 @@
         flex-grow: 1;
         margin-left: 5%;
       }
-<<<<<<< HEAD
-
-      .Experience {
-        text-align: left;
-
-        h6 {
-          margin-bottom: 5px;
-        }
-=======
       span{
         display: block;
         font-size: 1.5rem;
->>>>>>> dev
       }
       .Experience span,textarea{
         margin-left: 0;
     }
   }
-<<<<<<< HEAD
-
-  .shareBtn {
-    width: 100%;
-    text-align: center;
-  }
-=======
 }
 .shareBtn {
   width: 100%;
   text-align: center;
 }
->>>>>>> dev
 }
