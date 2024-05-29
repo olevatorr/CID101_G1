@@ -10,7 +10,6 @@
 .foget-img img {
     margin: 10rem 0;
     width: 100%;
-    height: auto;
 }
 
 .foget-txt {
@@ -35,7 +34,7 @@
     background: none;
     outline: none;
     height: 4rem;
-    max-width: 25rem;
+    max-width: 20rem;
     margin-right: 20px;
 }
 
@@ -52,7 +51,7 @@
 }
 
 .foget-txt button {
-    padding: 1.5rem 4rem;
+    padding: 1rem 4rem;
     margin: 2rem auto;
 }
 
@@ -83,8 +82,6 @@ input[type="number"]::-webkit-inner-spin-button {
     }
 
     .foget-txt .form-group {
-        display: flex;
-        flex-direction: row;
         align-items: center;
     }
 
@@ -106,9 +103,8 @@ input[type="number"]::-webkit-inner-spin-button {
     .foget-txt input {
         flex: 2;
     }
-
-    .foget-txt button {
-        width: 50%;
+    .foget-txt input {
+        max-width: 18rem;
     }
 }
 
@@ -119,6 +115,6 @@ input[type="number"]::-webkit-inner-spin-button {
     }
 
     .foget-txt label {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
     }
 }
