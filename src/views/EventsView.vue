@@ -414,7 +414,7 @@
     </div>
     <form>
       <div class="box box-1">
-        <p>活動場次</p>
+        <label>活動場次</label>
         <select>
           <option value="">北海岸愛地球淨灘活動</option>
           <option value="">南台灣海岸清潔行動</option>
@@ -422,25 +422,25 @@
         </select>
       </div>
       <div class="box box-2">
-        <p>活動日期</p>
+        <label>活動日期</label>
         <input type="date" name="" id="" />
       </div>
       <div class="box box-3">
-        <p>活動地點</p>
-        <h6>淡水漁人碼頭</h6>
+        <label>活動地點</label>
+        <span>淡水漁人碼頭</span>
       </div>
       <div class="box box-4">
-        <p>分享人</p>
-        <h6>林小美</h6>
+        <label>分享人</label>
+        <span>林小美</span>
       </div>
       <div class="box box-5">
-        <p>活動圖片</p>
+        <label>活動圖片</label>
         <input type="file" name="" id="" />
       </div>
       <div class="box box-6">
-        <p>活動心得</p>
+        <label>活動心得</label>
         <div class="Experience">
-          <h6>限100字</h6>
+          <span>限100字</span>
           <textarea placeholder="請輸入文字內容"></textarea>
         </div>
       </div>
@@ -448,6 +448,18 @@
     <div class="shareBtn">
       <button>活動分享</button>
     </div>
+  </section>
+  <section class="section section-examine">
+    <div class="CancelBtn">
+      <span>取消</span>
+    </div>
+    <h2>您檢舉此文章的理由是?</h2>
+    <form>
+      <div class="box">
+        <span>仇恨言論或歧視</span>
+        <input type="checkbox" name="" id="">
+      </div>
+    </form>
   </section>
 </template>
 
