@@ -52,13 +52,13 @@ const router = createRouter({
       name: 'productinfo',
       component: () => import('../views/ProductinfoView.vue')
     },
+    // {
+    //   path: '/news',
+    //   name: 'news',
+    //   component: () => import('../views/NewsView.vue')
+    // },
     {
-      path: '/news',
-      name: 'news',
-      component: () => import('../views/NewsView.vue')
-    },
-    {
-      path: '/beachgameView',
+      path: '/beachgame',
       name: 'beachgame',
       component: () => import('../views/BeachgameView.vue')
     },
