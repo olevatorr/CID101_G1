@@ -67,6 +67,11 @@ const router = createRouter({
       name: 'mallcart',
       component: () => import('../views/MallcartView.vue')
     },
+    {
+      path: '/Donate',
+      name: 'Donate',
+      component: () => import('../views/DonateView.vue')
+    },
   ]
 })
 
