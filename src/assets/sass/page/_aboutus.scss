@@ -16,76 +16,84 @@
     overflow: hidden;
   }
   .container {
-    position: absolute;
-    top: 12%;
-    bottom: 0;
-    span {
-      font-size: 8rem;
-      letter-spacing: 1rem;
-      display: inline-block;
-      margin-bottom: 7rem;
-    }
-    h3 {
-      margin-bottom: 2rem;
-    }
-  }
-  @media (max-width: 576px) {
-    .container {
-      top: 15%;
-      padding: 0 1rem;
-
+    z-index: 999;
+    position: relative;
+    .txt {
+      padding-top: 12rem;
       span {
-        font-size: 3rem;
-        margin-bottom: 1rem;
+        font-size: 7rem;
+        letter-spacing: 1rem;
+        display: inline-block;
+        margin-bottom: 5rem;
       }
-
       h3 {
-        font-size: 1rem;
+        margin-bottom: 2rem;
       }
-
-      p {
-        font-size: 1rem;
+      @media (max-width: 576px) {
+        span {
+          font-size: 3rem;
+          margin-bottom: 2rem;
+        }
       }
     }
   }
-  @media (max-width: 768px) {
-    .container {
-      top: 10%;
-      padding: 0 1rem;
+  // @media (max-width: 576px) {
+  //   .container {
+  //     top: 15%;
+  //     padding: 0 1rem;
 
-      span {
-        font-size: 3rem;
-        margin-bottom: 1rem;
-      }
+  //     span {
+  //       font-size: 3rem;
+  //       margin-bottom: 1rem;
+  //     }
 
-      h3 {
-        font-size: 1rem;
-      }
+  //     h3 {
+  //       font-size: 1rem;
+  //     }
 
-      p {
-        font-size: 1rem;
-      }
-    }
-  }
-  @media (max-width: 991px) {
-    .container {
-      top: 12%;
-      padding: 0 1rem;
+  //     p {
+  //       font-size: 1rem;
+  //     }
+  //   }
+  // }
+  // @media (max-width: 768px) {
+  //   .container {
+  //     top: 10%;
+  //     padding: 0 1rem;
 
-      span {
-        font-size: 4rem;
-        margin-bottom: 1rem;
-      }
+  //     span {
+  //       font-size: 3rem;
+  //       margin-bottom: 1rem;
+  //     }
 
-      h3 {
-        font-size: 2rem;
-      }
+  //     h3 {
+  //       font-size: 1rem;
+  //     }
 
-      p {
-        font-size: 2rem;
-      }
-    }
-  }
+  //     p {
+  //       font-size: 1rem;
+  //     }
+  //   }
+  // }
+  // @media (max-width: 991px) {
+  //   .container {
+  //     top: 12%;
+  //     padding: 0 1rem;
+
+  //     span {
+  //       font-size: 4rem;
+  //       margin-bottom: 1rem;
+  //     }
+
+  //     h3 {
+  //       font-size: 2rem;
+  //     }
+
+  //     p {
+  //       font-size: 2rem;
+  //     }
+  //   }
+  // }
 }
 
 // 願景
@@ -93,15 +101,36 @@
   background-color: $color-subprimary;
   color: $color-white;
   .purpose-line {
-    display: flex;
-    align-items: center;
     margin-bottom: 10rem;
+    .purpose-circle {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 1px solid $color-white;
+      position: relative;
+      
+      span:nth-child(1) {
+        font-size: 9rem;
+        font-weight: 200;
+      }
+      span:nth-child(2) {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        color: $color-highlight;
+        font-size: 6rem;
+        line-height: 4rem;
+      }
+      .material-symbols-outlined {
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+      }
+    }
     h3 {
       color: $color-highlight;
-      margin-bottom: 1rem;
-    }
-    img {
-      margin-right: 4rem;
+      margin-bottom: 2rem;
     }
   }
 }
@@ -167,9 +196,7 @@
 }
 // 聯絡我們
 .section-contact {
-  .contact-content {
-    padding: 0 5%;
-  }
+  padding: 0 10%;
   h3 {
     margin-bottom: 4rem;
   }
