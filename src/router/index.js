@@ -72,11 +72,20 @@ const router = createRouter({
       name: 'mallcart',
       component: () => import('../views/MallcartView.vue')
     },
-    // {
-    //   path: '/news',
-    //   name: 'news',
-    //   component: () => import('../views/NewsView.vue')
-    // },
+    {
+      path: '/news',
+      name: 'news',
+      component: () => import('../views/NewsView.vue')
+    },
+    { path: '/Donate',
+      name: 'Donate',
+      component: () => import('../views/DonateView.vue')
+    },
+    {
+      path: '/newsinner',
+      name: 'newsinner',
+      component: () => import('../views/NewsinnerView.vue')
+    }
   ]
 })
 

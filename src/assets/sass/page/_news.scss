@@ -1,0 +1,16 @@
+.section-news-banner {
+    height: 100vh;
+    background: url(../public/img/news/news-banner.png) no-repeat 50% 50% / cover;
+}
+
+.section-news-content {
+    height: auto;
+    background-image: url(../public/img/news/news-background.png);
+}
+.news-card {
+    padding: 10px;
+    img {
+        width: 100%;
+        vertical-align: top;
+    }
+}
