@@ -11,9 +11,10 @@
   </section>
   <section class="section section-event-banner">
     <div class="container">
-      <h2 class="sloagn1">為保護大自然盡份心力</h2>
-      <h2 class="sloagn2">美麗的海洋，守護有你有我!</h2>
+      <div class="sloagn">
+        <h2 class="ori">為保護大自然盡份心力，美麗的海洋，守護有你有我!</h2>
       <button class="fast-signup">一鍵報名</button>
+      </div>
     </div>
   </section>
   <section class="section section-event-date">
@@ -268,26 +269,26 @@
     <h2>活動分享</h2>
     <div class="container">
       <div class="row">
-        <div class="col-12 col-md-6 col-lg-3">
+        <div class="col-12 col-md-6 col-lg-3" v-for="(event, index) in events" :key="index">
           <div class="event-card">
             <div class="pic">
-              <img src="../../public/img/event/event_01.jpg" />
+              <img :src="event.imageUrl"/>
             </div>
             <div class="text">
               <div class="theme">
                 <div class="event-name">
-                  <h3>北海岸愛地球淨灘活動</h3>
+                  <h3>{{ event.name }}</h3>
                 </div>
                 <div class="report">
                   <i class="fa-solid fa-circle-exclamation"></i
                   >
                 </div>
               </div>
-              <span>活動地點：新北市淡水區漁人碼頭</span>
-              <span>活動日期：2024年6月15日</span>
-              <span>分享人：林小美</span>
+              <span>活動地點：{{ event.location }}</span>
+              <span>活動日期：{{ event.date }}</span>
+              <span>分享人：{{ event.speaker }}</span>
               <p class="Thoughts">
-                參加心得： 這次活動讓我深刻體會到海洋保護的重要性。看到大家一起努力...
+                {{ event.thoughts }}
                 <a href="#">閱讀更多</a>
               </p>
             </div>
@@ -295,10 +296,7 @@
         </div>
       </div>
       <div class="pagenumber">
-        <a href="#">1</a>
-        <a href="#">2</a>
-        <a href="#">3</a>
-        <a href="#">4</a>
+        <a href="#" v-for="pageNumber in totalPages" :key="pageNumber">{{ pageNumber  }}</a>
       </div>
       <div class="sharebtn">
         <button>活動分享</button>
@@ -406,7 +404,8 @@
     </div>
   </section>
   <section class="section-upload">
-    <div class="upload">
+    <div class="container">
+      <div class="upload">
       <h2>活動分享</h2>
       <div class="close">
         <i class="fa-regular fa-circle-xmark"></i>
@@ -448,18 +447,50 @@
     <div class="shareBtn">
       <button>活動分享</button>
     </div>
+    </div>
   </section>
   <section class="section section-examine">
-    <div class="CancelBtn">
+    <div class="container">
+      <div class="CancelBtn">
       <span>取消</span>
     </div>
     <h2>您檢舉此文章的理由是?</h2>
     <form>
       <div class="box">
-        <span>仇恨言論或歧視</span>
+        <label>仇恨言論或歧視</label>
         <input type="checkbox" name="" id="">
       </div>
+      <div class="box">
+        <label>侵犯隱私</label>
+        <input type="checkbox" name="" id="">
+      </div>
+      <div class="box">
+        <label>暴力或威脅</label>
+        <input type="checkbox" name="" id="">
+      </div>
+      <div class="box">
+        <label>騷擾或霸凌</label>
+        <input type="checkbox" name="" id="">
+      </div>
+      <div class="box">
+        <label>虛假信息或誤導信息</label>
+        <input type="checkbox" name="" id="">
+      </div>
+      <div class="box">
+        <label>色情或不當內容</label>
+        <input type="checkbox" name="" id="">
+      </div>
+      <div class="box">
+        <label>非法活動</label>
+        <input type="checkbox" name="" id="">
+      </div>
+      <div class="box">
+        <label>垃圾信息或廣告</label>
+        <input type="checkbox" name="" id="">
+      </div>
+      <button>送出</button>
     </form>
+    </div>
   </section>
 </template>
 
@@ -471,10 +502,8 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import Swal from 'sweetalert2'
 
 export default defineComponent({
-  components: {
-    FullCalendar
-  },
   setup() {
+    //calendar
     const calendarOptions = ref({
       initialView: 'dayGridMonth',
       headerToolbar: {
@@ -512,11 +541,102 @@ export default defineComponent({
         })
       },
       plugins: [dayGridPlugin, timeGridPlugin]
-    })
-
+      })
+      //event-share v-for
+      const events = ref([
+      {
+        name: '北海岸愛地球淨灘活動',
+        location: '新北市淡水區漁人碼頭',
+        date: '2024年6月15日',
+        speaker: '林小美',
+        thoughts: '這次活動讓我深刻體會到海洋保護的重要性。看到大家一起努力...',
+        imageUrl: '../../public/img/event/event_01.jpg'
+      },
+      {
+        name: '北海岸愛地球淨灘活動',
+        location: '新北市淡水區漁人碼頭',
+        date: '2024年6月15日',
+        speaker: '林小美',
+        thoughts: '這次活動讓我深刻體會到海洋保護的重要性。看到大家一起努力...',
+        imageUrl: '../../public/img/event/event_01.jpg'
+      },
+      {
+        name: '北海岸愛地球淨灘活動',
+        location: '新北市淡水區漁人碼頭',
+        date: '2024年6月15日',
+        speaker: '林小美',
+        thoughts: '這次活動讓我深刻體會到海洋保護的重要性。看到大家一起努力...',
+        imageUrl: '../../public/img/event/event_01.jpg'
+      },
+      {
+        name: '北海岸愛地球淨灘活動',
+        location: '新北市淡水區漁人碼頭',
+        date: '2024年6月15日',
+        speaker: '林小美',
+        thoughts: '這次活動讓我深刻體會到海洋保護的重要性。看到大家一起努力...',
+        imageUrl: '../../public/img/event/event_01.jpg'
+      },
+      {
+        name: '北海岸愛地球淨灘活動',
+        location: '新北市淡水區漁人碼頭',
+        date: '2024年6月15日',
+        speaker: '林小美',
+        thoughts: '這次活動讓我深刻體會到海洋保護的重要性。看到大家一起努力...',
+        imageUrl: '../../public/img/event/event_01.jpg'
+      },
+      {
+        name: '北海岸愛地球淨灘活動',
+        location: '新北市淡水區漁人碼頭',
+        date: '2024年6月15日',
+        speaker: '林小美',
+        thoughts: '這次活動讓我深刻體會到海洋保護的重要性。看到大家一起努力...',
+        imageUrl: '../../public/img/event/event_01.jpg'
+      },
+      {
+        name: '北海岸愛地球淨灘活動',
+        location: '新北市淡水區漁人碼頭',
+        date: '2024年6月15日',
+        speaker: '林小美',
+        thoughts: '這次活動讓我深刻體會到海洋保護的重要性。看到大家一起努力...',
+        imageUrl: '../../public/img/event/event_01.jpg'
+      },
+      {
+        name: '北海岸愛地球淨灘活動',
+        location: '新北市淡水區漁人碼頭',
+        date: '2024年6月15日',
+        speaker: '林小美',
+        thoughts: '這次活動讓我深刻體會到海洋保護的重要性。看到大家一起努力...',
+        imageUrl: '../../public/img/event/event_01.jpg'
+      },
+      {
+        name: '北海岸愛地球淨灘活動',
+        location: '新北市淡水區漁人碼頭',
+        date: '2024年6月15日',
+        speaker: '林小美',
+        thoughts: '這次活動讓我深刻體會到海洋保護的重要性。看到大家一起努力...',
+        imageUrl: '../../public/img/event/event_01.jpg'
+      },
+      {
+        name: '北海岸愛地球淨灘活動',
+        location: '新北市淡水區漁人碼頭',
+        date: '2024年6月15日',
+        speaker: '林小美',
+        thoughts: '這次活動讓我深刻體會到海洋保護的重要性。看到大家一起努力...',
+        imageUrl: '../../public/img/event/event_01.jpg'
+      }
+    ]);
+    //pagenumber
+    const itemsPerPage = 3;
+    const totalPages = Math.ceil(events.value.length / itemsPerPage)
+    
     return {
-      calendarOptions
+      calendarOptions,
+      events,
+      totalPages
     }
-  }
+  },
+  components: {
+    FullCalendar
+  },
 })
 </script>
