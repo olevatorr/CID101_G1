@@ -3,7 +3,7 @@
         <section class="section section-foget">
             <div class="container foget-box">
                 <div class="foget-img">
-                    <img src="../../public/img/member/member6.jpg" alt="">
+                    <img src="../../public/img/member/member6.jpg" alt="會員圖片">
                 </div>
                 <div class="foget-txt">
                     <h1>忘記密碼</h1>

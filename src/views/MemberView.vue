@@ -5,7 +5,7 @@
                     <div class="member-box-img col-sm-6 col-md-6">
                         <img src="../../public/img/member/member2.jpg" alt="會員背景圖片">
                         <div class="member-logo-box">
-                            <img src="../../public/img/member/member3.png" alt="logo">
+                            <img src="../../public/img/LOGO-white.png" alt="logo">
                             <span>潔淨海洋&emsp;綠色明天</span>
                         </div>
                     </div>
@@ -22,9 +22,9 @@
                                 <RouterLink to="/RegisterView">加入會員</RouterLink>
                             </button>
                         </div>
-                        <a class="forgot">
+                        <span class="forgot">
                             <RouterLink to="/ForgetPasswordView">忘記密碼?</RouterLink>
-                        </a>
+                        </span>
                         <p>其他登入方式</p>
                         <a href="#"><i class="fa-brands fa-google-plus"></i></a>
                         <a href="#"><i class="fa-brands fa-facebook"></i></a>

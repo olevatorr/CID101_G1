@@ -31,9 +31,9 @@
 
   <section class="section section-data">
     <div class="container">
+      <h3>全台灣沿海廢棄數據</h3>
       <div class="row">
         <div class="col-12 col-md-6">
-          <h3>全台灣沿海廢棄數據</h3>
           <div>
             <img src="https://picsum.photos/562/528/?random=19" width="100%">
           </div>
@@ -115,12 +115,12 @@
   </section>
 
   <section class="section section-knowledge">
-    <h2>海廢知識庫</h2>
     <div class="container">
+      <h2>海廢知識庫</h2>
       <div class="row">
-        <div class="col-12 col-sm-6 col-lg-3 " v-for="card in cards" :key="card.imgSrc">
+        <div class="card-c  col-sm-5 col-lg-3 " v-for="card in cards" :key="card.imgSrc">
           <div class="card">
-            <img :src="card.imgSrc" class="card-img-top" alt="...">
+            <img :src="card.imgSrc" class="card-img-top" alt="">
             <div class="card-body">
               <h5 class="card-title">{{ card.title }}</h5>
               <p class="card-text">{{ card.description }}</p>
@@ -132,55 +132,46 @@
   </section>
 
   <section class="section section-game">
-    <h2>放鬆之餘，也能用有趣的方式更了解海廢</h2>
-    <div class="content">
-          <div class="row">
-            <div class="col-12">
-              <h3>海廢小遊戲</h3>
-            </div>
-              <div class="col-12 col-lg-3">
-                <div class="card-row">
-                  <img src="https://picsum.photos/208/208/?random=19" width="100%">
-                </div>
+    <div class="container">
+      <h2>放鬆之餘，也能用有趣的方式更了解海廢</h2>
+      <a href="./BeachgameView.vue">
+        <div class="card">
+            <div class="row">
+              <div class="card-content col-12 col-md-3">
+                      <img src="https://picsum.photos/208/208/?random=15" width="100%">
               </div>
-              <div class=" txt-center col-12 col-lg-6">
-                <div class="card-p">
-                  <p>
-                  通過我們設計的海廢小遊戲，您可以在遊戲中學習如何識別和處理海洋垃圾，並體驗保護海洋的樂趣。這些遊戲不僅適合兒童，也能吸引成年人參與其中。
-                  </p>
-                </div>
+              <div class="card-content col-12 col-md-6">
+                <h3>海廢小遊戲</h3>
+                <p>
+                通過我們設計的海廢小遊戲，您可以在遊戲中學習如何識別和處理海洋垃圾，並體驗保護海洋的樂趣。這些遊戲不僅適合兒童，也能吸引成年人參與其中。
+                </p>
               </div>
-              <div class="btn-center col-12 col-lg-3">
+              <div class="card-content col-12 col-md-2">
                   <button>立即前往</button>
               </div>
-          </div>
+            </div>
         </div>
+      </a>
 
-        <div class="content">
-          <div class="row">
-            <div class="col-12">
-              <h3>海廢Q&A</h3>
-            </div>
-              <div class="col-12 col-lg-3">
-                <div class="card-row">
-                  <img src="https://picsum.photos/208/208/?random=19" width="100%">
-                </div>
+      <div class="card">
+            <div class="row">
+              <div class="card-content col-12 col-md-3">
+                      <img src="https://picsum.photos/208/208/?random=10" width="100%">
               </div>
-              <div class=" txt-center col-12 col-lg-6">
-                <div class="card-p">
-                  <p>
-                    我們設計了一個有趣且有教育意義的問卷，讓您通過回答一系列問題來了解自己屬於什麼樣的海洋人格。這個問卷不僅可以幫助您更深入地認識海洋垃圾問題，還能增加您對海洋保護的興趣和參與度。
-                  </p>
-                </div>
+              <div class="card-content col-12 col-md-6">
+                <h3>海廢Q&A</h3>
+                <p>
+                  我們設計了一個有趣且有教育意義的問卷，讓您通過回答一系列問題來了解自己屬於什麼樣的海洋人格。這個問卷不僅可以幫助您更深入地認識海洋垃圾問題，還能增加您對海洋保護的興趣和參與度。
+                </p>
               </div>
-              <div class="btn-center col-12 col-lg-3">
+              <div class="card-content col-12 col-md-2">
                   <button>立即前往</button>
               </div>
-          </div>
-        </div>
+            </div>
+      </div>
+    </div>
   </section>
 </div>
-
 </template>
 
 <script>
@@ -190,7 +181,7 @@ export default {
       cards: Array.from({ length: 16 }, (_, index) => ({
         imgSrc: `https://picsum.photos/280/150/?random=${index + 1}`,
         title: '海洋動物調查',
-        description: '保護海洋不僅是一個環保問題，更是一個全球性挑戰。我們每...'
+        description: '保護海洋不僅是一個環保問題，更是一個全球性'
       }))
     }
   }
