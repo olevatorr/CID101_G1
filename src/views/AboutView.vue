@@ -285,7 +285,7 @@
         </div>
         <div class="row">
           <div class="col-12">
-            <textarea cols="30" rows="10" placeholder="請輸入訊息..."></textarea>
+            <textarea cols="30" rows="10" placeholder="請輸入訊息..." maxlength="200"></textarea>
           </div>
         </div>
         <div class="auth-line row">
