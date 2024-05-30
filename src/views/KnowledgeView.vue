@@ -134,7 +134,7 @@
   <section class="section section-game">
     <div class="container">
       <h2>放鬆之餘，也能用有趣的方式更了解海廢</h2>
-      <a href="./BeachgameView.vue">
+      <a href="./BeachgameView">
         <div class="card">
             <div class="row">
               <div class="card-content col-12 col-md-3">
