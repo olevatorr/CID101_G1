@@ -8,6 +8,8 @@
                 <h2 class="beachgame-subtitle">一起來淨灘</h2>
                 <button>進入遊戲</button>
             </div>
+        </section>
+        <section class="section section-beachgame-rules">
             
         </section>
     </main>
