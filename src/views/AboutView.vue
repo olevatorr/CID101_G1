@@ -8,23 +8,25 @@
       </video>
     </div>
     <div class="container">
-      <p>BLUE ALERT</p>
-      <span>ABOUT US</span>
-      <h3>
-        守護藍色星球，<br />
-        從我們開始。
-      </h3>
-      <br />
-      <p>
-        海洋保護在日常生活中不可或缺。<br />
-        我們致力於建立一個全面的海洋垃圾問題資訊平台，<br />
-        通過數據、圖像、互動內容和教育資源，提高公眾認識，促進環保意識和行動。<br />
-        平台整合各方資訊，成為中心化的正確信息來源，藉此推動政府重視海洋生態保護和垃圾管理政策，<br />
-        為解決海洋垃圾問題貢獻一份心力。<br />
-        為了實現這一目標，首先我們自己要保持熱情，享受海洋保護的每一刻。<br />
-        在一個開放透明的環境中，與所有合作夥伴共同成長。<br />
-        這樣，我們能引導環保的潮流，成為引領世界海洋保護的存在。
-      </p>
+      <div class="txt">
+        <p>BLUE ALERT</p>
+        <span>ABOUT US</span>
+        <h3>
+          守護藍色星球，<br />
+          從我們開始。
+        </h3>
+        <br />
+        <p>
+          海洋保護在日常生活中不可或缺。<br />
+          我們致力於建立一個全面的海洋垃圾問題資訊平台，<br />
+          通過數據、圖像、互動內容和教育資源，提高公眾認識，促進環保意識和行動。<br />
+          平台整合各方資訊，成為中心化的正確信息來源，藉此推動政府重視海洋生態保護和垃圾管理政策，<br />
+          為解決海洋垃圾問題貢獻一份心力。<br />
+          為了實現這一目標，首先我們自己要保持熱情，享受海洋保護的每一刻。<br />
+          在一個開放透明的環境中，與所有合作夥伴共同成長。<br />
+          這樣，我們能引導環保的潮流，成為引領世界海洋保護的存在。
+        </p>
+      </div>
     </div>
   </section>
   <!-- 願景 -->
@@ -37,37 +39,45 @@
           <h2>願景</h2>
         </div>
         <div class="col-12 col-lg-9">
-          <div class="col-12">
-            <div class="purpose-line">
-              <img src="../../public/img/aboutus/01.png" alt="" />
-              <div class="purpose-content">
-                <h3>提高公眾認識</h3>
-                <p>
-                  通過數據、圖像、互動內容和教育資源，提升大眾對海洋垃圾問題的認識，培養環保意識。我們致力於讓每一位訪客都能了解海洋污染的嚴重性及其對生態和人類的影響，激發更多人參與海洋保護行動。
-                </p>
+          <!-- 第一條 -->
+          <div class="row purpose-line">
+            <div class="col-12 col-lg-3">
+              <div class="purpose-circle">
+                <span class="material-symbols-outlined"> cognition </span>
+                <span>01</span>
               </div>
             </div>
-          </div>
-          <div class="col-12">
-            <div class="purpose-line">
-              <img src="../../public/img/aboutus/02.png" alt="" />
-              <div class="purpose-content">
-                <h3>整合資訊資源</h3>
-                <p>
-                  建立全面的海洋垃圾問題資訊平台，整合來自各方的數據和研究成果，成為中心化的正確信息來源。我們的平台匯集最新的科學研究、政策動態和行動指南，為關注海洋保護的人士提供權威、可靠的參考資料。
-                </p>
-              </div>
+            <div class="col-12 col-lg-9">
+              <h3>提高公眾認識</h3>
+              <p>
+                通過數據、圖像、互動內容和教育資源，提升大眾對海洋垃圾問題的認識，培養環保意識。我們致力於讓每一位訪客都能了解海洋污染的嚴重性及其對生態和人類的影響，激發更多人參與海洋保護行動。
+              </p>
             </div>
           </div>
-          <div class="col-12">
-            <div class="purpose-line">
-              <img src="../../public/img/aboutus/03.png" alt="" />
-              <div class="purpose-content">
-                <h3>推動政策改變</h3>
-                <p>
-                  藉由提供準確的數據和詳盡的資訊，推動政府和社會各界重視海洋生態保護和垃圾管理政策。我們積極參與並倡導相關政策的制定和實施，為改善海洋環境、減少海洋垃圾問題貢獻一份力量。
-                </p>
-              </div>
+          <!-- 第二條 -->
+          <div class="row purpose-line">
+            <div class="col-12 col-lg-3 purpose-circle">
+              <span class="material-symbols-outlined"> keyboard_command_key </span>
+              <span>02</span>
+            </div>
+            <div class="col-12 col-lg-9">
+              <h3>整合資訊資源</h3>
+              <p>
+                建立全面的海洋垃圾問題資訊平台，整合來自各方的數據和研究成果，成為中心化的正確信息來源。我們的平台匯集最新的科學研究、政策動態和行動指南，為關注海洋保護的人士提供權威、可靠的參考資料。
+              </p>
+            </div>
+          </div>
+          <!-- 第三條 -->
+          <div class="row purpose-line">
+            <div class="col-12 col-lg-3 purpose-circle">
+              <span class="material-symbols-outlined"> moving </span>
+              <span>03</span>
+            </div>
+            <div class="col-12 col-lg-9">
+              <h3>推動政策改變</h3>
+              <p>
+                藉由提供準確的數據和詳盡的資訊，推動政府和社會各界重視海洋生態保護和垃圾管理政策。我們積極參與並倡導相關政策的制定和實施，為改善海洋環境、減少海洋垃圾問題貢獻一份力量。
+              </p>
             </div>
           </div>
         </div>

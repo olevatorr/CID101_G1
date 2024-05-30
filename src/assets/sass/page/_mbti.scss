@@ -1,32 +1,42 @@
-.section .section-mbti {
-    img {
-        height: 100vh;
-        width: 100%;
-        position: relative;
-        vertical-align: top;
+.section-mbti {
+    background-image: url(../../../../public/img/mbti/mbti.png);
+    background-size: cover;
+    padding: 0;
+    background-repeat: no-repeat;
+    .wrap{
+        background-color: $color-white;
+        padding: 10rem;
+        border-radius: 4rem;
     }
-    .wrap {
+    .container{
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        background-color: $color-white;
-        width: 50%;
-        height: 50%;
-        border-radius: 4rem;
-        text-align: center;
-        span{
-            background-color: $color-highlight;
-            padding: 2rem 1.5rem;
-            border-radius: 1rem;
-        }
     }
-    .title {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-        gap: 2rem;
-    }
+
+    // .wrap {
+    //     position: absolute;
+    //     top: 50%;
+    //     left: 50%;
+    //     transform: translate(-50%, -50%);
+    //     background-color: $color-white;
+    //     width: 50%;
+    //     height: 50%;
+    //     border-radius: 4rem;
+    //     text-align: center;
+    //     span{
+    //         background-color: $color-highlight;
+    //         padding: 2rem 1.5rem;
+    //         border-radius: 1rem;
+    //     }
+    // }
+    // .title {
+    //     display: flex;
+    //     flex-direction: column;
+    //     align-items: center;
+    //     justify-content: center;
+    //     height: 100%;
+    //     gap: 2rem;
+    // }
 }
