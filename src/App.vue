@@ -86,7 +86,7 @@ onMounted(() => {
             <li><a href="">海廢人格測驗</a></li>
           </ul>
         </li>
-        <li><a href="#">捐款</a></li>
+        <li><RouterLink to="/Donate">捐款</RouterLink></li>
         <li><RouterLink to="/shop">商品</RouterLink></li>
         <li>
           <RouterLink to="/events">活動</RouterLink>
