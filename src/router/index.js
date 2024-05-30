@@ -53,12 +53,7 @@ const router = createRouter({
       component: () => import('../views/ProductinfoView.vue')
     },
     {
-      path: '/news',
-      name: 'news',
-      component: () => import('../views/NewsView.vue')
-    },
-    {
-      path: '/beachgameView',
+      path: '/beachgame',
       name: 'beachgame',
       component: () => import('../views/BeachgameView.vue')
     },
@@ -72,11 +67,6 @@ const router = createRouter({
       name: 'mallcart',
       component: () => import('../views/MallcartView.vue')
     },
-    // {
-    //   path: '/news',
-    //   name: 'news',
-    //   component: () => import('../views/NewsView.vue')
-    // },
   ]
 })
 
