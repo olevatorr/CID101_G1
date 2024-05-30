@@ -87,8 +87,13 @@ onMounted(() => {
           ></i>
           <ul class="subnav" :class="{ active: isSubmenuOpen }">
             <li><a href="">教育</a></li>
+<<<<<<< HEAD
             <li><RouterLink to="/BeachgameView">淨灘大作戰</RouterLink></li>
             <li><RouterLink to="/MbtiView">海廢人格測驗</RouterLink></li>
+=======
+            <li><RouterLink to="/Beachgame">淨灘大作戰</RouterLink></li>
+            <li><a href="">海廢人格測驗</a></li>
+>>>>>>> dev
           </ul>
         </li>
         <li><a href="#">捐款</a></li>

@@ -69,9 +69,6 @@ import { RouterLink } from 'vue-router';
         <div class="sea-img">
             <img src="../../public/img/shop/sea.png" alt="">
         </div>
-        <div class="turtle-img">
-            <img src="../../public/img/shop/turtle.png" alt="">
-        </div>
     </section>
 </template>
 
