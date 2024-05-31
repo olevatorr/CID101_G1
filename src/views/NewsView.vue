@@ -19,42 +19,21 @@
                 <button>宣導</button>
             </div>
             <div class="row">
-                <RouterLink to="/News"><div class="col-6 col-md-4 col-lg-3">
-                    <div class="news-card">
-                        <div class="news-pic">
-                            <img src="https://picsum.photos/300/200/?random=10">
-                        </div>
-                        <div class="txt">
-                            <p>Lorem ipsum dolor sit amet consectetur,
+                <div class="col-6 col-md-4 col-lg-3">
+                    <RouterLink to="/Newsinner">
+                    <!-- 放入app -->
+                        <div class="news-card">
+                            <div class="news-pic">
+                                <img src="https://picsum.photos/300/200/?random=10">
+                            </div>
+                            <div class="txt">
+                                <p>Lorem ipsum dolor sit amet consectetur,
                                 adipisicing elit. Itaque nostrum impedit
                                 dolore praesentium repellendus quidem debitis quas magni sed fuga?</p>
+                            </div>
                         </div>
-                    </div>
-                </div></RouterLink>
-                <RouterLink to="/Newsinner"><div class="col-6 col-md-4 col-lg-3">
-                    <div class="news-card">
-                        <div class="news-pic">
-                            <img src="https://picsum.photos/300/200/?random=10">
-                        </div>
-                        <div class="txt">
-                            <p>Lorem ipsum dolor sit amet consectetur,
-                                adipisicing elit. Itaque nostrum impedit
-                                dolore praesentium repellendus quidem debitis quas magni sed fuga?</p>
-                        </div>
-                    </div>
-                </div></RouterLink>
-                <RouterLink to="/Newsinner"><div class="col-6 col-md-4 col-lg-3">
-                    <div class="news-card">
-                        <div class="news-pic">
-                            <img src="https://picsum.photos/300/200/?random=10">
-                        </div>
-                        <div class="txt">
-                            <p>Lorem ipsum dolor sit amet consectetur,
-                                adipisicing elit. Itaque nostrum impedit
-                                dolore praesentium repellendus quidem debitis quas magni sed fuga?</p>
-                        </div>
-                    </div>
-                </div></RouterLink>
+                    </RouterLink>
+                </div>
             </div>
         </div>
     </section>
