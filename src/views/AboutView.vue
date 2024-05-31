@@ -40,7 +40,7 @@
         </div>
         <div class="col-12 col-lg-9">
           <!-- 第一條 -->
-          <div class="row purpose-line">
+          <div class="row purpose-line one">
             <div class="col-12 col-lg-3">
               <div class="purpose-circle">
                 <span class="material-symbols-outlined"> cognition </span>
@@ -128,9 +128,9 @@
             </div>
           </div>
         </div>
-        <div class="col-12 col-md-6 col-lg-4 group">
+        <div class="col-12 col-md-6 col-lg-4 group ">
           <!-- 第二張卡片 -->
-          <div class="donation-card">
+          <div class="donation-card tp">
             <div class="donation-line">
               <span class="material-symbols-outlined"> contactless </span>
               <div class="donation-txt">
@@ -154,9 +154,9 @@
             </div>
           </div>
         </div>
-        <div class="col-12 col-md-6 col-lg-4 group">
+        <div class="col-12 col-md-6 col-lg-4 group ">
           <!-- 第三張卡片 -->
-          <div class="donation-card">
+          <div class="donation-card top">
             <div class="donation-line">
               <span class="material-symbols-outlined"> workspace_premium </span>
               <div class="donation-txt">
@@ -228,86 +228,88 @@
       <h2 class="ori">CONTACT US</h2>
       <p>BLUEALERT</p>
       <h3>聯絡我們</h3>
-      <div class="row contact-content">
-        <div class="col-12 col-lg-4">
-          <div class="row">
-            <div class="col-12 contact-line">
-              <div class="contact-card">
-                <span class="material-symbols-outlined"> call </span>
-                <p>(03) - 4251108</p>
+      <div class="contact-content">
+        <div class="row">
+          <div class="col-12 col-lg-5">
+            <div class="row">
+              <div class="col-12 contact-line">
+                <div class="contact-card">
+                  <span class="material-symbols-outlined"> call </span>
+                  <p>(03) - 4251108</p>
+                </div>
               </div>
-            </div>
-            <div class="col-12 contact-line">
-              <div class="contact-card">
-                <span class="material-symbols-outlined"> mail </span>
-                <p>support@bluealert.org</p>
+              <div class="col-12 contact-line tp">
+                <div class="contact-card">
+                  <span class="material-symbols-outlined"> mail </span>
+                  <p>support@bluealert.org</p>
+                </div>
               </div>
-            </div>
-            <div class="col-12 contact-line">
-              <div class="contact-card">
-                <span class="material-symbols-outlined"> pin_drop </span>
-                <p>
-                  緯育TibaMe附設中壢職訓中心<br />
-                  320桃園市中壢區復興路46號9樓
-                </p>
+              <div class="col-12 contact-line tp">
+                <div class="contact-card">
+                  <span class="material-symbols-outlined"> pin_drop </span>
+                  <p>
+                    緯育TibaMe附設中壢職訓中心<br>
+                    320桃園市中壢區復興路46號9樓
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-12 col-lg-8">
-          <div class="map">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3617.2490359444023!2d121.2224477743517!3d24.957640341363952!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346823ea50c732a5%3A0x1b5e6ee66e9fec49!2z57ev6IKyVGliYU1l6ZmE6Kit5Lit5aOi6IG36KiT5Lit5b-D!5e0!3m2!1szh-TW!2stw!4v1716635036111!5m2!1szh-TW!2stw"
-              width="100%"
-              height="100%"
-              frameborder="0"
-              style="border: 0"
-              allowfullscreen
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-            ></iframe>
+          <div class="col-12 col-lg-7 removep">
+            <div class="map">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3617.2490359444023!2d121.2224477743517!3d24.957640341363952!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346823ea50c732a5%3A0x1b5e6ee66e9fec49!2z57ev6IKyVGliYU1l6ZmE6Kit5Lit5aOi6IG36KiT5Lit5b-D!5e0!3m2!1szh-TW!2stw!4v1716635036111!5m2!1szh-TW!2stw"
+                width="100%"
+                height="100%"
+                frameborder="0"
+                style="border: 0"
+                allowfullscreen
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
           </div>
+          <form action="" method="post" class="col-12">
+            <h3>傳送訊息給我們</h3>
+            <div class="row">
+              <div class="col-12 col-md-6">
+                <div class="form-item">
+                  <label for="">姓名</label>
+                  <input type="text" name="name" />
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="form-item">
+                  <label for="">手機</label>
+                  <input type="text" name="phone" />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 col-md-6">
+                <div class="form-item">
+                  <label for="">信箱</label>
+                  <input type="mail" name="mail" />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <textarea cols="30" rows="10" placeholder="請輸入訊息..." maxlength="200"></textarea>
+              </div>
+            </div>
+            <div class="auth-line row">
+              <div class="form-auth col-12 col-lg-4">
+                <label for="">驗證碼</label>
+                <input type="text" class="auth-input" />
+              </div>
+              <img src="../../public/img/aboutus/anth.png" alt="" />
+              <button>更新驗證碼</button>
+            </div>
+            <button>送出</button>
+          </form>
         </div>
       </div>
-      <form action="" method="post">
-        <h3>傳送訊息給我們</h3>
-        <div class="row">
-          <div class="col-12 col-md-6">
-            <div class="form-item">
-              <label for="">姓名</label>
-              <input type="text" name="name" />
-            </div>
-          </div>
-          <div class="col-12 col-md-6">
-            <div class="form-item">
-              <label for="">手機</label>
-              <input type="text" name="phone" />
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12 col-md-6">
-            <div class="form-item">
-              <label for="">信箱</label>
-              <input type="mail" name="mail" />
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <textarea cols="30" rows="10" placeholder="請輸入訊息..." maxlength="200"></textarea>
-          </div>
-        </div>
-        <div class="auth-line row">
-          <div class="form-auth col-12 col-lg-4">
-            <label for="">驗證碼</label>
-            <input type="text" class="auth-input" />
-          </div>
-          <img src="../../public/img/aboutus/anth.png" alt="" />
-          <button>更新驗證碼</button>
-        </div>
-        <button>送出</button>
-      </form>
     </div>
   </section>
 </template>
