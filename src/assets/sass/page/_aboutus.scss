@@ -82,14 +82,8 @@
       margin-bottom: 2rem;
     }
   }
-  @media (max-width: 991px) {
-    .purpose-line.one {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-  }
 }
+
 // 捐款
 .section-donation-intro {
   background-color: $color-white;
@@ -185,6 +179,7 @@
     padding-right: 0;
     @media screen and (max-width: 991px) {
       padding-left: 0;
+      margin-top: 2rem;
     }
   }
   .map {
@@ -236,11 +231,15 @@
         margin: 0;
       }
       .form-auth {
-        border: 1px solid black;
-        padding: 1rem;
         .auth-input {
           display: inline-block;
         }
+      }
+      .auth-out{
+        border: 1px solid black;
+        padding: 10px 10px;
+        display: flex;
+        align-items: center;
       }
     }
   }

@@ -40,12 +40,10 @@
         </div>
         <div class="col-12 col-lg-9">
           <!-- 第一條 -->
-          <div class="row purpose-line one">
-            <div class="col-12 col-lg-3">
-              <div class="purpose-circle">
+          <div class="row purpose-line ">
+            <div class="col-12 col-lg-3 purpose-circle">
                 <span class="material-symbols-outlined"> cognition </span>
                 <span>01</span>
-              </div>
             </div>
             <div class="col-12 col-lg-9">
               <h3>提高公眾認識</h3>
@@ -300,8 +298,10 @@
             </div>
             <div class="auth-line row">
               <div class="form-auth col-12 col-lg-4">
-                <label for="">驗證碼</label>
-                <input type="text" class="auth-input" />
+                <div class="auth-out">
+                  <label for="">驗證碼</label>
+                  <input type="text" class="auth-input" />
+                </div>
               </div>
               <img src="../../public/img/aboutus/anth.png" alt="" />
               <button>更新驗證碼</button>
