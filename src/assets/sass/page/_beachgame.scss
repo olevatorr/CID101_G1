@@ -11,7 +11,6 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-    }
     .container {
         display: flex;
         flex-direction: column;
@@ -34,61 +33,77 @@
         line-height: 6rem;
     }
 
-    .rules-lightbox{
-        box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
-        text-align: center;
-        background-color: #4E97CA;  
-        padding:25px;
-        border-radius:20px;
-    }
-    .rules-content{
-        background-color: #fff;  
-        padding: 20px 60px;
-        border-radius: 20px;
-    }
-    .rules-content ol {
-        list-style-type: decimal; 
-        padding: 20px; 
-        text-align: start; 
-    }
-
-    .character-lightbox,.trash-lightbox{
-        box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
-        border-radius:20px;
-        text-align: center;
-        background-color: #4E97CA;
-        padding:20px;
-    }
-    .character-list{
-        display:flex;
-        margin-bottom:30px;
-    }
-    .character-item{
-        width:20vw;
-        display: flex;
-        flex-direction: column;
+    
+}
+.rules-lightbox{
+    width: 90%;
+    box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
+    background-color: #4E97CA;  
+    padding:25px;
+    border-radius:20px;
+}
+.rules-content{
+    background-color: #fff;
+    padding: 20px 60px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.rules-content ol {
+    padding: 20px; 
+    list-style-type: decimal;
+}
+.character-lightbox,.trash-lightbox{
+    width: 90%;
+    box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
+    border-radius:20px;
+    text-align: center;
+    background-color: #4E97CA;
+    padding:20px;
+}
+.character-list{
+    margin:30px 0;
+}
+.character-item{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    border-radius:20px;
+    margin: 0 10px;
+}
+.character-select-list {
+    display: flex;
+    justify-content: center;
+    .character-select {
         background-color: #fff;
-        border:1px solid #333;
-        margin:0 10px;
         border-radius:20px;
+        padding: 0 20px;
+        margin: 30px 0;
     }
-    .character-pic,.trash-pic img{
-        width: 100%;
-        vertical-align: top;
-        object-position:50% 50%;
-        object-fit: cover;
-        overflow: hidden;
+}
+.character-name {
+    margin-bottom: 10px;
+}
+.character-pic img{
+    width: 100%;
+    vertical-align: top;
+}
+.trash-pic {
+    width: 150px;
+    height: 150px;
+    background-color: #fff;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    img {
+        width: 120px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
-    .trash-lightbox{
-       width:70%;
-    }
-    .trash-item{
-        width:20vw;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .trash-text{
-        color:#fff;
-    }
-   
+}
