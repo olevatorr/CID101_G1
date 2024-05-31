@@ -35,12 +35,12 @@
   background-color: $color-primary;
   text-align: center;
 
-  .sloagn1 {
-    margin-bottom: 30px;
-  }
-
-  .sloagn2 {
-    margin-bottom: 30px;
+  .sloagn {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 10px 0;
+    color: #fff;
   }
 }
 
@@ -92,7 +92,7 @@
   text-align: center;
 
   .menu .choose {
-    width: 100%;
+    width: 50%;
     border-radius: 0;
     margin-bottom: 30px;
     padding: 5px 10px;
@@ -173,9 +173,6 @@
     color: #fff;
     transition: .3s ease;
     cursor: pointer;
-    .pic img{
-      // transform: scale(2);
-    }
     .addnew i {
       color: #fff;
     }
@@ -295,28 +292,26 @@
         flex-grow: 1;
       }
     }
+    h3 {
+      margin-bottom: 30px;
+    }
+  
+    p {
+      margin-bottom: 30px;
+    }
   }
-
-  h3 {
-    margin-bottom: 30px;
-  }
-
-  p {
-    margin-bottom: 30px;
-  }
-}
-
-.state {
-  text-align: center;
-
-  .stop,
-  .full,
-  .end {
-    display: none;
-  }
-
-  .now {
-    width: 50%;
+  .state {
+    text-align: center;
+  
+    .stop,
+    .full,
+    .end {
+      display: none;
+    }
+  
+    .now {
+      width: 50%;
+    }
   }
 }
 
@@ -427,4 +422,48 @@
   width: 100%;
   text-align: center;
 }
+}
+//section-examine
+.section-examine {
+  .CancelBtn{
+    text-align: right;
+    margin: 10px 0;
+    span{
+      font-size: 2rem;
+      color: #b6b6b6;
+      display: inline-block;
+      cursor: pointer;
+    }
+  }
+  h2{
+    text-align: center;
+  }
+  form{
+    border: 2px solid #aaf;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .box{
+      width: 50%;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5rem;
+      border-bottom: 1px solid #b6b6b6;
+      label{
+        flex: 80%;
+      }
+      }
+      input[type="checkbox"]{
+        flex: 20%;
+        width: 20px;
+        height: 20px;
+        accent-color: #000;
+    }
+    button{
+      width: 35%;
+      margin: 30px 0;
+    }
+  }
 }

@@ -52,11 +52,47 @@ const router = createRouter({
       name: 'productinfo',
       component: () => import('../views/ProductinfoView.vue')
     },
+    // {
+    //   path: '/news',
+    //   name: 'news',
+    //   component: () => import('../views/NewsView.vue')
+    // },
     {
+<<<<<<< HEAD
       path: '/ProfileView',
       name: 'ProfileView',
       component: () => import('../views/ProfileView.vue')
     },
+=======
+      path: '/beachgame',
+      name: 'beachgame',
+      component: () => import('../views/BeachgameView.vue')
+    },
+    {
+      path: '/mbti',
+      name: 'mbti',
+      component: () => import('../views/MbtiView.vue')
+    },
+    {
+      path: '/mallcart',
+      name: 'mallcart',
+      component: () => import('../views/MallcartView.vue')
+    },
+    {
+      path: '/news',
+      name: 'news',
+      component: () => import('../views/NewsView.vue')
+    },
+    { path: '/Donate',
+      name: 'Donate',
+      component: () => import('../views/DonateView.vue')
+    },
+    {
+      path: '/newspage',
+      name: 'newspage',
+      component: () => import('../views/Newspage.vue')
+    }
+>>>>>>> 64637d9826afda1f71f6ddd757b1a3d2e52fd44d
   ]
 })
 
