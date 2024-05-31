@@ -17,7 +17,7 @@
                             <input type="password" name="" id="" placeholder="請輸入密碼">
                         </div>
                         <div class="member-button">
-                            <button>&emsp;&emsp;登入&emsp;&emsp;</button>
+                            <RouterLink to="/ProfileView"><button>&emsp;&emsp;登入&emsp;&emsp;</button></RouterLink>
                             <button class="member-btn">
                                 <RouterLink to="/RegisterView">加入會員</RouterLink>
                             </button>

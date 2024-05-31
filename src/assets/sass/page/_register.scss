@@ -5,35 +5,39 @@
 .section.section-register .container{ 
     --gap: 0;
 }
-.register-txt{
+.register-login{
+    text-align: center;
+    background-color: $color-white;
+    margin: 6rem auto;
+}
+.register-box{
     display: flex;
     justify-content: center;
+    align-items: center;
+
 }
 .register-box-img{
     position: relative;
-    margin: 7rem 0;
-    font-size: 0px;
+    font-size: 0;
     img{
         width: 100%;
+        max-height: 70rem;
+ 
     }
 }
-.register-login {
-    padding: 6rem 0 0 0;
-    margin: 7rem 0;
-    text-align: center;
-    background-color: $color-white;
-}
 .register-logo-box {
-    
     img,span{
         position: absolute;
-        width: 40%;
         top: 30%;
         left: 30%;
+        
+    }
+    img{
+        width: 40%;
     }
     span{
         left: 25%;
-        padding-top: 22rem;
+        padding-top: 35%;
         color: $color-white;
         font-size: 2rem;
         display: inline-block;
@@ -41,7 +45,6 @@
 }
 .from-group {
     margin-bottom: 2rem;
-    
 }
 .from-group label{
     font-size: 1.8rem;
@@ -154,5 +157,6 @@
     .register-login{
         background-color: unset;
     }
+
 
 }

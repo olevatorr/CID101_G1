@@ -3,25 +3,23 @@
     background-size: cover;
 }
 
-.foget-box {
-    position: relative;
-}
-
-.foget-img img {
-    margin: 10rem 0;
-    width: 100%;
-}
-
 .foget-txt {
-    position: absolute;
-    top: 40%;
-    left: 36%;
+    background-color: $color-white;
+    margin: 5rem auto;
     text-align: center;
+    h1{
+        padding-top: 5rem;
+    }
+    button{
+        padding-bottom: 5rem;
+    }
+}
+.input-ch2 label, .input-ch3 label{
+padding-left: 2rem;
 }
 
-.foget-txt .form-group {
-    margin: 10px 0;
-    width: 100%;
+.form-group {
+    margin: 1rem 0;
 }
 
 
@@ -35,7 +33,6 @@
     outline: none;
     height: 4rem;
     max-width: 20rem;
-    margin-right: 20px;
 }
 
 
@@ -60,31 +57,35 @@ input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+@media screen and (max-width: 768px) {
 
+    .foget-txt label {
+        font-size: 1.8rem;
+    }
+}
 @media screen and (max-width: 576px) {
+    .section-foget .container{
+        --gap:0;
+    }
     
     .section-foget {
-        background-size: unset;
-        background-position: right;
+        background-position: top ;
     }
-
-    .foget-img {
-        display: none;
-    }
-
     .foget-txt {
+        margin: 4rem auto;
         height: 60rem;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        position: unset;
+        background-color: unset;
+        h1{
+            padding-top: 0;
+        }
+        button{
+            margin: 7rem auto
+        }
 
     }
-
-    .foget-txt .form-group {
-        align-items: center;
-    }
-
     .input-ch1 input:first-of-type {
         margin-left: .5rem;
     }
@@ -108,13 +109,3 @@ input[type="number"]::-webkit-inner-spin-button {
     }
 }
 
-@media screen and (max-width: 768px) {
-    .foget-txt {
-        top: 30%;
-        left: 28%;
-    }
-
-    .foget-txt label {
-        font-size: 1.6rem;
-    }
-}
