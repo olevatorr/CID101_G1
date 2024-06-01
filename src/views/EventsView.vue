@@ -13,7 +13,7 @@
     <div class="container">
       <div class="sloagn">
         <h2 class="ori">為保護大自然盡份心力，美麗的海洋，守護有你有我!</h2>
-      <button class="fast-signup">一鍵報名</button>
+        <button class="fast-signup">會員一鍵報名</button>
       </div>
     </div>
   </section>
@@ -86,182 +86,27 @@
         </select>
       </div>
       <div class="row">
-        <div class="col-12 col-md-6 col-lg-3">
+        <div class="col-12 col-md-6 col-lg-3" v-for="card in sectionEvents" :key="card">
           <div class="event-card">
             <div class="text">
-              <h3>北海岸環保淨灘行動</h3>
-              <p>新北市漁人碼頭</p>
-              <p>活動日期：2024年6月15日</p>
-              <p>截止日期：2024年6月10日</p>
+              <h3>{{ card.title }}</h3>
+              <p>{{ card.place }}</p>
+              <p>{{ card.date }}</p>
+              <p>{{ card.Deadline }}</p>
             </div>
             <div class="pic">
-              <img src="https://picsum.photos/300/200/?random=10" />
+              <img :src=card.imageUrl />
             </div>
             <div class="addnew">
-              <span>報名人數：100/150</span>
+              <span>{{ card.people }}</span>
               <i class="fa-solid fa-user-plus"></i>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-3">
-          <div class="event-card">
-            <div class="text">
-              <h3 class="theme">北海岸環保淨灘行動</h3>
-              <p class="place">新北市漁人碼頭</p>
-              <p>活動日期：2024年6月15日</p>
-              <p>截止日期：2024年6月10日</p>
-            </div>
-            <div class="pic">
-              <img src="https://picsum.photos/300/200/?random=10" />
-            </div>
-            <div class="addnew">
-              <span>報名人數：100/150</span>
-              <a href="#"><i class="fa-solid fa-user-plus"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-3">
-          <div class="event-card">
-            <div class="text">
-              <h3 class="theme">北海岸環保淨灘行動</h3>
-              <p class="place">新北市漁人碼頭</p>
-              <p>活動日期：2024年6月15日</p>
-              <p>截止日期：2024年6月10日</p>
-            </div>
-            <div class="pic">
-              <img src="https://picsum.photos/300/200/?random=10" />
-            </div>
-            <div class="addnew">
-              <span>報名人數：100/150</span>
-              <a href="#"><i class="fa-solid fa-user-plus"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-3">
-          <div class="event-card">
-            <div class="text">
-              <h3 class="theme">北海岸環保淨灘行動</h3>
-              <p class="place">新北市漁人碼頭</p>
-              <p>活動日期：2024年6月15日</p>
-              <p>截止日期：2024年6月10日</p>
-            </div>
-            <div class="pic">
-              <img src="https://picsum.photos/300/200/?random=10" />
-            </div>
-            <div class="addnew">
-              <span>報名人數：100/150</span>
-              <a href="#"><i class="fa-solid fa-user-plus"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-3">
-          <div class="event-card">
-            <div class="text">
-              <h3 class="theme">北海岸環保淨灘行動</h3>
-              <p class="place">新北市漁人碼頭</p>
-              <p>活動日期：2024年6月15日</p>
-              <p>截止日期：2024年6月10日</p>
-            </div>
-            <div class="pic">
-              <img src="https://picsum.photos/300/200/?random=10" />
-            </div>
-            <div class="addnew">
-              <span>報名人數：100/150</span>
-              <a href="#"><i class="fa-solid fa-user-plus"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-3">
-          <div class="event-card">
-            <div class="text">
-              <h3 class="theme">北海岸環保淨灘行動</h3>
-              <p class="place">新北市漁人碼頭</p>
-              <p>活動日期：2024年6月15日</p>
-              <p>截止日期：2024年6月10日</p>
-            </div>
-            <div class="pic">
-              <img src="https://picsum.photos/300/200/?random=10" />
-            </div>
-            <div class="addnew">
-              <span>報名人數：100/150</span>
-              <a href="#"><i class="fa-solid fa-user-plus"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-3">
-          <div class="event-card">
-            <div class="text">
-              <h3 class="theme">北海岸環保淨灘行動</h3>
-              <p class="place">新北市漁人碼頭</p>
-              <p>活動日期：2024年6月15日</p>
-              <p>截止日期：2024年6月10日</p>
-            </div>
-            <div class="pic">
-              <img src="https://picsum.photos/300/200/?random=10" />
-            </div>
-            <div class="addnew">
-              <span>報名人數：100/150</span>
-              <a href="#"><i class="fa-solid fa-user-plus"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-3">
-          <div class="event-card">
-            <div class="text">
-              <h3 class="theme">北海岸環保淨灘行動</h3>
-              <p class="place">新北市漁人碼頭</p>
-              <p>活動日期：2024年6月15日</p>
-              <p>截止日期：2024年6月10日</p>
-            </div>
-            <div class="pic">
-              <img src="https://picsum.photos/300/200/?random=10" />
-            </div>
-            <div class="addnew">
-              <span>報名人數：100/150</span>
-              <a href="#"><i class="fa-solid fa-user-plus"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-3">
-          <div class="event-card">
-            <div class="text">
-              <h3 class="theme">北海岸環保淨灘行動</h3>
-              <p class="place">新北市漁人碼頭</p>
-              <p>活動日期：2024年6月15日</p>
-              <p>截止日期：2024年6月10日</p>
-            </div>
-            <div class="pic">
-              <img src="https://picsum.photos/300/200/?random=10" />
-            </div>
-            <div class="addnew">
-              <span>報名人數：100/150</span>
-              <a href="#"><i class="fa-solid fa-user-plus"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-3">
-          <div class="event-card">
-            <div class="text">
-              <h3 class="theme">北海岸環保淨灘行動</h3>
-              <p class="place">新北市漁人碼頭</p>
-              <p>活動日期：2024年6月15日</p>
-              <p>截止日期：2024年6月10日</p>
-            </div>
-            <div class="pic">
-              <img src="https://picsum.photos/300/200/?random=10" />
-            </div>
-            <div class="addnew">
-              <span>報名人數：100/150</span>
-              <a href="#"><i class="fa-solid fa-user-plus"></i></a>
             </div>
           </div>
         </div>
       </div>
       <div class="pagenumber">
-        <a href="#">1</a>
-        <a href="#">2</a>
-        <a href="#">3</a>
-        <a href="#">4</a>
+        <a href="#" v-for="pageNumber in computedTotalPages" :key="pageNumber" @click="goToPage(pageNumber)">{{
+          pageNumber }}</a>
       </div>
     </div>
   </section>
@@ -269,26 +114,26 @@
     <h2>活動分享</h2>
     <div class="container">
       <div class="row">
-        <div class="col-12 col-md-6 col-lg-3" v-for="(event, index) in events" :key="index">
+        <div class="col-12 col-md-6 col-lg-3" v-for="card in sectionShare" :key="card">
           <div class="event-card">
             <div class="pic">
-              <img :src="event.imageUrl"/>
+              <img :src="card.imageUrl" />
             </div>
             <div class="text">
               <div class="theme">
                 <div class="event-name">
-                  <h3>{{ event.name }}</h3>
+                  <h3>{{ card.name }}</h3>
                 </div>
                 <div class="report">
-                  <i class="fa-solid fa-circle-exclamation"></i
-                  >
+                  <i class="fa-solid fa-circle-exclamation"></i>
                 </div>
               </div>
-              <span>活動地點：{{ event.location }}</span>
-              <span>活動日期：{{ event.date }}</span>
-              <span>分享人：{{ event.speaker }}</span>
+              <span>{{ card.place }}</span>
+              <span>{{ card.date }}</span>
+              <span>{{ card.share }}</span>
+              <span>{{ card.exp }}</span>
               <p class="Thoughts">
-                {{ event.thoughts }}
+                {{ card.thoughts }}
                 <a href="#">閱讀更多</a>
               </p>
             </div>
@@ -296,7 +141,8 @@
         </div>
       </div>
       <div class="pagenumber">
-        <a href="#" v-for="pageNumber in totalPages" :key="pageNumber">{{ pageNumber  }}</a>
+        <a href="#" v-for="pageNumber in computedTotalPages" :key="pageNumber" @click="goToPage(pageNumber)">{{
+          pageNumber }}</a>
       </div>
       <div class="sharebtn">
         <button>活動分享</button>
@@ -406,96 +252,118 @@
   <section class="section-upload">
     <div class="container">
       <div class="upload">
-      <h2>活動分享</h2>
-      <div class="close">
-        <i class="fa-regular fa-circle-xmark"></i>
-      </div>
-    </div>
-    <form>
-      <div class="box box-1">
-        <label>活動場次</label>
-        <select>
-          <option value="">北海岸愛地球淨灘活動</option>
-          <option value="">南台灣海岸清潔行動</option>
-          <option value="">東海岸守護者淨灘</option>
-        </select>
-      </div>
-      <div class="box box-2">
-        <label>活動日期</label>
-        <input type="date" name="" id="" />
-      </div>
-      <div class="box box-3">
-        <label>活動地點</label>
-        <span>淡水漁人碼頭</span>
-      </div>
-      <div class="box box-4">
-        <label>分享人</label>
-        <span>林小美</span>
-      </div>
-      <div class="box box-5">
-        <label>活動圖片</label>
-        <input type="file" name="" id="" />
-      </div>
-      <div class="box box-6">
-        <label>活動心得</label>
-        <div class="Experience">
-          <span>限100字</span>
-          <textarea placeholder="請輸入文字內容"></textarea>
+        <h2>活動分享</h2>
+        <div class="close">
+          <i class="fa-regular fa-circle-xmark"></i>
         </div>
       </div>
-    </form>
-    <div class="shareBtn">
-      <button>活動分享</button>
-    </div>
+      <form>
+        <div class="box box-1">
+          <label>活動場次</label>
+          <select>
+            <option value="">北海岸愛地球淨灘活動</option>
+            <option value="">南台灣海岸清潔行動</option>
+            <option value="">東海岸守護者淨灘</option>
+          </select>
+        </div>
+        <div class="box box-2">
+          <label>活動日期</label>
+          <input type="date" name="" id="" />
+        </div>
+        <div class="box box-3">
+          <label>活動地點</label>
+          <span>根據場次自動帶入</span>
+        </div>
+        <div class="box box-4">
+          <label>分享人</label>
+          <span>系統自動帶入</span>
+        </div>
+        <div class="box box-5">
+          <label>活動圖片</label>
+          <input type="file" name="" id="" />
+        </div>
+        <div class="box box-6">
+          <label>活動心得</label>
+          <div class="Experience">
+            <span>限100字</span>
+            <textarea rows="10" placeholder="請輸入文字內容"></textarea>
+          </div>
+        </div>
+      </form>
+      <div class="shareBtn">
+        <button>活動分享</button>
+      </div>
     </div>
   </section>
   <section class="section section-examine">
     <div class="container">
       <div class="CancelBtn">
-      <span>取消</span>
+        <span>取消</span>
+      </div>
+      <h2>您檢舉此文章的理由是?</h2>
+      <form>
+        <div class="box">
+          <label>仇恨言論或歧視</label>
+          <input type="checkbox" name="" id="">
+        </div>
+        <div class="box">
+          <label>侵犯隱私</label>
+          <input type="checkbox" name="" id="">
+        </div>
+        <div class="box">
+          <label>暴力或威脅</label>
+          <input type="checkbox" name="" id="">
+        </div>
+        <div class="box">
+          <label>騷擾或霸凌</label>
+          <input type="checkbox" name="" id="">
+        </div>
+        <div class="box">
+          <label>虛假信息或誤導信息</label>
+          <input type="checkbox" name="" id="">
+        </div>
+        <div class="box">
+          <label>色情或不當內容</label>
+          <input type="checkbox" name="" id="">
+        </div>
+        <div class="box">
+          <label>非法活動</label>
+          <input type="checkbox" name="" id="">
+        </div>
+        <div class="box">
+          <label>垃圾信息或廣告</label>
+          <input type="checkbox" name="" id="">
+        </div>
+        <button>送出</button>
+      </form>
     </div>
-    <h2>您檢舉此文章的理由是?</h2>
-    <form>
-      <div class="box">
-        <label>仇恨言論或歧視</label>
-        <input type="checkbox" name="" id="">
+  </section>
+  <section class="section section-detailed">
+    <div class="container">
+      <div class="detailed-wrap">
+        <div class="close">
+          <i class="fa-regular fa-circle-xmark"></i>
+        </div>
+        <div class="pic">
+          <img src="https://picsum.photos/300/200/?random=21">
+        </div>
+        <div class="text" v-for="card in detailed" :key="card">
+          <div class="report">
+            <i class="fa-solid fa-circle-exclamation"></i>
+          </div>
+          <h3>{{ card.title }}</h3>
+          <p>{{ card.place }}</p>
+          <p>{{ card.date }}</p>
+          <p>{{ card.share }}</p>
+          <p>{{ card.experience }}</p>
+        </div>
       </div>
-      <div class="box">
-        <label>侵犯隱私</label>
-        <input type="checkbox" name="" id="">
-      </div>
-      <div class="box">
-        <label>暴力或威脅</label>
-        <input type="checkbox" name="" id="">
-      </div>
-      <div class="box">
-        <label>騷擾或霸凌</label>
-        <input type="checkbox" name="" id="">
-      </div>
-      <div class="box">
-        <label>虛假信息或誤導信息</label>
-        <input type="checkbox" name="" id="">
-      </div>
-      <div class="box">
-        <label>色情或不當內容</label>
-        <input type="checkbox" name="" id="">
-      </div>
-      <div class="box">
-        <label>非法活動</label>
-        <input type="checkbox" name="" id="">
-      </div>
-      <div class="box">
-        <label>垃圾信息或廣告</label>
-        <input type="checkbox" name="" id="">
-      </div>
-      <button>送出</button>
-    </form>
     </div>
   </section>
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, computed } from 'vue'
 import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
@@ -525,7 +393,7 @@ export default defineComponent({
         {
           title: 'Time Event',
           start: '2024-05-29 00:00:00',
-          end:   '2024-06-10 24:00:00'
+          end: '2024-06-10 24:00:00'
         }
       ],
       eventClick: function (info) {
@@ -541,102 +409,66 @@ export default defineComponent({
         })
       },
       plugins: [dayGridPlugin, timeGridPlugin]
-      })
-      //event-share v-for
-      const events = ref([
-      {
-        name: '北海岸愛地球淨灘活動',
-        location: '新北市淡水區漁人碼頭',
-        date: '2024年6月15日',
-        speaker: '林小美',
-        thoughts: '這次活動讓我深刻體會到海洋保護的重要性。看到大家一起努力...',
-        imageUrl: '../../public/img/event/event_01.jpg'
-      },
-      {
-        name: '北海岸愛地球淨灘活動',
-        location: '新北市淡水區漁人碼頭',
-        date: '2024年6月15日',
-        speaker: '林小美',
-        thoughts: '這次活動讓我深刻體會到海洋保護的重要性。看到大家一起努力...',
-        imageUrl: '../../public/img/event/event_01.jpg'
-      },
-      {
-        name: '北海岸愛地球淨灘活動',
-        location: '新北市淡水區漁人碼頭',
-        date: '2024年6月15日',
-        speaker: '林小美',
-        thoughts: '這次活動讓我深刻體會到海洋保護的重要性。看到大家一起努力...',
-        imageUrl: '../../public/img/event/event_01.jpg'
-      },
-      {
-        name: '北海岸愛地球淨灘活動',
-        location: '新北市淡水區漁人碼頭',
-        date: '2024年6月15日',
-        speaker: '林小美',
-        thoughts: '這次活動讓我深刻體會到海洋保護的重要性。看到大家一起努力...',
-        imageUrl: '../../public/img/event/event_01.jpg'
-      },
-      {
-        name: '北海岸愛地球淨灘活動',
-        location: '新北市淡水區漁人碼頭',
-        date: '2024年6月15日',
-        speaker: '林小美',
-        thoughts: '這次活動讓我深刻體會到海洋保護的重要性。看到大家一起努力...',
-        imageUrl: '../../public/img/event/event_01.jpg'
-      },
-      {
-        name: '北海岸愛地球淨灘活動',
-        location: '新北市淡水區漁人碼頭',
-        date: '2024年6月15日',
-        speaker: '林小美',
-        thoughts: '這次活動讓我深刻體會到海洋保護的重要性。看到大家一起努力...',
-        imageUrl: '../../public/img/event/event_01.jpg'
-      },
-      {
-        name: '北海岸愛地球淨灘活動',
-        location: '新北市淡水區漁人碼頭',
-        date: '2024年6月15日',
-        speaker: '林小美',
-        thoughts: '這次活動讓我深刻體會到海洋保護的重要性。看到大家一起努力...',
-        imageUrl: '../../public/img/event/event_01.jpg'
-      },
-      {
-        name: '北海岸愛地球淨灘活動',
-        location: '新北市淡水區漁人碼頭',
-        date: '2024年6月15日',
-        speaker: '林小美',
-        thoughts: '這次活動讓我深刻體會到海洋保護的重要性。看到大家一起努力...',
-        imageUrl: '../../public/img/event/event_01.jpg'
-      },
-      {
-        name: '北海岸愛地球淨灘活動',
-        location: '新北市淡水區漁人碼頭',
-        date: '2024年6月15日',
-        speaker: '林小美',
-        thoughts: '這次活動讓我深刻體會到海洋保護的重要性。看到大家一起努力...',
-        imageUrl: '../../public/img/event/event_01.jpg'
-      },
-      {
-        name: '北海岸愛地球淨灘活動',
-        location: '新北市淡水區漁人碼頭',
-        date: '2024年6月15日',
-        speaker: '林小美',
-        thoughts: '這次活動讓我深刻體會到海洋保護的重要性。看到大家一起努力...',
-        imageUrl: '../../public/img/event/event_01.jpg'
+    });
+
+    //定義生成卡片數據的方法
+    const generateCards = (numCards) => {
+      const cards = [];
+      for (let i = 1; i <= numCards; i++) {
+        cards.push({
+          title: '北海岸環保淨灘行動',
+          place: '活動地點：新北市漁人碼頭',
+          date: '活動日期：2024年6月15日',
+          Deadline: '截止日期：2024年6月10日',
+          imageUrl: 'https://picsum.photos/300/200/?random=' + i,
+          people: '報名人數：100/150',
+          share: '分享人：林小美',
+          exp: '北海岸環保淨灘行動給我留下了深刻的印象。在參與這項活動的過程中，我意識到海岸線上的垃圾對我們的環境造成了嚴重的影響。我們小組一起穿上手套，拿著垃圾袋，開始清理海灘上的垃圾。...',
+          experience: '北海岸環保淨灘行動給我留下了深刻的印象。在參與這項活動的過程中，我意識到海岸線上的垃圾對我們的環境造成了嚴重的影響。我們小組一起穿上手套，拿著垃圾袋，開始清理海灘上的垃圾。這不僅是一次環保行動，更是一次團隊合作的體驗。我們一邊聊天笑著，一邊清理著海灘，不知不覺中收穫了友誼與愉快。這次活動讓我更加深刻地理解了垃圾對海洋生態的破壞。我們捡到的塑料袋、瓶子，甚至是一些微小的塑料碎片，都可能對海洋生物造成威脅。這使我更加堅定了自己保護環境的決心，我也將會積極參與更多類似的環保活動。此外，這次淨灘活動也讓我認識到了社區的重要性。只有當我們齊心協力，才能真正改變我們周圍的環境。我們每個人都應該有責任保護我們珍貴的大自然，讓我們的子孫後代也能夠享受美麗的自然風景。感謝這次活動讓我有機會深刻體驗到這一點。'
+        });
       }
-    ]);
-    //pagenumber
-    const itemsPerPage = 3;
-    const totalPages = Math.ceil(events.value.length / itemsPerPage)
-    
+      return cards;
+    };
+
+    // 分別生成不同數量的卡片
+    const sectionEvents = ref(generateCards(16));
+    const sectionShare = ref(generateCards(4));
+    const detailed = ref(generateCards(1));
+
+    // 活動列表(每頁限制16張卡片)
+    const cardsPerPage = 16;
+    const computedTotalPages = computed(() => {
+      return Math.ceil(sectionEvents.value.length / cardsPerPage);
+    });
+
+    //活動分享(每頁限制四張卡片)
+    const cardsshare = 4;
+    const computedTotalPagesSectionShare = computed(() => {
+      return Math.ceil(sectionShare.value.length / cardsshare);
+    });
+
+    //活動列表數量超出條件時新增一頁
+    // const addNewPageForEvents = () => {
+    //   sectionEvents.value = sectionEvents.value.concat(generateCards(cardsPerPage));
+    // };
+    //活動分享數量超出條件時新增一頁
+    // const addNewPageForShare = () => {
+    //   sectionShare.value = sectionShare.value.concat(generateCards(cardsPerShare));
+    // };
+
     return {
       calendarOptions,
-      events,
-      totalPages
+      computedTotalPages,
+      sectionEvents,
+      sectionShare,
+      computedTotalPagesSectionShare,
+      detailed
     }
   },
   components: {
     FullCalendar
   },
+
+
 })
 </script>
