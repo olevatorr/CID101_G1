@@ -204,10 +204,6 @@ section {
     position: relative;
     width: 75%;
     height: 75%;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
 }
 
 .lightbox img {
@@ -222,7 +218,7 @@ section {
     right: 0px;
     font-size: 20px;
     color: rgb(255, 255, 255);
-    // cursor: pointer;
+    cursor: pointer;
     padding: 5px 10px;
 }
 
@@ -233,11 +229,13 @@ section {
     width: 100%;
 }
 
+.image-container:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s;
+}
+
 .card-c {
     cursor: pointer;
 }
 
-.close {
-    cursor: pointer;
-}
 // --------------------------------------------
