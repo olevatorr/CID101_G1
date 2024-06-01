@@ -38,18 +38,20 @@
 
 }
 
-.section-data{
+.section-data {
     background-color: #fff;
-    .button-area{
+
+    .button-area {
         margin-left: -3px;
-        button{
+
+        button {
             margin: 1px;
         }
 
-    } 
+    }
 }
 
-.news-filter select {   
+.news-filter select {
     background: #E7A600;
     color: #ffffff;
     margin-top: 10px;
@@ -57,113 +59,185 @@
     height: 3em;
     padding: 10px;
     border: none;
-    // appearance: none;
-    // -moz-appearance: none;
-     // -webkit-appearance: none;
 }
 
-section{
+section {
     background-color: #fff;
-    .card-data{
-        h3{
+
+    .card-data {
+        h3 {
             margin: 20px auto;
             text-align: center;
         }
+
         .span-flex {
             display: flex;
             justify-content: center;
             margin: 10px auto;
-            span{
+
+            span {
                 display: flex;
-            .red-box{
-                margin: auto 5px;
-                width: 35px;
-                height: 10px;
-                background: #D35656;
+
+                .red-box {
+                    margin: auto 5px;
+                    width: 35px;
+                    height: 10px;
+                    background: #D35656;
                 }
-            .blue-box{
-                margin: auto 5px;
-                width: 35px;
-                height: 10px;
-                background: #2F80DE;
+
+                .blue-box {
+                    margin: auto 5px;
+                    width: 35px;
+                    height: 10px;
+                    background: #2F80DE;
                 }
             }
         }
     }
 }
 
-.section  .flex{
+.section .flex {
     display: flex;
-    .card-type{
+
+    .card-type {
         display: flex;
         align-self: flex-end;
-        .p-type{
+
+        .p-type {
             margin: 10px;
-            .color-box{
-            display: flex;
-            .blue-box{
-                width: 35px;
-                height: 10px;
-                background: #00ADF3;
-                margin: auto 5px ;
-            }
-            .yellow-box{
-                width: 35px;
-                height: 10px;
-                background: #E7A600;
-                margin: auto 5px;
-            }
-            .red-box{
-                width: 35px;
-                height: 10px;
-                background: #D35656;
-                margin: auto 5px ;
-            }
+
+            .color-box {
+                display: flex;
+
+                .blue-box {
+                    width: 35px;
+                    height: 10px;
+                    background: #00ADF3;
+                    margin: auto 5px;
+                }
+
+                .yellow-box {
+                    width: 35px;
+                    height: 10px;
+                    background: #E7A600;
+                    margin: auto 5px;
+                }
+
+                .red-box {
+                    width: 35px;
+                    height: 10px;
+                    background: #D35656;
+                    margin: auto 5px;
+                }
             }
         }
     }
 }
 
-.trash-card{
-        text-align: center;
+.trash-card {
+    text-align: center;
 }
 
-.section-knowledge{
-    h2{
+.section-knowledge {
+    h2 {
         text-align: center;
     }
-    .card-c{
+
+    .card-c {
         margin: 0 auto;
     }
 
 }
 
-.section-game{
+.section-game {
     text-align: center;
-    a{
-        color:#000;
+
+    a {
+        color: #000;
     }
-    .card{
+
+    .card {
         margin: 40px;
         padding: 20px;
         text-align: center;
         box-shadow: 0 0 6.5px 3px #00000030;
+
         .card-content {
             display: flex;
             flex-direction: column;
             margin: auto;
+
             h3 {
                 margin: 20px 0;
             }
         }
+
         img {
             width: 100%;
             vertical-align: top;
         }
-        a{
+
+        a {
             color: #fff;
             font-weight: 700;
             // text-decoration: none;
         }
     }
 }
+
+// --------------------------------------------  LIGHTBOX
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.lightbox-content {
+    background: white;
+    position: relative;
+    width: 75%;
+    height: 75%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.lightbox img {
+    width: 100%;
+    height: 75%;
+    object-fit: cover;
+}
+
+.close {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    // cursor: pointer;
+    padding: 5px 10px;
+}
+
+.image-caption {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.card-c {
+    cursor: pointer;
+}
+
+.close {
+    cursor: pointer;
+}
+// --------------------------------------------

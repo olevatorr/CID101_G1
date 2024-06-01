@@ -40,11 +40,10 @@
         </div>
         <div class="col-12 col-md-6">
           <div class="button button-area">
-            <button>北部</button>
-            <button>中部</button>
-            <button>南部</button>
-            <button>東部</button>
-            <button>離島</button>
+            <button>水質</button>
+            <button>懸浮粒子</button>
+            <button>垃圾總量</button>
+            <button>還在找</button>
           </div>
           <div class="news-filter">
             <select name="name" id="">
@@ -118,12 +117,28 @@
     <div class="container">
       <h2>海廢知識庫</h2>
       <div class="row">
-        <div class="card-c  col-sm-5 col-lg-3 " v-for="card in cards" :key="card.imgSrc">
+        <div
+          class="card-c col-sm-5 col-lg-3 image-container"
+          v-for="(card, index) in cards"
+          :key="card.imgSrc"
+          @click="showLightbox(index)"
+        >
           <div class="card">
-            <img :src="card.imgSrc" class="card-img-top" alt="">
+            <img :src="card.imgSrc" class="card-img-top" alt="" />
             <div class="card-body">
               <h5 class="card-title">{{ card.title }}</h5>
               <p class="card-text">{{ card.description }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div v-if="showLightboxModal" class="lightbox">
+          <div class="lightbox-content">
+            <span class="close" @click="closeLightbox"><i class="fa-regular fa-circle-xmark"></i></span>
+            <img :src="cards[currentIndex].imgSrc" :alt="cards[currentIndex].title" />
+            <div class="image-caption">
+              <h5>{{ cards[currentIndex].title }}</h5>
+              <p>{{ cards[currentIndex].description }}</p>
             </div>
           </div>
         </div>
@@ -143,7 +158,7 @@
               <div class="card-content col-12 col-md-6">
                 <h3>海廢小遊戲</h3>
                 <p>
-                通過我們設計的海廢小遊戲，您可以在遊戲中學習如何識別和處理海洋垃圾，並體驗保護海洋的樂趣。這些遊戲不僅適合兒童，也能吸引成年人參與其中。
+                  通過我們設計的海廢小遊戲，您可以在遊戲中學習如何識別和處理海洋垃圾，並體驗保護海洋的樂趣。這些遊戲不僅適合兒童，也能吸引成年人參與其中。
                 </p>
               </div>
               <div class="card-content col-12 col-md-3">
@@ -175,15 +190,37 @@
 </template>
 
 <script>
+import { ref } from 'vue'
+
 export default {
   data() {
     return {
       cards: Array.from({ length: 16 }, (_, index) => ({
         imgSrc: `https://picsum.photos/280/150/?random=${index + 1}`,
         title: '海洋動物調查',
-        description: '保護海洋不僅是一個環保問題，更是一個全球性'
+        description: '鯨魚是世界上最大的動物，最大的藍鯨可以達到30米長，重達180噸。鯨魚分為齒鯨和鬚鯨兩類，齒鯨如虎鯨，捕食魚類和其他海洋動物；鬚鯨則過濾大量浮游生物和小魚來獲取食物。'.slice(0, 20) // 只顯示前20個字
       }))
     }
-  }
+  },
+  setup() {
+    const showLightboxModal = ref(false)
+    const currentIndex = ref(null)
+
+    const showLightbox = (index) => {
+      showLightboxModal.value = true
+      currentIndex.value = index
+    }
+
+    const closeLightbox = () => {
+      showLightboxModal.value = false
+    }
+
+    return {
+      showLightboxModal,
+      currentIndex,
+      showLightbox,
+      closeLightbox,
+    }
+  },
 }
 </script>
