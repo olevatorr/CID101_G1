@@ -52,18 +52,12 @@ const router = createRouter({
       name: 'productinfo',
       component: () => import('../views/ProductinfoView.vue')
     },
-    // {
-    //   path: '/news',
-    //   name: 'news',
-    //   component: () => import('../views/NewsView.vue')
-    // },
     {
-<<<<<<< HEAD
       path: '/ProfileView',
       name: 'ProfileView',
       component: () => import('../views/ProfileView.vue')
     },
-=======
+    {
       path: '/beachgame',
       name: 'beachgame',
       component: () => import('../views/BeachgameView.vue')
@@ -83,7 +77,8 @@ const router = createRouter({
       name: 'news',
       component: () => import('../views/NewsView.vue')
     },
-    { path: '/Donate',
+    { 
+      path: '/Donate',
       name: 'Donate',
       component: () => import('../views/DonateView.vue')
     },
@@ -92,7 +87,6 @@ const router = createRouter({
       name: 'newspage',
       component: () => import('../views/Newspage.vue')
     }
->>>>>>> 64637d9826afda1f71f6ddd757b1a3d2e52fd44d
   ]
 })
 
