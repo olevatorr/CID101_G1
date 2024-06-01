@@ -5,32 +5,39 @@
           <h1>熱心捐款</h1>
         <div class="container-left">
             <h2>用愛灌溉<br>讓海洋生生不息</h2>
-      </div>
+        </div>
+        <div class="container-donate">
+          <div class="row">
+            <div class="col-12 col-md-5">
+              <p>每一份捐助,都是一份守護<br>為海洋的永續盡一份心力</p>
+            </div>
+            <div class="col-12 col-md-7 unit-table">
+              <div
+                v-for="amount in donationAmounts"
+                :key="amount"
+                :class="{ 'selected': selectedAmount === amount }"
+                @click="selectAmount(amount)"
+              >
+              <label>
+                <input type="radio" name="unit">
+                  ${{ amount }}
+              </label>
+              </div>
+              <div class="donate-submit">
+                <div class="unit-input">
+                  <i class="fa-solid fa-dollar-sign"></i>
+                  <input type="number">
+                </div>
+                <button>捐款去</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
 <!-- ---------------------------------------------------------------捐款button- -->
     <section class="section section-donate">
-      <div class="container container-donate">
-        <div class="row">
-          <div class="flex col-md-6">
-            <p>每一份捐助,都是一份守護<br>為海洋的永續盡一份心力</p>
-            <div class="flex donation-amounts col-6">
-            <button
-              v-for="amount in donationAmounts"
-              :key="amount"
-              :class="{ 'selected': selectedAmount === amount }"
-              @click="selectAmount(amount)"
-            >
-              ${{ amount }}
-            </button>
-          </div>
-            </div>
-          <div class="donation-progress col-12">
-            <button>捐款去</button>
-          </div>
-        </div>
-      </div>
     </section>
 
 <!-- ----------------------------------------------------------------海洋故事 -->
