@@ -26,7 +26,7 @@
                             <RouterLink to="/ForgetPasswordView">忘記密碼?</RouterLink>
                         </span>
                         <p>其他登入方式</p>
-                        <a href="#"><i class="fa-brands fa-google-plus"></i></a>
+                        <a href="#"><i class="fa-brands fa-google"></i></a>
                         <a href="#"><i class="fa-brands fa-facebook"></i></a>
                         <a href="#"><i class="fa-brands fa-line"></i></a>
                     </div>

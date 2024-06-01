@@ -35,7 +35,7 @@
                 max-width: 15rem;
                 height: 15rem;
                 border-radius: 50%;
-                object-fit: contain;
+                object-fit: cover;
                 margin-bottom: 20px;
                 background-color: $color-white;
             }
@@ -97,16 +97,94 @@
                 height: 4rem;
                 
             }
-
         }
+    }
+        }
+    table {
+
+        // border-collapse:collapse;
+        background-color: $color-white;
+        font-size: 1.6rem;
+        margin: 2rem auto;
+
+        
+        tr:first-child {
+            background-color: $color-subprimary;
+        }
+        tr {
+        text-align: center;
+        border-bottom: 1px solid $color-white;
+        border-bottom: 1px solid black;
+
+
+        th {
+
+            height: 4rem;
+            vertical-align: middle;
+        }
+
+        td {
+            height: 4rem;
+            vertical-align: middle;
+        }
+        }
+    }
+    .order{
+        tr{
+            th {
+                height: 5rem;
+            }
+            td {
+                height: 5rem;
+                button.cancel{
+                    background-color:#bbb;
+                    cursor: not-allowed;
+                }
+            }
+        }
+    }
+    .registration{
+        overflow-x: auto;
+        margin: 0 auto;
+        .apply{
+            margin-bottom: 0;
+            width: 150%;
+            border-collapse: collapse;
+            tr{
+                th {
+                    height: 5rem;
+                    width: 15rem;
+                }
+                td {
+                    height: 5rem;
+                }
+            }
+        }
+    }
+    .favorite{
+        tr{
+            th {
+                height: 5rem;
+                width: 20rem;
+            }
+            td {
+                height: 5rem;
+            }
+        }
+
     }
         @media screen and (max-width: 768px) {
             .profile-txt{
-                margin-left: 0;
+                margin-left: 0
             }
         }
         @media screen and (max-width: 576px) {
-            display: block;
+            .container-profile{
+                display: block;
+            
+            table{
+                display: none;
+            }
                 .profile-box{
                     padding-bottom: 4rem;
                 }
@@ -123,7 +201,11 @@
                 }
                 .profile-txt{
                     margin-top: 0;
+                    margin-left: 0;
+                    ul li button:first-of-type{
+                        margin-right: 5rem;
+                    }
                 }
             }
+            }
         }
-}

@@ -35,7 +35,7 @@
                         <button>立即註冊</button>
                         <div class="other-login">
                             <p>其他登入方式</p>
-                            <a href="#"><i class="fa-brands fa-google-plus"></i></a>
+                            <a href="#"><i class="fa-brands fa-google"></i></a>
                             <a href="#"><i class="fa-brands fa-facebook"></i></a>
                             <a href="#"><i class="fa-brands fa-line"></i></a>
                         </div>
