@@ -1,5 +1,6 @@
 <template>
 <div id="app">
+<!-- ----------------------------------------------------------------banner -->
   <section class="section section-knowledge-banner">
     <div class="container">
       <h1 class="section">教育中心</h1>
@@ -9,7 +10,7 @@
       </p>
     </div>
   </section>
-
+<!-- ----------------------------------------------------------------什麼是海洋廢棄物？ -->
   <section class="section section-bg">
     <div class="container">
       <div class="row">
@@ -28,7 +29,7 @@
       </div>
     </div>
   </section>
-
+<!-- ----------------------------------------------------------------全台灣沿海廢棄數據 -->
   <section class="section section-data">
     <div class="container">
       <h3>全台灣沿海廢棄數據</h3>
@@ -75,7 +76,7 @@
       </div>
     </div>
   </section>
-
+<!-- ----------------------------------------------------------------垃圾種類 -->
   <section class="section">
     <div class="container">
       <div class="row">
@@ -112,7 +113,7 @@
       </div>
     </div>
   </section>
-
+<!-- ----------------------------------------------------------------海廢知識庫 -->
   <section class="section section-knowledge">
     <div class="container">
       <h2>海廢知識庫</h2>
@@ -145,7 +146,7 @@
       </div>
     </div>
   </section>
-
+<!-- ----------------------------------------------------------------小遊戲 -->
   <section class="section section-game">
     <div class="container">
       <h2>放鬆之餘，也能用有趣的方式更了解海廢</h2>

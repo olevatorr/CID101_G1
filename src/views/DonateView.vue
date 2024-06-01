@@ -1,4 +1,5 @@
 <template>
+<!-- ---------------------------------------------------------------banner- -->
     <section class="section section-banner">
       <div class="container">
           <h1>熱心捐款</h1>
@@ -8,7 +9,7 @@
       </div>
     </section>
 
-
+<!-- ---------------------------------------------------------------捐款button- -->
     <section class="section section-donate">
       <div class="container container-donate">
         <div class="row">
@@ -32,7 +33,7 @@
       </div>
     </section>
 
-
+<!-- ----------------------------------------------------------------海洋故事 -->
       <section class="section section-story">
         <div class="container container-story ">
           <div class="flex">
@@ -64,7 +65,7 @@
         </div>
       </section>
 
-
+<!-- ----------------------------------------------------------------感謝話語 -->
       <section>
         <div class="container">
           <div class="txt co1-12">
@@ -73,7 +74,7 @@
         </div>
         </div>
       </section>
-
+<!-- ----------------------------------------------------------------捐款用途 -->
       <section class="section section-donation">
         <div class="container donation-list">
           <h3>
@@ -142,7 +143,7 @@
           </div>
         </div>
       </section>
-
+<!-- ---------------------------------------------------------------- -->
 </template>
 
 <script>
