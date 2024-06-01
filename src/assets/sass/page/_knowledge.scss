@@ -1,3 +1,4 @@
+// ------------------------------------banner
 .section-knowledge-banner {
     height: 100vh;
     background: url(../public/img/knowledge/banner1.png)no-repeat 50% 50% / cover;
@@ -22,7 +23,7 @@
     }
 
 }
-
+// ------------------------------------什麼是海洋廢棄物
 .section-bg {
     background-color: #ffffff;
 
@@ -32,12 +33,13 @@
         }
     }
 
-    .trash-pic {
-        height: 100%;
+    .tr-pic {
+        img{
+            width: 100%;
+        }
     }
-
 }
-
+// ------------------------------------全台灣沿海廢棄數據
 .section-data {
     background-color: #fff;
 
@@ -60,7 +62,7 @@
     padding: 10px;
     border: none;
 }
-
+// ------------------------------------
 section {
     background-color: #fff;
 
@@ -95,7 +97,7 @@ section {
         }
     }
 }
-
+// ------------------------------------垃圾種類
 .section .flex {
     display: flex;
 
@@ -133,22 +135,38 @@ section {
         }
     }
 }
-
+// ------------------------------------基隆垃圾處理方式
 .trash-card {
     text-align: center;
 }
-
+// ------------------------------------海廢知識庫 
 .section-knowledge {
     h2 {
         text-align: center;
     }
 
+
     .card-c {
         margin: 0 auto;
+        cursor: pointer;
+
+
+        .card{
+            .pic-card{
+                position: relative;
+                overflow: hidden;
+                // width: 100%;
+                // height: 100%;
+                img{
+                    width: 100%;
+                    vertical-align: top;
+                }
+            }
+        }
     }
 
 }
-
+// ------------------------------------遊戲 
 .section-game {
     text-align: center;
 
@@ -188,8 +206,8 @@ section {
 // --------------------------------------------  LIGHTBOX
 .lightbox {
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 0px;
+    left: 0px;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.8);
@@ -214,8 +232,8 @@ section {
 
 .close {
     position: absolute;
-    top: 0px;
-    right: 0px;
+    top: 10px;
+    right: 10px;
     font-size: 20px;
     color: rgb(255, 255, 255);
     cursor: pointer;
@@ -223,19 +241,13 @@ section {
 }
 
 .image-caption {
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 10px;
-    margin-top: 10px;
     width: 100%;
+    height: 100%;
+    margin: 10px;
 }
 
-.image-container:hover {
+.card img:hover {
     transform: scale(1.05);
     transition: transform 0.3s;
 }
-
-.card-c {
-    cursor: pointer;
-}
-
 // --------------------------------------------

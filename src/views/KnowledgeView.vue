@@ -14,7 +14,7 @@
   <section class="section section-bg">
     <div class="container">
       <div class="row">
-        <div class="trash-txt col-12 col-lg-6 col-md-6">
+        <div class="trash-txt col-12 col-lg-6 col-md-12">
           <h3>什麼是海洋廢棄物？</h3>
           <p>
             海洋廢棄物是指人類活動產生的廢棄物進入海洋環境後，對海洋生態系統造成的污染物。這些廢棄物包括塑膠製品、金屬、玻璃、紙張、橡膠和化學物質等。海洋廢棄物來源廣泛，主要來自於陸地上的垃圾、海上活動（如漁業和航運業）、工業排放以及自然災害。
@@ -23,8 +23,8 @@
             覺得旁邊的圖美嗎？是的，我也覺得很漂亮，但美麗是主觀的，事實上這正是我們想要強調的一點，海洋的美麗不僅僅在於它的外觀，而是在於它內在的健康和生命力。海洋廢棄物的污染，無論再怎麼美麗的景色，也會變得令人擔憂。我們希望通過提高公眾對海洋污染問題的認識，讓更多人參與到海洋保護的行動中來，共同守護這片藍色的美麗。
           </p>
         </div>
-        <div class=" trash-pic col-12 col-lg-6 col-md-6">
-          <img src="../../public/img/knowledge/banner2.png" width="100%">
+        <div class=" tr-pic col-12 col-lg-6 col-md-12">
+          <img src="../../public/img/knowledge/banner2.png">
         </div>
       </div>
     </div>
@@ -119,13 +119,15 @@
       <h2>海廢知識庫</h2>
       <div class="row">
         <div
-          class="card-c col-sm-5 col-lg-3 image-container"
+          class="card-c col-12 col-sm-6 col-md-4 col-lg-3 image-container"
           v-for="(card, index) in cards"
           :key="card.imgSrc"
           @click="showLightbox(index)"
         >
           <div class="card">
-            <img :src="card.imgSrc" class="card-img-top" alt="" />
+            <div class="pic-card">
+              <img :src="card.imgSrc" class="card-img-top" alt="" />
+            </div>
             <div class="card-body">
               <h5 class="card-title">{{ card.title }}</h5>
               <p class="card-text">{{ card.description }}</p>
@@ -197,7 +199,7 @@ export default {
   data() {
     return {
       cards: Array.from({ length: 16 }, (_, index) => ({
-        imgSrc: `https://picsum.photos/280/150/?random=${index + 1}`,
+        imgSrc: `https://picsum.photos/300/150/?random=${index + 1}`,
         title: '海洋動物調查',
         description: '鯨魚是世界上最大的動物，最大的藍鯨可以達到30米長，重達180噸。鯨魚分為齒鯨和鬚鯨兩類，齒鯨如虎鯨，捕食魚類和其他海洋動物；鬚鯨則過濾大量浮游生物和小魚來獲取食物。'.slice(0, 14)+'...' // 只顯示前14個字+...
       }))
