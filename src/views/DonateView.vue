@@ -7,15 +7,11 @@
             <h2>用愛灌溉<br>讓海洋生生不息</h2>
       </div>
       </div>
-    </section>
-
-<!-- ---------------------------------------------------------------捐款button- -->
-    <section class="section section-donate">
-      <div class="container container-donate">
+      <div class="container-donate">
         <div class="row">
-          <div class="flex col-md-6">
+          <div class="col-md-6">
             <p>每一份捐助,都是一份守護<br>為海洋的永續盡一份心力</p>
-            <div class="flex donation-amounts col-6">
+            <div class="col-6">
             <button
               v-for="amount in donationAmounts"
               :key="amount"
@@ -31,6 +27,10 @@
           </div>
         </div>
       </div>
+    </section>
+
+<!-- ---------------------------------------------------------------捐款button- -->
+    <section class="section section-donate">
     </section>
 
 <!-- ----------------------------------------------------------------海洋故事 -->
