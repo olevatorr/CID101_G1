@@ -1,129 +1,305 @@
 .section-profile {
     background-image: url(../../../../public/img/member/member8.png);
     background-size: cover;
-    .container-profile{
+
+    .container-profile {
         display: flex;
-    .profile-box{
-        padding-top: 2rem;
-        background-color: $color-primary;
-        margin-top: 10rem ;
-        text-align: center;
-            
-    .avatra {
-        margin: 2rem auto;
-        position: relative;
-        text-align: center;
-        width: 15rem;
-        height: 15rem;
-        border-radius: 50%;
-        border: 2px solid #000;
-        
-            #theFile {
+
+        .profile-box {
+            padding-top: 2rem;
+            background-color: $color-primary;
+            margin-top: 10rem;
+            text-align: center;
+
+            .avatra {
+                margin: 2rem auto;
+                position: relative;
+                text-align: center;
                 width: 15rem;
                 height: 15rem;
                 border-radius: 50%;
-                opacity: 0;
-                color: transparent;
-                position: relative;
-                
-            }
-    
-            img {
-                top: 0;
-                left: 0;
-                position: absolute;
-                max-width: 15rem;
-                height: 15rem;
-                border-radius: 50%;
-                object-fit: contain;
-                margin-bottom: 20px;
-                background-color: $color-white;
-            }
-            p{
-                padding: 2rem;
-                color: $color-white;
-            }
-        }
-        .profile-button{
-            text-align: center;
-            padding-top: 4rem;
-            margin: 0 -1.5rem;
-            button{
-                background-color: $color-subprimary;
-                padding: 2rem 0;
-                width: 100%;
-                display: block;
-                &:hover{
-                    background-color: $color-highlight;
+                border: 2px solid #000;
+
+                #theFile {
+                    width: 15rem;
+                    height: 15rem;
+                    border-radius: 50%;
+                    opacity: 0;
+                    color: transparent;
+                    position: relative;
+
                 }
 
+                img {
+                    top: 0;
+                    left: 0;
+                    position: absolute;
+                    max-width: 15rem;
+                    height: 15rem;
+                    border-radius: 50%;
+                    object-fit: cover;
+                    margin-bottom: 20px;
+                    background-color: $color-white;
+                }
+
+                p {
+                    padding: 2rem;
+                    color: $color-white;
+                }
+            }
+
+            .profile-button {
+                text-align: center;
+                padding-top: 4rem;
+                margin: 0 -1.5rem;
+
+                button {
+                    background-color: $color-subprimary;
+                    padding: 2rem 0;
+                    width: 100%;
+                    display: block;
+
+                    &:hover {
+                        background-color: $color-highlight;
+                    }
+
+                }
+            }
+        }
+
+        .profile-pets {
+            display: none;
+        }
+
+        .profile-txt {
+            text-align: center;
+            background-color: $color-white;
+            margin-top: 10rem;
+            margin-left: 3rem;
+
+            h1 {
+                padding-top: 9rem;
+                padding-bottom: 3rem;
+            }
+
+            ul {
+                padding-bottom: 4rem;
+
+                li {
+                    padding-bottom: 2rem;
+
+                    button:first-of-type {
+                        margin-top: 2rem;
+                        margin-right: 10rem;
+                    }
+                }
+
+                label {
+                    padding-right: 2rem;
+                    font-size: 1.4rem;
+                }
+
+                input {
+                    background-color: rgb(199, 199, 199);
+                    width: 70%;
+                    font-size: 16px;
+                    border: 0rem;
+                    border-bottom: 0.2rem solid #000;
+                    box-sizing: border-box;
+                    outline: none;
+                    height: 4rem;
+
+                }
             }
         }
     }
-    .profile-pets{
-        display: none;
+
+    //表格    
+    .registration {
+        overflow-x: auto;
+        white-space: nowrap;
+        margin: 2rem auto;
+
+        table {
+            border-collapse: collapse;
+            background-color: $color-white;
+            font-size: 1.6rem;
+            width: 150%;
+            text-align: center;
+
+            tr:first-child {
+                background-color: $color-subprimary;
+            }
+
+            tr {
+
+                border-bottom: 1px solid $color-white;
+                border-bottom: 1px solid black;
+
+
+                th {
+                    height: 4rem;
+                    vertical-align: middle;
+                }
+
+                td {
+                    height: 4rem;
+                    vertical-align: middle;
+                }
+            }
+        }
+
+        .order {
+            tr {
+                th {
+                    height: 5rem;
+                }
+
+                td {
+                    height: 5rem;
+
+                    button.cancel {
+                        background-color: #bbb;
+                        cursor: not-allowed;
+                    }
+                }
+            }
+        }
+
+        .apply {
+            margin-bottom: 0;
+            border-collapse: collapse;
+
+            tr {
+                th {
+                    height: 5rem;
+                }
+
+                td {
+                    height: 5rem;
+                }
+            }
+        }
+        .favorite {
+            tr {
+                th {
+                    height: 5rem;
+                }
+    
+                td {
+                    height: 5rem;
+                }
+            }
+    
+        }
+        .button {
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        padding: 1rem 0;
+        background-color: $color-white;
+        width: 150%;
     }
-    .profile-txt{
+
+    .button a {
+        border: 1px solid black;
+        padding: 0px 10px;
+        margin: 0 10px;
+        text-decoration: none;
+    }
+    }
+        //修改密碼
+    .profile-revise{
         text-align: center;
         background-color: $color-white;
-        margin-top: 10rem;
-        margin-left: 3rem;
-        h1{
+        margin: 10rem auto 0 auto ;
+        
+        
+        h1 {
             padding-top: 9rem;
             padding-bottom: 3rem;
         }
-        ul{
+
+        ul {
             padding-bottom: 4rem;
-            li{
+
+            li {
                 padding-bottom: 2rem;
-                button:first-of-type{
-                    margin-top: 2rem;
-                    margin-right: 10rem;
-                }
-            }
-            label{
-                padding-right: 2rem;
-                font-size: 1.4rem;
-            }
-            input{
+        
+        label:first{
+            padding-left: 2.5rem;
+        }
+        label {
+            padding-right: 2rem;
+            font-size: 1.4rem;
+        }
 
-                width: 70%;
-                font-size: 16px;
-                border: 0rem;
-                border-bottom: 0.2rem solid #000;
-                box-sizing: border-box;
-                background: none;
-                outline: none;
-                height: 4rem;
-                
-            }
+        input {
+            background-color:transparent;
+            width: 30%;
+            font-size: 16px;
+            border: 0rem;
+            border-bottom: 0.2rem solid #000;
+            box-sizing: border-box;
+            outline: none;
+            height: 4rem;
 
+            }
         }
     }
-        @media screen and (max-width: 768px) {
-            .profile-txt{
-                margin-left: 0;
+    button{
+        margin-bottom: 2rem;
+    }
+    }
+
+
+
+    @media screen and (max-width: 768px) {
+        .registration {
+            max-width: 92%;
+
+            table {
+                width: 250%;
             }
         }
-        @media screen and (max-width: 576px) {
+
+        .profile-txt {
+            margin-left: 0
+        }
+    }
+
+    @media screen and (max-width: 576px) {
+        .container-profile {
             display: block;
-                .profile-box{
-                    padding-bottom: 4rem;
-                }
-                .profile-button {
-                    display: none;
-                }
-    
-                .profile-pets {
-                    display: block;
-                    width: 100%;
-                    text-align: center;
-                    height: 4rem;
-                    font-size: 2.5rem;
-                }
-                .profile-txt{
-                    margin-top: 0;
+
+            .profile-box {
+                padding-bottom: 4rem;
+            }
+
+            .profile-button {
+                display: none;
+            }
+
+            .profile-pets {
+                display: block;
+                width: 100%;
+                text-align: center;
+                height: 4rem;
+                font-size: 2.5rem;
+            }
+
+            .profile-txt {
+                margin-top: 0;
+                margin-left: 0;
+
+                ul li button:first-of-type {
+                    margin-right: 5rem;
                 }
             }
         }
+        .profile-revise{
+            width: 92%;
+        }
+
+    }
 }

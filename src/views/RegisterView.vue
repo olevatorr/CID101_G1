@@ -6,19 +6,19 @@
                     <div class="register-login ">
                         <div class="from-group">
                             <label>會員姓名</label>
-                            <input type="text" placeholder="請輸入姓名">
+                            <input type="text" maxlength="10" placeholder="請輸入姓名">
                         </div>
                         <div class="from-group">
                             <label>會員帳號</label>
-                            <input type="text" name="" id="" placeholder="請輸入帳號">
+                            <input type="text" name="" id="" maxlength="10" placeholder="請輸入帳號">
                         </div>
                         <div class="from-group">
                             <label>會員密碼</label>
-                            <input type="number" name="" id="" placeholder="請輸入密碼">
+                            <input type="number" name="" id="" maxlength="10" placeholder="請輸入密碼">
                         </div>
                         <div class="from-group">
                             <label>確認密碼</label>
-                            <input type="number" name="" id="" placeholder="再輸入一次密碼">
+                            <input type="number" name="" id="" maxlength="10" placeholder="再輸入一次密碼">
                         </div>
                         <div class="from-group">
                             <label>電話號碼</label>
@@ -35,7 +35,7 @@
                         <button>立即註冊</button>
                         <div class="other-login">
                             <p>其他登入方式</p>
-                            <a href="#"><i class="fa-brands fa-google-plus"></i></a>
+                            <a href="#"><i class="fa-brands fa-google"></i></a>
                             <a href="#"><i class="fa-brands fa-facebook"></i></a>
                             <a href="#"><i class="fa-brands fa-line"></i></a>
                         </div>
