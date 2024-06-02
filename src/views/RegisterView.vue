@@ -2,7 +2,7 @@
     <section class="section section-register">
         <div class="container">
             <div class="register-box row">
-                <div class="register-txt col-12 col-md-6">
+                <div class="register-txt col-12 col-md-7 col-lg-6">
                     <div class="register-login ">
                         <div class="from-group">
                             <label>會員姓名</label>
@@ -25,11 +25,11 @@
                             <input type="tel" name="" id="" placeholder="請輸入電話">
                         </div>
                         <div class="from-group ">
-                            <label>&emsp;信箱&emsp;</label>
+                            <label>會員信箱</label>
                             <input type="email" name="" id="" placeholder="請輸入信箱">
                         </div>
                         <div class="from-group ">
-                            <label>&emsp;地址&emsp;</label>
+                            <label>會員地址</label>
                             <input type="text" name="" id="" placeholder="請輸入地址">
                         </div>
                         <button>立即註冊</button>
@@ -43,7 +43,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="register-box-img col-12 col-md-6">
+                <div class="register-box-img col-12 col-md-5 col-lg-6">
                     <div class="register-logo-box">
                         <div class="img">
                             <img src="../../public/img/member/logo.png" alt="logo">

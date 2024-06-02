@@ -1,6 +1,9 @@
 .section-profile {
-    background-image: url(../../../../public/img/member/member8.png);
+    background-image: url(../../../../public/img/member/member12.png);
     background-size: cover;
+    .row{
+        padding: 10rem 5%;
+    }
 
     .container-profile {
         .profile-box {
@@ -78,7 +81,7 @@
             }
 
             ul {
-                padding-bottom: 4rem;
+                padding-bottom: 2rem;
 
                 li {
                     padding-bottom: 2rem;
@@ -95,7 +98,6 @@
                 }
 
                 input {
-                    background-color: rgb(199, 199, 199);
                     width: 70%;
                     font-size: 16px;
                     border: 0rem;
@@ -114,6 +116,7 @@
         overflow-x: auto;
         white-space: nowrap;
         margin: 2rem auto;
+        padding: 0;
 
         table {
             border-collapse: collapse;
@@ -211,7 +214,7 @@
         
         
         h1 {
-            padding-top: 9rem;
+            padding-top: 3rem;
             padding-bottom: 3rem;
         }
 
@@ -247,22 +250,6 @@
     }
     }
 
-
-
-    @media screen and (max-width: 768px) {
-        .registration {
-            max-width: 92%;
-
-            table {
-                width: 250%;
-            }
-        }
-
-        .profile-txt {
-            margin-left: 0
-        }
-    }
-
     @media screen and (max-width: 576px) {
         .container-profile {
             display: block;
@@ -284,8 +271,6 @@
             }
 
             .profile-txt {
-                margin-top: 0;
-                margin-left: 0;
 
                 ul li button:first-of-type {
                     margin-right: 5rem;
