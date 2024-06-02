@@ -93,7 +93,7 @@
       </p>
       <h3>捐款途徑</h3>
       <div class="row">
-        <div class="col-12 col-md-6 col-lg-4 group">
+        <div class="col-12  col-lg-4 group">
           <!-- 第一張卡片 -->
           <div class="donation-card">
             <div class="donation-line">
@@ -126,7 +126,7 @@
             </div>
           </div>
         </div>
-        <div class="col-12 col-md-6 col-lg-4 group ">
+        <div class="col-12  col-lg-4 group ">
           <!-- 第二張卡片 -->
           <div class="donation-card tp">
             <div class="donation-line">
@@ -152,9 +152,9 @@
             </div>
           </div>
         </div>
-        <div class="col-12 col-md-6 col-lg-4 group ">
+        <div class="col-12  col-lg-4 group ">
           <!-- 第三張卡片 -->
-          <div class="donation-card top">
+          <div class="donation-card top up">
             <div class="donation-line">
               <span class="material-symbols-outlined"> workspace_premium </span>
               <div class="donation-txt">
