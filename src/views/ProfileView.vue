@@ -2,7 +2,7 @@
   <section class="section section-profile">
     <div class="container container-profile">
       <div class="row">
-        <div class="profile-box col-sm-12 col-md-4">
+        <div class="profile-box col-12 col-sm-4 col-md-4">
           <div class="avatra">
             <img id="image" ref="imageElement" :src="imageSrc" @error="imageLoaded = false">
             <input type="file" id="theFile" @change="fileChange" ref="fileInput">
@@ -29,7 +29,7 @@
           <option value="5">捐款查詢</option>
           <option value="6">會員登出</option>
         </select>
-        <div class="profile-txt col-sm-12  col-md-8">
+        <div class="profile-txt col-12 col-sm-8  col-md-8">
           <h1>會員專區</h1>
           <h2>會員資料修改</h2>
           <ul>
@@ -53,13 +53,16 @@
               <label for="">會員地址</label>
               <input type="text" name="" id="" value="302新竹縣竹北市嘉興路62號" readonly>
             </li>
+            <li>
+              <label for="">會員頭像</label>
+              <input type="file" name="" id="" value="">
+            </li>
             <li><button>儲存變更</button><button>取消變更</button></li>
           </ul>
         </div>
-      </div>
-    </div>
+
     <!-- 商品資訊最後要放進div -->
-    <div class="registration col-sm-8">
+    <div class="registration col-12 col-md-8">
       <table class="shop">
         <tr>
           <th>商品編號</th>
@@ -118,7 +121,7 @@
       </div>
     </div>
     <!-- 訂單資訊 -->
-    <div class="registration col-sm-8">
+    <div class="registration col-12 col-md-8">
       <table class="order">
         <tr>
           <th>訂單編號</th>
@@ -183,7 +186,7 @@
       </div>
     </div>
     <!-- 活動報名 -->
-    <div class="registration col-sm-8">
+    <div class="registration col-12 col-md-8">
       <table class="apply">
         <tr>
           <th>活動名稱</th>
@@ -239,7 +242,7 @@
       </div>
     </div>
     <!-- 收藏商品 -->
-    <div class="registration col-sm-8">
+    <div class="registration col-12 col-md-8">
       <table class="favorite">
         <tr>
           <th>商品編號</th>
@@ -285,7 +288,7 @@
       </div>
     </div>
     <!-- 捐款查詢 -->
-    <div class="registration col-sm-8">
+    <div class="registration col-12 col-md-8">
       <table class="donate">
         <tr>
           <th>捐款人</th>
@@ -325,11 +328,11 @@
         <a href="">4</a>
       </div>
     </div>
-    <div class="profile-revise col-sm-8">
+    <div class="profile-revise col-12 col-md-8">
       <h1>修改密碼</h1>
       <ul>
         <li>
-          <label for="">密碼</label>
+          <label for="">會員密碼</label>
           <input type="text" name="" id="" maxlength="10" value="1234" readonly>
         </li>
         <li>
@@ -338,6 +341,8 @@
         </li>
       </ul>
       <button>送出</button>
+    </div>
+    </div>
     </div>
   </section>
 </template>

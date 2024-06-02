@@ -43,7 +43,7 @@
                             <img src="../../public/img/beachgame/sea-turtle.png" alt="">
                         </div>
                         <div class="character-name">
-                            <h3>胖莎</h3>
+                            <h3>龜吉</h3>
                         </div>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                             <img src="../../public/img/beachgame/shark.png" alt="">
                         </div>
                         <div class="character-name">
-                            <h3>龜吉</h3>
+                            <h3>胖莎</h3>
                         </div>
                     </div>
                 </div>
@@ -86,6 +86,43 @@
             </div>
             <button>選擇淨灘工具</button>
         </div>
+        <div class="slide-page">
+            <h3>挑選工具</h3>
+            <div class="row tool-list">
+                <div class="col-4">
+                    <div class="tool-item">
+                        <div class="tool-pic">
+                            <img src="../../public/img/beachgame/clamp.png" alt="">
+                        </div>
+                        <div class="tool-name">
+                            <h3>鐵夾子</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="tool-item">
+                        <div class="tool-pic">
+                            <img src="../../public/img/beachgame/gloves.png" alt="">
+                        </div>
+                        <div class="tool-name">
+                            <h3>手套</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="tool-item">
+                        <div class="tool-pic">
+                            <img src="../../public/img/beachgame/hat.png" alt="">
+                        </div>
+                        <div class="tool-name">
+                            <h3>防曬帽</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button>確定角色</button>
+        </div>
+
     </main>
 </template>
 
