@@ -1,163 +1,142 @@
-.section-register {
+.section.section-register {
     background-image: url(../../../../public/img/member/member5.png);
     background-size: cover;
-}
-.section.section-register .container{ 
-    --gap: 0;
-}
-.register-login{
-    text-align: center;
-    background-color: $color-white;
-    margin: 6rem auto;
-    padding: 5rem 0;
-}
-.register-box{
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
-}
-.register-box-img{
-    position: relative;
-    font-size: 0;
-    img{
-        width: 100%;
-        max-height: 70rem;
- 
+    .register-box {
+        display: flex;
+        margin-top: 6rem;
+        justify-content: center;
+        padding: 0 8rem;
+
+        @media screen and (max-width: 575px) {
+            padding: 0 2rem;
+        }
     }
-}
-.register-logo-box {
-    img,span{
-        position: absolute;
-        top: 30%;
-        left: 30%;
-        
-    }
-    img{
-        width: 40%;
-    }
-    span{
-        left: 25%;
-        padding-top: 35%;
-        color: $color-white;
-        font-size: 2rem;
-        display: inline-block;
-    }
-}
-.from-group {
-    margin-bottom: 2rem;
-}
-.from-group label{
-    font-size: 1.8rem;
-    margin-right: 2rem;
-    
-}
-.writing{
-    margin-left: 3rem;
-}
-
-.register-login input,
-.register-login input[type='text'] {
-    font-size: 16px;
-    border: 0rem;
-    border-bottom: 0.2rem solid #000;
-    box-sizing: border-box;
-    background: none;
-    outline: none;
-    height: 4rem;
-}
-
-.register-login button {
-    margin: 2rem 0;
-}
-
-.other-login p {
-    display: flex;
-    margin-bottom: 2rem;
-    max-width: 100%;
-}
-
-.other-login p::before {
-    content: '';
-    flex: 4 1 0%;
-    display: block;
-    border-top: 1px solid black;
-    margin-right: 2rem;
-    margin-top: 1.5rem;
-    margin-left: 4rem;
-}
-
-.other-login p::after {
-    content: '';
-    flex: 4 1 0%;
-    display: block;
-    border-top: 1px solid black;
-    margin-left: 2rem;
-    margin-top: 1.5rem;
-    margin-right: 4rem;
-}
-
-.other-login {
-    text-align: center;
-}
-
-.other-login i {
-    font-size: 5rem;
-}
-
-.other-login a:nth-last-of-type(3) {
-    color: #e03f33;
-    padding-right: 2rem;
-}
-
-.other-login a:nth-last-of-type(2) {
-    color: #2d55a8;
-    padding-right: 2rem;
-}
-
-.other-login a:nth-last-of-type(1) {
-    color: #06c755;
-}
-
-@media screen and (max-width: 576px) {
-
-    .register-login label {
-        font-size: 1.4rem;
-    }
-    .register-login{
-        margin: 0;
-    }
-    .other-login p::before {
-        margin-left: 1rem;
-        margin-top: 1rem;
-    }
-
-    .other-login p::after {
-        margin-right: 1rem;
-        margin-top: 1rem;
-    }
-    .register-login button{
-        padding: 1rem 4rem;
-        margin-top: 0;
-        margin-bottom: 1rem; 
-    }
-
-}
-@media screen and (max-width: 768px) {
-
-    .register-login label {
-        font-size: 1.6rem;
-    }
-
-}
-@media screen and (max-width: 1024px) {
 
     .register-box-img {
-        display: none;
-    }
-    .register-login{
-        background-color: unset;
+        position: relative;
+        background-image: url(../../../../public/img/member/member7.png);
+        background-position: 50%;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        .register-logo-box {
+            position: absolute;
+            width: 200px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .img {
+                width: 150px;
+                margin-bottom: 20px;
+            }
+
+            img {
+                width: 100%;
+                vertical-align: top;
+            }
+
+            span {
+                color: $color-white;
+                font-size: 2rem;
+                margin-bottom: 20px;
+            }
+        }
+
+        @media screen and (max-width: 767px) {
+            display: none;
+        }
+
     }
 
+    .register-txt {
+        text-align: center;
+        padding: 10% 0;
+        background-color: $color-white;
 
+        .register-login {
+            padding: 0 10%;
+            margin-left: auto;
+            margin-right: auto;
+
+            .from-group {
+                margin-bottom: 2rem;
+            }
+
+            .from-group label {
+                font-size: 1.6rem;
+                margin-right: 2rem;
+
+            }
+
+            input,
+            input[type='text'] {
+                font-size: 16px;
+                border: 0rem;
+                border-bottom: 0.2rem solid #000;
+                box-sizing: border-box;
+                background: none;
+                outline: none;
+                height: 4rem;
+            }
+
+            button {
+                margin: 2rem 0;
+            }
+
+            p {
+                display: inline;
+                position: relative;
+
+                &::before {
+                    content: '';
+                    display: block;
+                    width: 40px;
+                    height: 1px;
+                    background-color: #000;
+                    position: absolute;
+                    top: 50%;
+                    left: -60%;
+                }
+
+                &::after {
+                    content: '';
+                    display: block;
+                    width: 40px;
+                    height: 1px;
+                    background-color: #000;
+                    top: 50%;
+                    right: -60%;
+                    position: absolute;
+                }
+            }
+
+            .third-party {
+                margin-top: 2rem;
+                display: flex;
+                justify-content: center;
+                gap: 20px;
+
+                i {
+                    font-size: 5rem;
+                }
+
+                .fa-google {
+                    color: #e03f33;
+                }
+
+                .fa-faceboo {
+                    color: #2d55a8;
+                }
+
+                .fa-line {
+                    color: #06c755;
+                }
+            }
+        }
+    }
 }

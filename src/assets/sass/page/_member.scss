@@ -1,222 +1,151 @@
-.section.section-member.body-member {
+.section.section-member {
     background-image: url(../../../../public/img/member/member1.jpg);
     background-size: cover;
-}
-
-
-.member-logo-box span {
-    color: $color-white;
-    font-size: 2rem;
-    display: inline-block;
-}
-
-.member-box {
-    display: flex;
-    margin-top: 6rem;
-    position: relative;
-    justify-content: center;
-    padding: 0 8rem;
-}
-
-.member-logo-box {
-    width: 25rem;
-    position: absolute;
-    top: 25%;
-    left: 19%;
-    text-align: center;
-
-    img {
-        padding-left: 2rem;
-        width: 50%;
-    }
-
-    span {
-        padding-bottom: 4rem;
-    }
-}
-
-.member-txt {
-    text-align: center;
-    background-color: $color-white;
-}
-
-.member-login {
-    margin-left: auto;
-    margin-right: auto;
-    padding: 6rem 5rem;
-    text-align: left;
-
-    label {
-        display: block;
-        font-size: 2rem;
-        margin-bottom: 2rem;
-        margin-top: 2rem;
-
-        &:nth-of-type(2) {
-            margin-top: 5rem;
-        }
-    }
-
-    input {
-
-        &[type='password'],
-        &[type='text'] {
-            width: 100%;
-            font-size: 16px;
-            border: 0rem;
-            border-bottom: 0.2rem solid #000;
-            box-sizing: border-box;
-            background: none;
-            outline: none;
-            height: 4rem;
-        }
-    }
-}
-
-.forgot {
-    display: block;
-    line-height: 4;
-}
-
-.member-button {
-    position: relative;
-    display: flex;
-    justify-content: center;
-}
-
-.member-btn {
-    position: absolute;
-    left: -75%;
-    padding: .2rem 4rem;
-}
-
-.member-txt {
-    p {
-        display: flex;
-        margin-top: 2rem;
-        margin-bottom: 2rem;
-
-        &::before {
-            content: '';
-            flex: 4 1 0%;
-            display: block;
-            border-top: 1px solid black;
-            margin-right: 2rem;
-            margin-top: 1.5rem;
-            margin-left: 6rem;
-        }
-
-        &::after {
-            content: '';
-            flex: 4 1 0%;
-            display: block;
-            border-top: 1px solid black;
-            margin-left: 2rem;
-            margin-top: 1.5rem;
-            margin-right: 6rem;
-        }
-    }
-
-    i {
-        font-size: 5rem;
-    }
-
-    .fa-google {
-        color: #e03f33;
-        padding-right: 2rem;
-    }
-
-    .fa-facebook {
-        color: #2d55a8;
-        padding-right: 2rem;
-    }
-
-    .fa-line {
-        color: #06c755;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .member-logo-box {
-        left: 10rem;
-    }
-
-    .member-btn {
-        padding: 0.2rem 2rem;
-    }
-
-    .member-login {
-        padding-top: 8rem;
-        padding-bottom: 3rem;
-    }
-
-    .member-logo-box img {
-        width: 50%;
-    }
-
-    .member-txt p {
-        &::before {
-            margin-left: 1rem;
-        }
-
-        &::after {
-            margin-right: 1rem;
-        }
-    }
-}
-
-@media screen and (max-width: 576px) {
-    .member-box-img {
-        display: none;
-    }
-
     .member-box {
-        padding: 0 0px;
+        display: flex;
+        margin-top: 6rem;
+        justify-content: center;
+        padding: 0 8rem;
     }
-
-    .member-button {
-        justify-content: space-between;
-        margin-right: -2rem;
-        margin-left: -2rem;
-    }
-
-    .member-btn {
-        position: unset;
-    }
-
-    .member-txt {
-        background-color: unset;
-        text-align: center;
-    }
-
-    .section.section-member.body-member {
-        background-image: url(../../../../public/img/member/member4.jpg);
-        background-size: cover;
-    }
-
-    .member-txt {
+    .member-box-img {
         position: relative;
+        background-image: url(../../../../public/img/member/member1.jpg);
+        background-position: 15% 50%;
+        background-repeat: no-repeat;
+        background-size: cover;
+        .member-logo-box {
+            position: absolute;
+            width: 200px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            .img {
+                width: 150px;
+                margin-bottom: 20px;
+            }
+            img {
+                width: 100%;
+                vertical-align: top;
+            }
+            span {
+                color: $color-white;
+                font-size: 2rem;
+                margin-bottom: 20px;
+            }
+        }
+        @media screen and (max-width: 767px) {
+            display: none;
+        }
     }
-
+    
+    .member-txt {
+        text-align: center;
+        background-color: $color-white;
+    }
+    
     .member-login {
-        padding: 6rem 0;
-        margin: 0 -3rem;
-    }
-
-    .member-txt p {
-        &::before {
-            margin-left: -4rem;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+        padding: 0 10%;
+    
+        label {
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            margin-top: 2rem;
+    
+            &:nth-of-type(2) {
+                margin-top: 5rem;
+            }
         }
-
-        &::after {
-            margin-right: -4rem;
+    
+        input {
+    
+            &[type='password'],
+            &[type='text'] {
+                width: 100%;
+                font-size: 16px;
+                border: 0rem;
+                border-bottom: 0.2rem solid #000;
+                box-sizing: border-box;
+                background: none;
+                outline: none;
+                height: 4rem;
+            }
         }
     }
+    
+    .forgot {
+        display: block;
+        line-height: 4;
+        margin-bottom: 2rem;
+    }
+    
 
-    .forget {
-        position: absolute;
-        top: 60%;
-        right: -10%;
-        color: #000;
+    
+    .member-txt {
+        padding: 10% 0;
+
+        p {
+            display: inline;
+            position: relative;
+            &::before {
+                content: '';
+                display: block;
+                width: 40px;
+                height: 1px;
+                background-color: #000;
+                position: absolute;
+                top: 50%;
+                left: -60%;
+            }
+    
+            &::after {
+                content: '';
+                display: block;
+                width: 40px;
+                height: 1px;
+                background-color: #000;
+                top: 50%;
+                right: -60%;
+                position: absolute;
+            }
+        }
+        .third-party {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            i {
+                font-size: 5rem;
+            }
+            .fa-google {
+                color: #e03f33;
+            }
+            .fa-facebook {
+                color: #2d55a8;
+            }
+            .fa-line {
+                color: #06c755;
+            }
+        }
+        .member-button {
+            display: flex;
+            justify-content: center;
+            @media screen and (max-width: 767px) {
+                
+                gap: 10%;
+            }
+            .add {
+                display: none;
+                @media screen and (max-width: 767px) {
+                    display: block;
+                }
+            }
+        } 
     }
 }

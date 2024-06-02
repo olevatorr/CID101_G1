@@ -3,12 +3,9 @@
     background-size: cover;
 
     .container-profile {
-        display: flex;
-
         .profile-box {
             padding-top: 2rem;
             background-color: $color-primary;
-            margin-top: 10rem;
             text-align: center;
 
             .avatra {
@@ -74,8 +71,6 @@
         .profile-txt {
             text-align: center;
             background-color: $color-white;
-            margin-top: 10rem;
-            margin-left: 3rem;
 
             h1 {
                 padding-top: 9rem;
