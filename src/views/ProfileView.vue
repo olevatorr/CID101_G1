@@ -35,30 +35,31 @@
         <ul>
           <li>
             <label for="">會員姓名</label>
-            <input type="text" name="" id="" value="張曉明">
+            <input type="text" name="" id="" maxlength="10" value="張曉明" readonly>
           </li>
           <li>
             <label for="">會員帳號</label>
-            <input type="text" name="" id="" value="abcd">
+            <input type="text" name="" id="" maxlength="10" value="abcd" readonly>
           </li>
           <li>
             <label for="">會員信箱</label>
-            <input type="text" name="" id="" value="abc@gmail.com">
+            <input type="text" name="" id="" maxlength="50" value="abc@gmail.com" readonly>
           </li>
           <li>
             <label for="">會員電話</label>
-            <input type="tel" name="" id="" value="0912345678">
+            <input type="tel" name="" id="" maxlength="20" value="0912345678" readonly>
           </li>
           <li>
             <label for="">會員地址</label>
-            <input type="text" name="" id="" value="302新竹縣竹北市嘉興路62號">
+            <input type="text" name="" id="" value="302新竹縣竹北市嘉興路62號" readonly>
           </li>
           <li><button>儲存變更</button><button>取消變更</button></li>
         </ul>
       </div>
     </div>
     <!-- 商品資訊最後要放進div -->
-    <table class="shop col-sm-8">
+    <div class="registration col-sm-8">
+    <table class="shop">
   <tr>
       <th>商品編號</th>
       <th>商品名稱</th>
@@ -108,8 +109,16 @@
       <td>NT$30,000</td>
   </tr>
 </table>
+<div class="button">
+    <a href="">1</a>
+    <a href="">2</a>
+    <a href="">3</a>
+    <a href="">4</a>
+</div>
+</div>
 <!-- 訂單資訊 -->
-<table class="order col-sm-8">
+<div class="registration col-sm-8">
+<table class="order">
         <tr>
             <th>訂單編號</th>
             <th>訂單狀況</th>
@@ -165,6 +174,13 @@
             <td><button class="cancel">完成訂單</button></td>
         </tr>
 </table>
+<div class="button">
+    <a href="">1</a>
+    <a href="">2</a>
+    <a href="">3</a>
+    <a href="">4</a>
+</div>
+</div>
 <!-- 活動報名 -->
 <div class="registration col-sm-8">
 <table class="apply">
@@ -214,9 +230,16 @@
             <td><button>活動分享</button></td>
         </tr>
 </table>
+<div class="button">
+    <a href="">1</a>
+    <a href="">2</a>
+    <a href="">3</a>
+    <a href="">4</a>
+</div>
 </div>
 <!-- 收藏商品 -->
-<table class="favorite col-sm-8">
+<div class="registration col-sm-8">
+<table class="favorite">
         <tr>
             <th>商品編號</th>
             <th>商品名稱</th>
@@ -253,8 +276,16 @@
             <td><button>取消收藏</button></td>
         </tr>
 </table>
+<div class="button">
+    <a href="">1</a>
+    <a href="">2</a>
+    <a href="">3</a>
+    <a href="">4</a>
+</div>
+</div>
 <!-- 捐款查詢 -->
-<table class="donate col-sm-8">
+<div class="registration col-sm-8">
+<table class="donate">
         <tr>
             <th>捐款人</th>
             <th>捐款日期</th>
@@ -286,6 +317,27 @@
             <td>信用卡</td>
         </tr>
 </table>
+<div class="button">
+    <a href="">1</a>
+    <a href="">2</a>
+    <a href="">3</a>
+    <a href="">4</a>
+</div>
+</div>
+<div class="profile-revise col-sm-8">
+  <h1>修改密碼</h1>
+  <ul>
+    <li>
+      <label for="">密碼</label>
+      <input type="text" name="" id="" maxlength="10" value="1234" readonly>
+    </li>
+    <li>
+      <label>修改密碼</label>
+      <input type="password" name="" id="" maxlength="10" placeholder="請輸入密碼">
+    </li>
+  </ul>
+  <button>送出</button>
+</div>
   </section>
 </template>
 

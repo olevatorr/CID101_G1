@@ -12,9 +12,9 @@
                     <div class="member-txt col-sm-6 col-md-6">
                         <div class="member-login">
                             <label>帳號</label>
-                            <input type="text" placeholder="請輸入帳號">
+                            <input type="text" maxlength="10" placeholder="請輸入帳號">
                             <label>密碼</label>
-                            <input type="password" name="" id="" placeholder="請輸入密碼">
+                            <input type="password" name="" id="" maxlength="10" placeholder="請輸入密碼">
                         </div>
                         <div class="member-button">
                             <RouterLink to="/ProfileView"><button>&emsp;&emsp;登入&emsp;&emsp;</button></RouterLink>
