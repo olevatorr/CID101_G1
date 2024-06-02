@@ -1,17 +1,33 @@
 .section-news-banner {
     height: 100vh;
     background: url(../public/img/news/news-banner.png) no-repeat 50% 50% / cover;
-}
-.news-banner_title{
     display: flex;
-    
+    justify-content: center;
+    align-items: center;
+    .news-banner_title p{
+        font-size: 2rem;
+        color:#fff;
+    }
+    .news-banner_title h1{
+        font-size: 6rem;
+        color:#fff;
+        letter-spacing: 1rem;
+    }
 }
 .section-news-content {
     height: auto;
     background-image: url(../public/img/news/news-background.png);
-}
-.news-card {
-    padding: 10px;
+    .news-filter button + button{
+        margin:3rem 0 3rem 2rem;
+        
+    }
+    
+
+    .news-card-content,.news-cards-title,.news-cards-time,.filter-name
+    {
+        color:#333;
+    }
+    
     img {
         width: 100%;
         vertical-align: top;
