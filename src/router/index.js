@@ -57,8 +57,6 @@ const router = createRouter({
       name: 'ProfileView',
       component: () => import('../views/ProfileView.vue')
     },
-<<<<<<< HEAD
-=======
     {
       path: '/beachgame',
       name: 'beachgame',
@@ -94,7 +92,6 @@ const router = createRouter({
       name: 'Test.View',
       component: () => import('../views/TestView.vue')
     }
->>>>>>> 990ae2a043f02197492c346f8a65ebd3e69ac762
   ]
 })
 
