@@ -1,3 +1,4 @@
+// ------------------------------------banner
 .section-knowledge-banner {
     height: 100vh;
     background: url(../public/img/knowledge/banner1.png)no-repeat 50% 50% / cover;
@@ -22,7 +23,7 @@
     }
 
 }
-
+// ------------------------------------什麼是海洋廢棄物
 .section-bg {
     background-color: #ffffff;
 
@@ -32,24 +33,27 @@
         }
     }
 
-    .trash-pic {
-        height: 100%;
+    .tr-pic {
+        img{
+            width: 100%;
+        }
     }
-
 }
-
-.section-data{
+// ------------------------------------全台灣沿海廢棄數據
+.section-data {
     background-color: #fff;
-    .button-area{
+
+    .button-area {
         margin-left: -3px;
-        button{
+
+        button {
             margin: 1px;
         }
 
-    } 
+    }
 }
 
-.news-filter select {   
+.news-filter select {
     background: #E7A600;
     color: #ffffff;
     margin-top: 10px;
@@ -57,113 +61,193 @@
     height: 3em;
     padding: 10px;
     border: none;
-    // appearance: none;
-    // -moz-appearance: none;
-     // -webkit-appearance: none;
 }
-
-section{
+// ------------------------------------
+section {
     background-color: #fff;
-    .card-data{
-        h3{
+
+    .card-data {
+        h3 {
             margin: 20px auto;
             text-align: center;
         }
+
         .span-flex {
             display: flex;
             justify-content: center;
             margin: 10px auto;
-            span{
+
+            span {
                 display: flex;
-            .red-box{
-                margin: auto 5px;
-                width: 35px;
-                height: 10px;
-                background: #D35656;
+
+                .red-box {
+                    margin: auto 5px;
+                    width: 35px;
+                    height: 10px;
+                    background: #D35656;
                 }
-            .blue-box{
-                margin: auto 5px;
-                width: 35px;
-                height: 10px;
-                background: #2F80DE;
+
+                .blue-box {
+                    margin: auto 5px;
+                    width: 35px;
+                    height: 10px;
+                    background: #2F80DE;
                 }
             }
         }
     }
 }
-
-.section  .flex{
+// ------------------------------------垃圾種類
+.section .flex {
     display: flex;
-    .card-type{
+
+    .card-type {
         display: flex;
         align-self: flex-end;
-        .p-type{
+
+        .p-type {
             margin: 10px;
-            .color-box{
-            display: flex;
-            .blue-box{
-                width: 35px;
-                height: 10px;
-                background: #00ADF3;
-                margin: auto 5px ;
-            }
-            .yellow-box{
-                width: 35px;
-                height: 10px;
-                background: #E7A600;
-                margin: auto 5px;
-            }
-            .red-box{
-                width: 35px;
-                height: 10px;
-                background: #D35656;
-                margin: auto 5px ;
-            }
+
+            .color-box {
+                display: flex;
+
+                .blue-box {
+                    width: 35px;
+                    height: 10px;
+                    background: #00ADF3;
+                    margin: auto 5px;
+                }
+
+                .yellow-box {
+                    width: 35px;
+                    height: 10px;
+                    background: #E7A600;
+                    margin: auto 5px;
+                }
+
+                .red-box {
+                    width: 35px;
+                    height: 10px;
+                    background: #D35656;
+                    margin: auto 5px;
+                }
             }
         }
     }
 }
-
-.trash-card{
-        text-align: center;
-}
-
-.section-knowledge{
-    h2{
-        text-align: center;
-    }
-    .card-c{
-        margin: 0 auto;
-    }
-
-}
-
-.section-game{
+// ------------------------------------基隆垃圾處理方式
+.trash-card {
     text-align: center;
-    a{
-        color:#000;
+}
+// ------------------------------------海廢知識庫 
+.section-knowledge {
+    h2 {
+        text-align: center;
     }
-    .card{
+
+
+    .card-c {
+        margin: 0 auto;
+        cursor: pointer;
+
+
+        .card{
+            .pic-card{
+                position: relative;
+                overflow: hidden;
+                // width: 100%;
+                // height: 100%;
+                img{
+                    width: 100%;
+                    vertical-align: top;
+                }
+            }
+        }
+    }
+
+}
+// ------------------------------------遊戲 
+.section-game {
+    text-align: center;
+
+    a {
+        color: #000;
+    }
+
+    .card {
         margin: 40px;
         padding: 20px;
         text-align: center;
         box-shadow: 0 0 6.5px 3px #00000030;
+
         .card-content {
             display: flex;
             flex-direction: column;
             margin: auto;
+
             h3 {
                 margin: 20px 0;
             }
         }
+
         img {
             width: 100%;
             vertical-align: top;
         }
-        a{
+
+        a {
             color: #fff;
             font-weight: 700;
             // text-decoration: none;
         }
     }
 }
+
+// --------------------------------------------  LIGHTBOX
+.lightbox {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.lightbox-content {
+    background: white;
+    position: relative;
+    width: 75%;
+    height: 75%;
+}
+
+.lightbox img {
+    width: 100%;
+    height: 75%;
+    object-fit: cover;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+.image-caption {
+    width: 100%;
+    height: 100%;
+    margin: 10px;
+}
+
+.card img:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s;
+}
+// --------------------------------------------
