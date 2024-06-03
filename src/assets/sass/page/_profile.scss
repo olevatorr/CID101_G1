@@ -122,8 +122,9 @@
             border-collapse: collapse;
             background-color: $color-white;
             font-size: 1.6rem;
+            text-align: left;
+            table-layout:fixed; 
             width: 150%;
-            text-align: center;
 
             tr:first-child {
                 background-color: $color-subprimary;
@@ -136,6 +137,8 @@
 
 
                 th {
+                    text-align: center;
+                    // width: 12rem;
                     height: 4rem;
                     vertical-align: middle;
                 }
@@ -143,7 +146,22 @@
                 td {
                     height: 4rem;
                     vertical-align: middle;
+                    
                 }
+            }
+            .button {
+                text-align: center;
+                cursor: pointer;
+                display: flex;
+                justify-content: center;
+                padding: 1rem 0;
+                background-color: $color-white;
+                a {
+                border: 1px solid black;
+                padding: 0px 10px;
+                margin: 0 10px;
+                text-decoration: none;
+            }
             }
         }
 
@@ -190,21 +208,8 @@
             }
     
         }
-        .button {
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        padding: 1rem 0;
-        background-color: $color-white;
-        width: 150%;
-    }
 
-    .button a {
-        border: 1px solid black;
-        padding: 0px 10px;
-        margin: 0 10px;
-        text-decoration: none;
-    }
+
     }
         //修改密碼
     .profile-revise{
@@ -276,9 +281,6 @@
                     margin-right: 5rem;
                 }
             }
-        }
-        .profile-revise{
-            width: 92%;
         }
 
     }

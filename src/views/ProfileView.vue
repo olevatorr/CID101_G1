@@ -112,13 +112,15 @@
           <td>杯具類</td>
           <td>NT$30,000</td>
         </tr>
+        <tr>
+        <div class="button">
+          <a href="">1</a>
+          <a href="">2</a>
+          <a href="">3</a>
+          <a href="">4</a>
+        </div>
+      </tr>
       </table>
-      <div class="button">
-        <a href="">1</a>
-        <a href="">2</a>
-        <a href="">3</a>
-        <a href="">4</a>
-      </div>
     </div>
     <!-- 訂單資訊 -->
     <div class="registration col-12 col-md-8">
