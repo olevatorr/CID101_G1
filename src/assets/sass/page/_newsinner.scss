@@ -1,6 +1,48 @@
-.newsinner-container{
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.section-newsinner-content{
+    .newsinner-container-info{
+        width:50%;
+    }
+    .newsinner-container{
+        width:50%;
+        .newsinner-pic{
+            img{
+                width:100%;
+            }
+        }
+    }
 }
+
+.section-newsinner-breadcrumb{
+    .breadcrumb-wrap{
+    
+        .newsinner-breadcrumb{
+            display: flex;
+            li{
+                padding:0 20px;
+                +li{
+                    //推回來
+                    padding-left: 0;
+                }
+                +li::before{
+                    content:'>';
+                    color:#333;
+                    margin-right:20px;
+                }
+                a{
+                    text-decoration: none;
+                    color:#333;
+                    
+                }
+                &:last-child a {
+                    color: #005FA1; // 設定最後一個列表項目連結的顏色
+                }
+                a:hover {
+                    color: #005FA1; // 設定連結 hover 時的顏色
+                }
+                
+            }
+        }
+    }
+}
+
+

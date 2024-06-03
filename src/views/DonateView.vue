@@ -2,9 +2,10 @@
 <!-- ---------------------------------------------------------------banner- -->
     <section class="section section-banner">
       <div class="container">
-          <h1>熱心捐款</h1>
+          
         <div class="container-left">
-            <h2>用愛灌溉<br>讓海洋生生不息</h2>
+          <h1>熱心捐款</h1>
+            <span>用愛灌溉<br>讓海洋生生不息</span>
         </div>
         <div class="container-donate">
           <div class="row">
@@ -28,16 +29,12 @@
                   <i class="fa-solid fa-dollar-sign"></i>
                   <input type="number">
                 </div>
-                <button>捐款去</button>
+                <button><RouterLink to="/DonatePage">捐款去</RouterLink></button>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
-
-<!-- ---------------------------------------------------------------捐款button- -->
-    <section class="section section-donate">
     </section>
 
 <!-- ----------------------------------------------------------------海洋故事 -->
@@ -56,7 +53,7 @@
                 <img src="/public/img/donate/donate-pic4.png" />
               </div>
             
-            <div class="story-text col-12 col-md-6">
+            <div class="story-text col-12 col-sm-6">
               <h2>海洋故事</h2>
               <p>
                 滔滔大海,賦予地球生命的搖籃，孕育著萬物的希望。<br />
@@ -75,7 +72,7 @@
 <!-- ----------------------------------------------------------------感謝話語 -->
       <section>
         <div class="container">
-          <div class="txt co1-12">
+          <div class="sx-txt co1-12">
           <p>感謝您對「藍色警戒」的慷慨支持！</p>
           <p>您的每一筆捐款都將助力我們更有效地保護海洋，為子孫後代創造一個更加乾淨、健康、永續的海洋環境。</p>
         </div>

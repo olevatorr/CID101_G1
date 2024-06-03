@@ -28,7 +28,7 @@ const router = createRouter({
       component: () => import('../views/MemberView.vue')
     },
     {
-      path: '/KnowledgeView',
+      path: '/Knowledge',
       name: 'Knowledge',
       component: () => import('../views/KnowledgeView.vue')
     },
@@ -63,8 +63,8 @@ const router = createRouter({
       component: () => import('../views/BeachgameView.vue')
     },
     {
-      path: '/mbti',
-      name: 'mbti',
+      path: '/Mbti',
+      name: 'Mbti',
       component: () => import('../views/MbtiView.vue')
     },
     {
@@ -91,6 +91,11 @@ const router = createRouter({
       path: '/TestView',
       name: 'Test.View',
       component: () => import('../views/TestView.vue')
+    },
+    {
+      path: '/DonatePage',
+      name: 'DonatePage',
+      component: () => import('../views/DonatePage.vue')
     }
   ]
 })

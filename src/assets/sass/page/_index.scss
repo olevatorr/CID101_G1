@@ -100,6 +100,10 @@
             gap: 10px;
             cursor: pointer;
         }
+        li.select {
+            scale: 1.1;
+            color: $color-highlight;
+        }
     }
     .map-container {
         width: 100%;
@@ -144,17 +148,18 @@
 }
 .section-comparation {
     padding: 0;
-    max-width: 1920px;
-    margin: auto;
-    position: relative;
     .container {
-        position: absolute;
-        top: 0;
-        left: 50%;
+        transform: translateY(100%);
         z-index: 10;
-    }
-    h3 {
+        position: relative;
         color: #fff;
+    }
+    .comparation-area {
+        padding: 0;
+        max-width: 1920px;
+        margin: auto;
+        position: relative;
+        overflow: hidden;
     }
     .control {
         height: 40px;
@@ -166,6 +171,7 @@
         left: 50%;
         transform: translate(-48%, -50%);
         z-index: 5;
+        cursor: pointer;
         &::before {
             content: '';
             height: 10px;
@@ -203,12 +209,6 @@
         width: 50%;
         position: absolute;
         border-right: 1px solid #fff;
-        &::after {
-            content: '';
-            
-            bottom: 50%;
-            right: -1%;
-        }
     }
 }
 .section-survey {
@@ -235,6 +235,33 @@
         li {
             margin-left: 3rem;
         }
+    }
+    .survey-box {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(0,0,0,.4);
+        justify-content: center;
+        align-items: center;
+        z-index: 20;
+        .wrapper {
+            background-color: #fff;
+            padding: 20px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            .buttons {
+                display: flex;
+                gap:30px;
+            }
+        }
+    }
+    .survey-box.show {
+        display: flex;
     }
 }
 .section-donation-summary {
@@ -266,10 +293,50 @@
             color: #fff;
         }
     }
+    .donate-link {
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
+    }
     .donate-btn {
+        margin: auto;
+        margin-top: 20px;
         display: inline-block;
-        font-size: 1.6rem;
+        gap: 10px;
+        align-items: center;
+        max-width: 130px;
+        height: 40px;
+        color: #fff;
         background-color: $color-subprimary;
+        border-radius: 100px;
+        position: relative;
+        transition: .5s;
+        .donate-txt {
+            margin-left: 50px;
+            width: 80px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            line-height: 1.6rem;
+        }
+        .donate-btn-circle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            background-color: $color-highlight;
+            i {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
+        &:hover {
+            max-width: 40px;
+        }
     }
 }
 .section-index-news {
