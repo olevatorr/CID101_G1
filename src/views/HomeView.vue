@@ -244,6 +244,15 @@ onMounted(() => {
   });
 
 });
+const counties = {
+  北部地區: ['台北縣', '桃園縣', '宜蘭縣', '新竹縣', '基隆市', '新竹市'],
+  中部地區: ['台中縣', '台中市', '苗栗縣', '彰化縣', '雲林縣'],
+  南部地區: ['嘉義縣', '台南縣', '台南市', '高雄縣', '高雄市', '屏東縣'],
+  東部地區: ['台東縣', '花蓮縣'],
+  離島地區: ['澎湖縣', '金門縣', '連江縣']
+};
+
+let svg;
 
 onBeforeUnmount(() => {
   window.removeEventListener('resize', resizeMap);
@@ -255,7 +264,7 @@ async function initMap() {
   const width = container.clientWidth;
   const height = container.clientHeight;
 
-  const svg = d3.select(container)
+  svg = d3.select(container)
     .append('svg')
     .attr('width', width)
     .attr('height', height);
@@ -278,11 +287,40 @@ async function initMap() {
     .attr('stroke', 'white');
 }
 
+function updateMapColor(area) {
+  if (area === '總計') {
+    // 如果选择了"总计",让所有地区都高亮
+    svg.selectAll('path')
+      .attr('fill', '#E7A600');
+  } else {
+    const selectedRegions = counties[area];
+
+    svg.selectAll('path')
+      .attr('fill', (d) => {
+        if (selectedRegions && selectedRegions.includes(d.properties.COUNTYNAME)) {
+          return '#E7A600';
+        } else {
+          return '#005FA1';
+        }
+      });
+  }
+}
+
+function handleAreaClick(sort) {
+  if (sort) {
+    selectedArea.value = sort.area;
+    updateMapColor(sort.area);
+  }
+}
+
 function resizeMap() {
   const container = mapContainer.value;
   d3.select(container).select('svg').remove();
   initMap();
 }
+
+initMap();
+window.addEventListener('resize', resizeMap);
 </script>
 
 <template>
@@ -323,42 +361,41 @@ function resizeMap() {
       </div>
     </section>
     <section class="section section-debris">
-      <div class="container">
-        <h3>
-          OVERVIEW OF MARINE DEBRIS<br>
-          海洋垃圾一覽
-        </h3>
-        <div class="row">
-          <div class="col-12 col-lg-6">
-            <ul class="debris-sort">
-              <li v-for="sort in hebrisSort" :key="sort.id" @click="selectedArea = sort.area"
-                :class="{ 'select': selectedArea === sort.area }">
-                <span class="material-symbols-outlined">line_end</span> {{ sort.selectArea }}
-              </li>
-            </ul>
-            <div ref="mapContainer" class="map-container"></div>
+    <div class="container">
+      <h3>
+        OVERVIEW OF MARINE DEBRIS<br>
+        海洋垃圾一覽
+      </h3>
+      <div class="row">
+        <div class="col-12 col-lg-6">
+          <ul class="debris-sort">
+            <li v-for="sort in hebrisSort" :key="sort.area" @click="handleAreaClick(sort)" :class="{ 'select': selectedArea === sort.area }">
+              <span class="material-symbols-outlined">line_end</span> {{ sort.selectArea }}
+            </li>
+          </ul>
+          <div ref="mapContainer" class="map-container"></div>
+        </div>
+        <div class="debris-data col-12 col-lg-6">
+          <div class="clean-tons">
+            <span class="debris-word">已清理</span>
+            <span class="debris-num" ref="totalWeight"></span>
+            <span class="debris-word">噸海廢</span>
           </div>
-          <div class="debris-data col-12 col-lg-6">
-            <div class="clean-tons">
-              <span class="debris-word">已清理</span>
-              <span class="debris-num" ref="totalWeight"></span>
-              <span class="debris-word">噸海廢</span>
-            </div>
-            <div class="clean-attend">
-              <span class="debris-word">參與人數</span>
-              <span class="debris-num" ref="totalParticipants"></span>
-              <span class="debris-word">人次</span>
-            </div>
-            <div class="clean-session">
-              <span class="debris-word">總共</span>
-              <span class="debris-num" ref="totalSessions"></span>
-              <span class="debris-word">場次</span>
-            </div>
-            <p>*皆為本年度資訊,與海洋委員會海洋保育署資料同步</p>
+          <div class="clean-attend">
+            <span class="debris-word">參與人數</span>
+            <span class="debris-num" ref="totalParticipants"></span>
+            <span class="debris-word">人次</span>
           </div>
+          <div class="clean-session">
+            <span class="debris-word">總共</span>
+            <span class="debris-num" ref="totalSessions"></span>
+            <span class="debris-word">場次</span>
+          </div>
+          <p>*皆為本年度資訊,與海洋委員會海洋保育署資料同步</p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
     <section class="section section-comparation">
       <div class="container">
         <h3>
