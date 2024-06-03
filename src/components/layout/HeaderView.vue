@@ -4,12 +4,16 @@ import { RouterLink } from 'vue-router'
 
 const isMenuOpen = ref(false)
 const isSubmenuOpen = ref(false)
+const isSubmenuDropDown = ref(false)
 
 const toggleMenu = () => {
     isMenuOpen.value = !isMenuOpen.value
 }
 const toggleSubmenu = () => {
     isSubmenuOpen.value = !isSubmenuOpen.value
+}
+const toggleSubmenuDropDown = () => {
+    isSubmenuDropDown.value = !isSubmenuDropDown.value
 }
 </script>
 
@@ -18,7 +22,7 @@ const toggleSubmenu = () => {
         <nav>
             <RouterLink to="/">
                 <div class="nav-logo">
-                    <img src="../../../public/img/LOGO-white.png" alt="BLUE ALER 藍色警戒" />
+                    <img src="../../../public/img/LOGO-short.png" alt="BLUE ALER 藍色警戒" />
                 </div>
             </RouterLink>
             <div class="hb" @click="toggleMenu">
@@ -30,13 +34,13 @@ const toggleSubmenu = () => {
                 <li>
                     <RouterLink to="/about">關於我們</RouterLink>
                 </li>
-                <li class="subnav-toggle" @click="toggleSubmenu">
-                    <RouterLink to="/KnowledgeView">教育中心</RouterLink>
+                <li class="subnav-toggle" @click="toggleSubmenu" @mouseover="toggleSubmenuDropDown">
+                    <RouterLink to="/Knowledge">教育中心</RouterLink>
                     <i class="fa-solid" :class="{ 'fa-caret-down': !isSubmenuOpen, 'fa-caret-up': isSubmenuOpen }"></i>
-                    <ul class="subnav" :class="{ active: isSubmenuOpen }">
+                    <ul class="subnav" :class="{ active: isSubmenuOpen, hover: isSubmenuDropDown }">
                         <li><a href="">教育</a></li>
                         <li>
-                            <RouterLink to="/BeachgameView">淨灘大作戰</RouterLink>
+                            <RouterLink to="/Beachgame">淨灘大作戰</RouterLink>
                         </li>
                         <li>
                             <RouterLink to="/Mbti">海廢人格測驗</RouterLink>

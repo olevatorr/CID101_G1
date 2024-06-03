@@ -3,36 +3,39 @@ header {
     width: 100%;
     left: 0;
     top: 0;
-    mix-blend-mode: difference;
     z-index: 99;
-    transition: mix-blend-mode 0.3s;
-}
-
-header.blend-unset {
-    mix-blend-mode: unset;
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 60px;
-}
-
-@media screen and (max-width: 767px) {
+    background: rgba(116, 116, 116, 0.15);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(7.8px);
+    -webkit-backdrop-filter: blur(7.8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    // @media screen and (min-width: 992px) {
+    //     mix-blend-mode: difference;
+    // }
+    // @media screen and (max-width: 991px) {
+    // }
     nav {
-        padding: 5px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 60px;
     }
-}
-
-@media screen and (max-width: 575px) {
-    nav {
-        padding: 5px 20px;
+    
+    @media screen and (max-width: 767px) {
+        nav {
+            padding: 5px 40px;
+        }
+    }
+    
+    @media screen and (max-width: 575px) {
+        nav {
+            padding: 5px 20px;
+        }
     }
 }
 
 nav .nav-logo {
-    height: 80px;
+    height: 40px;
 }
 
 nav .nav-logo img {
@@ -72,12 +75,9 @@ nav .navbar .subnav {
     }
 }
 
-nav .navbar .subnav.active {
-    max-height: 200px;
-}
 
 nav .navbar .subnav li a {
-    color: #000;
+    color: #fff;
 }
 
 nav .navbar li>.subnav {
@@ -91,9 +91,9 @@ nav .navbar li>.subnav {
     transition: .3s;
 }
 
-nav .navbar li:hover>.subnav {
-    max-height: 200px;
-}
+// nav .navbar li:hover>.subnav {
+//     max-height: 200px;
+// }
 
 nav .navbar li a {
     color: #fff;
@@ -121,6 +121,11 @@ nav .hb {
     display: none;
 }
 
+@media screen and (min-width: 992px) {
+    nav .subnav.hover {
+        max-height: 1000px;
+    }
+}
 @media screen and (max-width: 991px) {
     nav .hb {
         width: 50px;
@@ -147,9 +152,10 @@ nav .hb {
         overflow: hidden;
     }
 
-    nav .navbar.active {
+    nav .subnav.active {
         max-height: 1000px;
     }
+
 
     nav .navbar li {
         display: flex;
