@@ -6,19 +6,19 @@
                     <div class="register-login ">
                         <div class="from-group">
                             <label>會員姓名</label>
-                            <input type="text" maxlength="10" placeholder="請輸入姓名">
+                            <input type="text" maxlength="20" placeholder="請輸入姓名">
                         </div>
                         <div class="from-group">
                             <label>會員帳號</label>
-                            <input type="text" name="" id="" maxlength="10" placeholder="請輸入帳號">
+                            <input type="text" name="" id="" maxlength="20" placeholder="請輸入帳號">
                         </div>
                         <div class="from-group">
                             <label>會員密碼</label>
-                            <input type="number" name="" id="" maxlength="10" placeholder="請輸入密碼">
+                            <input type="number" name="" id="" maxlength="20" placeholder="請輸入密碼">
                         </div>
                         <div class="from-group">
                             <label>確認密碼</label>
-                            <input type="number" name="" id="" maxlength="10" placeholder="再輸入一次密碼">
+                            <input type="number" name="" id="" maxlength="20" placeholder="再輸入一次密碼">
                         </div>
                         <div class="from-group">
                             <label>電話號碼</label>
