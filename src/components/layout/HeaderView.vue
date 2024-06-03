@@ -3,22 +3,22 @@ import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 
 const isMenuOpen = ref(false)
-const isSubmenuOpen = ref(false)
+const isSubmenuDropDown = ref(false)
 
 const toggleMenu = () => {
     isMenuOpen.value = !isMenuOpen.value
 }
-const toggleSubmenu = () => {
-    isSubmenuOpen.value = !isSubmenuOpen.value
+const toggleSubmenuDropDown = () => {
+    isSubmenuDropDown.value = !isSubmenuDropDown.value
 }
 </script>
 
 <template>
-    <header :class="{ 'blend-unset': isMenuOpen }">
+    <header>
         <nav>
             <RouterLink to="/">
                 <div class="nav-logo">
-                    <img src="../../../public/img/LOGO-white.png" alt="BLUE ALER 藍色警戒" />
+                    <img src="../../../public/img/LOGO-short.png" alt="BLUE ALER 藍色警戒" />
                 </div>
             </RouterLink>
             <div class="hb" @click="toggleMenu">
@@ -28,33 +28,35 @@ const toggleSubmenu = () => {
             </div>
             <ul class="navbar" :class="{ active: isMenuOpen }">
                 <li>
-                    <RouterLink to="/about">關於我們</RouterLink>
+                    <RouterLink to="/about" @click="toggleMenu">關於我們</RouterLink>
                 </li>
-                <li class="subnav-toggle" @click="toggleSubmenu">
-                    <RouterLink to="/KnowledgeView">教育中心</RouterLink>
-                    <i class="fa-solid" :class="{ 'fa-caret-down': !isSubmenuOpen, 'fa-caret-up': isSubmenuOpen }"></i>
-                    <ul class="subnav" :class="{ active: isSubmenuOpen }">
-                        <li><a href="">教育</a></li>
+                <li class="subnav-toggle"   
+                    @mouseenter="toggleSubmenuDropDown"
+                    @mouseleave="toggleSubmenuDropDown"
+                    >
+                    <RouterLink to="/Knowledge" @click="toggleMenu">教育中心
+                    </RouterLink>
+                    <ul class="subnav" :class="{ hover: isSubmenuDropDown }">
                         <li>
-                            <RouterLink to="/BeachgameView">淨灘大作戰</RouterLink>
+                            <RouterLink to="/Beachgame" @click="toggleMenu">淨灘大作戰</RouterLink>
                         </li>
                         <li>
-                            <RouterLink to="/Mbti">海廢人格測驗</RouterLink>
+                            <RouterLink to="/Mbti" @click="toggleMenu">海廢人格測驗</RouterLink>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <RouterLink to="/Donate">捐款</RouterLink>
+                    <RouterLink to="/Donate" @click="toggleMenu">捐款</RouterLink>
                 </li>
                 <li>
-                    <RouterLink to="/shop">商品</RouterLink>
+                    <RouterLink to="/shop" @click="toggleMenu">商品</RouterLink>
                 </li>
                 <li>
-                    <RouterLink to="/events">活動</RouterLink>
+                    <RouterLink to="/events" @click="toggleMenu">活動</RouterLink>
                 </li>
-                <li><router-link to="/news">最新消息</router-link></li>
+                <li><router-link to="/news" @click="toggleMenu">最新消息</router-link></li>
                 <li class="nav-member">
-                    <RouterLink to="/Member">會員登入</RouterLink>
+                    <RouterLink to="/Member" @click="toggleMenu">會員登入</RouterLink>
                 </li>
             </ul>
         </nav>

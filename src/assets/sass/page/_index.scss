@@ -155,6 +155,7 @@
         max-width: 1920px;
         margin: auto;
         position: relative;
+        overflow: hidden;
     }
     .control {
         height: 40px;
@@ -230,6 +231,33 @@
         li {
             margin-left: 3rem;
         }
+    }
+    .survey-box {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(0,0,0,.4);
+        justify-content: center;
+        align-items: center;
+        z-index: 20;
+        .wrapper {
+            background-color: #fff;
+            padding: 20px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            .buttons {
+                display: flex;
+                gap:30px;
+            }
+        }
+    }
+    .survey-box.show {
+        display: flex;
     }
 }
 .section-donation-summary {

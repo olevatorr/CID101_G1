@@ -17,7 +17,6 @@ const trashLeft = ref(null);
 const trashRight = ref(null);
 
 // 對比照動畫
-
 const comparationArea = ref(null);
 const control = ref(null);
 const dirty = ref(null);
@@ -44,6 +43,13 @@ const startDrag = (event) => {
   document.addEventListener('mousemove', handleDrag);
   document.addEventListener('mouseup', stopDrag);
 };
+
+// survey
+const isSurveyPopUp = ref(false)
+
+const SurveyPopUp = () => {
+  isSurveyPopUp.value = !isSurveyPopUp.value
+}
 
 const hebrisSort = [
   { id: 1, area: '全台灣' },
@@ -313,7 +319,16 @@ function resizeMap() {
             無論結果如何,我們都感謝您對海洋環保的關注和努力。了解自己的知識水平,是成為一個負責任的環保行動者的第一步。讓我們攜手,以知識和行動,共創潔淨、永續的海洋環境!<br>
             準備好開始這趟自我探索之旅了嗎?現在就開始測驗吧!
           </p>
-          <button>立即測驗</button>
+          <button @click="SurveyPopUp">立即測驗</button>
+        </div>
+        <div class="survey-box" :class="{ show : isSurveyPopUp}">
+          <div class="wrapper">
+            <h2>是否開始測驗</h2>
+            <div class="buttons">
+              <button @click="SurveyPopUp">取消測驗</button>
+              <button>開始測驗</button>
+            </div>
+          </div>
         </div>
       </div>
     </section>

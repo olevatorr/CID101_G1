@@ -40,7 +40,7 @@
         </div>
         <div class="col-12 col-lg-9">
           <!-- 第一條 -->
-          <div class="row purpose-line ">
+          <div class="row purpose-line" data-aos="fade-left" data-aos-duration="2000">
             <div class="col-12 col-lg-3 purpose-circle">
                 <span class="material-symbols-outlined"> cognition </span>
                 <span>01</span>
@@ -53,7 +53,7 @@
             </div>
           </div>
           <!-- 第二條 -->
-          <div class="row purpose-line">
+          <div class="row purpose-line" data-aos="fade-left" data-aos-duration="2000">
             <div class="col-12 col-lg-3 purpose-circle">
               <span class="material-symbols-outlined"> keyboard_command_key </span>
               <span>02</span>
@@ -66,7 +66,7 @@
             </div>
           </div>
           <!-- 第三條 -->
-          <div class="row purpose-line">
+          <div class="row purpose-line" data-aos="fade-left" data-aos-duration="2000">
             <div class="col-12 col-lg-3 purpose-circle">
               <span class="material-symbols-outlined"> moving </span>
               <span>03</span>
@@ -176,6 +176,7 @@
           </div>
         </div>
       </div>
+      <button>捐款去</button>
     </div>
   </section>
   <!-- 成員介紹 -->
@@ -313,3 +314,14 @@
     </div>
   </section>
 </template>
+
+<script>
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+export default {
+  mounted() {
+    AOS.init();
+  },
+};
+</script>
