@@ -29,6 +29,9 @@
                     position: relative;
 
                 }
+                button{
+                    margin-top: 2rem;
+                }
 
                 img {
                     top: 0;
@@ -43,14 +46,14 @@
                 }
 
                 p {
-                    padding: 2rem;
+                    padding: 1rem;
                     color: $color-white;
                 }
             }
 
             .profile-button {
                 text-align: center;
-                padding-top: 4rem;
+                padding-top: 8rem;
                 margin: 0 -1.5rem;
 
                 button {
@@ -121,9 +124,15 @@
         table {
             border-collapse: collapse;
             background-color: $color-white;
-            font-size: 1.6rem;
-            width: 150%;
+            font-size: 1.5rem;
             text-align: center;
+            table-layout:fixed; 
+            width: 150%;
+            caption{
+                width: 67%;
+                font-size: 2rem;
+                padding-bottom: 1rem;
+            }
 
             tr:first-child {
                 background-color: $color-subprimary;
@@ -136,6 +145,7 @@
 
 
                 th {
+                    text-align: center;
                     height: 4rem;
                     vertical-align: middle;
                 }
@@ -143,8 +153,29 @@
                 td {
                     height: 4rem;
                     vertical-align: middle;
+                    white-space: wrap;
+                    
+                    
                 }
             }
+        }
+        .button {
+            text-align: center;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            padding: 1rem 0;
+            background-color: $color-white;
+            width: 150%;
+            :hover{
+                background-color: #bbb;
+            }
+            a {
+            border: 1px solid black;
+            padding: 0px 10px;
+            margin: 0 10px;
+            text-decoration: none;
+        }
         }
 
         .order {
@@ -190,21 +221,7 @@
             }
     
         }
-        .button {
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        padding: 1rem 0;
-        background-color: $color-white;
-        width: 150%;
-    }
 
-    .button a {
-        border: 1px solid black;
-        padding: 0px 10px;
-        margin: 0 10px;
-        text-decoration: none;
-    }
     }
         //修改密碼
     .profile-revise{
@@ -276,9 +293,6 @@
                     margin-right: 5rem;
                 }
             }
-        }
-        .profile-revise{
-            width: 92%;
         }
 
     }
