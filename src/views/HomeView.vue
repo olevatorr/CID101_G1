@@ -3,8 +3,9 @@ import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ref, onMounted, onBeforeUnmount } from 'vue';
-import Chart from 'chart.js/auto';
+import { ref, onMounted, onBeforeUnmount, computed, watch } from 'vue';
+import { CountUp } from 'countup.js';
+import { Chart } from 'chart.js/auto';
 import { RouterLink } from 'vue-router';
 
 // banner 動畫
@@ -17,7 +18,7 @@ const trashLeft = ref(null);
 const trashRight = ref(null);
 
 onMounted(() => {
-    const tl = gsap.timeline({
+  const tl = gsap.timeline({
     scrollTrigger: {
       trigger: banner.value,
       start: 'top top',
@@ -85,22 +86,67 @@ const SurveyPopUp = () => {
 
 // 海廢數據
 const hebrisSort = [
-  { id: 1, area: '全台灣' },
-  { id: 2, area: '北部' },
-  { id: 3, area: '中部' },
-  { id: 4, area: '南部' },
-  { id: 5, area: '東部' },
-  { id: 6, area: '離島' }
+  { id: 1, area: '總計', selectArea: '全台灣' },
+  { id: 2, area: '北部地區', selectArea: '北部地區' },
+  { id: 3, area: '中部地區', selectArea: '中部地區' },
+  { id: 4, area: '南部地區', selectArea: '南部地區' },
+  { id: 5, area: '東部地區', selectArea: '東部地區' },
+  { id: 6, area: '離島地區', selectArea: '離島地區' }
 ];
 
-// 抓debris數據
 const hebrisData = ref(null);
+const selectedArea = ref('總計');
+const totalWeight = ref(null);
+const totalParticipants = ref(null);
+const totalSessions = ref(null);
+
+let weightCountUp = null;
+let participantsCountUp = null;
+let sessionsCountUp = null;
 
 onMounted(() => {
   fetch('../../public/json/海洋委員會公務統計報表-海洋廢棄物清理-113.01.json')
     .then(res => res.json())
-    .then(jsonData => {hebrisData.value = jsonData})
-})
+    .then(jsonData => {
+      hebrisData.value = jsonData;
+    });
+
+  weightCountUp = createCountUp(totalWeight.value);
+  participantsCountUp = createCountUp(totalParticipants.value);
+  sessionsCountUp = createCountUp(totalSessions.value);
+});
+
+const filteredData = computed(() => {
+  if (hebrisData.value) {
+    return hebrisData.value.find(data => data['縣市別'] === selectedArea.value) || {};
+  }
+  return {};
+});
+
+watch(filteredData, () => {
+  const weightValue = parseFloat(filteredData.value['清理數量分類(噸)_總計'] || '0');
+  const participantsValue = parseFloat(removeCommas(filteredData.value['參與人數(人次)'] || '0'));
+  const sessionsValue = parseFloat(removeCommas(filteredData.value['清理次數(次)'] || '0'));
+
+  weightCountUp.update(weightValue);
+  participantsCountUp.update(participantsValue);
+  sessionsCountUp.update(sessionsValue);
+});
+
+function removeCommas(value) {
+  return value.replace(/,/g, '');
+}
+
+function createCountUp(element) {
+  return new CountUp(element, 0, {
+    duration: 1,
+    formattingFn: formatNumber,
+  });
+}
+
+function formatNumber(value) {
+  return value.toLocaleString();
+}
 
 // 捐款
 const donateList = [
@@ -285,8 +331,9 @@ function resizeMap() {
         <div class="row">
           <div class="col-12 col-lg-6">
             <ul class="debris-sort">
-              <li v-for="sort in hebrisSort" :key="sort.id">
-                <span class="material-symbols-outlined">line_end</span> {{ sort.area }}
+              <li v-for="sort in hebrisSort" :key="sort.id" @click="selectedArea = sort.area"
+                :class="{ 'select': selectedArea === sort.area }">
+                <span class="material-symbols-outlined">line_end</span> {{ sort.selectArea }}
               </li>
             </ul>
             <div ref="mapContainer" class="map-container"></div>
@@ -294,20 +341,20 @@ function resizeMap() {
           <div class="debris-data col-12 col-lg-6">
             <div class="clean-tons">
               <span class="debris-word">已清理</span>
-              <span class="debris-num">9,090</span>
+              <span class="debris-num" ref="totalWeight"></span>
               <span class="debris-word">噸海廢</span>
             </div>
             <div class="clean-attend">
               <span class="debris-word">參與人數</span>
-              <span class="debris-num">20,751</span>
+              <span class="debris-num" ref="totalParticipants"></span>
               <span class="debris-word">人次</span>
             </div>
             <div class="clean-session">
               <span class="debris-word">總共</span>
-              <span class="debris-num">5,121</span>
+              <span class="debris-num" ref="totalSessions"></span>
               <span class="debris-word">場次</span>
             </div>
-            <p>*皆為本年度資訊，與海洋委員會海洋保育署資料同步</p>
+            <p>*皆為本年度資訊,與海洋委員會海洋保育署資料同步</p>
           </div>
         </div>
       </div>
@@ -345,7 +392,7 @@ function resizeMap() {
           </p>
           <button @click="SurveyPopUp">立即測驗</button>
         </div>
-        <div class="survey-box" :class="{ show : isSurveyPopUp}">
+        <div class="survey-box" :class="{ show: isSurveyPopUp }">
           <div class="wrapper">
             <h2>是否開始測驗</h2>
             <div class="buttons">

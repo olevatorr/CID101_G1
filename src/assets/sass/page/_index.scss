@@ -99,10 +99,12 @@
             align-items: center;
             gap: 10px;
             cursor: pointer;
+            transition: .5s;
         }
         li.select {
-            scale: 1.1;
+            scale: 1.2;
             color: $color-highlight;
+            transform: translateX(5%);
         }
     }
     .map-container {
