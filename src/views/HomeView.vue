@@ -16,6 +16,23 @@ const smokeRight = ref(null);
 const trashLeft = ref(null);
 const trashRight = ref(null);
 
+onMounted(() => {
+    const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: banner.value,
+      start: 'top top',
+      end: '+=200%',
+      scrub: true,
+      pin: true,
+    },
+  });
+
+  tl.to(trashLeft.value, { x: '-100%', duration: 1 }, 0)
+    .to(trashRight.value, { x: '100%', duration: 1 }, 0)
+    .to(smokeLeft.value, { x: '-100%', duration: 1 }, 1)
+    .to(smokeRight.value, { x: '100%', duration: 1 }, 1)
+})
+
 // 對比照動畫
 const comparationArea = ref(null);
 const control = ref(null);
@@ -23,11 +40,11 @@ const dirty = ref(null);
 
 const startDrag = (event) => {
   event.preventDefault();
-  const startX = event.clientX;
+  const startX = event.clientX || event.touches[0].clientX;
   const startLeft = control.value.offsetLeft;
 
   const handleDrag = (event) => {
-    const deltaX = event.clientX - startX;
+    const deltaX = (event.clientX || event.touches[0].clientX) - startX;
     const newLeft = startLeft + deltaX;
     const progress = Math.max(0, Math.min(1, newLeft / comparationArea.value.offsetWidth));
 
@@ -38,11 +55,26 @@ const startDrag = (event) => {
   const stopDrag = () => {
     document.removeEventListener('mousemove', handleDrag);
     document.removeEventListener('mouseup', stopDrag);
+    document.removeEventListener('touchmove', handleDrag);
+    document.removeEventListener('touchend', stopDrag);
   };
 
   document.addEventListener('mousemove', handleDrag);
   document.addEventListener('mouseup', stopDrag);
+  document.addEventListener('touchmove', handleDrag);
+  document.addEventListener('touchend', stopDrag);
 };
+
+onMounted(() => {
+  control.value.addEventListener('mousedown', startDrag);
+  control.value.addEventListener('touchstart', startDrag);
+})
+
+onBeforeUnmount(() => {
+  control.value.removeEventListener('mousedown', startDrag);
+  control.value.removeEventListener('touchstart', startDrag);
+});
+
 
 // survey
 const isSurveyPopUp = ref(false)
@@ -51,6 +83,7 @@ const SurveyPopUp = () => {
   isSurveyPopUp.value = !isSurveyPopUp.value
 }
 
+// 海廢數據
 const hebrisSort = [
   { id: 1, area: '全台灣' },
   { id: 2, area: '北部' },
@@ -60,6 +93,16 @@ const hebrisSort = [
   { id: 6, area: '離島' }
 ];
 
+// 抓debris數據
+const hebrisData = ref(null);
+
+onMounted(() => {
+  fetch('../../public/json/海洋委員會公務統計報表-海洋廢棄物清理-113.01.json')
+    .then(res => res.json())
+    .then(jsonData => {hebrisData.value = jsonData})
+})
+
+// 捐款
 const donateList = [
   {
     "id": 1,
@@ -154,25 +197,6 @@ onMounted(() => {
     }
   });
 
-  // banner 動畫
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: banner.value,
-      start: 'top top',
-      end: '+=200%',
-      scrub: true,
-      pin: true,
-    },
-  });
-
-  tl.to(trashLeft.value, { x: '-100%', duration: 1 }, 0)
-    .to(trashRight.value, { x: '100%', duration: 1 }, 0)
-    .to(smokeLeft.value, { x: '-100%', duration: 1 }, 1)
-    .to(smokeRight.value, { x: '100%', duration: 1 }, 1);
-
-  // 對比圖動畫
-  control.value.style.left = '50%';
-  dirty.value.style.width = '50%';
 });
 
 onBeforeUnmount(() => {
