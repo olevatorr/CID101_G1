@@ -1,0 +1,170 @@
+// 進入遊戲
+.section-mbti {
+    background-image: url(../../../../public/img/mbti/mbti-bg.png);
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    height: 100vh;
+    .container{
+        margin: 10rem auto;
+        max-width: 60rem;
+        text-align: center;
+        span{
+        font-size: 2rem;
+        color: $color-white;
+        background-color:$color-highlight;
+        padding: 1.5rem 3rem ;
+        border-radius: 2rem;
+        }
+        .content{
+            background-color: $color-white;
+            padding: 20%;
+            border-radius: 4rem;
+            text-align: center;
+            h3,h1{
+                margin-bottom: 3rem;
+            }
+        }
+    }
+}
+
+// 遊戲開始
+.section-mbti-rule {
+    background-image: url(../../../../public/img/mbti/mbti-bg.png);
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    height: 100vh;
+    .container{
+        margin: 10rem auto;
+        max-width: 60rem;
+        text-align: center;
+        span{
+        font-size: 2rem;
+        color: $color-white;
+        background-color:$color-highlight;
+        padding: 1.5rem 3rem ;
+        border-radius: 2rem;
+        }
+        .content{
+            background-color: $color-white;
+            padding: 20%;
+            border-radius: 4rem;
+            text-align: center;
+            h3,h1{
+                margin-bottom: 3rem;
+            }
+        }
+    }
+}
+
+//遊戲內容
+.section-mbti-game {
+    background-image: url(../../../../public/img/mbti/mbti-bg.png);
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    height: 100vh;
+    .container{
+        margin: 10rem auto;
+        max-width: 60rem;
+        text-align: center;
+        .content{
+            background-color: $color-white;
+            padding: 10%;
+            border-radius: 4rem;
+            text-align: center;
+            .game{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 4rem 0;
+                gap: 2rem;
+                img{
+                    width: 15rem;
+                    margin-bottom: 1rem;
+                    @media (max-width: 574px) {
+                        width: 10rem;
+                    }
+                }
+                .choose{
+                    border: 1px solid black;
+                    width: 7rem;
+                    height: 7rem;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background-color: $color-highlight;
+                    color: $color-white;
+                    cursor: pointer;
+                    @media (max-width: 574px) {
+                        width: 4rem;
+                        height: 4rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+// 遊戲結果
+.section-mbti-result {
+    background-image: url(../../../../public/img/mbti/mbti-bg.png);
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    height: 100vh;
+    .container{
+        margin: 10rem auto;
+        max-width: 60rem;
+        text-align: center;
+        .content{
+            background-color: $color-white;
+            padding: 10%;
+            border-radius: 4rem;
+            h3{
+                margin-bottom: 4rem;
+            }
+            .mbti{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 2rem;
+                text-align: center;
+                background-color: #D2EAF7;
+                border: 1px solid black;
+                border-radius: 4rem;
+                padding: 3rem;
+                img{
+                    width: 15rem;
+                }
+                .txt{
+                    margin-left: 2rem;
+                }
+                h4{
+                    margin-bottom: 2rem;
+                }
+                @media (max-width: 574px) {
+                    img{
+                        width: 10rem;
+                    }
+                    h4{
+                        margin-bottom: 0;
+                    }
+                }
+            }
+            p{
+                display: flex;
+                justify-content: flex-end;
+                margin-bottom: 2rem;
+                
+            }
+            .restart{
+                margin-right: 2rem;
+            }
+        }
+    }
+}
+

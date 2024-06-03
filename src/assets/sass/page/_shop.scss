@@ -1,0 +1,289 @@
+.section-shop-banner {
+    width: 100%;
+    height: 80vh;
+    overflow: hidden;
+    background: url(../../../../public/img/shop/benner.png)no-repeat 50% 50% / cover;
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+
+        h1 {
+            font-size: 60px;
+            color: #fff;
+        }
+
+        span {
+            font-size: 20px;
+            color: #fff;
+        }
+    }
+}
+
+.section-shop-title {
+    padding-bottom: 0;
+
+    .container {
+        text-align: center;
+    }
+
+    .title h3 {
+        padding-top: 30px;
+    }
+
+    .title h3:nth-child(2) {
+        border-bottom: 2px solid #005FA1;
+        display: inline-block;
+        text-align: center;
+    }
+
+    .category ul {
+        display: flex;
+        padding: 60px 0 70px 0;
+        justify-content: center;
+        text-decoration: none;
+        border-right: 2px soild #fff;
+    }
+
+    .category ul li {
+        background-color: #D9E8F3;
+        font-size: 18px;
+        color: #000000;
+        text-decoration: none;
+        padding: 2px 64px;
+        margin-right: 3px;
+    }
+
+    .category ul li:nth-child(1) {
+        background-color: #005FA1;
+        color: #fff;
+        font-size: 16px;
+    }
+}
+
+.section-product-list {
+    padding: 0;
+
+    .container {
+        text-align: center;
+    }
+
+    .row {
+        padding: 0px 20px;
+    }
+
+    .row .text {
+        padding: 10px 0px;
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+    .row .text span {
+        display: block;
+        font-size: 16px;
+    }
+
+    .shop-card {
+        position: relative;
+    }
+
+    .cart {
+        width: 88%;
+        padding: 6px 0;
+        background-color: #eaeaea;
+        font-size: 18px;
+        margin: 0 auto;
+        position: absolute;
+        bottom: 70px;
+        left: 16px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .cart span {
+        margin: 0 20px;
+    }
+
+    .hot {
+        width: 60px;
+        padding: 2px 4px;
+        background-color: #027B00;
+        border: 1px solid white;
+        color: white;
+        text-align: center;
+        position: absolute;
+        top: 0;
+        left: 16px;
+        font-size: 12px;
+        text-decoration: none;
+    }
+}
+
+.section-pagination {
+    padding-bottom: 60px;
+    position: relative;
+
+    .button {
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        padding-bottom: 60px;
+    }
+
+    .button a {
+        border: 1px solid black;
+        padding: 0px 10px;
+        margin: 0 10px;
+        text-decoration: none;
+    }
+
+    .sea-img {
+        width: 100%;
+        overflow: hidden;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+
+    .sea-img img {
+        width: 100%;
+        vertical-align: top;
+    }
+
+    .turtle-img {
+        width: 100%;
+        overflow: hidden;
+        position: absolute;
+        left: 10%;
+        bottom: -2%;
+    }
+}
+
+
+@media screen and (max-width: 992px) {
+    .section-shop-title {
+        .category ul li {
+            background-color: #D9E8F3;
+            font-size: 18px;
+            color: #000000;
+            text-decoration: none;
+            padding: 0 46px;
+            margin-right: 3px;
+        }
+    }
+
+    .section-product-list {
+        .cart {
+            width: 236px;
+            padding: 6px 0;
+            background-color: #eaeaea;
+            font-size: 18px;
+            margin: 0 auto;
+            position: absolute;
+            bottom: 71px;
+            left: 0;
+            cursor: pointer;
+        }
+
+        .hot {
+            width: 60px;
+            padding: 4px 8px;
+            background-color: #027B00;
+            border: 1px solid white;
+            color: white;
+            text-align: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    }
+
+    .section-pagination {
+        .turtle-img {
+            width: 100%;
+            overflow: hidden;
+            position: absolute;
+            left: 10%;
+            bottom: -9%;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .section-shop-title {
+        .category ul li {
+            background-color: #D9E8F3;
+            font-size: 16px;
+            color: #000000;
+            text-decoration: none;
+            padding: 0 32px;
+            margin-right: 3px;
+        }
+    }
+
+    .section-pagination {
+        .turtle-img {
+            width: 100%;
+            overflow: hidden;
+            position: absolute;
+            left: 10%;
+            bottom: -12%;
+        }
+    }
+
+    .section-pagination {
+        .button {
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            padding-bottom: 60px;
+        }
+
+        .button a {
+            border: 1px solid black;
+            padding: 2px 10px;
+            margin: 0 10px;
+        }
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .section-shop-title {
+        .category ul li {
+            background-color: #D9E8F3;
+            font-size: 16px;
+            color: #000000;
+            text-decoration: none;
+            padding: 0 18px;
+            margin-right: 3px;
+        }
+    }
+
+    .section-pagination {
+        .turtle-img {
+            width: 100%;
+            overflow: hidden;
+            position: absolute;
+            left: 10%;
+            bottom: -21%;
+        }
+    }
+
+    .section-pagination {
+        .button {
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            padding-bottom: 60px;
+        }
+
+        .button a {
+            border: 1px solid black;
+            padding: 4px 10px;
+            margin: 0 10px 10px 10px;
+        }
+    }
+}

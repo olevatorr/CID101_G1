@@ -1,180 +1,565 @@
 //section-event-title
-.section-event-title{
-    background: url("https://picsum.photos/1200/800/?random=10");
-    background-repeat: no-repeat;
-    background-size: cover;
+.section-event-title {
+  background: url('../../../../public/img/event/event_03.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 80vh;
+  aspect-ratio: 16/9;
+
+  .title-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 80vh;
+  }
 
-    .title-wrap{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 80vh;
-    }
-    .title {
-        color: #fff;
-        display: flex;
-        flex-direction: column;
-    }    
+  .title {
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+  }
+
+  span {
+    font-size: 3rem;
+  }
+
+  h1 {
+    font-size: 6rem;
+  }
 }
+
 //section-event-banner
-.section-event-banner{
-    background-color: $color-primary;
-    text-align: center;
-    .sloagn1{
-        margin-bottom: 30px;
-    }
-    .sloagn2{
-        margin-bottom: 30px;
-    }
+.section-event-banner {
+  background-color: $color-primary;
+  text-align: center;
+
+  .sloagn {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 10px 0;
+    color: #fff;
+  }
 }
+
 //section-event-date
-.section-event-date{
-    background-color: #fff;
-    text-align: center;
-    .calendar{
-        width: clamp(600px,auto,1200px);
-        margin: 40px auto;
+.section-event-date {
+  background-color: #fff;
+  text-align: center;
+
+  .calendar {
+    width: clamp(600px, auto, 1200px);
+    margin: 40px auto;
+  }
+
+  .area-list {
+    height: 470px;
+    overflow-y: auto;
+
+    @media screen and (max-width: 992px) {
+      margin-top: 20px;
     }
-    .area-list{
-        height: 100%;
+
+    .area {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 0;
+
+      h3 {
+        width: 50%;
+      }
+
+      p {
+        letter-spacing: .5rem;
+      }
+
+      .activities {
+        flex-grow: 1;
         display: flex;
         flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-        border: 10px double #000;
+        align-items: start;
+      }
     }
-    .area-list .area{
-        width: 100%;
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-        padding: 10px 0;
-        h3{
-            width: 30%;
-        }
-        p{
-            width: 50%;
-            text-align: left;
-        }
-    }
+  }
+
+  //卷軸寬度
+  .area-list::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  //軌道背景色
+  .area-list::-webkit-scrollbar-track {
+    background: #005FA1;
+    border-radius: 25px;
+  }
+
+  //卷軸滑塊、圓角
+  .area-list::-webkit-scrollbar-thumb {
+    background: #E7A600;
+    border-radius: 25px;
+  }
 }
+
 //section-event-list
-.section-event-list{
-    background-color: #fff;
+.section-event-list {
+  background-color: #fff;
+  text-align: center;
+
+  .menu .choose {
+    width: 50%;
+    border-radius: 0;
+    margin-bottom: 30px;
+    padding: 5px 10px;
+  }
+
+  select {
     text-align: center;
-    .menu .choose{
-        width: 100%;
-        border-radius: 0;
-        margin-bottom: 30px;
-        padding: 5px 10px;
+    font-family: $font-family-base;
+  }
+
+  .row {
+    .col-md-6 {
+      margin: 15px 0;
     }
-    select{
-        text-align: center;
-        font-family: $font-family-base;
-    }
+  }
 }
-//兩欄時，卡片上下間距
-.col-md-6{
-    margin: 15px 0;
-}
+
 //section-event-share
-.section-event-share{
-    text-align: center;
-}
-//卡片(共通)
-.event-card{
-    padding: 20px;
-    background-color: #fff;
-    text-align: left;
-    box-shadow: 2px 2px 10px $color-border;
-    .text .theme{
-        margin-bottom: 20px;
-    }
-    .text .place{
-        margin-bottom: 20px;
-    }
-    .pic img{
-        width: 100%;
-        vertical-align: top;
-    }
-    .addnew{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin: 10px 0;
-    }
-}
-//頁碼(共通)
-.pagenumber{
-        margin: 30px 0;
-        a{
-            display: inline-block;
-            border: 1px solid #000;
-            padding: 7px 14px;
-            margin:10px;
+.section-event-share {
+  text-align: center;
+
+  .container .row .col-md-6 {
+    margin: 15px 0;
+
+    .event-card {
+      .text {
+        .theme {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin: 20px 0;
+
+          .event-name {
+            margin-bottom: 0;
+
+            h3 {
+              margin-bottom: 0;
+            }
+          }
+
+          .report {
+            i {
+              font-size: 2rem;
+              cursor: pointer;
+              color: #e7a600;
+            }
+          }
         }
+      }
+
+      span {
+        font-size: 1.5rem;
+        display: block;
+        margin: 20px 0;
+        line-height: 1.2;
+      }
+
+      span:last-child {
+        margin-top: 30px;
+      }
+
+      .Thoughts {
+        a {
+          margin-top: 10px;
+          display: inline-block;
+          text-decoration: none;
+          font-size: 1.5rem;
+          color: #000;
+        }
+      }
     }
+  }
+}
+
+//卡片(共用)
+.event-card {
+  padding: 20px;
+  background-color: #fff;
+  text-align: left;
+  box-shadow: 2px 2px 10px $color-border;
+
+  &:hover {
+    background-color: #005FA1;
+    color: #fff;
+    transition: .3s ease;
+    cursor: pointer;
+
+    .addnew i {
+      color: #fff;
+    }
+  }
+
+  .text {
+
+    h3 {
+      margin-bottom: 20px;
+    }
+
+    p {
+      margin-bottom: 20px;
+    }
+
+    p:nth-child(3) {
+      margin-bottom: 0;
+    }
+  }
+
+  .pic {
+    width: 100%;
+    height: 100%;
+
+    img {
+      width: 100%;
+      vertical-align: top;
+    }
+  }
+
+  .addnew {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+
+    span {
+      font-size: 1.5rem;
+      font-weight: normal;
+    }
+
+    i {
+      font-size: 2rem;
+      color: #000;
+    }
+  }
+}
+
+.section-event-share .event-card:hover .text .Thoughts  {
+  color: #fff;
+}
+
+
+//頁碼(共用)
+.pagenumber {
+  margin: 30px 0;
+
+  a {
+    display: inline-block;
+    border: 1px solid #000;
+    padding: 7px 14px;
+    margin: 10px;
+  }
+}
+
 //section-event-agree
-.section-event-agree{
-    text-align: center;
-    .return{
-        margin: 30px 0;
-    }
+.section-event-agree {
+  text-align: center;
+  background: url(../../../../public/img/event/event_02.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  .return {
+    margin: 30px 0;
+  }
 }
+
 //section-light-box
-.section-light-box{
-    background-color: $color-border;
+.section-light-box {
+  position: relative;
+
+  .pic {
+    width: 100%;
+    padding: 5%;
+
+    img {
+      width: 100%;
+      vertical-align: top;
+    }
+
+    h3 {
+      margin-top: 30px;
+    }
+  }
+
+  .activity-area {
+    display: flex;
+    flex-direction: column;
+    height: 40rem;
+    padding: 5%;
+
+    .text .close {
+      text-align: right;
+      position: absolute;
+      top: 3%;
+      right: 2%;
+
+      i {
+        color: #b6b6b6;
+        font-size: 3rem;
+        cursor: pointer;
+      }
+    }
+
+    .text .join {
+      display: flex;
+      margin-bottom: 30px;
+
+      .people {
+        margin: 0;
+      }
+    }
+
+    h3 {
+      margin-bottom: 30px;
+    }
+
+    p {
+      margin-bottom: 30px;
+    }
+  }
+
+  .state {
+    text-align: center;
+
+    .stop,
+    .full,
+    .end {
+      display: none;
+    }
+
+    .now {
+      width: 50%;
+    }
+  }
+}
+
+////section-confirm
+.section-confirm {
+  background-color: $color-subprimary;
+  position: relative;
+
+  .apply-wrap .close {
+    text-align: right;
+    position: absolute;
+    top: 3%;
+    right: 2%;
+
+    i {
+      color: #b6b6b6;
+      font-size: 3rem;
+      cursor: pointer;
+    }
+  }
+
+  .text {
+    margin-left: 10%;
+
+    h3 {
+      margin: 20px 0;
+    }
+
+    p {
+      margin: 20px 0;
+    }
+  }
+
+  .sent-btn {
+    text-align: center;
+
+    .sent {
+      width: 80%;
+    }
+  }
+}
+
+//section-upload
+.section-upload {
+  .upload {
+    display: flex;
+    align-items: center;
     position: relative;
-    .pic{
-        img{
-            width: 100%;
-            vertical-align: top;
-        }
-        h3{
-            margin-top: 30px;
-        }
+
+    h2 {
+      flex: 95%;
+      text-align: center;
+      padding-left: 5%;
     }
-    .close{
-        // text-align: right;
+
+    .close {
+      flex: 5%;
+      text-align: right;
+      position: absolute;
+      top: 0;
+      right: 2%;
+
+      i {
+        color: #b6b6b6;
+        font-size: 3rem;
+        cursor: pointer;
+      }
+    }
+  }
+
+  form {
+    margin: auto;
+    width: 50%;
+    margin-bottom: 30px;
+
+    .box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      width: 100%;
+
+      label {
+        flex-basis: 40%;
+        font-size: 1.5rem;
+        letter-spacing: .2em;
+        text-align: right;
+      }
+
+      select,
+      input[type='date'],
+      span,
+      input[type='file'],
+      textarea,
+      .Experience {
+        flex-grow: 1;
+        margin-left: 5%;
+      }
+
+      .Experience textarea {
+        width: 100%;
+      }
+
+      span {
+        display: block;
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+      }
+
+      .Experience span,
+      textarea {
+        margin-left: 0;
+      }
+    }
+
+    .box-6 {
+      align-items: start;
+    }
+  }
+
+  .shareBtn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+//section-examine
+.section-examine {
+  .CancelBtn {
+    text-align: right;
+    margin: 10px 0;
+
+    span {
+      font-size: 2rem;
+      color: #b6b6b6;
+      display: inline-block;
+      cursor: pointer;
+    }
+  }
+
+  h2 {
+    text-align: center;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .box {
+      width: 50%;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5rem;
+      border-bottom: 1px solid #b6b6b6;
+
+      label {
+        flex: 80%;
+      }
+    }
+
+    input[type="checkbox"] {
+      flex: 20%;
+      width: 20px;
+      height: 20px;
+      accent-color: #000;
+    }
+
+    button {
+      width: 35%;
+      margin: 30px 0;
+    }
+  }
+}
+
+//section-detailed
+.section-detailed {
+  position: relative;
+
+  .detailed-wrap {
+    .close {
+      position: absolute;
+      top: 5%;
+      right: 5%;
+      font-size: 3rem;
+      color: $color-white;
+    }
+
+    .pic {
+      width: 100%;
+      height: 100%;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    .text {
+      position: relative;
+
+      .report {
         position: absolute;
-        top: 3%;
-        right: 2%;
-        a{
-            font-size: 36px;
-        }
-    }
-    .activity-area{
-        display: flex;
-        flex-direction: column;
-        height: 40rem;
-        .text{
-            h3{
-                margin-bottom: 30px;
-            }
-            p{
-                margin-bottom: 30px;
-            }
-        .join{
-            display: flex;
-            margin-bottom: 30px;
-            .people{
-                margin: 0;
-            }
-                select{
-                    flex-grow: 1;
-                }
-            }
-        }
-    }
-    .state{
-        .stop,.full,.end{
-            display: none;
-        }
-        .now{
-            width: 100%;
-        }
+        top: 0;
+        right: 0;
+        font-size: 3rem;
+        color: $color-highlight;
+        cursor: pointer;
+      }
+
+      h3 {
+        margin: 30px 0;
+      }
+
+      p {
+        margin-bottom: 30px;
+      }
     }
 
-
+  }
 }

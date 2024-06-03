@@ -3,36 +3,35 @@ header {
     width: 100%;
     left: 0;
     top: 0;
-    mix-blend-mode: difference;
-    z-index: 99999;
-    transition: mix-blend-mode 0.3s;
-}
+    z-index: 99;
+    background: rgba(116, 116, 116, 0.15);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(7.8px);
+    -webkit-backdrop-filter: blur(7.8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 
-header.blend-unset {
-    mix-blend-mode: unset;
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 60px;
-}
-
-@media screen and (max-width: 767px) {
     nav {
-        padding: 5px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 60px;
     }
-}
 
-@media screen and (max-width: 575px) {
-    nav {
-        padding: 5px 20px;
+    @media screen and (max-width: 767px) {
+        nav {
+            padding: 5px 40px;
+        }
+    }
+
+    @media screen and (max-width: 575px) {
+        nav {
+            padding: 5px 20px;
+        }
     }
 }
 
 nav .nav-logo {
-    height: 80px;
+    height: 40px;
 }
 
 nav .nav-logo img {
@@ -49,12 +48,15 @@ nav .navbar i {
     display: none;
 }
 
-nav .navbar li {
-    position: relative;
-}
 
 nav .navbar .subnav-toggle {
     position: relative;
+    > a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
 }
 
 nav .navbar .subnav {
@@ -64,35 +66,18 @@ nav .navbar .subnav {
     max-height: 0;
     min-width: 160px;
     padding-top: 10px;
-    overflow: hidden;
     transition: max-height 0.3s;
     background-color: transparent;
+    overflow: hidden;
+
     a {
         color: #fff;
     }
 }
 
-nav .navbar .subnav.active {
-    max-height: 200px;
-}
 
 nav .navbar .subnav li a {
-    color: #000;
-}
-
-nav .navbar li>.subnav {
-    position: absolute;
-    left: 0;
-    top: 100%;
-    max-height: 0;
-    min-width: 160px;
-    padding-top: 10px;
-    overflow: hidden;
-    transition: .3s;
-}
-
-nav .navbar li:hover>.subnav {
-    max-height: 200px;
+    color: #fff;
 }
 
 nav .navbar li a {
@@ -121,6 +106,12 @@ nav .hb {
     display: none;
 }
 
+@media screen and (min-width: 992px) {
+    nav .subnav.hover {
+        max-height: 1000px;
+    }
+}
+
 @media screen and (max-width: 991px) {
     nav .hb {
         width: 50px;
@@ -140,7 +131,7 @@ nav .hb {
     nav .navbar {
         position: absolute;
         flex-direction: column;
-        top: 100px;
+        top: 60px;
         left: 0;
         width: 100%;
         max-height: 0;
@@ -149,8 +140,18 @@ nav .hb {
 
     nav .navbar.active {
         max-height: 1000px;
+        background: rgba(159, 159, 159, 0.703);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(7.8px);
+        -webkit-backdrop-filter: blur(7.8px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
     }
 
+    .subnav-toggle {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
     nav .navbar li {
         display: flex;
         text-align: center;
@@ -165,11 +166,11 @@ nav .hb {
     }
 
     nav .navbar .subnav {
-        display: none;
-        background-color: rgba(0, 0, 0, 0.6);
+        background-color: rgba(147, 147, 147, 0.6);
+        max-height: 1000px;
+        position: relative;
+        width: 100%;
+        padding-top: 0;
     }
-    nav .navbar .subnav {
-        background-color: #fff;
-        color: #000;
-    }
+
 }

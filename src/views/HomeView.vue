@@ -1,6 +1,217 @@
+<script setup>
+import * as d3 from 'd3';
+import * as topojson from 'topojson-client';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+import Chart from 'chart.js/auto';
+import { RouterLink } from 'vue-router';
+
+// banner 動畫
+gsap.registerPlugin(ScrollTrigger);
+
+const banner = ref(null);
+const smokeLeft = ref(null);
+const smokeRight = ref(null);
+const trashLeft = ref(null);
+const trashRight = ref(null);
+
+// 對比照動畫
+
+const comparationArea = ref(null);
+const control = ref(null);
+const dirty = ref(null);
+
+const startDrag = (event) => {
+  event.preventDefault();
+  const startX = event.clientX;
+  const startLeft = control.value.offsetLeft;
+
+  const handleDrag = (event) => {
+    const deltaX = event.clientX - startX;
+    const newLeft = startLeft + deltaX;
+    const progress = Math.max(0, Math.min(1, newLeft / comparationArea.value.offsetWidth));
+
+    control.value.style.left = `${progress * 100}%`;
+    dirty.value.style.width = `${progress * 100}%`;
+  };
+
+  const stopDrag = () => {
+    document.removeEventListener('mousemove', handleDrag);
+    document.removeEventListener('mouseup', stopDrag);
+  };
+
+  document.addEventListener('mousemove', handleDrag);
+  document.addEventListener('mouseup', stopDrag);
+};
+
+const hebrisSort = [
+  { id: 1, area: '全台灣' },
+  { id: 2, area: '北部' },
+  { id: 3, area: '中部' },
+  { id: 4, area: '南部' },
+  { id: 5, area: '東部' },
+  { id: 6, area: '離島' }
+];
+
+const donateList = [
+  {
+    "id": 1,
+    "sort": "海洋生態保育專案",
+    "title": "珊瑚礁復育計畫資助",
+    "amount": 300000,
+    "date": "2023/7/1"
+  },
+  {
+    "id": 2,
+    "sort": "相關研究計畫",
+    "title": "海洋塑膠污染研究項目",
+    "amount": 200000,
+    "date": "2023/8/15"
+  },
+  {
+    "id": 3,
+    "sort": "淨灘活動",
+    "title": "全國淨灘日活動經費",
+    "amount": 180000,
+    "date": "2023/9/20"
+  },
+  {
+    "id": 4,
+    "sort": "教育宣導活動",
+    "title": "校園海洋環保講座系列",
+    "amount": 150000,
+    "date": "2023/10/5"
+  },
+  {
+    "id": 5,
+    "sort": "行政及人事開支",
+    "title": "海洋保護組織運營費用",
+    "amount": 150000,
+    "date": "2023/11/10"
+  },
+  {
+    "id": 6,
+    "sort": "網站維運及更新",
+    "title": "海洋環保資料庫建設",
+    "amount": 20000,
+    "date": "2023/12/1"
+  }
+]
+
+const donateDistribution = [
+  { id: 1, sort: '海洋生態保育專案', data: 30, color: '#6CE5E8' },
+  { id: 2, sort: '相關研究計畫', data: 20, color: '#41B8D5' },
+  { id: 3, sort: '淨攤活動', data: 18, color: '#2D8BBA' },
+  { id: 4, sort: '教育宣導活動', data: 15, color: '#2F5F98' },
+  { id: 5, sort: '行政及人事開支', data: 15, color: '#31356E' },
+  { id: 6, sort: '網站維護', data: 5, color: '5E17EB' },
+];
+
+const mapContainer = ref(null);
+const donateChart = ref(null);
+
+onMounted(() => {
+  initMap();
+  window.addEventListener('resize', resizeMap);
+
+  const dataNum = donateDistribution.map(item => item.data);
+  const labels = donateDistribution.map(item => item.sort + ' ' + item.data + '%');
+  const colors = donateDistribution.map(item => item.color);
+
+  const ctx = donateChart.value.getContext('2d');
+  new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: labels,
+      datasets: [{
+        data: dataNum,
+        backgroundColor: colors,
+        borderColor: 'rgba(0,0,0,0.1)'
+      }]
+    },
+    options: {
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'top',
+          labels: {
+            usePointStyle: true,
+            color: '#000'
+          },
+          padding: 20
+        },
+      },
+      layout: {
+        padding: 0
+      }
+    }
+  });
+
+  // banner 動畫
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: banner.value,
+      start: 'top top',
+      end: '+=200%',
+      scrub: true,
+      pin: true,
+    },
+  });
+
+  tl.to(trashLeft.value, { x: '-100%', duration: 1 }, 0)
+    .to(trashRight.value, { x: '100%', duration: 1 }, 0)
+    .to(smokeLeft.value, { x: '-100%', duration: 1 }, 1)
+    .to(smokeRight.value, { x: '100%', duration: 1 }, 1);
+
+  // 對比圖動畫
+  control.value.style.left = '50%';
+  dirty.value.style.width = '50%';
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', resizeMap);
+});
+
+async function initMap() {
+  const container = mapContainer.value;
+
+  const width = container.clientWidth;
+  const height = container.clientHeight;
+
+  const svg = d3.select(container)
+    .append('svg')
+    .attr('width', width)
+    .attr('height', height);
+
+  const projection = d3.geoMercator()
+    .center([120, 23.5])
+    .scale(6000)
+    .translate([width / 2, height / 2]);
+
+  const path = d3.geoPath().projection(projection);
+  const topoData = await d3.json('../../public/localjson/map/twCounty2010.topo.json');
+  const geoData = topojson.feature(topoData, topoData.objects.layer1);
+
+  svg.selectAll('path')
+    .data(geoData.features)
+    .enter()
+    .append('path')
+    .attr('d', path)
+    .attr('fill', '#005FA1')
+    .attr('stroke', 'white');
+}
+
+function resizeMap() {
+  const container = mapContainer.value;
+  d3.select(container).select('svg').remove();
+  initMap();
+}
+</script>
+
 <template>
   <main>
-    <section class="section section-index-banner">
+    <section ref="banner" class="section section-index-banner">
       <div class="container">
         <div class="img">
           <img src="../../public/img/LOGO-white.png" alt="">
@@ -8,16 +219,16 @@
         <h1>潔淨海洋 綠色明天</h1>
         <h2>Clean Ocean, Green tomorrow</h2>
       </div>
-      <div class="smoke-left">
+      <div ref="smokeLeft" class="smoke-left">
         <img src="../../public/img/index/smoke-left.png" alt="">
       </div>
-      <div class="smoke-right">
+      <div ref="smokeRight" class="smoke-right">
         <img src="../../public/img/index/smoke-right.png" alt="">
       </div>
-      <div class="trash-left">
+      <div ref="trashLeft" class="trash-left">
         <img src="../../public/img/index/trash-left.png" alt="">
       </div>
-      <div class="trash-right">
+      <div ref="trashRight" class="trash-right">
         <img src="../../public/img/index/trash-right.png" alt="">
       </div>
     </section>
@@ -43,8 +254,8 @@
         </h3>
         <div class="row">
           <div class="col-12 col-lg-6">
-            <ul class="debris-sort" v-for="sort in hebrisSort" :key="sort.id">
-              <li>
+            <ul class="debris-sort">
+              <li v-for="sort in hebrisSort" :key="sort.id">
                 <span class="material-symbols-outlined">line_end</span> {{ sort.area }}
               </li>
             </ul>
@@ -74,16 +285,18 @@
     <section class="section section-comparation">
       <div class="container">
         <h3>
-            COMPARATION<br>
-            對比照
+          COMPARATION<br>
+          對比照
         </h3>
       </div>
-      <div class="control"></div>
-      <div class="dirty">
-        <img src="../../public/img/index/compare-dirty.png" alt="垃圾海洋">
-      </div>
-      <div class="clean">
-        <img src="../../public/img/index/compare-clean.png" alt="乾淨海洋">
+      <div ref="comparationArea" class="comparation-area">
+        <div ref="control" class="control" @mousedown="startDrag"></div>
+        <div ref="dirty" class="dirty">
+          <img src="../../public/img/index/compare-dirty.png" alt="垃圾海洋" @dragstart.prevent>
+        </div>
+        <div class="clean">
+          <img src="../../public/img/index/compare-clean.png" alt="乾淨海洋" @dragstart.prevent>
+        </div>
       </div>
     </section>
     <section class="section section-survey">
@@ -91,13 +304,14 @@
         <div class="survey-card">
           <h3>海廢知多少</h3>
           <p>透過回答以下5個問題,讓我們一起檢視您對海洋環保的了解程度。這個測驗旨在幫助您:</p>
-            <ul>
-              <li><i class="fa-solid fa-earth-asia"></i>  若得分低於80分,建議您先前往我們的教育中心,深入學習海洋環保知識,充實自己的環保知識基礎,再參與實際的環保行動,讓您的每一份努力都更有意義。</li>
-              <li><i class="fa-solid fa-earth-asia"></i>  若得分高於或等於80分,歡迎您前往我們的活動頁面,尋找適合您的海洋保護行動,用實際行動為海洋盡一份心力。</li>
-            </ul>
+          <ul>
+            <li><i class="fa-solid fa-earth-asia"></i>
+              若得分低於80分,建議您先前往我們的教育中心,深入學習海洋環保知識,充實自己的環保知識基礎,再參與實際的環保行動,讓您的每一份努力都更有意義。</li>
+            <li><i class="fa-solid fa-earth-asia"></i> 若得分高於或等於80分,歡迎您前往我們的活動頁面,尋找適合您的海洋保護行動,用實際行動為海洋盡一份心力。</li>
+          </ul>
           <p>
             無論結果如何,我們都感謝您對海洋環保的關注和努力。了解自己的知識水平,是成為一個負責任的環保行動者的第一步。讓我們攜手,以知識和行動,共創潔淨、永續的海洋環境!<br>
-            準備好開始這趟自我探索之旅了嗎?現在就開始測驗吧! 
+            準備好開始這趟自我探索之旅了嗎?現在就開始測驗吧!
           </p>
           <button>立即測驗</button>
         </div>
@@ -106,158 +320,86 @@
     <section class="section section-donation-summary">
       <div class="container">
         <h3>
-            DONATION<br>
-            捐款總攬
+          DONATION<br>
+          捐款總攬
         </h3>
         <div class="row">
           <div class="col-12 col-lg-6 donate-num">
             <div class="clean-tons">
-                <span class="debris-word">總金額</span>
-                <span class="debris-num">9,309,090</span>
-                <span class="debris-word">元</span>
-              </div>
+              <span class="debris-word">總金額</span>
+              <span class="debris-num">9,309,090</span>
+              <span class="debris-word">元</span>
+            </div>
           </div>
           <div class="col-12 col-lg-6 donate-num">
             <div class="clean-tons donate-balance">
-                <span class="debris-word">剩餘</span>
-                <span class="debris-num">920,090</span>
-                <span class="debris-word">元</span>
-              </div>
+              <span class="debris-word">剩餘</span>
+              <span class="debris-num">920,090</span>
+              <span class="debris-word">元</span>
+            </div>
           </div>
-          <div class="col-lg-6">
+          <div class="col-12 col-lg-6">
             <canvas ref="donateChart" width="100%" height="500"></canvas>
           </div>
+          <div class="col-12 col-lg-6">
+            <table>
+              <thead>
+                <tr>
+                  <th class="donate-col">類別</th>
+                  <th class="donate-col">名目</th>
+                  <th class="donate-col">金額</th>
+                  <th class="donate-col">日期</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in donateList" :key="item.id">
+                  <th>{{ item.sort }}</th>
+                  <td>{{ item.title }}</td>
+                  <td>{{ item.amount }}</td>
+                  <td>{{ item.date }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>*最新的六筆支出</p>
+          </div>
         </div>
+        <div class="col-12 donate-link">
+          <router-link to="/donate">
+            <div class="donate-btn">
+              <div class="donate-btn-circle">
+                <i class="fa-solid fa-dollar-sign"></i>
+              </div>
+              <div class="donate-txt">
+                立即捐款
+              </div>
+            </div>
+          </router-link>
+        </div>
+      </div>
+    </section>
+    <section class="section section-index-event">
+      <div class="container">
+        <h3>
+          EVENT<br>
+          活動
+        </h3>
+      </div>
+    </section>
+    <section class="section section-index-news">
+      <div class="container">
+        <h3>
+          NEWS<br>
+          最新消息
+        </h3>
+      </div>
+    </section>
+    <section class="section section-index-event-feedback">
+      <div class="container">
+        <h3>
+          FEEDBACK OF EVENT<br>
+          活動分享
+        </h3>
       </div>
     </section>
   </main>
 </template>
-
-
-<script>
-import * as d3 from 'd3';
-import * as topojson from 'topojson-client';
-import { ref, onMounted, onBeforeUnmount } from 'vue';
-import Chart from 'chart.js/auto';
-
-export default {
-  setup() {
-    const hebrisSort = [
-      { id: 1, area: '全台灣' },
-      { id: 2, area: '北部' },
-      { id: 3, area: '中部' },
-      { id: 4, area: '南部' },
-      { id: 5, area: '東部' },
-      { id: 6, area: '離島' }
-    ];
-
-    const donateDistribution = [
-      { id: 1, sort: '海洋生態保育專案', data: 30, color: '#6CE5E8' },
-      { id: 2, sort: '相關研究計畫', data: 20, color: '#41B8D5' },
-      { id: 3, sort: '淨攤活動', data: 18, color: '#2D8BBA' },
-      { id: 4, sort: '教育宣導活動', data: 15, color: '#2F5F98' },
-      { id: 5, sort: '行政及人事開支', data: 15, color: '#31356E' },
-      { id: 6, sort: '網站維護', data: 5, color: '5E17EB' },
-    ];
-
-    const mapContainer = ref(null);
-    const donateChart = ref(null);
-
-    onMounted(() => {
-      initMap();
-      window.addEventListener('resize', resizeMap);
-
-      const dataNum = donateDistribution.map(item => item.data);
-      const labels = donateDistribution.map(item => item.sort + ' ' + item.data + '%');
-      const colors = donateDistribution.map(item => item.color);
-
-      const ctx = donateChart.value.getContext('2d');
-      new Chart(ctx, {
-        type: 'pie',
-        data: {
-          labels: labels,
-          datasets: [{
-            data: dataNum,
-            backgroundColor: colors,
-            borderColor: 'rgba(0,0,0,0.1)'
-          }]
-        },
-        options: {
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: 'top',
-              labels: {
-                usePointStyle: true,
-                color: '#000'
-              },
-              padding: 20
-            },
-          },
-          layout: {
-            padding: 0
-          }
-        }
-      });
-    });
-
-    onBeforeUnmount(() => {
-      window.removeEventListener('resize', resizeMap);
-    });
-
-    async function initMap() {
-      // 獲取地圖容器的引用
-      const container = mapContainer.value;
-
-      // 設置地圖的尺寸
-      const width = container.clientWidth;
-      const height = container.clientHeight;
-
-      // 創建 SVG 元素
-      const svg = d3.select(container)
-        .append('svg')
-        .attr('width', width)
-        .attr('height', height);
-
-      // 定義投影
-      const projection = d3.geoMercator()
-        .center([120, 23.5])
-        .scale(6000)
-        .translate([width / 2, height / 2]);
-
-      // 定義路徑生成器
-      const path = d3.geoPath().projection(projection);
-
-      // 讀取 TopoJSON 文件
-      const topoData = await d3.json('../../public/localjson/map/twCounty2010.topo.json');
-
-      // 轉換 TopoJSON 為 GeoJSON
-      const geoData = topojson.feature(topoData, topoData.objects.layer1);
-
-      // 繪製地圖
-      svg.selectAll('path')
-        .data(geoData.features)
-        .enter()
-        .append('path')
-        .attr('d', path)
-        .attr('fill', '#005FA1')
-        .attr('stroke', 'white');
-    }
-
-    function resizeMap() {
-      // 移除現有的 SVG 元素
-      const container = mapContainer.value;
-      d3.select(container).select('svg').remove();
-
-      // 重新初始化地圖
-      initMap();
-    }
-
-    return {
-      hebrisSort,
-      mapContainer,
-      donateChart
-    };
-  }
-};
-</script>

@@ -1,0 +1,95 @@
+.section-foget {
+    background-image: url(../../../../public/img/member/member9.png);
+    background-size: cover;
+
+    .foget-txt {
+        background-color: $color-white;
+        margin: 7rem 5%;
+        padding: 4rem 0;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .form-group {
+            margin: 1rem 0;
+        }
+        
+
+
+        label {
+            flex: 1;
+            font-size: 1.8rem;
+            margin-right: 2rem;
+            font-size: 2rem;
+            text-align: right;
+            vertical-align: bottom;
+            @media screen and (max-width: 567px) {
+                font-size: 1.6rem;
+            }
+            @media screen and (max-width: 300px) {
+                margin-right: 6rem;
+                margin-left: 0;
+                padding: 0;
+            }
+
+        }
+
+        input {
+            flex: 2;
+            max-width: 18rem;
+            padding: 1rem;
+            font-size: 16px;
+            border: 0rem;
+            border-bottom: 0.2rem solid #000;
+            box-sizing: border-box;
+            background: none;
+            outline: none;
+            height: 4rem;
+            max-width: 20rem;
+            @media screen and (max-width: 567px) {
+                max-width: 14rem;
+            }
+            
+        }
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+
+        .input-ch1 label{
+            margin-left: 4rem;
+        }
+        .input-ch1 input{
+            margin-left: 1rem;
+            @media screen and (max-width: 300px) {
+                margin-left: 0;
+            }
+        }
+        .input-ch2 label,
+        .input-ch3 label {
+            margin-left: 2rem;
+            @media screen and (max-width: 300px) {
+                margin-left: 0;
+                margin-right: 8rem;
+            }
+        }
+        .input-ch1 label {
+            margin-right: 1.5rem;
+            margin-left: 3.5rem;
+            @media screen and (max-width: 300px) {
+                margin-left: 0;
+                margin-right: 9rem;
+            }
+        }
+        button {
+            padding: 1rem 4rem;
+            margin: 2rem auto;
+        }
+    }
+}
+
+
+
+
+

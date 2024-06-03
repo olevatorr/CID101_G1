@@ -28,9 +28,74 @@ const router = createRouter({
       component: () => import('../views/MemberView.vue')
     },
     {
-      path: '/KnowledgeView',
+      path: '/Knowledge',
       name: 'Knowledge',
       component: () => import('../views/KnowledgeView.vue')
+    },
+    {
+      path: '/ForgetPasswordView',
+      name: 'ForgetPasswordView',
+      component: () => import('../views/ForgetPasswordView.vue')
+    },
+    {
+      path: '/RegisterView',
+      name: 'RegisterView',
+      component: () => import('../views/RegisterView.vue')
+    },
+    {
+      path: '/shop',
+      name: 'shop',
+      component: () => import('../views/ShopView.vue')
+    },
+    {
+      path: '/productinfo',
+      name: 'productinfo',
+      component: () => import('../views/ProductinfoView.vue')
+    },
+    {
+      path: '/ProfileView',
+      name: 'ProfileView',
+      component: () => import('../views/ProfileView.vue')
+    },
+    {
+      path: '/beachgame',
+      name: 'beachgame',
+      component: () => import('../views/BeachgameView.vue')
+    },
+    {
+      path: '/Mbti',
+      name: 'Mbti',
+      component: () => import('../views/MbtiView.vue')
+    },
+    {
+      path: '/mallcart',
+      name: 'mallcart',
+      component: () => import('../views/MallcartView.vue')
+    },
+    {
+      path: '/news',
+      name: 'news',
+      component: () => import('../views/NewsView.vue')
+    },
+    {
+      path: '/Donate',
+      name: 'Donate',
+      component: () => import('../views/DonateView.vue')
+    },
+    {
+      path: '/Newsinner',
+      name: 'Newsinner',
+      component: () => import('../views/NewsinnerView.vue')
+    },
+    {
+      path: '/TestView',
+      name: 'Test.View',
+      component: () => import('../views/TestView.vue')
+    },
+    {
+      path: '/DonatePage',
+      name: 'DonatePage',
+      component: () => import('../views/DonatePage.vue')
     }
   ]
 })
