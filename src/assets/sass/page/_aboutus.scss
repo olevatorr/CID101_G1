@@ -43,6 +43,9 @@
 .section-purpose {
   background-color: $color-subprimary;
   color: $color-white;
+  .container {
+    overflow: hidden;
+  }
   .purpose-line {
     margin-bottom: 10rem;
     @media (max-width: 991px) {
@@ -87,6 +90,9 @@
 // 捐款
 .section-donation-intro {
   background-color: $color-white;
+  .container {
+    
+  }
   .donation-intro {
     text-align: center;
     margin-bottom: 2rem;
@@ -99,6 +105,7 @@
     justify-content: space-between;
     height: 100%;
     box-sizing: border-box;
+    overflow: hidden;
   }
   h3 {
     text-align: center;
@@ -117,7 +124,7 @@
       font-size: 3.5rem;
       color: $color-highlight;
     }
-    @media (max-width: 767px) {
+    @media screen and (max-width: 767px) {
       .tp {
         margin-top: 1.5rem;
       }
@@ -126,12 +133,12 @@
       }
     }
   }
-  @media (max-width: 767px) {
+  @media screen and (max-width: 767px) {
     .group .donation-card.top.up{
       margin-top: 4rem;
     }
   }
-  @media (max-width: 991px) {
+  @media screen and  (max-width: 991px) {
     .group .donation-card.tp{
       margin-top: 1.5rem;
     }
@@ -140,10 +147,11 @@
     }
   }
   button{
-    margin-top: 2rem;
+    margin-top: 8rem;
     display: block;
     margin-left: auto;
     margin-right: auto;
+
   }
 }
 // 成員介紹
@@ -161,7 +169,7 @@
   p {
     margin-bottom: 1rem;
   }
-  @media (max-width: 576px) {
+  @media screen and (max-width: 576px) {
     p {
       padding: 0 1rem;
     }
@@ -236,6 +244,7 @@
       outline: none;
       box-sizing: border-box;
       resize: none;
+      border: 1px solid black;
     }
     button {
       margin: 2rem auto;
