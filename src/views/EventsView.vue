@@ -76,7 +76,7 @@
     <div class="container">
       <h2>活動列表</h2>
       <div class="menu">
-        <select name="" class="choose">
+        <select name="">
           <option value="">全台灣(地區)</option>
           <option value="">北部</option>
           <option value="">中部</option>
@@ -86,7 +86,7 @@
         </select>
       </div>
       <div class="row">
-        <div class="col-12 col-md-6 col-lg-3" v-for="card in sectionEvents" :key="card">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3" v-for="card in sectionEvents" :key="card">
           <div class="event-card">
             <div class="text">
               <h3>{{ card.title }}</h3>
@@ -114,20 +114,17 @@
     <h2>活動分享</h2>
     <div class="container">
       <div class="row">
-        <div class="col-12 col-md-6 col-lg-3" v-for="card in sectionShare" :key="card">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3" v-for="card in sectionShare" :key="card">
           <div class="event-card">
             <div class="pic">
               <img :src="card.imageUrl" />
             </div>
             <div class="text">
-              <div class="theme">
-                <div class="event-name">
-                  <h3>{{ card.name }}</h3>
-                </div>
-                <div class="report">
-                  <i class="fa-solid fa-circle-exclamation"></i>
-                </div>
+              <div class="report">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <span>檢舉此留言</span>
               </div>
+              <h3>{{ card.sahreTitle }}</h3>
               <span>{{ card.place }}</span>
               <span>{{ card.date }}</span>
               <span>{{ card.share }}</span>
@@ -151,26 +148,19 @@
   </section>
   <section class="section section-event-agree">
     <div class="container">
-      <p class="statement">
-        活動免責聲明:<br />
-
-        歡迎參加由[活動組織者名稱]（以下簡稱「組織者」）主辦的[活動名稱]（以下簡稱「活動」）。
-        參加本活動前，請您仔細閱讀並同意以下免責聲明條款： 1.
-        自願參加：我自願參加此活動，並了解活動的性質及其潛在風險。 2.
-        健康狀況：我確認我的身體狀況適合參加此活動，並保證在參加活動前已經進行必要的健康檢查。如有任何身體不適或健康問題，我將主動告知組織者。
-        3.
-        風險承擔：我理解並接受參加此活動可能存在的風險，包括但不限於身體傷害、財產損失等。我同意自行承擔參加活動的所有風險，並豁免組織者及其工作人員、志願者、贊助商對於任何意外事故、傷害或損失的責任。
-        4.
-        個人責任：我承諾在活動期間遵守活動規則和組織者的指示，對自己的行為負責。如果因我的行為導致自己或他人受傷或財產損失，我將自行承擔相應責任。
-        5.
-        保險：我了解組織者可能不提供任何形式的保險保障，我同意自行購買適當的保險以覆蓋參加活動期間可能發生的任何風險。
-        6.
-        不可抗力：如因天災、政府政策變更或其他不可抗力因素導致活動無法正常舉行，組織者不承擔任何責任。
-        7.
-        肖像權使用：我同意組織者在活動期間拍攝的照片、錄像及其他影像資料可用於宣傳和推廣活動之用，而無需支付任何費用。
-        8.
-        法律適用：本免責聲明受[國家/地區]法律管轄，任何因本免責聲明引起的爭議應提交[地點]的法院解決。
-      </p>
+      <h2>活動免責聲明:</h2>
+      <span>歡迎參加由[活動組織者名稱]（以下簡稱「組織者」）主辦的[活動名稱]（以下簡稱「活動」）。</span>
+      <span>參加本活動前，請您仔細閱讀並同意以下免責聲明條款：</span>
+      <ul>
+        <li>1. 自願參加：我自願參加此活動，並了解活動的性質及其潛在風險。</li>
+        <li>2. 健康狀況：我確認我的身體狀況適合參加此活動，並保證在參加活動前已經進行必要的健康檢查。如有任何身體不適或健康問題，我將主動告知組織者。</li>
+        <li>3. 風險承擔：我理解並接受參加此活動可能存在的風險，包括但不限於身體傷害、財產損失等。我同意自行承擔參加活動的所有風險，並豁免組織者及其工作人員、志願者、贊助商對於任何意外事故、傷害或損失的責任。</li>
+        <li>4. 個人責任：我承諾在活動期間遵守活動規則和組織者的指示，對自己的行為負責。如果因我的行為導致自己或他人受傷或財產損失，我將自行承擔相應責任。</li>
+        <li>5. 保險：我了解組織者可能不提供任何形式的保險保障，我同意自行購買適當的保險以覆蓋參加活動期間可能發生的任何風險。</li>
+        <li>6. 不可抗力：如因天災、政府政策變更或其他不可抗力因素導致活動無法正常舉行，組織者不承擔任何責任。</li>
+        <li>7. 肖像權使用：我同意組織者在活動期間拍攝的照片、錄像及其他影像資料可用於宣傳和推廣活動之用，而無需支付任何費用。</li>
+        <li>8. 法律適用：本免責聲明受[國家/地區]法律管轄，任何因本免責聲明引起的爭議應提交[地點]的法院解決。</li>
+      </ul>
       <div class="return">
         <button>Top</button>
       </div>
@@ -349,7 +339,8 @@
         </div>
         <div class="text" v-for="card in detailed" :key="card">
           <div class="report">
-            <i class="fa-solid fa-circle-exclamation"></i>
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span>檢舉此留言</span>
           </div>
           <h3>{{ card.title }}</h3>
           <p>{{ card.place }}</p>
@@ -417,13 +408,14 @@ export default defineComponent({
       for (let i = 1; i <= numCards; i++) {
         cards.push({
           title: '北海岸環保淨灘行動',
+          sahreTitle:'活動名稱：北海岸愛地球淨灘活動',
           place: '活動地點：新北市漁人碼頭',
           date: '活動日期：2024年6月15日',
           Deadline: '截止日期：2024年6月10日',
           imageUrl: 'https://picsum.photos/300/200/?random=' + i,
           people: '報名人數：100/150',
           share: '分享人：林小美',
-          exp: '北海岸環保淨灘行動給我留下了深刻的印象。在參與這項活動的過程中，我意識到海岸線上的垃圾對我們的環境造成了嚴重的影響。我們小組一起穿上手套，拿著垃圾袋，開始清理海灘上的垃圾。...',
+          exp: '北海岸環保淨灘行動給我留下了深刻的印象。在參與這項活動的過程中，我意識到海岸線上的垃圾對我們的環境造成了嚴重的影響。...',
           experience: '北海岸環保淨灘行動給我留下了深刻的印象。在參與這項活動的過程中，我意識到海岸線上的垃圾對我們的環境造成了嚴重的影響。我們小組一起穿上手套，拿著垃圾袋，開始清理海灘上的垃圾。這不僅是一次環保行動，更是一次團隊合作的體驗。我們一邊聊天笑著，一邊清理著海灘，不知不覺中收穫了友誼與愉快。這次活動讓我更加深刻地理解了垃圾對海洋生態的破壞。我們捡到的塑料袋、瓶子，甚至是一些微小的塑料碎片，都可能對海洋生物造成威脅。這使我更加堅定了自己保護環境的決心，我也將會積極參與更多類似的環保活動。此外，這次淨灘活動也讓我認識到了社區的重要性。只有當我們齊心協力，才能真正改變我們周圍的環境。我們每個人都應該有責任保護我們珍貴的大自然，讓我們的子孫後代也能夠享受美麗的自然風景。感謝這次活動讓我有機會深刻體驗到這一點。'
         });
       }
