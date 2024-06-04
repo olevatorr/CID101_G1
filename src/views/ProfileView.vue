@@ -6,6 +6,7 @@
           <div class="avatra">
             <img id="image" ref="imageElement" :src="imageSrc" @error="imageLoaded = false">
             <input type="file" id="theFile" @change="fileChange" ref="fileInput">
+            <button>Upload</button>
             <p>Shark</p>
           </div>
   
@@ -35,19 +36,19 @@
           <ul>
             <li>
               <label for="">會員姓名</label>
-              <input type="text" name="" id="" maxlength="10" value="張曉明" readonly>
+              <input type="text" name="" id="" maxlength="20" value="張曉明" readonly>
             </li>
             <li>
               <label for="">會員帳號</label>
-              <input type="text" name="" id="" maxlength="10" value="abcd" readonly>
+              <input type="text" name="" id="" maxlength="20" value="abcd" readonly>
             </li>
             <li>
               <label for="">會員信箱</label>
-              <input type="text" name="" id="" maxlength="50" value="abc@gmail.com" readonly>
+              <input type="text" name="" id=""  value="abc@gmail.com" readonly>
             </li>
             <li>
               <label for="">會員電話</label>
-              <input type="tel" name="" id="" maxlength="20" value="0912345678" readonly>
+              <input type="tel" name="" id="" maxlength="10" value="0912345678" readonly>
             </li>
             <li>
               <label for="">會員地址</label>
@@ -64,6 +65,7 @@
     <!-- 商品資訊最後要放進div -->
     <div class="registration col-12 col-md-8">
       <table class="shop">
+        <caption>商品資訊</caption>
         <tr>
           <th>商品編號</th>
           <th>商品名稱</th>
@@ -123,12 +125,13 @@
     <!-- 訂單資訊 -->
     <div class="registration col-12 col-md-8">
       <table class="order">
+        <caption>訂單查詢</caption>
         <tr>
           <th>訂單編號</th>
           <th>訂單狀況</th>
           <th>訂單日期</th>
           <th>訂購人資訊</th>
-          <th>金額</th>
+          <th>總金額</th>
           <th>付款方式</th>
           <th>功能</th>
         </tr>
@@ -137,7 +140,7 @@
           <td>已出貨</td>
           <td>2024-05-15</td>
           <td>王小明, 0912345678</td>
-          <td>NT$30,000</td>
+          <td><a href="#">NT$30,000</a></td>  
           <td>信用卡</td>
           <td><button>取消訂單</button></td>
         </tr>
@@ -146,7 +149,7 @@
           <td>已出貨</td>
           <td>2024-05-16</td>
           <td>王小明, 0912345678</td>
-          <td>NT$35,000</td>
+          <td><a href="#">NT$35,000</a></td>
           <td>銀行轉帳</td>
           <td><button>取消訂單</button></td>
         </tr>
@@ -155,7 +158,7 @@
           <td>未出貨</td>
           <td>2024-05-17</td>
           <td>王小明, 0912345678</td>
-          <td>NT$7,000</td>
+          <td><a href="#">NT$7,000</a></td>
           <td>行動支付</td>
           <td><button class="cancel">完成訂單</button></td>
         </tr>
@@ -164,7 +167,7 @@
           <td>未出貨</td>
           <td>2024-05-18</td>
           <td>王小明, 0912345678</td>
-          <td>NT$15,000</td>
+          <td><a href="#">NT$15,000</a></td>
           <td>信用卡</td>
           <td><button class="cancel">完成訂單</button></td>
         </tr>
@@ -173,7 +176,7 @@
           <td>未出貨</td>
           <td>2024-05-19</td>
           <td>王小明, 0912345678</td>
-          <td>NT$40,000</td>
+          <td><a href="#">NT$40,000</a></td>
           <td>銀行轉帳</td>
           <td><button class="cancel">完成訂單</button></td>
         </tr>
@@ -188,6 +191,7 @@
     <!-- 活動報名 -->
     <div class="registration col-12 col-md-8">
       <table class="apply">
+        <caption>活動報名</caption>
         <tr>
           <th>活動名稱</th>
           <th>活動日期</th>
@@ -244,6 +248,7 @@
     <!-- 收藏商品 -->
     <div class="registration col-12 col-md-8">
       <table class="favorite">
+        <caption>收藏商品</caption>
         <tr>
           <th>商品編號</th>
           <th>商品名稱</th>
@@ -290,6 +295,7 @@
     <!-- 捐款查詢 -->
     <div class="registration col-12 col-md-8">
       <table class="donate">
+        <caption>捐款查詢</caption>
         <tr>
           <th>捐款人</th>
           <th>捐款日期</th>

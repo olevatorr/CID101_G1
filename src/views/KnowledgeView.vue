@@ -1,34 +1,91 @@
 <!-- ----------------------------------------------------------------圖表區 -->
-<!-- <script setup>
-import { ref, onMounted } from 'vue'
-import Chart from 'chart.js/auto'
+<script setup>
+import { ref, onMounted } from 'vue';
+import Chart from 'chart.js/auto';
 
-// 定義導航菜單的狀態和控制方法
+// 定義導航菜單的狀態
+const isMenuOpen = ref(false);
+const isSubmenuOpen = ref(false);
 
+// 定義導航菜單的控制方法
 const toggleMenu = () => {
-  isMenuOpen.value = !isMenuOpen.value
-}
+  isMenuOpen.value = !isMenuOpen.value;
+};
 
 const toggleSubmenu = () => {
-  isSubmenuOpen.value = !isSubmenuOpen.value
-}
+  isSubmenuOpen.value = !isSubmenuOpen.value;
+};
 
 // 定義甜甜圈圖表的數據
 const doughnutData = [
   { label: '塑膠垃圾', data: 30, color: '#00ADF3' },
   { label: '捕魚漁網', data: 15, color: '#E7A600' },
   { label: '漂流木', data: 30, color: '#D35656' }
-]
+];
 
-const doughnutChartCanvas = ref(null)
-const lineChartCanvas = ref(null)
+const doughnutChartCanvas = ref(null);
+const lineChartCanvas = ref(null);
+
+// 定義折線圖表的數據
+const months = [
+  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+];
+
+const mixedData = {
+  labels: months,
+  datasets: [
+    {
+      type: 'bar', // 垃圾總量使用柱狀圖
+      label: '海費噸數',
+      data: [23, 18, 25, 19, 20, 21, 22, 19, 18, 17, 16, 15],
+      backgroundColor: '#D35656',
+      borderColor: '#D35656',
+      borderWidth: 1,
+      fill: true
+    },
+    {
+      type: 'line', // 淨灘人數統計使用折線圖
+      label: '淨灘人數統計',
+      data: [30, 25, 28, 22, 24, 23, 26, 21, 20, 19, 18, 17],
+      backgroundColor:'rgba(255,255,255,0)',
+      borderColor: '#2F80DE', 
+      borderWidth: 1,
+      fill: true
+    }
+  ]
+};
+
+const mixedOptions = {
+  scales: {
+    y: {
+      beginAtZero: true,
+      title: {
+        display: true,
+        text: '數量'
+      }
+    },
+    x: {
+      title: {
+        display: true,
+        text: '月份'
+      }
+    }
+  },
+  plugins: {
+    legend: {
+      display: true,
+      position: 'top',
+    },
+  }
+};
 
 onMounted(() => {
   // 繪製甜甜圈圖表
-  const doughnutCtx = doughnutChartCanvas.value.getContext('2d')
-  const doughnutDataNum = doughnutData.map((item) => item.data)
-  const doughnutLabels = doughnutData.map((item) => item.label + ' ' + item.data + '%')
-  const doughnutColors = doughnutData.map((item) => item.color)
+  const doughnutCtx = doughnutChartCanvas.value.getContext('2d');
+  const doughnutDataNum = doughnutData.map((item) => item.data);
+  const doughnutLabels = doughnutData.map((item) => item.label + ' ' + item.data + '%');
+  const doughnutColors = doughnutData.map((item) => item.color);
 
   new Chart(doughnutCtx, {
     type: 'doughnut',
@@ -48,104 +105,18 @@ onMounted(() => {
         }
       }
     }
-  })
+  });
 
-  // 繪製折線圖表
-  const lineCtx = lineChartCanvas.value.getContext('2d')
-  
-  Chart.defaults.color = "#FFF"
-  Chart.defaults.font.family = "Poppins"
-
+  // 繪製混合圖表
+  const lineCtx = lineChartCanvas.value.getContext('2d');
   new Chart(lineCtx, {
-    type: "line",
-    data: {
-      labels: [
-        "Jan", "Feb", "Mar", "Apr", "May", "Jun", 
-        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-      ],
-      datasets: [
-        {
-          label: "Monthly Income",
-          data: [2235, 3250, 1890, 5400, 20240, 6254, 12325, 4856, 10325, 2254, 22356, 8486],
-          backgroundColor: "white",
-          borderColor: "#3DA06E",
-          borderRadius: 6,
-          cubicInterpolationMode: 'monotone',
-          fill: false,
-          borderSkipped: false,
-        }
-      ]
-    },
-    options: {
-      interaction: {
-        intersect: false,
-        mode: 'index'
-      },
-      elements: {
-        point: {
-          radius: 0
-        }
-      },
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          display: false,
-        },
-        title: {
-          display: true,
-          text: "Your Income",
-          padding: {
-            bottom: 16,
-          },
-          font: {
-            size: 16,
-            weight: "normal",
-          },
-        },
-        tooltip: {
-          backgroundColor: "#FDCA49",
-          bodyColor: "#0E0A03",
-          yAlign: "bottom",
-          cornerRadius: 4,
-          titleColor: "#0E0A03",
-          usePointStyle: true,
-          callbacks: {
-            label: function(context) {
-              if (context.parsed.y !== null) {
-                return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y)
-              }
-              return null
-            }
-          }
-        },
-      },
-      scales: {
-        x: {
-          border: {
-            dash: [2, 4],
-          },
-          title: {
-            text: "2023",
-          },
-        },
-        y: {
-          grid: {
-            color: "#27292D",
-          },
-          border: {
-            dash: [2, 4],
-          },
-          title: {
-            display: true,
-            text: "Income [$]",
-          },
-        },
-      },
-    },
-  })
-})
-</script> -->
+    type: 'bar', // 預設類型為柱狀圖，混合圖表會根據每個數據集的類型分別渲染
+    data: mixedData,
+    options: mixedOptions
+  });
+});
+</script>
+
 
 <!-- ----------------------------------------------------------------垃圾種類圖 -->
 
@@ -210,17 +181,17 @@ onMounted(() => {
           <div class="card-data">
             <h3>基隆市海廢月份圖表</h3>
             <div class="span-flex">
-              <span>
+              <!-- <span>
                 <div class="red-box"></div>
                 <p>海廢頓數</p>
               </span>
               <span>
                 <div class="blue-box"></div>
                 <p>淨灘人數統計</p>
-              </span>
+              </span> -->
             </div>
-            <img src="https://picsum.photos/550/250/?random=10">
-            <!-- <canvas ref="lineChartCanvas" width="10" height="10"></canvas> -->
+            <!-- <img src="https://picsum.photos/550/250/?random=10"> -->
+            <canvas ref="lineChartCanvas"></canvas>
           </div>
           <p>
             塑料是最常見的海洋廢棄物之一，尤其是一次性塑料製品，如吸管、塑料袋和瓶子。這些塑料製品長期漂浮在海洋中，分解成微小的塑料碎片，危害海洋生物的健康，甚至進入了人類的食物鏈。

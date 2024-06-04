@@ -1,4 +1,5 @@
 <template>
+
   <!-- 簡介 -->
   <section class="section section-aboutus">
     <div class="video-container">
@@ -40,7 +41,7 @@
         </div>
         <div class="col-12 col-lg-9">
           <!-- 第一條 -->
-          <div class="row purpose-line ">
+          <div class="row purpose-line" data-aos="fade-left" data-aos-duration="2000">
             <div class="col-12 col-lg-3 purpose-circle">
                 <span class="material-symbols-outlined"> cognition </span>
                 <span>01</span>
@@ -53,7 +54,7 @@
             </div>
           </div>
           <!-- 第二條 -->
-          <div class="row purpose-line">
+          <div class="row purpose-line" data-aos="fade-left" data-aos-duration="2000">
             <div class="col-12 col-lg-3 purpose-circle">
               <span class="material-symbols-outlined"> keyboard_command_key </span>
               <span>02</span>
@@ -66,7 +67,7 @@
             </div>
           </div>
           <!-- 第三條 -->
-          <div class="row purpose-line">
+          <div class="row purpose-line" data-aos="fade-left" data-aos-duration="2000">
             <div class="col-12 col-lg-3 purpose-circle">
               <span class="material-symbols-outlined"> moving </span>
               <span>03</span>
@@ -93,9 +94,9 @@
       </p>
       <h3>捐款途徑</h3>
       <div class="row">
-        <div class="col-12  col-lg-4 group">
+        <div class="col-12  col-lg-4 group" >
           <!-- 第一張卡片 -->
-          <div class="donation-card">
+          <div class="donation-card" data-aos="fade-up" data-aos-duration="1000">
             <div class="donation-line">
               <span class="material-symbols-outlined"> event </span>
               <div class="donation-txt">
@@ -126,9 +127,9 @@
             </div>
           </div>
         </div>
-        <div class="col-12  col-lg-4 group ">
+        <div class="col-12  col-lg-4 group" >
           <!-- 第二張卡片 -->
-          <div class="donation-card tp">
+          <div class="donation-card tp" data-aos="fade-up" data-aos-duration="2000">
             <div class="donation-line">
               <span class="material-symbols-outlined"> contactless </span>
               <div class="donation-txt">
@@ -152,9 +153,9 @@
             </div>
           </div>
         </div>
-        <div class="col-12  col-lg-4 group ">
+        <div class="col-12  col-lg-4 group" >
           <!-- 第三張卡片 -->
-          <div class="donation-card top up">
+          <div class="donation-card top up" data-aos="fade-up" data-aos-duration="3000">
             <div class="donation-line">
               <span class="material-symbols-outlined"> workspace_premium </span>
               <div class="donation-txt">
@@ -176,6 +177,7 @@
           </div>
         </div>
       </div>
+      <button>立即捐款</button>
     </div>
   </section>
   <!-- 成員介紹 -->
@@ -185,7 +187,7 @@
       <p>BLUEALERT</p>
       <h3>成員介紹</h3>
       <div class="row">
-        <div class="col-12 col-md-6 col-lg-3">
+        <div class="col-12 col-md-6 col-lg-3 team-card">
           <img src="../../public/img/aboutus/Eason.png" />
           <h4>Eason</h4>
           <h3>創始人兼首席執行官</h3>
@@ -193,7 +195,7 @@
             全面領導BLUE ALERT的發展和運營，制定戰略目標，推動海洋保護的創新項目和合作夥伴關係。
           </p>
         </div>
-        <div class="col-12 col-md-6 col-lg-3">
+        <div class="col-12 col-md-6 col-lg-3 team-card">
           <img src="../../public/img/aboutus/Fred.png" />
           <h4>Fred</h4>
           <h3>技術總監</h3>
@@ -201,7 +203,7 @@
             負責資訊平台的開發與維護，分析海洋垃圾數據，提供技術支持，確保平台運行順暢並保持信息的準確性。
           </p>
         </div>
-        <div class="col-12 col-md-6 col-lg-3">
+        <div class="col-12 col-md-6 col-lg-3 team-card">
           <img src="../../public/img/aboutus/Amber.png" />
           <h4>Amber</h4>
           <h3>市場總監</h3>
@@ -209,7 +211,7 @@
             策劃和執行市場營銷策略，推廣"藍色警戒"的品牌和活動，提升公眾對海洋污染問題的認識，增加平台的影響力。
           </p>
         </div>
-        <div class="col-12 col-md-6 col-lg-3">
+        <div class="col-12 col-md-6 col-lg-3 team-card">
           <img src="../../public/img/aboutus/Sandy.png" />
           <h4>Sandy</h4>
           <h3>教育與活動經理</h3>
@@ -313,3 +315,72 @@
     </div>
   </section>
 </template>
+
+<!-- <script>
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+export default {
+  mounted() {
+    AOS.init();
+    initGsapAnimation();
+  },
+};
+//team card animation (gsap)
+function initGsapAnimation() {
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".section-team",
+      start: "top 80%",
+      end: "bottom 20%",
+      scrub: true,
+    },
+  });
+
+  tl.from(".team-card", {
+    y: 100,
+    opacity: 0,
+    stagger: 0.1,
+    duration: 1,
+    repeat: 2,
+    yoyo: true,
+  });
+}
+</script> -->
+
+<script setup>
+import { onMounted } from 'vue';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+
+onMounted(() => {
+  AOS.init()
+  initGsapAnimation()
+})
+
+function initGsapAnimation() {
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.section-team',
+      start: 'top 90%', 
+      end: 'bottom 70%', 
+      scrub: true, 
+    },
+  });
+
+  tl.from(".team-card", {
+    y: 100, 
+    opacity: 0, 
+    duration: 3
+  },1);
+}
+
+</script>
