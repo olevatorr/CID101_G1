@@ -42,7 +42,7 @@
         <div class="container container-story ">
           <div class="flex">
             <div class="row">
-              <div class="row pic col-6 col-md-3">
+              <div class="row pic-1 col-6 col-md-3">
                 <img src="/public/img/donate/donate-pic2.png" />
                 <div class="pic2">
                 <img src="/public/img/donate/donate-pic3.png" />
