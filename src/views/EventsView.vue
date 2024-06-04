@@ -120,9 +120,11 @@
               <img :src="card.imageUrl" />
             </div>
             <div class="text">
-              <div class="report">
+              <div class="reportBtn">
+                <div class="report">
                     <i class="fa-solid fa-triangle-exclamation"></i>
                     <span>檢舉此留言</span>
+              </div>
               </div>
               <h3>{{ card.sahreTitle }}</h3>
               <span>{{ card.place }}</span>
@@ -433,11 +435,11 @@ export default defineComponent({
       return Math.ceil(sectionShare.value.length / cardsshare);
     });
 
-    //活動列表數量超出條件時新增一頁
+    // 活動列表數量超出條件時新增一頁
     // const addNewPageForEvents = () => {
     //   sectionEvents.value = sectionEvents.value.concat(generateCards(cardsPerPage));
     // };
-    //活動分享數量超出條件時新增一頁
+    // 活動分享數量超出條件時新增一頁
     // const addNewPageForShare = () => {
     //   sectionShare.value = sectionShare.value.concat(generateCards(cardsPerShare));
     // };
