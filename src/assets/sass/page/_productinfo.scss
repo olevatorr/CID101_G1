@@ -80,7 +80,8 @@
         vertical-align: top;
     }
     h3 {
-        margin-bottom: 20px;
+        padding-top:30px;
+        margin-bottom: 30px;
     }
     .container {
         padding: 0 20%;
@@ -88,34 +89,23 @@
     .text-group{
         text-align: center;
     }
-    .text-group .title{
-        padding: 10px 0;
-    }
-    .text-group .text{
-        padding-top: 20px;
-    }
-    .text-group .text h4{
-        line-height: 30px;
-    }
     .text-group .pic{
-        padding: 30px 0;
+        padding-top: 30px;
         margin: auto;
-    }
-    .text-group .title2{
-        padding-bottom: 30px;
-    }
-    .text2 {
-        margin: 0 10px;
     }
     .text-group .directions{
         border: 1.5px solid rgb(58, 58, 58);
         display: block;
         margin: 0 auto;
-        padding-bottom: 20px;
+        padding:20px;
+        .pic{
+            width: 80%;
+            padding: 10px 0;
+        }
     }
     .text-group .disclaimer{
-        padding: 10px 20px 0 20px;
-        background-color: #F6F6F6;
-        margin: 40px auto 20px auto;
+        padding: 10px 20px ;
+        background-color: #f0f0f0;
+        margin: 40px auto 0 auto;
     }
 }

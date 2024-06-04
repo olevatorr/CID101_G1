@@ -34,29 +34,32 @@ import { RouterLink } from 'vue-router';
     <section class="section section-product-list">
         <div class="container">
             <div class="row">
-                <div class="col-6 col-md-4 col-lg-3" v-for="item in productlist" :key="item.id">
-                    <RouterLink  to="/productinfo">
-                        <div class="shop-card">
-                            <div class="img">
-                                <img :src="item.imgUrl" alt="">
+                <div class="col-6 col-md-4 col-lg-3" v-for="(item, index) in productlist" :key="item.id">
+                    <RouterLink to="/productinfo"> 
+                        <div class="shop-card" @mouseenter="showCart" @mouseleave="hideCart"> 
+                            <div class="img"> 
+                                <img :src="item.imgUrl" alt=""> 
+                            </div> <div class="text"> 
+                                <span>{{ item.title }}</span> 
+                                <span>NT$ {{ item.price }}</span> 
+                            </div> 
+                            <div class="cart-wrapper">
+                                <div class="cart" :class="{ show: item.isHovered }">
+                                    <button class="add-to-cart">加入購物車</button>
+                                </div>
                             </div>
-                            <div class="text">
-                                <span>{{ item.title }}</span>
-                                <span>NT$ {{ item.price }}</span>
-                            </div>
-                            <div class="cart">
-                                <span>加入購物車</span>
-                                <a href="">🩶</a>
-                            </div>
-                            <div class="hot">
-                                <span>熱銷商品</span>
-                            </div>
-                        </div>
-                    </RouterLink>
-                </div>
-            </div>
-        </div>
-    </section>
+                            <div class="collect" @mouseenter="toggleCollectHover(item, true)" @mouseleave="toggleCollectHover(item, false)"> 
+                                <a href="javascript:void(0)">{{ item.isHovering ? '🩵' : '🤍' }}</a> 
+                            </div> 
+                            <div class="hot" v-if="index < 4">  
+                                <span>熱銷商品</span> 
+                            </div> 
+                        </div> 
+                        </RouterLink> 
+                    </div> 
+                </div> 
+            </div> 
+        </section>
     <section class="section section-pagination">
         <div class="container">
             <div class="button">
@@ -81,7 +84,7 @@ export default {
                     id: 1,
                     title: '【側背包套經典款-鯨魚】',
                     price: 520,
-                    imgUrl: '../../public/img/shop/01.png'
+                    imgUrl: '../../public/img/shop/01.png',
                 },
                 {
                     id: 2,
@@ -174,7 +177,21 @@ export default {
                     imgUrl: '../../public/img/shop/16.png'
                 }
             ],
+            showCartButton: false
         }
+    },
+    methods: {
+    showCart(event) {
+        const cartButton = event.target.closest('.shop-card').querySelector('.cart');
+        cartButton.classList.add('show');
+    },
+    hideCart(event) {
+        const cartButton = event.target.closest('.shop-card').querySelector('.cart');
+        cartButton.classList.remove('show');
+    },
+    toggleCollectHover(item, isHovering) {
+        item.isHovering = isHovering;
     }
+}
 }
 </script>

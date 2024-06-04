@@ -25,15 +25,18 @@
     }
     .cart-head{
         display: grid;
-        grid-template-columns: 10% 42% 20% 15% 13%;
+        grid-template-columns: 14% 36% 18% 18% 18%;
         padding: 10px 20px 0 20px;
     }
     .cart-info {
         display: grid;
-        grid-template-columns: 10% 40% 20% 15% 15%;
+        grid-template-columns: 10% 40% 15% 15% 18%;
         padding: 10px 20px;
         align-items: center;
         border-bottom: 1px solid black;
+        .item{
+            padding-left: 12px;
+        }
     }
     .cart-info .content{
         display: flex;
@@ -42,14 +45,14 @@
             width: 100%;
             overflow: hidden;
             aspect-ratio: 1/1;
-            box-sizing: border-box;        
+            box-sizing: border-box; 
             img {
                 width: 100%;
                 vertical-align: top;
             }
         }
         .pic{
-            margin: auto;
+            margin:auto;
         }
     }
     .cart-info .amount {
