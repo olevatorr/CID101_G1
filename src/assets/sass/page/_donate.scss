@@ -80,11 +80,20 @@
                         display: flex;
                         overflow: hidden;
                         margin-right: 25px;
-                        input {
+                        input{
                             border: none;
                             outline: none;
                             background-color: transparent;
                             color: #fff;
+                        }
+                        input[type=number] {
+                            -moz-appearance:textfield;
+                            appearance: none;
+                        }
+                        input[type=number]::-webkit-inner-spin-button,
+                        input[type=number]::-webkit-outer-spin-button {
+                            -webkit-appearance: none;
+                            margin: 0;
                         }
                         i {
                             display: block;
@@ -159,6 +168,7 @@
 section{
     .container{
         .sx-txt{
+            margin-top: -100px;
             p{
                 text-align: center;
             }
