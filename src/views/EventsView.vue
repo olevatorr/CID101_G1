@@ -366,25 +366,19 @@ export default defineComponent({
     const calendarOptions = ref({
       initialView: 'dayGridMonth',
       headerToolbar: {
-        left: 'prev,next today',
+        left: '',
         center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay'
-      },
-      buttonText: {
-        today: 'Today',
-        month: 'Month',
-        week: 'Week',
-        day: 'Day'
+        right:'prev,next'
       },
       events: [
         {
-          title: '北海岸環境淨灘行動',
-          start: '2024-05-19'
+          title: '小龜老師meeting' ,
+          start: '2024-06-05'
         },
         {
-          title: 'Time Event',
-          start: '2024-05-29 00:00:00',
-          end: '2024-06-10 24:00:00'
+          title: '走一步是一步',
+          start: '2024-06-10 00:00:00',
+          end: '2024-06-21 24:00:00'
         }
       ],
       eventClick: function (info) {
