@@ -4,21 +4,32 @@ import * as topojson from 'topojson-client';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ref, onMounted, onBeforeUnmount, computed, watch } from 'vue';
-import { CountUp } from 'countup.js';
+// import { CountUp } from 'countup.js';
+import anime from 'animejs';
 import { Chart } from 'chart.js/auto';
 import { RouterLink } from 'vue-router';
 
 // banner 動畫
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger)
 
-const banner = ref(null);
-const smokeLeft = ref(null);
-const smokeRight = ref(null);
-const trashLeft = ref(null);
-const trashRight = ref(null);
+const banner = ref(null)
+const smokeLeft = ref(null)
+const smokeRight = ref(null)
+const trashLeft = ref(null)
+const trashRight = ref(null)
+const cover = ref(null)
+const indexLogo = ref(null)
+
+// intro動畫
+const intro = ref(null)
+const introTitle = ref(null)
+const introContent = ref(null)
+
+// debris動畫
+const debris = ref(null)
 
 onMounted(() => {
-  const tl = gsap.timeline({
+  const bannerTl = gsap.timeline({
     scrollTrigger: {
       trigger: banner.value,
       start: 'top top',
@@ -28,11 +39,192 @@ onMounted(() => {
     },
   });
 
-  tl.to(trashLeft.value, { x: '-100%', duration: 1 }, 0)
+  bannerTl
+    .to(trashLeft.value, { x: '-100%', duration: 1 }, 0)
     .to(trashRight.value, { x: '100%', duration: 1 }, 0)
     .to(smokeLeft.value, { x: '-100%', duration: 1 }, 1)
     .to(smokeRight.value, { x: '100%', duration: 1 }, 1)
+    .to(indexLogo.value, { width : '15%', duration: 1 }, 1)
+    .fromTo(cover.value, { opacity: 0 }, { opacity: 1 , duration: 1, ease: 'power4.out' }, 1)
+    .fromTo(cover.value, { y: '100%' }, { y: '0%', duration: 1, ease: 'power4.out' }, 1)
+
+  const introTl = gsap.timeline({
+    scrollTrigger: {
+      trigger: intro.value,
+      start: 'top 50%',
+      end: '0',
+    }
+  })
+
+  introTl
+    .fromTo(introTitle.value, { opacity: 0 }, { opacity: 1, duration:1 }, 0 )
+    .fromTo(introTitle.value, { x: '-30%' }, { x: '0%' , duration:1 }, 0 )
+    .fromTo(introContent.value, { opacity: 0 }, { opacity: 1, duration:1 }, 0 )
+    .fromTo(introContent.value, { x: '-30%' }, { x: '0%' , duration:1 }, 0 )
+
+
+  const debrisTl = gsap.timeline({
+    scrollTrigger: {
+      trigger: debris.value,
+      start: 'top 90%',
+      end: '0',
+    }
+  })
+
+  debrisTl
+    .fromTo(debris.value, { opacity: 0 }, { opacity: 1, duration:2 }, 0)
+    .fromTo(debris.value, { y: '30%' }, { y: '0%' , duration:2 }, 0)
 })
+
+
+// 海廢數據
+const hebrisSort = [
+  { id: 1, area: '總計', selectArea: '全台灣' },
+  { id: 2, area: '北部地區', selectArea: '北部地區' },
+  { id: 3, area: '中部地區', selectArea: '中部地區' },
+  { id: 4, area: '南部地區', selectArea: '南部地區' },
+  { id: 5, area: '東部地區', selectArea: '東部地區' },
+  { id: 6, area: '離島地區', selectArea: '離島地區' }
+];
+
+const hebrisData = ref(null);
+const selectedArea = ref('總計');
+const totalWeight = ref(null);
+const totalParticipants = ref(null);
+const totalSessions = ref(null);
+
+onMounted(() => {
+  fetch('../../public/json/海洋委員會公務統計報表-海洋廢棄物清理-113.01.json')
+    .then(res => res.json())
+    .then(jsonData => {
+      hebrisData.value = jsonData;
+    });
+});
+
+const filteredData = computed(() => {
+  if (hebrisData.value) {
+    return hebrisData.value.find(data => data['縣市別'] === selectedArea.value) || {};
+  }
+  return {};
+});
+watch(filteredData, () => {
+  const weightValue = parseFloat(filteredData.value['清理數量分類(噸)_總計'] || '0');
+  const participantsValue = parseFloat(removeCommas(filteredData.value['參與人數(人次)'] || '0'));
+  const sessionsValue = parseFloat(removeCommas(filteredData.value['清理次數(次)'] || '0'));
+
+  animateNumber(totalWeight.value, weightValue);
+  animateNumber(totalParticipants.value, participantsValue);
+  animateNumber(totalSessions.value, sessionsValue);
+});
+
+function animateNumber(element, targetValue) {
+  anime({
+    targets: element,
+    textContent: [0, targetValue],
+    duration: 1000,
+    round: 1,
+    easing: 'easeOutQuad',
+    update: function() {
+      element.innerHTML = formatNumber(element.textContent);
+    }
+  });
+}
+
+function removeCommas(value) {
+  return value.replace(/,/g, '');
+}
+
+function formatNumber(value) {
+  return parseFloat(value).toLocaleString();
+}
+
+// D3 地圖
+const counties = {
+  北部地區: ['台北縣', '桃園縣', '宜蘭縣', '新竹縣', '基隆市', '新竹市'],
+  中部地區: ['台中縣', '台中市', '苗栗縣', '彰化縣', '雲林縣'],
+  南部地區: ['嘉義縣', '台南縣', '台南市', '高雄縣', '高雄市', '屏東縣'],
+  東部地區: ['台東縣', '花蓮縣'],
+  離島地區: ['澎湖縣', '金門縣', '連江縣']
+};
+
+let svg;
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', resizeMap);
+});
+
+async function initMap() {
+  const container = mapContainer.value;
+
+  const width = container.clientWidth;
+  const height = container.clientHeight;
+
+  svg = d3.select(container)
+    .append('svg')
+    .attr('width', width)
+    .attr('height', height);
+
+  const projection = d3.geoMercator()
+    .center([120, 23.5])
+    .scale(5000)
+    .translate([width / 2, height / 2]);
+
+  const path = d3.geoPath().projection(projection);
+  const topoData = await d3.json('../../public/localjson/map/twCounty2010.topo.json');
+  const geoData = topojson.feature(topoData, topoData.objects.layer1);
+
+  svg.selectAll('path')
+    .data(geoData.features)
+    .enter()
+    .append('path')
+    .attr('d', path)
+    .attr('fill', '#E7A600')
+    .attr('stroke', 'white');
+}
+
+onMounted(() => {
+  initMap();
+  window.addEventListener('resize', resizeMap);
+})
+
+function updateMapColor(area) {
+  if (area === '總計') {
+    svg.selectAll('path')
+      .transition()
+      .duration(500)
+      .attr('fill', '#E7A600');
+  } else {
+    const selectedRegions = counties[area];
+
+    svg.selectAll('path')
+      .transition()
+      .duration(500)
+      .attr('fill', (d) => {
+        if (selectedRegions && selectedRegions.includes(d.properties.COUNTYNAME)) {
+          return '#E7A600';
+        } else {
+          return '#005FA1';
+        }
+      });
+  }
+}
+
+function handleAreaClick(sort) {
+  if (sort) {
+    selectedArea.value = sort.area;
+    updateMapColor(sort.area);
+  }
+}
+
+function resizeMap() {
+  const container = mapContainer.value;
+  d3.select(container).select('svg').remove();
+  initMap();
+}
+
+initMap();
+window.addEventListener('resize', resizeMap);
+
 
 // 對比照動畫
 const comparationArea = ref(null);
@@ -82,70 +274,6 @@ const isSurveyPopUp = ref(false)
 
 const SurveyPopUp = () => {
   isSurveyPopUp.value = !isSurveyPopUp.value
-}
-
-// 海廢數據
-const hebrisSort = [
-  { id: 1, area: '總計', selectArea: '全台灣' },
-  { id: 2, area: '北部地區', selectArea: '北部地區' },
-  { id: 3, area: '中部地區', selectArea: '中部地區' },
-  { id: 4, area: '南部地區', selectArea: '南部地區' },
-  { id: 5, area: '東部地區', selectArea: '東部地區' },
-  { id: 6, area: '離島地區', selectArea: '離島地區' }
-];
-
-const hebrisData = ref(null);
-const selectedArea = ref('總計');
-const totalWeight = ref(null);
-const totalParticipants = ref(null);
-const totalSessions = ref(null);
-
-let weightCountUp = null;
-let participantsCountUp = null;
-let sessionsCountUp = null;
-
-onMounted(() => {
-  fetch('../../public/json/海洋委員會公務統計報表-海洋廢棄物清理-113.01.json')
-    .then(res => res.json())
-    .then(jsonData => {
-      hebrisData.value = jsonData;
-    });
-
-  weightCountUp = createCountUp(totalWeight.value);
-  participantsCountUp = createCountUp(totalParticipants.value);
-  sessionsCountUp = createCountUp(totalSessions.value);
-});
-
-const filteredData = computed(() => {
-  if (hebrisData.value) {
-    return hebrisData.value.find(data => data['縣市別'] === selectedArea.value) || {};
-  }
-  return {};
-});
-
-watch(filteredData, () => {
-  const weightValue = parseFloat(filteredData.value['清理數量分類(噸)_總計'] || '0');
-  const participantsValue = parseFloat(removeCommas(filteredData.value['參與人數(人次)'] || '0'));
-  const sessionsValue = parseFloat(removeCommas(filteredData.value['清理次數(次)'] || '0'));
-
-  weightCountUp.update(weightValue);
-  participantsCountUp.update(participantsValue);
-  sessionsCountUp.update(sessionsValue);
-});
-
-function removeCommas(value) {
-  return value.replace(/,/g, '');
-}
-
-function createCountUp(element) {
-  return new CountUp(element, 0, {
-    duration: 1,
-    formattingFn: formatNumber,
-  });
-}
-
-function formatNumber(value) {
-  return value.toLocaleString();
 }
 
 // 捐款
@@ -207,9 +335,6 @@ const mapContainer = ref(null);
 const donateChart = ref(null);
 
 onMounted(() => {
-  initMap();
-  window.addEventListener('resize', resizeMap);
-
   const dataNum = donateDistribution.map(item => item.data);
   const labels = donateDistribution.map(item => item.sort + ' ' + item.data + '%');
   const colors = donateDistribution.map(item => item.color);
@@ -242,95 +367,20 @@ onMounted(() => {
       }
     }
   });
-
 });
-const counties = {
-  北部地區: ['台北縣', '桃園縣', '宜蘭縣', '新竹縣', '基隆市', '新竹市'],
-  中部地區: ['台中縣', '台中市', '苗栗縣', '彰化縣', '雲林縣'],
-  南部地區: ['嘉義縣', '台南縣', '台南市', '高雄縣', '高雄市', '屏東縣'],
-  東部地區: ['台東縣', '花蓮縣'],
-  離島地區: ['澎湖縣', '金門縣', '連江縣']
-};
-
-let svg;
-
-onBeforeUnmount(() => {
-  window.removeEventListener('resize', resizeMap);
-});
-
-async function initMap() {
-  const container = mapContainer.value;
-
-  const width = container.clientWidth;
-  const height = container.clientHeight;
-
-  svg = d3.select(container)
-    .append('svg')
-    .attr('width', width)
-    .attr('height', height);
-
-  const projection = d3.geoMercator()
-    .center([120, 23.5])
-    .scale(6000)
-    .translate([width / 2, height / 2]);
-
-  const path = d3.geoPath().projection(projection);
-  const topoData = await d3.json('../../public/localjson/map/twCounty2010.topo.json');
-  const geoData = topojson.feature(topoData, topoData.objects.layer1);
-
-  svg.selectAll('path')
-    .data(geoData.features)
-    .enter()
-    .append('path')
-    .attr('d', path)
-    .attr('fill', '#E7A600')
-    .attr('stroke', 'white');
-}
-
-function updateMapColor(area) {
-  if (area === '總計') {
-    svg.selectAll('path')
-      .attr('fill', '#E7A600');
-  } else {
-    const selectedRegions = counties[area];
-
-    svg.selectAll('path')
-      .attr('fill', (d) => {
-        if (selectedRegions && selectedRegions.includes(d.properties.COUNTYNAME)) {
-          return '#E7A600';
-        } else {
-          return '#005FA1';
-        }
-      });
-  }
-}
-
-function handleAreaClick(sort) {
-  if (sort) {
-    selectedArea.value = sort.area;
-    updateMapColor(sort.area);
-  }
-}
-
-function resizeMap() {
-  const container = mapContainer.value;
-  d3.select(container).select('svg').remove();
-  initMap();
-}
-
-initMap();
-window.addEventListener('resize', resizeMap);
 </script>
 
 <template>
   <main>
     <section ref="banner" class="section section-index-banner">
       <div class="container">
-        <div class="img">
-          <img src="../../public/img/LOGO-white.png" alt="">
+        <div class="img" ref="indexLogo">
+          <img src="../../public/img/LOGO-short.png" alt="">
         </div>
-        <h1>潔淨海洋 綠色明天</h1>
-        <h2>Clean Ocean, Green tomorrow</h2>
+        <div class="cover" ref="cover">
+          <h1>潔淨海洋 綠色明天</h1>
+          <h2>Clean Ocean, Green tomorrow</h2>
+        </div>
       </div>
       <div ref="smokeLeft" class="smoke-left">
         <img src="../../public/img/index/smoke-left.png" alt="">
@@ -345,10 +395,10 @@ window.addEventListener('resize', resizeMap);
         <img src="../../public/img/index/trash-right.png" alt="">
       </div>
     </section>
-    <section class="section section-intro">
+    <section class="section section-intro" ref="intro">
       <div class="container">
-        <h3>用數據和行動,<br>創造海洋的微笑</h3>
-        <p>
+        <h3 ref="introTitle">用數據和行動,<br>創造海洋的微笑</h3>
+        <p ref="introContent">
           海洋是人類賴以生存的寶貴資源。<br>
           我們希望通過全面的海洋垃圾數據整合與分析,以及積極的教育宣導和環境行動, <br>
           讓世界各地的人們都能展現笑顔,享受健康且永續的海洋環境。<br>
@@ -359,7 +409,7 @@ window.addEventListener('resize', resizeMap);
         </p>
       </div>
     </section>
-    <section class="section section-debris">
+    <section class="section section-debris" ref="debris">
     <div class="container">
       <h3>
         OVERVIEW OF MARINE DEBRIS<br>
@@ -486,16 +536,18 @@ window.addEventListener('resize', resizeMap);
           </div>
         </div>
         <div class="col-12 donate-link">
-          <router-link to="/donate">
-            <div class="donate-btn">
-              <div class="donate-btn-circle">
-                <i class="fa-solid fa-dollar-sign"></i>
+          <div class="hover-zone">
+            <router-link to="/donate">
+              <div class="donate-btn">
+                <div class="donate-btn-circle">
+                  <i class="fa-solid fa-dollar-sign"></i>
+                </div>
+                <div class="donate-txt">
+                  立即捐款
+                </div>
               </div>
-              <div class="donate-txt">
-                立即捐款
-              </div>
-            </div>
-          </router-link>
+            </router-link>
+          </div>
         </div>
       </div>
     </section>

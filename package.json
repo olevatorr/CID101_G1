@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@fullcalendar/vue3": "^6.1.13",
+    "animejs": "^3.2.2",
     "aos": "^3.0.0-beta.6",
     "chart.js": "^4.4.3",
     "countup.js": "^2.8.0",
