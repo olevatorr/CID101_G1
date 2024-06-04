@@ -9,7 +9,7 @@
         </div>
         <div class="container-donate">
           <div class="row">
-            <div class="col-12 col-md-5">
+            <div data-aos="fade-left" data-aos-duration="2000" class="col-12 col-md-5">
               <p>每一份捐助,都是一份守護<br>為海洋的永續盡一份心力</p>
             </div>
             <div class="col-12 col-md-7 unit-table">
@@ -27,7 +27,7 @@
               <div class="donate-submit">
                 <div class="unit-input">
                   <i class="fa-solid fa-dollar-sign"></i>
-                  <input type="number">
+                  <input type="number" min="0" oninput="if(value>100000)value=100000">
                 </div>
                 <button><RouterLink to="/DonatePage">捐款去</RouterLink></button>
               </div>
@@ -42,7 +42,7 @@
         <div class="container container-story ">
           <div class="flex">
             <div class="row">
-              <div class="row pic col-6 col-md-3">
+              <div class="row pic-1 col-6 col-md-3">
                 <img src="/public/img/donate/donate-pic2.png" />
                 <div class="pic2">
                 <img src="/public/img/donate/donate-pic3.png" />
@@ -149,8 +149,8 @@
       </section>
 <!-- ---------------------------------------------------------------- -->
 </template>
-
 <script>
+
 import { ref, computed } from 'vue'
 
 export default {

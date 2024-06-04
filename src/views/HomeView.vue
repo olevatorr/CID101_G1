@@ -283,13 +283,12 @@ async function initMap() {
     .enter()
     .append('path')
     .attr('d', path)
-    .attr('fill', '#005FA1')
+    .attr('fill', '#E7A600')
     .attr('stroke', 'white');
 }
 
 function updateMapColor(area) {
   if (area === '總計') {
-    // 如果选择了"总计",让所有地区都高亮
     svg.selectAll('path')
       .attr('fill', '#E7A600');
   } else {

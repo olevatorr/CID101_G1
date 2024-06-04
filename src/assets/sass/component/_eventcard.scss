@@ -40,6 +40,23 @@
     align-items: center;
     padding: 10px 0;
     color: #fff;
+
+    @media screen and (max-width:768px) {
+      width: 78%;
+      flex-wrap: wrap;
+      gap: 30px 0;
+      margin: auto;
+    }
+
+    ;
+
+    @media screen and (max-width:576px) {
+      width: 100%;
+      gap: 30px 0;
+      margin: auto;
+    }
+
+    ;
   }
 }
 
@@ -52,38 +69,40 @@
     width: clamp(600px, auto, 1200px);
     margin: 40px auto;
   }
-
-  .area-list {
-    height: 470px;
-    overflow-y: auto;
-
+  .col-12:last-child{
     @media screen and (max-width: 992px) {
       margin-top: 20px;
     }
-
-    .area {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 10px 0;
-
-      h3 {
-        width: 50%;
-      }
-
-      p {
-        letter-spacing: .5rem;
-      }
-
-      .activities {
-        flex-grow: 1;
+    .area-list {
+      height: 470px;
+      overflow-y: auto;
+  
+  
+      .area {
+        width: 100%;
         display: flex;
-        flex-direction: column;
-        align-items: start;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 0;
+  
+        h3 {
+          width: 50%;
+        }
+  
+        p {
+          letter-spacing: .2rem;
+        }
+  
+        .activities {
+          flex-grow: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: start;
+        }
       }
     }
   }
+
 
   //卷軸寬度
   .area-list::-webkit-scrollbar {
@@ -92,13 +111,13 @@
 
   //軌道背景色
   .area-list::-webkit-scrollbar-track {
-    background: #005FA1;
+    background: #d3d3d7;
     border-radius: 25px;
   }
 
   //卷軸滑塊、圓角
   .area-list::-webkit-scrollbar-thumb {
-    background: #E7A600;
+    background: #005FA1;
     border-radius: 25px;
   }
 }
@@ -107,82 +126,84 @@
 .section-event-list {
   background-color: #fff;
   text-align: center;
-
-  .menu .choose {
-    width: 50%;
-    border-radius: 0;
-    margin-bottom: 30px;
-    padding: 5px 10px;
-  }
-
-  select {
-    text-align: center;
-    font-family: $font-family-base;
-  }
-
-  .row {
-    .col-md-6 {
+  .container{
+      .col-lg-3{
       margin: 15px 0;
-    }
+      }
+      h3,.addnew i{
+        color: #005FA1;
+        }
+      .menu {
+        margin-bottom: 30px;
+        select {
+          text-align: center;
+          width: 50%;
+          font-family: $font-family-base;
+          padding: 10px 0;
+          border-radius: 5px;
+        }
+      }
+
+
   }
 }
 
 //section-event-share
 .section-event-share {
   text-align: center;
-
-  .container .row .col-md-6 {
+  .container .row .col-lg-3{
     margin: 15px 0;
-
     .event-card {
+      &:hover .text .Thoughts a{
+        color: #fff;
+      }
       .text {
-        .theme {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin: 20px 0;
-
-          .event-name {
-            margin-bottom: 0;
-
-            h3 {
-              margin-bottom: 0;
-            }
+        .report {
+          text-align: right;
+          margin-top: 10px;
+          &:hover{
+            color: #E7A600;
           }
-
-          .report {
-            i {
-              font-size: 2rem;
-              cursor: pointer;
-              color: #e7a600;
+          i {
+            font-size: 2rem;
+            cursor: pointer;
+          }
+          span{
+            display: inline;
+          }
+            }
+            h3 {
+              font-size: 1.5rem;
+              display: block;
+              margin: 20px 0;
+              line-height: 2;
+              font-weight: normal;
+              letter-spacing: 0;
             }
           }
         }
-      }
-
-      span {
-        font-size: 1.5rem;
-        display: block;
-        margin: 20px 0;
-        line-height: 1.2;
-      }
-
-      span:last-child {
-        margin-top: 30px;
-      }
-
-      .Thoughts {
-        a {
-          margin-top: 10px;
-          display: inline-block;
-          text-decoration: none;
+        span {
           font-size: 1.5rem;
-          color: #000;
+          display: block;
+          margin: 20px 0;
+          line-height: 2;
+        }
+
+        span:last-child {
+          margin-top: 30px;
+        }
+
+        .Thoughts {
+          a {
+            margin-top: 10px;
+            display: inline-block;
+            text-decoration: none;
+            font-size: 1.5rem;
+            color: #000;
+          }
         }
       }
     }
-  }
-}
 
 //卡片(共用)
 .event-card {
@@ -196,14 +217,16 @@
     color: #fff;
     transition: .3s ease;
     cursor: pointer;
-
-    .addnew i {
+    .addnew i,h3 {
       color: #fff;
+    }
+    .pic img{
+      transform: scale(1.5) rotate(5deg);
+      transition: .5s ease;
     }
   }
 
   .text {
-
     h3 {
       margin-bottom: 20px;
     }
@@ -220,6 +243,8 @@
   .pic {
     width: 100%;
     height: 100%;
+    margin-bottom: 0;
+    overflow: hidden;
 
     img {
       width: 100%;
@@ -245,11 +270,6 @@
   }
 }
 
-.section-event-share .event-card:hover .text .Thoughts  {
-  color: #fff;
-}
-
-
 //頁碼(共用)
 .pagenumber {
   margin: 30px 0;
@@ -268,9 +288,23 @@
   background: url(../../../../public/img/event/event_02.png);
   background-repeat: no-repeat;
   background-size: cover;
-
+  span {
+    text-align: left;
+    display: block;
+    font-size: 1.5rem;
+    letter-spacing: .3rem;
+    line-height: 2;
+    padding: 0 10px;
+    }
+  ul{
+  padding:  10px;
+  li{
+    text-align: left;
+    margin: 20px 0;
+  }
   .return {
     margin: 30px 0;
+  }
   }
 }
 
@@ -279,8 +313,9 @@
   position: relative;
 
   .pic {
-    width: 100%;
+    width: 95%;
     padding: 5%;
+    display: block;
 
     img {
       width: 100%;
@@ -534,6 +569,7 @@
     .pic {
       width: 100%;
       height: 100%;
+      margin-bottom: 0;
 
       img {
         width: 100%;
@@ -547,9 +583,15 @@
         position: absolute;
         top: 0;
         right: 0;
-        font-size: 3rem;
-        color: $color-highlight;
+        font-size: 1.75rem;
         cursor: pointer;
+        span{
+          margin-left: 10px;
+        }
+        &:hover{
+        color: $color-highlight;
+        transition: .3s ease;
+        }
       }
 
       h3 {
