@@ -1,127 +1,9 @@
-<!-- ----------------------------------------------------------------圖表區 -->
-<script setup>
-import { ref, onMounted } from 'vue';
-import Chart from 'chart.js/auto';
-
-// 定義導航菜單的狀態
-const isMenuOpen = ref(false);
-const isSubmenuOpen = ref(false);
-
-// 定義導航菜單的控制方法
-const toggleMenu = () => {
-  isMenuOpen.value = !isMenuOpen.value;
-};
-
-const toggleSubmenu = () => {
-  isSubmenuOpen.value = !isSubmenuOpen.value;
-};
-
-// 定義甜甜圈圖表的數據
-const doughnutData = [
-  { label: '塑膠垃圾', data: 30, color: '#00ADF3' },
-  { label: '捕魚漁網', data: 15, color: '#E7A600' },
-  { label: '漂流木', data: 30, color: '#D35656' }
-];
-
-const doughnutChartCanvas = ref(null);
-const lineChartCanvas = ref(null);
-
-// 定義折線圖表的數據
-const months = [
-  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-];
-
-const mixedData = {
-  labels: months,
-  datasets: [
-    {
-      type: 'bar', // 垃圾總量使用柱狀圖
-      label: '海費噸數',
-      data: [23, 18, 25, 19, 20, 21, 22, 19, 18, 17, 16, 15],
-      backgroundColor: '#D35656',
-      borderColor: '#D35656',
-      borderWidth: 1,
-      fill: true
-    },
-    {
-      type: 'line', // 淨灘人數統計使用折線圖
-      label: '淨灘人數統計',
-      data: [30, 25, 28, 22, 24, 23, 26, 21, 20, 19, 18, 17],
-      backgroundColor:'rgba(255,255,255,0)',
-      borderColor: '#2F80DE', 
-      borderWidth: 1,
-      fill: true
-    }
-  ]
-};
-
-const mixedOptions = {
-  scales: {
-    y: {
-      beginAtZero: true,
-      title: {
-        display: true,
-        text: '數量'
-      }
-    },
-    x: {
-      title: {
-        display: true,
-        text: '月份'
-      }
-    }
-  },
-  plugins: {
-    legend: {
-      display: true,
-      position: 'top',
-    },
-  }
-};
-
-onMounted(() => {
-  // 繪製甜甜圈圖表
-  const doughnutCtx = doughnutChartCanvas.value.getContext('2d');
-  const doughnutDataNum = doughnutData.map((item) => item.data);
-  const doughnutLabels = doughnutData.map((item) => item.label + ' ' + item.data + '%');
-  const doughnutColors = doughnutData.map((item) => item.color);
-
-  new Chart(doughnutCtx, {
-    type: 'doughnut',
-    data: {
-      labels: doughnutLabels,
-      datasets: [
-        {
-          data: doughnutDataNum,
-          backgroundColor: doughnutColors,
-        }
-      ]
-    },
-    options: {
-      plugins: {
-        legend: {
-          display: false // 隱藏圖例標籤
-        }
-      }
-    }
-  });
-
-  // 繪製混合圖表
-  const lineCtx = lineChartCanvas.value.getContext('2d');
-  new Chart(lineCtx, {
-    type: 'bar', // 預設類型為柱狀圖，混合圖表會根據每個數據集的類型分別渲染
-    data: mixedData,
-    options: mixedOptions
-  });
-});
-</script>
-
-
+<canvas ref="doughnutChartCanvas"></canvas>
+<canvas ref="lineChartCanvas"></canvas>
 <!-- ----------------------------------------------------------------垃圾種類圖 -->
-
-
 <template>
+<!-- 图表 -->
+
 <div id="app">
 <!-- ----------------------------------------------------------------banner -->
   <section class="section section-knowledge-banner">
@@ -317,143 +199,143 @@ onMounted(() => {
 </div>
 </template>
 
-<script>
-import { ref } from 'vue'
+<script setup>
+import { ref, onMounted } from 'vue';
+import Chart from 'chart.js/auto';
 
-// export default {
-  // data() {
-  //   return {
-  //     cards: Array.from({ length: 16 }, (_, index) => ({
-  //       imgSrc: `https://picsum.photos/300/150/?random=${index + 1}`,
-  //       title: '海洋動物調查',
-  //       description: '鯨魚是世界上最大的動物，最大的藍鯨可以達到30米長，重達180噸。鯨魚分為齒鯨和鬚鯨兩類，齒鯨如虎鯨，捕食魚類和其他海洋動物；鬚鯨則過濾大量浮游生物和小魚來獲取食物。'.slice(0, 14)+'...' // 只顯示前14個字+...
-  //     }))
-  //   }
-  // },
-  const cards = [
-  {
-    id: 1,
-    imgSrc: "https://picsum.photos/300/150/?random=1",
-    title: "海洋動物調查",
-    description: "鯨魚是世界上最大的動物..."
+// // 导航菜单状态
+// const isMenuOpen = ref(false);
+// const isSubmenuOpen = ref(false);
+
+// 导航菜单控制方法
+// const toggleMenu = () => {
+//   isMenuOpen.value = !isMenuOpen.value;
+// };
+
+// const toggleSubmenu = () => {
+//   isSubmenuOpen.value = !isSubmenuOpen.value;
+// };
+
+// 甜甜圈图表数据
+const doughnutData = [
+  { label: '塑膠垃圾', data: 30, color: '#00ADF3' },
+  { label: '捕魚漁網', data: 15, color: '#E7A600' },
+  { label: '漂流木', data: 30, color: '#D35656' }
+];
+
+const doughnutChartCanvas = ref(null);
+const lineChartCanvas = ref(null);
+
+// 折线图表数据
+const months = [
+  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+];
+
+const mixedData = {
+  labels: months,
+  datasets: [
+    {
+      type: 'bar', // 垃圾總量使用柱狀圖
+      label: '海費噸數',
+      data: [23, 18, 25, 19, 20, 21, 22, 19, 18, 17, 16, 15],
+      backgroundColor: '#D35656',
+      borderColor: '#D35656',
+      borderWidth: 1,
+      fill: true
+    },
+    {
+      type: 'line', // 淨灘人數統計使用折線圖
+      label: '淨灘人數統計',
+      data: [30, 25, 28, 22, 24, 23, 26, 21, 20, 19, 18, 17],
+      backgroundColor:'rgba(255,255,255,0)',
+      borderColor: '#2F80DE', 
+      borderWidth: 1,
+      fill: true
+    }
+  ]
+};
+
+const mixedOptions = {
+  scales: {
+    y: {
+      beginAtZero: true,
+      title: {
+        display: true,
+        text: '數量'
+      }
+    },
+    x: {
+      title: {
+        display: true,
+        text: '月份'
+      }
+    }
   },
-  {
-    id: 2,
-    imgSrc: "https://picsum.photos/300/150/?random=2",
-    title: "海洋動物調查",
-    description: "鯨魚是世界上最大的動物..."
-  },
-  {
-    id: 3,
-    imgSrc: "https://picsum.photos/300/150/?random=3",
-    title: "海洋動物調查",
-    description: "鯨魚是世界上最大的動物..."
-  },
-  {
-    id: 4,
-    imgSrc: "https://picsum.photos/300/150/?random=4",
-    title: "海洋動物調查",
-    description: "鯨魚是世界上最大的動物..."
-  },
-  {
-    id: 5,
-    imgSrc: "https://picsum.photos/300/150/?random=5",
-    title: "海洋動物調查",
-    description: "鯨魚是世界上最大的動物..."
-  },
-  {
-    id: 6,
-    imgSrc: "https://picsum.photos/300/150/?random=6",
-    title: "海洋動物調查",
-    description: "鯨魚是世界上最大的動物..."
-  },
-  {
-    id: 7,
-    imgSrc: "https://picsum.photos/300/150/?random=7",
-    title: "海洋動物調查",
-    description: "鯨魚是世界上最大的動物..."
-  },
-  {
-    id: 8,
-    imgSrc: "https://picsum.photos/300/150/?random=8",
-    title: "海洋動物調查",
-    description: "鯨魚是世界上最大的動物..."
-  },
-  {
-    id: 9,
-    imgSrc: "https://picsum.photos/300/150/?random=9",
-    title: "海洋動物調查",
-    description: "鯨魚是世界上最大的動物..."
-  },
-  {
-    id: 10,
-    imgSrc: "https://picsum.photos/300/150/?random=10",
-    title: "海洋動物調查",
-    description: "鯨魚是世界上最大的動物..."
-  },
-  {
-    id: 11,
-    imgSrc: "https://picsum.photos/300/150/?random=11",
-    title: "海洋動物調查",
-    description: "鯨魚是世界上最大的動物..."
-  },
-  {
-    id: 12,
-    imgSrc: "https://picsum.photos/300/150/?random=12",
-    title: "海洋動物調查",
-    description: "鯨魚是世界上最大的動物..."
-  },
-  {
-    id: 13,
-    imgSrc: "https://picsum.photos/300/150/?random=13",
-    title: "海洋動物調查",
-    description: "鯨魚是世界上最大的動物..."
-  },
-  {
-    id: 14,
-    imgSrc: "https://picsum.photos/300/150/?random=14",
-    title: "海洋動物調查",
-    description: "鯨魚是世界上最大的動物..."
-  },
-  {
-    id: 15,
-    imgSrc: "https://picsum.photos/300/150/?random=15",
-    title: "海洋動物調查",
-    description: "鯨魚是世界上最大的動物..."
-  },
-  {
-    id: 16,
-    imgSrc: "https://picsum.photos/300/150/?random=16",
-    title: "海洋動物調查",
-    description: "鯨魚是世界上最大的動物..."
+  plugins: {
+    legend: {
+      display: true,
+      position: 'top',
+    },
   }
-]; 
+};
 
-export default {
-  data() {
-    return {
-      cards
-    }
-  },
-  setup() {
-    const showLightboxModal = ref(false)
-    const currentIndex = ref(null)
+// 绘制图表
+onMounted(() => {
+  // 绘制甜甜圈图表
+  const doughnutCtx = doughnutChartCanvas.value.getContext('2d');
+  const doughnutDataNum = doughnutData.map((item) => item.data);
+  const doughnutLabels = doughnutData.map((item) => item.label + ' ' + item.data + '%');
+  const doughnutColors = doughnutData.map((item) => item.color);
 
-    const showLightbox = (index) => {
-      showLightboxModal.value = true
-      currentIndex.value = index
+  new Chart(doughnutCtx, {
+    type: 'doughnut',
+    data: {
+      labels: doughnutLabels,
+      datasets: [
+        {
+          data: doughnutDataNum,
+          backgroundColor: doughnutColors,
+        }
+      ]
+    },
+    options: {
+      plugins: {
+        legend: {
+          display: false // 隐藏图例标签
+        }
+      }
     }
+  });
 
-    const closeLightbox = () => {
-      showLightboxModal.value = false
-    }
+  // 绘制混合图表
+  const lineCtx = lineChartCanvas.value.getContext('2d');
+  new Chart(lineCtx, {
+    type: 'bar', // 预设类型为柱状图，混合图表会根据每个数据集的类型分别渲染
+    data: mixedData,
+    options: mixedOptions
+  });
+});
 
-    return {
-      showLightboxModal,
-      currentIndex,
-      showLightbox,
-      closeLightbox,
-    }
-  },
-}
+// 卡片数据
+const cards = Array.from({ length: 16 }, (_, index) => ({
+  id: index + 1,
+  imgSrc: `https://picsum.photos/300/150/?random=${index + 1}`,
+  title: '海洋動物調查',
+  description: '鯨魚是世界上最大的動物，最大的藍鯨可以達到30米長，重達180噸。鯨魚分為齒鯨和鬚鯨兩類，齒鯨如虎鯨，捕食魚類和其他海洋動物；鬚鯨則過濾大量浮游生物和小魚來獲取食物。'.slice(0, 14) + '...' // 只顯示前14個字+...
+}));
+
+// Lightbox 模态框状态
+const showLightboxModal = ref(false);
+const currentIndex = ref(null);
+
+const showLightbox = (index) => {
+  showLightboxModal.value = true;
+  currentIndex.value = index;
+};
+
+const closeLightbox = () => {
+  showLightboxModal.value = false;
+};
+
 </script>
