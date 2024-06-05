@@ -107,16 +107,7 @@
     <h2>活動分享</h2>
     <div class="container">
       <div class="row">
-        <div class="col-12 col-md-6 col-lg-3" v-for="card in sectionShare" :key="card">
-          <ShareCard
-            :imageUrl="card.imageUrl"
-            :title="card.title"
-            :place="card.place"
-            :date="card.date"
-            :share="card.share"
-            :exp="card.exp"
-          />
-        </div>
+        <shareCard />
       </div>
       <div class="pagenumber">
         <a href="#" v-for="pageNumber in computedTotalPages" :key="pageNumber" @click="goToPage(pageNumber)">{{
@@ -420,11 +411,11 @@ export default defineComponent({
       return Math.ceil(sectionShare.value.length / cardsshare);
     });
 
-    //活動列表數量超出條件時新增一頁
+    // 活動列表數量超出條件時新增一頁
     // const addNewPageForEvents = () => {
     //   sectionEvents.value = sectionEvents.value.concat(generateCards(cardsPerPage));
     // };
-    //活動分享數量超出條件時新增一頁
+    // 活動分享數量超出條件時新增一頁
     // const addNewPageForShare = () => {
     //   sectionShare.value = sectionShare.value.concat(generateCards(cardsPerShare));
     // };

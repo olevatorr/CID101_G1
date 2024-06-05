@@ -136,6 +136,39 @@
 
     .event-card {
       .text {
+        .reportBtn{
+          text-align: right;
+          .report {
+            display: inline-block;
+            margin-top: 10px;
+            &:hover{
+              color: #E7A600;
+            }
+            i {
+              font-size: 2rem;
+              cursor: pointer;
+            }
+            span{
+              display: inline;
+            }
+              }
+        }
+            h3 {
+              font-size: 1.5rem;
+              display: block;
+              margin: 20px 0;
+              line-height: 2;
+              font-weight: normal;
+              letter-spacing: 0;
+            }
+          }
+        }
+        span {
+          font-size: 1.5rem;
+          display: block;
+          margin: 20px 0;
+          line-height: 2;
+        }
         .theme {
           display: flex;
           justify-content: space-between;
@@ -166,21 +199,21 @@
         line-height: 1.2;
       }
 
-      span:last-child {
-        margin-top: 30px;
-      }
+        span:last-child {
+          margin-top: 30px;
+        }
 
-      .Thoughts a{
-          margin-top: 10px;
-          display: inline-block;
-          text-decoration: none;
-          font-size: 1.5rem;
-          color: #000;
-        
+        .Thoughts {
+          a {
+            margin-top: 10px;
+            display: inline-block;
+            text-decoration: none;
+            font-size: 1.5rem;
+            color: #000;
+          }
+        }
       }
     }
-  }
-}
 
 //卡片(共用)
 .event-card {
@@ -188,21 +221,13 @@
   background-color: #fff;
   text-align: left;
   box-shadow: 2px 2px 10px $color-border;
+
   &:hover {
     background-color: #005FA1;
     color: #fff;
     transition: .5s ease;
     cursor: pointer;
-    .text{
-      h3{
-        transition: .5s ease;
-        color:#fff;
-      }
-      .Thoughts a{
-        color: #fff !important; //已試過精準選中試權重，但仍未生效，只好使用殺手鐧~見諒!
-      }
-    }
-    .addnew i {
+    .addnew i,h3 {
       color: #fff;
     }
   }
@@ -227,6 +252,8 @@
     width: 100%;
     height: 100%;
     margin-bottom: 0;
+    overflow: hidden;
+
     img {
       width: 100%;
       vertical-align: top;
@@ -250,11 +277,6 @@
     }
   }
 }
-// .section-event-share .event-card:hover .text .Thoughts a {
-//   color: #fff;
-// }
-
-
 
 //頁碼(共用)
 .pagenumber {
