@@ -127,20 +127,34 @@
       <h2>海廢知識庫</h2>
       <div class="row">
         <div
-          class="card-c col-12 col-sm-6 col-md-4 col-lg-3 image-container"
+          class="col-12 col-sm-6 col-md-4 col-lg-3 image-container"
           v-for="(card, index) in cards"
           :key="card.imgSrc"
           @click="showLightbox(index)"
         >
-          <div class="card">
+          <!-- <div class="card-c">
             <div class="pic-card">
               <img :src="card.imgSrc" class="card-img-top" alt="" />
             </div>
             <div class="card-body">
-              <h5 class="card-title">{{ card.title }}</h5>
+              <h3 class="card-title">{{ card.title }}</h3>
               <p class="card-text">{{ card.description }}</p>
             </div>
+          </div> -->
+<!-- 測試卡片 -->       
+          <div class="wrap animate pop">
+	          <div class="overlay">
+		          <div class="overlay-content animate slide-left delay-2">
+			          <h1 class="animate slide-left pop delay-4">海洋動物調查</h1>
+			          <p class="animate slide-left pop delay-5" style="color: white; margin-bottom: 2.5rem;">Kingdom: 海洋保護會</p>
+		          </div>
+              <div class="image-content animate slide delay-5"></div>
+	          </div>
+	          <div class="text">
+              <img class="inset" src="../../public/img/knowledge/1.png">
+	          </div>
           </div>
+<!-- 測試卡片 -->
         </div>
 
         <div v-if="showLightboxModal" class="lightbox">
@@ -148,7 +162,7 @@
             <span class="close" @click="closeLightbox"><i class="fa-regular fa-circle-xmark"></i></span>
             <img :src="cards[currentIndex].imgSrc" :alt="cards[currentIndex].title" />
             <div class="image-caption">
-              <h5>{{ cards[currentIndex].title }}</h5>
+              <h3>{{ cards[currentIndex].title }}</h3>
               <p>{{ cards[currentIndex].description }}</p>
             </div>
           </div>
@@ -322,7 +336,7 @@ const cards = Array.from({ length: 16 }, (_, index) => ({
   id: index + 1,
   imgSrc: `https://picsum.photos/300/150/?random=${index + 1}`,
   title: '海洋動物調查',
-  description: '鯨魚是世界上最大的動物，最大的藍鯨可以達到30米長，重達180噸。鯨魚分為齒鯨和鬚鯨兩類，齒鯨如虎鯨，捕食魚類和其他海洋動物；鬚鯨則過濾大量浮游生物和小魚來獲取食物。'.slice(0, 14) + '...' // 只顯示前14個字+...
+  description: '鯨魚是世界上最大的動物，最大的藍鯨可以達到30米長，重達180噸。鯨魚分為齒鯨和鬚鯨兩類，齒鯨如虎鯨，捕食魚類和其他海洋動物；鬚鯨則過濾大量浮游生物和小魚來獲取食物。'
 }));
 
 // Lightbox 模态框状态
