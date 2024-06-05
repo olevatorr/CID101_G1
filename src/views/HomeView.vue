@@ -66,14 +66,14 @@ onMounted(() => {
   const debrisTl = gsap.timeline({
     scrollTrigger: {
       trigger: debris.value,
-      start: 'top 90%',
+      start: 'top 95%',
       end: '0',
     }
   })
 
   debrisTl
-    .fromTo(debris.value, { opacity: 0 }, { opacity: 1, duration:2 }, 0)
-    .fromTo(debris.value, { y: '30%' }, { y: '0%' , duration:2 }, 0)
+    .fromTo(debris.value, { opacity: 0 }, { opacity: 1, duration:1 }, 0)
+    .fromTo(debris.value, { y: '20%' }, { y: '0%' , duration:1 }, 0)
 })
 
 
