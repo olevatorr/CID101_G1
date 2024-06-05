@@ -87,21 +87,14 @@
       </div>
       <div class="row">
         <div class="col-12 col-md-6 col-lg-3" v-for="card in sectionEvents" :key="card">
-          <div class="event-card">
-            <div class="text">
-              <h3>{{ card.title }}</h3>
-              <p>{{ card.place }}</p>
-              <p>{{ card.date }}</p>
-              <p>{{ card.Deadline }}</p>
-            </div>
-            <div class="pic">
-              <img :src=card.imageUrl />
-            </div>
-            <div class="addnew">
-              <span>{{ card.people }}</span>
-              <i class="fa-solid fa-user-plus"></i>
-            </div>
-          </div>
+          <EventCard
+            :title="card.title"
+            :place="card.place"
+            :date="card.date"
+            :Deadline="card.Deadline"
+            :imageUrl="card.imageUrl"
+            :people="card.people"
+          />
         </div>
       </div>
       <div class="pagenumber">
@@ -115,29 +108,14 @@
     <div class="container">
       <div class="row">
         <div class="col-12 col-md-6 col-lg-3" v-for="card in sectionShare" :key="card">
-          <div class="event-card">
-            <div class="pic">
-              <img :src="card.imageUrl" />
-            </div>
-            <div class="text">
-              <div class="theme">
-                <div class="event-name">
-                  <h3>{{ card.name }}</h3>
-                </div>
-                <div class="report">
-                  <i class="fa-solid fa-circle-exclamation"></i>
-                </div>
-              </div>
-              <span>{{ card.place }}</span>
-              <span>{{ card.date }}</span>
-              <span>{{ card.share }}</span>
-              <span>{{ card.exp }}</span>
-              <p class="Thoughts">
-                {{ card.thoughts }}
-                <a href="#">閱讀更多</a>
-              </p>
-            </div>
-          </div>
+          <ShareCard
+            :imageUrl="card.imageUrl"
+            :title="card.title"
+            :place="card.place"
+            :date="card.date"
+            :share="card.share"
+            :exp="card.exp"
+          />
         </div>
       </div>
       <div class="pagenumber">
@@ -368,16 +346,23 @@ import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import Swal from 'sweetalert2'
+import EventCard from '../components/EventCard.vue'
+import ShareCard from '../components/ShareCard.vue'
 
 export default defineComponent({
+  components: {
+    FullCalendar,
+    EventCard,
+    ShareCard
+  },
   setup() {
     //calendar
     const calendarOptions = ref({
       initialView: 'dayGridMonth',
       headerToolbar: {
-        left: 'prev,next today',
+        left: '',
         center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        right: 'prev,next'
       },
       buttonText: {
         today: 'Today',
@@ -433,7 +418,6 @@ export default defineComponent({
     // 分別生成不同數量的卡片
     const sectionEvents = ref(generateCards(16));
     const sectionShare = ref(generateCards(4));
-    const detailed = ref(generateCards(1));
 
     // 活動列表(每頁限制16張卡片)
     const cardsPerPage = 16;
@@ -461,14 +445,8 @@ export default defineComponent({
       computedTotalPages,
       sectionEvents,
       sectionShare,
-      computedTotalPagesSectionShare,
-      detailed
+      computedTotalPagesSectionShare
     }
   },
-  components: {
-    FullCalendar
-  },
-
-
 })
 </script>
