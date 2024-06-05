@@ -149,7 +149,8 @@ section {
     .card-c {
         margin: 0 auto;
         cursor: pointer;
-
+        padding: 10px;
+        margin-bottom: 10px;
 
         .card{
             .pic-card{
@@ -160,13 +161,16 @@ section {
                 img{
                     width: 100%;
                     vertical-align: top;
-                    
                 }
-
             }
             img:hover {
                 transform: scale(1.10);
                 transition: transform 0.3s;
+            }
+            .card-body{
+                h5{
+                    margin: 5px 0;
+                }
             }
         }
     }
