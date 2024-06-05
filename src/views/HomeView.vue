@@ -4,10 +4,40 @@ import * as topojson from 'topojson-client';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ref, onMounted, onBeforeUnmount, computed, watch } from 'vue';
-// import { CountUp } from 'countup.js';
 import anime from 'animejs';
 import { Chart } from 'chart.js/auto';
 import { RouterLink } from 'vue-router';
+
+
+
+const apiData = ref(null);
+
+async function fetchData() {
+  const apiKey = "4c420a99-1509-4cf5-83b4-f73874d68920";  // 使用你的 API KEY
+  const apiUrl = "/api/oca_datahub/WebService/GetData.ashx?id=c1f1c6d4-536b-49bc-90eb-a9442799641b";
+
+  try {
+    const response = await fetch(apiUrl, {
+      headers: {
+        "API-KEY": apiKey,  // 在請求頭中設置 API KEY
+      },
+    });
+    const data = await response.text();  // 將響應作為普通文本接收
+    console.log("API response:", data);  // 在控制台打印原始響應
+
+    // 在這裡根據具體的響應內容進行處理
+    // 例如,如果響應是 XML 格式,你可以使用 DOMParser 解析它
+    // 或者,如果響應是某種自定義格式,你可以使用字符串方法來提取所需的信息
+
+    apiData.value = data;  // 將處理後的數據存儲在 apiData 中
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+
+onMounted(() => {
+  fetchData();
+});
 
 // banner 動畫
 gsap.registerPlugin(ScrollTrigger)
@@ -44,8 +74,8 @@ onMounted(() => {
     .to(trashRight.value, { x: '100%', duration: 1 }, 0)
     .to(smokeLeft.value, { x: '-100%', duration: 1 }, 1)
     .to(smokeRight.value, { x: '100%', duration: 1 }, 1)
-    .to(indexLogo.value, { width : '15%', duration: 1 }, 1)
-    .fromTo(cover.value, { opacity: 0 }, { opacity: 1 , duration: 1, ease: 'power4.out' }, 1)
+    .to(indexLogo.value, { width: '15%', duration: 1 }, 1)
+    .fromTo(cover.value, { opacity: 0 }, { opacity: 1, duration: 1, ease: 'power4.out' }, 1)
     .fromTo(cover.value, { y: '100%' }, { y: '0%', duration: 1, ease: 'power4.out' }, 1)
 
   const introTl = gsap.timeline({
@@ -57,10 +87,10 @@ onMounted(() => {
   })
 
   introTl
-    .fromTo(introTitle.value, { opacity: 0 }, { opacity: 1, duration:1 }, 0 )
-    .fromTo(introTitle.value, { x: '-30%' }, { x: '0%' , duration:1 }, 0 )
-    .fromTo(introContent.value, { opacity: 0 }, { opacity: 1, duration:1 }, 0 )
-    .fromTo(introContent.value, { x: '-30%' }, { x: '0%' , duration:1 }, 0 )
+    .fromTo(introTitle.value, { opacity: 0 }, { opacity: 1, duration: 1 }, 0)
+    .fromTo(introTitle.value, { x: '-30%' }, { x: '0%', duration: 1 }, 0)
+    .fromTo(introContent.value, { opacity: 0 }, { opacity: 1, duration: 1 }, 0)
+    .fromTo(introContent.value, { x: '-30%' }, { x: '0%', duration: 1 }, 0)
 
 
   const debrisTl = gsap.timeline({
@@ -72,8 +102,8 @@ onMounted(() => {
   })
 
   debrisTl
-    .fromTo(debris.value, { opacity: 0 }, { opacity: 1, duration:1 }, 0)
-    .fromTo(debris.value, { y: '20%' }, { y: '0%' , duration:1 }, 0)
+    .fromTo(debris.value, { opacity: 0 }, { opacity: 1, duration: 1 }, 0)
+    .fromTo(debris.value, { y: '20%' }, { y: '0%', duration: 1 }, 0)
 })
 
 
@@ -124,7 +154,7 @@ function animateNumber(element, targetValue) {
     duration: 1000,
     round: 1,
     easing: 'easeOutQuad',
-    update: function() {
+    update: function () {
       element.innerHTML = formatNumber(element.textContent);
     }
   });
@@ -410,41 +440,42 @@ onMounted(() => {
       </div>
     </section>
     <section class="section section-debris" ref="debris">
-    <div class="container">
-      <h3>
-        OVERVIEW OF MARINE DEBRIS<br>
-        海洋垃圾一覽
-      </h3>
-      <div class="row">
-        <div class="col-12 col-lg-6">
-          <ul class="debris-sort">
-            <li v-for="sort in hebrisSort" :key="sort.area" @click="handleAreaClick(sort)" :class="{ 'select': selectedArea === sort.area }">
-              <span class="material-symbols-outlined">line_end</span> {{ sort.selectArea }}
-            </li>
-          </ul>
-          <div ref="mapContainer" class="map-container"></div>
-        </div>
-        <div class="debris-data col-12 col-lg-6">
-          <div class="clean-tons">
-            <span class="debris-word">已清理</span>
-            <span class="debris-num" ref="totalWeight"></span>
-            <span class="debris-word">噸海廢</span>
+      <div class="container">
+        <h3>
+          OVERVIEW OF MARINE DEBRIS<br>
+          海洋垃圾一覽
+        </h3>
+        <div class="row">
+          <div class="col-12 col-lg-6">
+            <ul class="debris-sort">
+              <li v-for="sort in hebrisSort" :key="sort.area" @click="handleAreaClick(sort)"
+                :class="{ 'select': selectedArea === sort.area }">
+                <span class="material-symbols-outlined">line_end</span> {{ sort.selectArea }}
+              </li>
+            </ul>
+            <div ref="mapContainer" class="map-container"></div>
           </div>
-          <div class="clean-attend">
-            <span class="debris-word">參與人數</span>
-            <span class="debris-num" ref="totalParticipants"></span>
-            <span class="debris-word">人次</span>
+          <div class="debris-data col-12 col-lg-6">
+            <div class="clean-tons">
+              <span class="debris-word">已清理</span>
+              <span class="debris-num" ref="totalWeight"></span>
+              <span class="debris-word">噸海廢</span>
+            </div>
+            <div class="clean-attend">
+              <span class="debris-word">參與人數</span>
+              <span class="debris-num" ref="totalParticipants"></span>
+              <span class="debris-word">人次</span>
+            </div>
+            <div class="clean-session">
+              <span class="debris-word">總共</span>
+              <span class="debris-num" ref="totalSessions"></span>
+              <span class="debris-word">場次</span>
+            </div>
+            <p>*皆為本年度資訊,與海洋委員會海洋保育署資料同步</p>
           </div>
-          <div class="clean-session">
-            <span class="debris-word">總共</span>
-            <span class="debris-num" ref="totalSessions"></span>
-            <span class="debris-word">場次</span>
-          </div>
-          <p>*皆為本年度資訊,與海洋委員會海洋保育署資料同步</p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
     <section class="section section-comparation">
       <div class="container">
         <h3>
@@ -495,6 +526,7 @@ onMounted(() => {
           DONATION<br>
           捐款總攬
         </h3>
+        <pre>{{ apiData }}</pre>
         <div class="row">
           <div class="col-12 col-lg-6 donate-num">
             <div class="clean-tons">
@@ -577,3 +609,20 @@ onMounted(() => {
     </section>
   </main>
 </template>
+
+
+<!-- <script>
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://iocean.oca.gov.tw',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
+  },
+});
+</script> -->
