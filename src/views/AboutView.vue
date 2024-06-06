@@ -1,10 +1,12 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref,computed } from 'vue';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+
+//team member animation
 gsap.registerPlugin(ScrollTrigger);
 
 onMounted(() => {
@@ -29,10 +31,91 @@ function initGsapAnimation() {
   });
 
 
-  tl.from(director.value, {x: -100,y: 200, opacity: 0, duration: 3},0)
-    .from(techManager.value, {x: 200, y: 200, opacity: 0, duration: 3},1)
-    .from(marketingManager.value, {x: 100,y: 200, opacity: 0, duration: 3},2)
-    .from(educationManager.value, {y: -100, opacity: 0, duration: 3},3)
+  tl.from(director.value, { x: -100, y: 200, opacity: 0, duration: 3 }, 0)
+    .from(techManager.value, { x: 200, y: 200, opacity: 0, duration: 3 }, 1)
+    .from(marketingManager.value, { x: 100, y: 200, opacity: 0, duration: 3 }, 2)
+    .from(educationManager.value, { y: -100, opacity: 0, duration: 3 }, 3)
+}
+
+
+//驗證碼
+
+const enteredCaptcha = ref('');
+const captchaText = ref('');
+const captchaCanvas = ref(null);
+
+onMounted(() => {
+  drawCaptcha();
+});
+
+const isCaptchaValid = computed(() => {
+  return enteredCaptcha.value.toLowerCase() === captchaText.value.toLowerCase();
+});
+
+function drawCaptcha() {
+  const canvas = captchaCanvas.value;
+  if (!canvas) return; // 如果 canvas 元素尚未存在,直接返回
+
+  const ctx = canvas.getContext('2d');
+  captchaText.value = generateCaptchaText();
+
+  // 清除 canvas 内容
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // 添加背景噪點
+  for (let i = 0; i < 100; i++) {
+    const x = Math.random() * canvas.width;
+    const y = Math.random() * canvas.height;
+    ctx.fillStyle = getRandomColor();
+    ctx.fillRect(x, y, 1, 1);
+  }
+
+  // 對驗證碼文本應用隨機的字體大小、顏色和旋轉角度
+  const fontSize = 20;
+  ctx.font = `${fontSize}px serif`;
+  ctx.fillStyle = getRandomColor();
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.translate(canvas.width / 2, canvas.height / 2);
+  ctx.rotate((Math.random() - 0.5) * Math.PI / 12); // 減小旋轉角度
+  ctx.fillText(captchaText.value, 0, 0);
+  ctx.rotate(-(Math.random() - 0.5) * Math.PI / 12); // 減小旋轉角度
+  ctx.translate(-canvas.width / 2, -canvas.height / 2);
+
+  // 添加干擾線
+  for (let i = 0; i < 4; i++) {
+    ctx.strokeStyle = getRandomColor();
+    ctx.beginPath();
+    ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
+    ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
+    ctx.stroke();
+  }
+}
+// 重新產生驗證碼
+function refreshCaptcha() {
+  drawCaptcha();
+  enteredCaptcha.value = '';
+}
+
+function checkCaptcha() {
+  return isCaptchaValid.value;
+}
+
+//產生隨機驗證碼五個數字
+function generateCaptchaText() {
+  const chars = '0123456789';
+  let text = '';
+  for (let i = 0; i < 5; i++) {
+    text += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return text;
+}
+//產生隨機顏色
+function getRandomColor() {
+  const r = Math.floor(Math.random() * 256);
+  const g = Math.floor(Math.random() * 256);
+  const b = Math.floor(Math.random() * 256);
+  return `rgb(${r}, ${g}, ${b})`;
 }
 
 </script>
@@ -309,13 +392,13 @@ function initGsapAnimation() {
               <div class="col-12 col-md-6">
                 <div class="form-item">
                   <label for="">姓名</label>
-                  <input type="text" name="name" />
+                  <input type="text" name="name" required />
                 </div>
               </div>
               <div class="col-12 col-md-6">
                 <div class="form-item">
                   <label for="">手機</label>
-                  <input type="text" name="phone" />
+                  <input type="text" name="phone" required />
                 </div>
               </div>
             </div>
@@ -323,26 +406,32 @@ function initGsapAnimation() {
               <div class="col-12 col-md-6">
                 <div class="form-item">
                   <label for="">信箱</label>
-                  <input type="mail" name="mail" />
+                  <input type="email" name="email" required />
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-12">
-                <textarea cols="30" rows="10" placeholder="請輸入訊息..." maxlength="200"></textarea>
+                <textarea cols="30" rows="10" placeholder="請輸入訊息..." maxlength="200" required></textarea>
               </div>
             </div>
             <div class="auth-line row">
-              <div class="form-auth col-12 col-lg-4">
+              <div class="form-auth col-12 col-lg-6">
                 <div class="auth-out">
                   <label for="">驗證碼</label>
-                  <input type="text" class="auth-input" />
+                  <input type="text" class="auth-input" v-model="enteredCaptcha" />
+                  <span v-if="isCaptchaValid" style="color:green;">驗證碼正確</span>
+                  <span v-else style="color:red;">驗證碼錯誤</span>
                 </div>
               </div>
-              <img src="../../public/img/aboutus/anth.png" alt="" />
-              <button>更新驗證碼</button>
+              <div id="app" class="col-12 col-lg-6 ">
+                <div class="captcha">
+                  <canvas ref="captchaCanvas" width="200" height="60"></canvas>
+                  <button @click="refreshCaptcha" type="button">更新驗證碼</button>
+                </div>
+              </div>
             </div>
-            <button>送出</button>
+            <button type="button">送出</button>
           </form>
         </div>
       </div>
