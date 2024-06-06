@@ -50,6 +50,9 @@
             </div>
           </div>
           <div class="col-6">
+            <div id="map" ref="myMap" style="width: 100%; height: 100%;"></div>
+          </div>
+          <div class="col-12">
             <div class="description-container">
               <h3>{{ indicators.find(item => item.value === selectedIndicator).label }}</h3>
               <p>{{ indicatorDescriptions[selectedIndicator].description }}</p>
@@ -64,7 +67,6 @@
                 </tr>
               </table>
             </div>
-
           </div>
           <div class="col-12 col-md-6">
             <div>
@@ -242,12 +244,17 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { Chart, registerables } from 'chart.js';
 import jsonData from '../../public/json/海域水質.json';
+import * as d3 from 'd3';
+import * as topojson from 'topojson-client';
+
+
 const apiData = ref(null);
 const selectedIndicator = ref('SS');
 let myChart = null;
+const myMap = ref(null)
 
 const indicatorDescriptions = {
   SS: {
@@ -359,7 +366,6 @@ function setupData() {
   const sortedData = jsonData.sort((a, b) => new Date(b.UPDATE_TIME) - new Date(a.UPDATE_TIME));
 
   apiData.value = sortedData;
-  console.log("Sorted data:", sortedData);
   setupChart();
 }
 
@@ -436,6 +442,57 @@ function changeIndicator(event) {
   selectedIndicator.value = event.target.value;
   setupChart();
 }
+
+
+let svg;
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', resizeMap);
+});
+
+async function initMap() {
+  const container = myMap.value;
+
+  const width = container.clientWidth;
+  const height = container.clientHeight;
+
+  svg = d3.select(container)
+    .append('svg')
+    .attr('width', width)
+    .attr('height', height);
+
+  const projection = d3.geoMercator()
+    .center([120, 23.5])
+    .scale(5000)
+    .translate([width / 2, height / 2]);
+
+  const path = d3.geoPath().projection(projection);
+  const topoData = await d3.json('../../public/localjson/map/twCounty2010.topo.json');
+  const geoData = topojson.feature(topoData, topoData.objects.layer1);
+
+  svg.selectAll('path')
+    .data(geoData.features)
+    .enter()
+    .append('path')
+    .attr('d', path)
+    .attr('fill', '#E7A600')
+    .attr('stroke', 'white');
+}
+
+
+onMounted(() => {
+  initMap();
+  window.addEventListener('resize', resizeMap);
+})
+function resizeMap() {
+  const container = myMap.value;
+  d3.select(container).select('svg').remove();
+  initMap();
+}
+
+initMap();
+window.addEventListener('resize', resizeMap);
+
 // // 导航菜单状态
 // const isMenuOpen = ref(false);
 // const isSubmenuOpen = ref(false);
