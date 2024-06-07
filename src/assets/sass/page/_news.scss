@@ -27,9 +27,32 @@
     {
         color:#333;
     }
-    
+    .news-card {
+        padding: 10px;
+        background-color: #fff;
+        margin-top: 20px;
+    }
+    .news-card-content {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        box-sizing:border-box;
+        margin: 5px 0;
+    }
     img {
         width: 100%;
         vertical-align: top;
+    }
+    .filter-name {
+        background-color: $color-subprimary;
+        display: block;
+        width: 70px;
+        display: flex;
+        justify-content: center;
+        color: #fff;
+        border-radius: 5px;
+        padding: 0 10px;
     }
 }

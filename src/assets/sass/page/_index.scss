@@ -215,7 +215,8 @@
         height: 100%;
         overflow: hidden;
         img {
-            width: 1920px;
+            // max-width: 1920px;
+            width: 100vw;
             vertical-align: top;
             @media (max-width: 991px) {
                 width: 100vw;

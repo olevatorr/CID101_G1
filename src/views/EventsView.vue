@@ -86,26 +86,10 @@
         </select>
       </div>
       <div class="row">
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3" v-for="card in sectionEvents" :key="card">
-          <div class="event-card">
-            <div class="text">
-              <h3>{{ card.title }}</h3>
-              <p>{{ card.place }}</p>
-              <p>{{ card.date }}</p>
-              <p>{{ card.Deadline }}</p>
-            </div>
-            <div class="pic">
-              <img :src=card.imageUrl />
-            </div>
-            <div class="addnew">
-              <span>{{ card.people }}</span>
-              <i class="fa-solid fa-user-plus"></i>
-            </div>
-          </div>
-        </div>
+        <EventCard :eventList=eventList />
       </div>
       <div class="pagenumber">
-        <a href="#" v-for="pageNumber in computedTotalPages" :key="pageNumber" @click="goToPage(pageNumber)">{{
+        <a href="#" v-for="pageNumber in 4" :key="pageNumber">{{
           pageNumber }}</a>
       </div>
     </div>
@@ -114,31 +98,10 @@
     <h2>活動分享</h2>
     <div class="container">
       <div class="row">
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3" v-for="card in sectionShare" :key="card">
-          <div class="event-card">
-            <div class="pic">
-              <img :src="card.imageUrl" />
-            </div>
-            <div class="text">
-              <div class="report">
-                    <i class="fa-solid fa-triangle-exclamation"></i>
-                    <span>檢舉此留言</span>
-              </div>
-              <h3>{{ card.sahreTitle }}</h3>
-              <span>{{ card.place }}</span>
-              <span>{{ card.date }}</span>
-              <span>{{ card.share }}</span>
-              <span>{{ card.exp }}</span>
-              <p class="Thoughts">
-                {{ card.thoughts }}
-                <a href="#">閱讀更多</a>
-              </p>
-            </div>
-          </div>
-        </div>
+        <ShareCard :ShareCard=shareList :even="true" />
       </div>
       <div class="pagenumber">
-        <a href="#" v-for="pageNumber in computedTotalPages" :key="pageNumber" @click="goToPage(pageNumber)">{{
+        <a href="#" v-for="pageNumber in 4" :key="pageNumber">{{
           pageNumber }}</a>
       </div>
       <div class="sharebtn">
@@ -169,30 +132,30 @@
   <section class="section section-light-box">
     <div class="container">
       <div class="row">
-        <div class="col-6 col-md-6">
+        <div class="col-lg-6">
           <div class="pic">
             <img src="https://picsum.photos/300/200/?random=10" />
             <div class="text">
               <h3>活動敘述</h3>
-              <p class="Narrate">
+              <p>
                 由環保志工組織的淨灘活動，旨在清理淡水區海灘垃圾並向參與者進行環保教育。
               </p>
             </div>
           </div>
         </div>
-        <div class="col-6 col-md-6">
+        <div class="col-lg-6">
           <div class="activity-area">
             <div class="text">
               <div class="close">
                 <i class="fa-regular fa-circle-xmark"></i>
               </div>
               <h3>北海岸環保淨灘行動</h3>
-              <p>活動地點：淡水漁人碼頭Subheading</p>
-              <p>活動日期：2024年6月15日</p>
-              <p>截止日期：2024年6月10日</p>
-              <p>報名人數：100/150</p>
+              <span>活動地點：淡水漁人碼頭Subheading</span>
+              <span>活動日期：2024年6月15日</span>
+              <span>截止日期：2024年6月10日</span>
+              <span>報名人數：100/150</span>
               <div class="join">
-                <p class="people">參加人數:</p>
+                <span class="people">參加人數:</span>
                 <select name="">
                   <option value="">1</option>
                   <option value="">2</option>
@@ -293,36 +256,36 @@
       <h2>您檢舉此文章的理由是?</h2>
       <form>
         <div class="box">
-          <label>仇恨言論或歧視</label>
-          <input type="checkbox" name="" id="">
+          <label for="no1">仇恨言論或歧視</label>
+          <input type="radio" name="reason" id="no1">
         </div>
         <div class="box">
-          <label>侵犯隱私</label>
-          <input type="checkbox" name="" id="">
+          <label for="no2">侵犯隱私</label>
+          <input type="radio" name="reason" id="no2">
         </div>
         <div class="box">
-          <label>暴力或威脅</label>
-          <input type="checkbox" name="" id="">
+          <label for="no3">暴力或威脅</label>
+          <input type="radio" name="reason" id="no3">
         </div>
         <div class="box">
-          <label>騷擾或霸凌</label>
-          <input type="checkbox" name="" id="">
+          <label for="no4">騷擾或霸凌</label>
+          <input type="radio" name="reason" id="no4">
         </div>
         <div class="box">
-          <label>虛假信息或誤導信息</label>
-          <input type="checkbox" name="" id="">
+          <label for="no5">虛假信息或誤導信息</label>
+          <input type="radio" name="reason" id="no5">
         </div>
         <div class="box">
-          <label>色情或不當內容</label>
-          <input type="checkbox" name="" id="">
+          <label for="no6">色情或不當內容</label>
+          <input type="radio" name="reason" id="no6">
         </div>
         <div class="box">
-          <label>非法活動</label>
-          <input type="checkbox" name="" id="">
+          <label for="no7">非法活動</label>
+          <input type="radio" name="reason" id="no7">
         </div>
         <div class="box">
-          <label>垃圾信息或廣告</label>
-          <input type="checkbox" name="" id="">
+          <label for="no8">垃圾信息或廣告</label>
+          <input type="radio" name="reason" id="no8">
         </div>
         <button>送出</button>
       </form>
@@ -330,37 +293,26 @@
   </section>
   <section class="section section-detailed">
     <div class="container">
-      <div class="detailed-wrap">
-        <div class="close">
-          <i class="fa-regular fa-circle-xmark"></i>
-        </div>
-        <div class="pic">
-          <img src="https://picsum.photos/300/200/?random=21">
-        </div>
-        <div class="text" v-for="card in detailed" :key="card">
-          <div class="report">
-            <i class="fa-solid fa-triangle-exclamation"></i>
-            <span>檢舉此留言</span>
-          </div>
-          <h3>{{ card.title }}</h3>
-          <p>{{ card.place }}</p>
-          <p>{{ card.date }}</p>
-          <p>{{ card.share }}</p>
-          <p>{{ card.experience }}</p>
-        </div>
-      </div>
+      <ShareCard :ShareCard="shareList" :limit="1" :even="false" />
     </div>
   </section>
 </template>
 
 <script>
-import { defineComponent, ref, computed } from 'vue'
+import { defineComponent, ref } from 'vue'
 import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import Swal from 'sweetalert2'
+import EventCard from '../components/EventCard.vue'
+import ShareCard from '../components/ShareCard.vue'
 
 export default defineComponent({
+  components: {
+    FullCalendar,
+    EventCard,
+    ShareCard
+  },
   setup() {
     //calendar
     const calendarOptions = ref({
@@ -368,11 +320,11 @@ export default defineComponent({
       headerToolbar: {
         left: '',
         center: 'title',
-        right:'prev,next'
+        right: 'prev,next'
       },
       events: [
         {
-          title: '小龜老師meeting' ,
+          title: '小龜老師meeting',
           start: '2024-06-05'
         },
         {
@@ -395,66 +347,138 @@ export default defineComponent({
       },
       plugins: [dayGridPlugin, timeGridPlugin]
     });
-
-    //定義生成卡片數據的方法
-    const generateCards = (numCards) => {
-      const cards = [];
-      for (let i = 1; i <= numCards; i++) {
-        cards.push({
-          title: '北海岸環保淨灘行動',
-          sahreTitle:'活動名稱：北海岸愛地球淨灘活動',
+    return {
+      calendarOptions,
+      shareList: [
+        {
+          id: '001',
+          title: '北海岸淨灘',
+          shareTitle: '活動名稱：北海岸愛地球淨灘活動',
           place: '活動地點：新北市漁人碼頭',
           date: '活動日期：2024年6月15日',
           Deadline: '截止日期：2024年6月10日',
-          imageUrl: 'https://picsum.photos/300/200/?random=' + i,
+          imageUrl: 'https://picsum.photos/300/200/?random=1',
           people: '報名人數：100/150',
           share: '分享人：林小美',
-          exp: '北海岸環保淨灘行動給我留下了深刻的印象。在參與這項活動的過程中，我意識到海岸線上的垃圾對我們的環境造成了嚴重的影響。...',
-          experience: '北海岸環保淨灘行動給我留下了深刻的印象。在參與這項活動的過程中，我意識到海岸線上的垃圾對我們的環境造成了嚴重的影響。我們小組一起穿上手套，拿著垃圾袋，開始清理海灘上的垃圾。這不僅是一次環保行動，更是一次團隊合作的體驗。我們一邊聊天笑著，一邊清理著海灘，不知不覺中收穫了友誼與愉快。這次活動讓我更加深刻地理解了垃圾對海洋生態的破壞。我們捡到的塑料袋、瓶子，甚至是一些微小的塑料碎片，都可能對海洋生物造成威脅。這使我更加堅定了自己保護環境的決心，我也將會積極參與更多類似的環保活動。此外，這次淨灘活動也讓我認識到了社區的重要性。只有當我們齊心協力，才能真正改變我們周圍的環境。我們每個人都應該有責任保護我們珍貴的大自然，讓我們的子孫後代也能夠享受美麗的自然風景。感謝這次活動讓我有機會深刻體驗到這一點。'
-        });
-      }
-      return cards;
-    };
-
-    // 分別生成不同數量的卡片
-    const sectionEvents = ref(generateCards(16));
-    const sectionShare = ref(generateCards(4));
-    const detailed = ref(generateCards(1));
-
-    // 活動列表(每頁限制16張卡片)
-    const cardsPerPage = 16;
-    const computedTotalPages = computed(() => {
-      return Math.ceil(sectionEvents.value.length / cardsPerPage);
-    });
-
-    //活動分享(每頁限制四張卡片)
-    const cardsshare = 4;
-    const computedTotalPagesSectionShare = computed(() => {
-      return Math.ceil(sectionShare.value.length / cardsshare);
-    });
-
-    //活動列表數量超出條件時新增一頁
-    // const addNewPageForEvents = () => {
-    //   sectionEvents.value = sectionEvents.value.concat(generateCards(cardsPerPage));
-    // };
-    //活動分享數量超出條件時新增一頁
-    // const addNewPageForShare = () => {
-    //   sectionShare.value = sectionShare.value.concat(generateCards(cardsPerShare));
-    // };
-
-    return {
-      calendarOptions,
-      computedTotalPages,
-      sectionEvents,
-      sectionShare,
-      computedTotalPagesSectionShare,
-      detailed
+          exp: '北海岸環保淨灘行動給我留下了深刻的印象。在參與這項活動的過程中，我意識到海岸線上的垃圾對我們的環境造成了嚴重的影響...',
+          experience:'北海岸環保淨灘行動給我留下了深刻的印象。在參與這項活動的過程中，我意識到海岸線上的垃圾對我們的環境造成了嚴重的影響。我們小組一起穿上手套，拿著垃圾袋，開始清理海灘上的垃圾。這不僅是一次環保行動，更是一次團隊合作的體驗。我們一邊聊天笑著，一邊清理著海灘，不知不覺中收穫了友誼與愉快。這次活動讓我更加深刻地理解了垃圾對海洋生態的破壞。我們捡到的塑料袋、瓶子，甚至是一些微小的塑料碎片，都可能對海洋生物造成威脅。這使我更加堅定了自己保護環境的決心，我也將會積極參與更多類似的環保活動。此外，這次淨灘活動也讓我認識到了社區的重要性。只有當我們齊心協力，才能真正改變我們周圍的環境。我們每個人都應該有責任保護我們珍貴的大自然，讓我們的子孫後代也能夠享受美麗的自然風景。感謝這次活動讓我有機會深刻體驗到這一點。'
+        },
+        {
+          id: '002',
+          title: '社區義工服務',
+          shareTitle: '活動名稱：社區關懷服務',
+          place: '活動地點：XX區老人活動中心',
+          date: '活動日期：2024年7月5日',
+          Deadline: '截止日期：2024年6月28日',
+          imageUrl: 'https://picsum.photos/300/200/?random=2',
+          people: '報名人數：30/50',
+          share: '分享人：王大明',
+          exp: '參與社區義工服務讓我有機會回饋社會,也讓我更珍惜生活...',
+          experience: '參與這次的社區義工服務讓我有機會回饋社會,也讓我更珍惜生活。我們一行人來到老人活動中心,為長者們提供協助及陪伴。看著他們開心的笑容,我也感到非常欣慰。透過與長者們的互動,我了解到他們雖然年紀大了,但內心仍保有希望和樂觀的精神,這份正能量深深地感染了我。此外,這次活動也讓我認識到和平相處的重要性。不同年齡層的人雖然有代溝,但只要用心相處,一定能找到共同點。我們應該互相尊重、包容,營造一個溫馨和諧的社會氛圍。總之,這次義工服務不僅讓我有機會回饋社會,更讓我獲得寶貴的人生體驗。希望未來能有更多機會參與這類活動,繼續關懷弱勢,實踐生命的意義。'
+        },
+        {
+          id: '003',
+          title: '環保種樹活動',
+          shareTitle: '活動名稱：樹木綠化賡植活動',
+          place: '活動地點：大安森林公園',
+          date: '活動日期：2024年8月20日',
+          Deadline: '截止日期：2024年8月15日',
+          imageUrl: 'https://picsum.photos/300/200/?random=3',
+          people: '報名人數：80/100',
+          share: '分享人：陳小華',
+          exp: '這次的環保種樹活動不僅讓我貼近大自然,更加深了我對環保的認知...',
+          experience: '這次的環保種樹活動不僅讓我貼近大自然,更加深了我對環保的認知。一大早我們就來到大安森林公園,工作人員先為我們簡單介紹了種樹的步驟及注意事項。接著,我們就開始動手種植樹苗。雖然過程有些辛苦,但看著樹苗一點一點長大,我內心充滿成就感。種樹不僅能美化環境,更能凈化空氣、防止水土流失,對環境保護有著重大意義。這次活動讓我意識到保護環境確實非常重要,我們每個人都應該從自己做起,節約用水用電、減少垃圾產生等,用行動愛護我們賴以生存的這片土地。與此同時,這次活動也給了我機會與志同道合的夥伴們互相交流。大家你一言我一語地討論環保話題,獲得了許多新的啟示。我希望未來能有更多這樣的活動,讓更多人參與到環保的行列中來,攜手共創一個綠色的明天。'
+        },
+        {
+          id: '004',
+          title: '公益園遊會',
+          shareTitle: '活動名稱：公益慈善園遊會',
+          place: '活動地點：中正紀念公園',
+          date: '活動日期：2024年9月28日',
+          Deadline: '截止日期：2024年9月20日',
+          imageUrl: 'https://picsum.photos/300/200/?random=4',
+          people: '報名人數：250/300',
+          share: '分享人：李曉明',
+          exp: '參加這次的公益園遊會讓我深切體會到一個人的力量是有限的,只有大家攜手合作...',
+          experience: '參加這次的公益園遊會讓我深切體會到一個人的力量是有限的,只有大家攜手合作才能產生巨大的力量。活動當天,我看到各式各樣的遊戲攤位、表演節目,處處洋溢著歡樂的氣氛。最讓我感動的是,所有的盈餘都將捐贈給當地的兒童福利機構,用於改善弱勢兒童的生活環境。看著大家你幫我我幫你的互相支持,我深切體會到這正是公益活動最寶貴的意義所在。每個人也許貢獻有限,但當大家的心血匯聚在一起時,就能產生巨大的力量,為這個世界帶來積極的改變。這次活動不僅讓我學會了團結合作的重要性,更燃起了我對公益事業的熱忱。我期待未來能有更多機會參與這類活動,盡自己的一份綿力,為創造一個更加美好的世界而努力。'
+        }
+      ],
+      eventList: [
+        {
+          id: "005",
+          title: "澎湖海洋淨灘活動",
+          place: "澎湖縣馬公市西嶼海灘",
+          date: "活動日期：2024年6月20日",
+          Deadline: "截止日期：2024年6月5日",
+          imageUrl: "https://picsum.photos/300/200/?random=5",
+          people: "報名人數：250/300"
+        },
+        {
+          id: "006",
+          title: "綠島珊瑚礁保育淨灘行動",
+          place: "綠島珊瑚礁區",
+          date: "活動日期：2024年7月12日",
+          Deadline: "截止日期：2024年6月28日",
+          imageUrl: "https://picsum.photos/300/200/?random=6",
+          people: "報名人數：80/100"
+        },
+        {
+          id: "007",
+          title: "蘭嶼淨灘環保之旅",
+          place: "蘭嶼島東清部落海灘",
+          date: "活動日期：2024年8月3日",
+          Deadline: "截止日期：2024年7月20日",
+          imageUrl: "https://picsum.photos/300/200/?random=7",
+          people: "報名人數：120/150"
+        },
+        {
+          id: "008",
+          title: "澎湖七美海岸淨灘日",
+          place: "澎湖七美鄉海口村海灘",
+          date: "活動日期：2024年9月14日",
+          Deadline: "截止日期：2024年8月30日",
+          imageUrl: "https://picsum.photos/300/200/?random=8",
+          people: "報名人數：180/220"
+        },
+        {
+          id: "009",
+          title: "小琉球海洋教育淨灘之旅",
+          place: "小琉球伍桐部落海灘",
+          date: "活動日期：2024年10月5日",
+          Deadline: "截止日期：2024年9月20日",
+          imageUrl: "https://picsum.photos/300/200/?random=9",
+          people: "報名人數：100/120"
+        },
+        {
+          id: "010",
+          title: "花蓮石梯坪淨灘推廣活動",
+          place: "花蓮縣新城鄉石梯坪海岸",
+          date: "活動日期：2024年11月2日",
+          Deadline: "截止日期：2024年10月18日",
+          imageUrl: "https://picsum.photos/300/200/?random=10",
+          people: "報名人數：90/120"
+        },
+        {
+          id: "011",
+          title: "綠島珊瑚礁保育",
+          place: "綠島珊瑚礁區",
+          date: "活動日期：2024年12月7日",
+          Deadline: "截止日期：2024年11月25日",
+          imageUrl: "https://picsum.photos/300/200/?random=11",
+          people: "報名人數：150/200"
+        },
+        {
+          id: "012",
+          title: "澎湖馬公海灘淨灘推廣日",
+          place: "澎湖縣馬公市中興海灘",
+          date: "活動日期：2025年1月18日",
+          Deadline: "截止日期：2025年1月5日",
+          imageUrl: "https://picsum.photos/300/200/?random=12",
+          people: "報名人數：200/250"
+        }
+      ],
     }
-  },
-  components: {
-    FullCalendar
-  },
 
-
+  },
 })
 </script>
