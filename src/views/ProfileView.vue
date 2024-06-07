@@ -134,9 +134,9 @@
               <th>訂單編號</th>
               <th>訂單狀況</th>
               <th>訂單日期</th>
-              <th colspan=2>總金額</th>
+              <th>總金額</th>
               <th>付款方式</th>
-              <th>功能</th>
+              <th colspan=2>功能</th>
             </tr>
           </thead>
           <tbody>
@@ -145,45 +145,45 @@
               <td data-label="訂單狀況">已出貨</td>
               <td data-label="訂單日期">2024-05-15</td>
               <td data-label="總金額">NT$30,000 </td>
-              <td><button class="view">檢視</button></td>
               <td data-label="付款方式">信用卡</td>
               <td data-label="功能"><button>取消訂單</button></td>
+              <td><button class="view">檢視</button></td>
             </tr>
             <tr>
               <td data-label="訂單編號">1002</td>
               <td data-label="訂單狀況">已出貨</td>
               <td data-label="訂單日期">2024-05-16</td>
               <td data-label="總金額">NT$35,000</td>
-              <td><button class="view">檢視</button></td>
               <td data-label="付款方式">銀行轉帳</td>
               <td data-label="功能"><button >取消訂單</button></td>
+              <td><button class="view">檢視</button></td>
             </tr>
             <tr>
               <td data-label="訂單編號">1003</td>
               <td data-label="訂單狀況">未出貨</td>
               <td data-label="訂單日期">2024-05-17</td>
               <td data-label="總金額">NT$7,000</td>
-              <td><button class="view">檢視</button></td>
               <td data-label="付款方式">行動支付</td>
               <td data-label="功能"><button class="cancel">完成訂單</button></td>
+              <td><button class="view">檢視</button></td>
             </tr>
             <tr>
               <td data-label="訂單編號">1004</td>
               <td data-label="訂單狀況">未出貨</td>
               <td data-label="訂單日期">2024-05-18</td>
               <td  data-label="總金額">NT$15,000</td>
-              <td><button class="view">檢視</button></td>
               <td data-label="付款方式">信用卡</td>
               <td data-label="功能"><button class="cancel">完成訂單</button></td>
+              <td><button class="view">檢視</button></td>
             </tr>
             <tr>
               <td data-label="訂單編號">1005</td>
               <td data-label="訂單狀況">未出貨</td>
               <td data-label="訂單日期">2024-05-19</td>
               <td data-label="總金額">NT$40,000</td>
-              <td><button class="view">檢視</button></td>
               <td data-label="付款方式">銀行轉帳</td>
               <td data-label="功能"><button class="cancel">完成訂單</button></td>
+              <td><button class="view">檢視</button></td>
             </tr>
           </tbody>
           </table>
@@ -200,6 +200,7 @@
             <caption>活動報名</caption>
             <thead>
             <tr>
+              <th>活動訂單</th>
               <th>活動名稱</th>
               <th>活動日期</th>
               <th>截止日期</th>
@@ -210,6 +211,7 @@
           </thead>
           <tbody>
             <tr>
+              <td data-label="活動訂單">1001</td>
               <td data-label="活動名稱">淡水淨灘日</td>
               <td data-label="活動日期">2024-06-08</td>
               <td data-label="截止日期">2024-06-01</td>
@@ -218,6 +220,7 @@
               <td data-label="功能"><button>取消報名</button></td>
             </tr>
             <tr>
+              <td data-label="活動訂單">1002</td>
               <td data-label="活動名稱">高雄市夏季淨灘活動</td>
               <td data-label="活動日期">2024-07-15</td>
               <td data-label="截止日期">2024-07-10</td>
@@ -226,6 +229,7 @@
               <td data-label="功能"><button>取消報名</button></td>
             </tr>
             <tr>
+              <td data-label="活動訂單">1003</td>
               <td data-label="活動名稱">宜蘭綠色環保行動</td>
               <td data-label="活動日期">2024-08-20</td>
               <td data-label="截止日期">2024-08-10</td>
@@ -234,10 +238,11 @@
               <td><button data-label="功能">活動分享</button></td>
             </tr>
             <tr>
+              <td data-label="活動訂單">1004</td>
               <td data-label="活動名稱">台南市親子淨灘活動</td>
               <td data-label="活動日期">2024-09-05</td>
               <td data-label="截止日期">2024-08-20</td>
-              <td data-label="地點">台>台南市安平區漁光島</td>
+              <td data-label="地點">台南市安平區漁光島</td>
               <td data-label="活動狀態">已留言</td>
               <td><button data-label="功能">編輯留言</button></td>
             </tr>
