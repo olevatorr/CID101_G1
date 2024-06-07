@@ -105,24 +105,50 @@
 
 //section-event-list
 .section-event-list {
-  background-color: #fff;
   text-align: center;
-
-  .menu .choose {
+  background-color: #fff;
+  .menu select {
     width: 50%;
     border-radius: 0;
     margin-bottom: 30px;
     padding: 5px 10px;
-  }
-
-  select {
     text-align: center;
     font-family: $font-family-base;
+    padding: 10px 0;
   }
-
   .row {
-    .col-md-6 {
-      margin: 15px 0;
+    .col-lg-3 {
+      margin: 30px 0;
+      .event-card {
+        align-items: start;
+        .text{
+          flex-grow: 0;
+          .theme .event-name h3{
+            text-align: left;
+          }
+          span{
+            font-size: 1.75rem;
+            &:first-of-type{
+              margin-bottom: 30px;
+            }
+          }
+        }
+        .people{
+          width: 100%;
+          line-height: 2;
+          font-size: 1.75rem;
+          margin: 10px 0;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          span{
+            display: block;
+          }
+          i{
+            display: block;
+          }
+        }
+      }
     }
   }
 }
@@ -130,47 +156,14 @@
 //section-event-share
 .section-event-share {
   text-align: center;
-
-  .container .row .col-md-6 {
-    margin: 15px 0;
-
-    .event-card {
-      .text {
-        .theme {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin: 20px 0;
-
-          .event-name {
-            margin-bottom: 0;
-
-            h3 {
-              margin-bottom: 0;
-            }
-          }
-
-          .report {
-            i {
-              font-size: 2rem;
-              cursor: pointer;
-              color: #e7a600;
-            }
-          }
-        }
-      }
-
+  .event-card{
+    .text{
       span {
         font-size: 1.5rem;
         display: block;
-        margin: 20px 0;
+        margin: 10px 0;
         line-height: 1.2;
       }
-
-      span:last-child {
-        margin-top: 30px;
-      }
-
       .Thoughts {
         a {
           margin-top: 10px;
@@ -184,43 +177,82 @@
   }
 }
 
+
 //卡片(共用)
 .event-card {
-  padding: 20px;
-  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px 20px 0;
+  height: 100%;
+  background-color: $color-white;
   text-align: left;
   box-shadow: 2px 2px 10px $color-border;
-
   &:hover {
-    background-color: #005FA1;
-    color: #fff;
-    transition: .3s ease;
+    background-color: $color-subprimary;
+    transition: .5s ease;
+    color: $color-white;
     cursor: pointer;
-
-    .addnew i {
-      color: #fff;
+    .text .theme .event-name h3{
+      color: $color-white;
+    }
+    .addnew i,
+    h3 {
+      color: $color-white;
+    }
+    .text .Thoughts a {
+      color: $color-white ;
+    }
+    .pic{
+      overflow: hidden;
+      img{
+        transform: scale(1.5) rotate(-5deg);
+        transition: .5s ease;
+      }
     }
   }
-
   .text {
-
-    h3 {
-      margin-bottom: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    position: relative;
+    .theme{
+      .event-name{
+        h3 {
+          margin: 20px 0;
+          color: $color-subprimary;
+          text-align: left;
+        }
+      }
+      .report{
+        font-size: 2.5rem;
+        color: $color-highlight;
+        position: absolute;
+        top: 5%;
+        right: 0;
+        @keyframes shack {
+          0%{transform: translateX(0);}
+          25%{transform: translateX(-10%);}
+          50%{transform: translateX(10%);}
+          100%{transform: translateX(0);}
+        }
+        :hover{
+          animation: shack .1s ease 3;
+          color: #f00;
+        }
+      }
     }
-
     p {
       margin-bottom: 20px;
-    }
-
-    p:nth-child(3) {
-      margin-bottom: 0;
+      &:nth-child(3) {
+        margin-bottom: 0;
+      }
     }
   }
 
   .pic {
     width: 100%;
-    height: 100%;
-
     img {
       width: 100%;
       vertical-align: top;
@@ -240,15 +272,10 @@
 
     i {
       font-size: 2rem;
-      color: #000;
+      color: $color-primary;
     }
   }
 }
-
-.section-event-share .event-card:hover .text .Thoughts  {
-  color: #fff;
-}
-
 
 //頁碼(共用)
 .pagenumber {
@@ -268,78 +295,76 @@
   background: url(../../../../public/img/event/event_02.png);
   background-repeat: no-repeat;
   background-size: cover;
-
-  .return {
-    margin: 30px 0;
+  .container{
+    h2{
+      text-align: center;
+    }
+    span{
+      display: block;
+      text-align: left;
+      font-size: $font-size-base;
+      line-height: 2;
+      margin-bottom: 30px;
+    }
+    li{
+      text-align: left;
+      margin-bottom: 30px;
+    }
   }
 }
 
 //section-light-box
 .section-light-box {
-  position: relative;
-
-  .pic {
-    width: 100%;
-    padding: 5%;
-
-    img {
-      width: 100%;
-      vertical-align: top;
-    }
-
-    h3 {
-      margin-top: 30px;
-    }
-  }
-
-  .activity-area {
+  .col-lg-6{
     display: flex;
     flex-direction: column;
-    height: 40rem;
-    padding: 5%;
-
-    .text .close {
-      text-align: right;
-      position: absolute;
-      top: 3%;
-      right: 2%;
-
-      i {
-        color: #b6b6b6;
-        font-size: 3rem;
-        cursor: pointer;
+    justify-content: start;
+    &:last-child{
+      padding-left: 30px;
+    }
+    .pic{
+      vertical-align: top;
+      width: 100%;
+      padding: 10px;
+      img{
+        width: 100%;
+        border-radius: 5px;
+      }
+      .text{
+        margin-top: 10px;
+        h3{
+          margin-bottom: 10px 0;
+        }
       }
     }
-
-    .text .join {
+    .activity-area{
+      padding: 10px 0;
+      .text{
+        h3,span{
+          margin-bottom: 30px;
+        }
+        span{
+          display: block;
+          font-size: 1.6rem;
+          letter-spacing: 0.08em;
+          line-height: 1.8;
+          font-weight: normal;
+        }
+        .join{
+          span{
+          display: inline-block;
+          }
+        }
+      }
+    }
+    .state{
+      flex-grow: 1;
       display: flex;
-      margin-bottom: 30px;
-
-      .people {
-        margin: 0;
+      flex-direction: column;
+      justify-content: center;
+      .stop,.full,.end{
+        display: none;
       }
-    }
-
-    h3 {
-      margin-bottom: 30px;
-    }
-
-    p {
-      margin-bottom: 30px;
-    }
-  }
-
-  .state {
-    text-align: center;
-
-    .stop,
-    .full,
-    .end {
-      display: none;
-    }
-
-    .now {
-      width: 50%;
     }
   }
 }
@@ -349,30 +374,23 @@
   background-color: $color-subprimary;
   position: relative;
 
-  .apply-wrap .close {
-    text-align: right;
-    position: absolute;
-    top: 3%;
-    right: 2%;
-
-    i {
-      color: #b6b6b6;
-      font-size: 3rem;
-      cursor: pointer;
+  .apply-wrap {
+    .close{
+      i {
+        color: #b6b6b6;
+        font-size: 3rem;
+        cursor: pointer;
+      }
+    }
+    .text {
+      margin-left: 10%;
+      h3,p{
+        margin: 20px 0;
+      }
     }
   }
 
-  .text {
-    margin-left: 10%;
 
-    h3 {
-      margin: 20px 0;
-    }
-
-    p {
-      margin: 20px 0;
-    }
-  }
 
   .sent-btn {
     text-align: center;
@@ -447,7 +465,6 @@
       span {
         display: block;
         font-size: 1.5rem;
-        margin-bottom: 10px;
       }
 
       .Experience span,
@@ -504,11 +521,16 @@
       }
     }
 
-    input[type="checkbox"] {
-      flex: 20%;
+    input[type="radio"] {
+      appearance: none;
       width: 20px;
       height: 20px;
-      accent-color: #000;
+      border: 1px solid #000;
+      &:checked{
+        background: url(../../../../public/img/event/check-solid.svg);
+        background-repeat: no-repeat;
+        background-position: center;
+      }
     }
 
     button {
@@ -519,47 +541,37 @@
 }
 
 //section-detailed
-.section-detailed {
-  position: relative;
-
-  .detailed-wrap {
-    .close {
-      position: absolute;
-      top: 5%;
-      right: 5%;
-      font-size: 3rem;
-      color: $color-white;
-    }
-
-    .pic {
-      width: 100%;
-      height: 100%;
-
-      img {
-        width: 100%;
+.section-detailed{
+  display: none;
+  position: absolute;
+  top: 250%;
+  .fa-regular{
+    color: #b6b6b6;
+    font-size: 3rem;
+    position: absolute;
+    top: 7%;
+    right: 7%;
+    z-index: 1;
+  }
+  .text{
+    .theme{
+      .report{
+        font-size: 2rem;
+        top: 3%;
+        span{
+          display: inline-block;
+          i{
+            display: inline-block;
+            margin-right: 5px;
+          }
+        }
       }
     }
-
-    .text {
-      position: relative;
-
-      .report {
-        position: absolute;
-        top: 0;
-        right: 0;
-        font-size: 3rem;
-        color: $color-highlight;
-        cursor: pointer;
-      }
-
-      h3 {
-        margin: 30px 0;
-      }
-
-      p {
-        margin-bottom: 30px;
-      }
+    span{
+      font-size: 1.5rem;
+      display: block;
+      margin: 10px 0;
+      line-height: 1.2;
     }
-
   }
 }

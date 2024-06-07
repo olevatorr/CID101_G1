@@ -1,3 +1,126 @@
+<script setup>
+import { onMounted, ref,computed } from 'vue';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+
+//team member animation
+gsap.registerPlugin(ScrollTrigger);
+
+onMounted(() => {
+  AOS.init()
+  initGsapAnimation()
+})
+
+
+const director = ref(null)
+const techManager = ref(null)
+const marketingManager = ref(null)
+const educationManager = ref(null)
+
+function initGsapAnimation() {
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.section-team',
+      start: 'top 90%',
+      end: 'bottom 70%',
+      scrub: true,
+    },
+  });
+
+
+  tl.from(director.value, { x: -100, y: 200, opacity: 0, duration: 3 }, 0)
+    .from(techManager.value, { x: 200, y: 200, opacity: 0, duration: 3 }, 1)
+    .from(marketingManager.value, { x: 100, y: 200, opacity: 0, duration: 3 }, 2)
+    .from(educationManager.value, { y: -100, opacity: 0, duration: 3 }, 3)
+}
+
+
+//驗證碼
+
+const enteredCaptcha = ref('');
+const captchaText = ref('');
+const captchaCanvas = ref(null);
+
+onMounted(() => {
+  drawCaptcha();
+});
+
+const isCaptchaValid = computed(() => {
+  return enteredCaptcha.value.toLowerCase() === captchaText.value.toLowerCase();
+});
+
+function drawCaptcha() {
+  const canvas = captchaCanvas.value;
+  if (!canvas) return; // 如果 canvas 元素尚未存在,直接返回
+
+  const ctx = canvas.getContext('2d');
+  captchaText.value = generateCaptchaText();
+
+  // 清除 canvas 内容
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // 添加背景噪點
+  for (let i = 0; i < 100; i++) {
+    const x = Math.random() * canvas.width;
+    const y = Math.random() * canvas.height;
+    ctx.fillStyle = getRandomColor();
+    ctx.fillRect(x, y, 1, 1);
+  }
+
+  // 對驗證碼文本應用隨機的字體大小、顏色和旋轉角度
+  const fontSize = 20;
+  ctx.font = `${fontSize}px serif`;
+  ctx.fillStyle = getRandomColor();
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.translate(canvas.width / 2, canvas.height / 2);
+  ctx.rotate((Math.random() - 0.5) * Math.PI / 12); // 減小旋轉角度
+  ctx.fillText(captchaText.value, 0, 0);
+  ctx.rotate(-(Math.random() - 0.5) * Math.PI / 12); // 減小旋轉角度
+  ctx.translate(-canvas.width / 2, -canvas.height / 2);
+
+  // 添加干擾線
+  for (let i = 0; i < 4; i++) {
+    ctx.strokeStyle = getRandomColor();
+    ctx.beginPath();
+    ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
+    ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
+    ctx.stroke();
+  }
+}
+// 重新產生驗證碼
+function refreshCaptcha() {
+  drawCaptcha();
+  enteredCaptcha.value = '';
+}
+
+function checkCaptcha() {
+  return isCaptchaValid.value;
+}
+
+//產生隨機驗證碼五個數字
+function generateCaptchaText() {
+  const chars = '0123456789';
+  let text = '';
+  for (let i = 0; i < 5; i++) {
+    text += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return text;
+}
+//產生隨機顏色
+function getRandomColor() {
+  const r = Math.floor(Math.random() * 256);
+  const g = Math.floor(Math.random() * 256);
+  const b = Math.floor(Math.random() * 256);
+  return `rgb(${r}, ${g}, ${b})`;
+}
+
+</script>
+
+
 <template>
 
   <!-- 簡介 -->
@@ -43,8 +166,8 @@
           <!-- 第一條 -->
           <div class="row purpose-line" data-aos="fade-left" data-aos-duration="2000">
             <div class="col-12 col-lg-3 purpose-circle">
-                <span class="material-symbols-outlined"> cognition </span>
-                <span>01</span>
+              <span class="material-symbols-outlined"> cognition </span>
+              <span>01</span>
             </div>
             <div class="col-12 col-lg-9">
               <h3>提高公眾認識</h3>
@@ -94,7 +217,7 @@
       </p>
       <h3>捐款途徑</h3>
       <div class="row">
-        <div class="col-12  col-lg-4 group" >
+        <div class="col-12  col-lg-4 group">
           <!-- 第一張卡片 -->
           <div class="donation-card" data-aos="fade-up" data-aos-duration="1000">
             <div class="donation-line">
@@ -127,7 +250,7 @@
             </div>
           </div>
         </div>
-        <div class="col-12  col-lg-4 group" >
+        <div class="col-12  col-lg-4 group">
           <!-- 第二張卡片 -->
           <div class="donation-card tp" data-aos="fade-up" data-aos-duration="2000">
             <div class="donation-line">
@@ -153,7 +276,7 @@
             </div>
           </div>
         </div>
-        <div class="col-12  col-lg-4 group" >
+        <div class="col-12  col-lg-4 group">
           <!-- 第三張卡片 -->
           <div class="donation-card top up" data-aos="fade-up" data-aos-duration="3000">
             <div class="donation-line">
@@ -187,7 +310,7 @@
       <p>BLUEALERT</p>
       <h3>成員介紹</h3>
       <div class="row">
-        <div class="col-12 col-md-6 col-lg-3 team-card">
+        <div class="col-12 col-md-6 col-lg-3 team-card" ref="director">
           <img src="../../public/img/aboutus/Eason.png" />
           <h4>Eason</h4>
           <h3>創始人兼首席執行官</h3>
@@ -195,7 +318,7 @@
             全面領導BLUE ALERT的發展和運營，制定戰略目標，推動海洋保護的創新項目和合作夥伴關係。
           </p>
         </div>
-        <div class="col-12 col-md-6 col-lg-3 team-card">
+        <div class="col-12 col-md-6 col-lg-3 team-card" ref="techManager">
           <img src="../../public/img/aboutus/Fred.png" />
           <h4>Fred</h4>
           <h3>技術總監</h3>
@@ -203,7 +326,7 @@
             負責資訊平台的開發與維護，分析海洋垃圾數據，提供技術支持，確保平台運行順暢並保持信息的準確性。
           </p>
         </div>
-        <div class="col-12 col-md-6 col-lg-3 team-card">
+        <div class="col-12 col-md-6 col-lg-3 team-card" ref="marketingManager">
           <img src="../../public/img/aboutus/Amber.png" />
           <h4>Amber</h4>
           <h3>市場總監</h3>
@@ -211,7 +334,7 @@
             策劃和執行市場營銷策略，推廣"藍色警戒"的品牌和活動，提升公眾對海洋污染問題的認識，增加平台的影響力。
           </p>
         </div>
-        <div class="col-12 col-md-6 col-lg-3 team-card">
+        <div class="col-12 col-md-6 col-lg-3 team-card" ref="educationManager">
           <img src="../../public/img/aboutus/Sandy.png" />
           <h4>Sandy</h4>
           <h3>教育與活動經理</h3>
@@ -259,14 +382,8 @@
             <div class="map">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3617.2490359444023!2d121.2224477743517!3d24.957640341363952!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346823ea50c732a5%3A0x1b5e6ee66e9fec49!2z57ev6IKyVGliYU1l6ZmE6Kit5Lit5aOi6IG36KiT5Lit5b-D!5e0!3m2!1szh-TW!2stw!4v1716635036111!5m2!1szh-TW!2stw"
-                width="100%"
-                height="100%"
-                frameborder="0"
-                style="border: 0"
-                allowfullscreen
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-              ></iframe>
+                width="100%" height="100%" frameborder="0" style="border: 0" allowfullscreen loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
           </div>
           <form action="" method="post" class="col-12">
@@ -275,13 +392,13 @@
               <div class="col-12 col-md-6">
                 <div class="form-item">
                   <label for="">姓名</label>
-                  <input type="text" name="name" />
+                  <input type="text" name="name" required />
                 </div>
               </div>
               <div class="col-12 col-md-6">
                 <div class="form-item">
                   <label for="">手機</label>
-                  <input type="text" name="phone" />
+                  <input type="text" name="phone" required />
                 </div>
               </div>
             </div>
@@ -289,98 +406,35 @@
               <div class="col-12 col-md-6">
                 <div class="form-item">
                   <label for="">信箱</label>
-                  <input type="mail" name="mail" />
+                  <input type="email" name="email" required />
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-12">
-                <textarea cols="30" rows="10" placeholder="請輸入訊息..." maxlength="200"></textarea>
+                <textarea cols="30" rows="10" placeholder="請輸入訊息..." maxlength="200" required></textarea>
               </div>
             </div>
             <div class="auth-line row">
-              <div class="form-auth col-12 col-lg-4">
+              <div class="form-auth col-12 col-lg-6">
                 <div class="auth-out">
                   <label for="">驗證碼</label>
-                  <input type="text" class="auth-input" />
+                  <input type="text" class="auth-input" v-model="enteredCaptcha" />
+                  <span v-if="isCaptchaValid" style="color:green;">驗證碼正確</span>
+                  <span v-else style="color:red;">驗證碼錯誤</span>
                 </div>
               </div>
-              <img src="../../public/img/aboutus/anth.png" alt="" />
-              <button>更新驗證碼</button>
+              <div id="app" class="col-12 col-lg-6 ">
+                <div class="captcha">
+                  <canvas ref="captchaCanvas" width="200" height="60"></canvas>
+                  <button @click="refreshCaptcha" type="button">更新驗證碼</button>
+                </div>
+              </div>
             </div>
-            <button>送出</button>
+            <button type="button">送出</button>
           </form>
         </div>
       </div>
     </div>
   </section>
 </template>
-
-<!-- <script>
-import AOS from "aos";
-import "aos/dist/aos.css";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
-
-export default {
-  mounted() {
-    AOS.init();
-    initGsapAnimation();
-  },
-};
-//team card animation (gsap)
-function initGsapAnimation() {
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: ".section-team",
-      start: "top 80%",
-      end: "bottom 20%",
-      scrub: true,
-    },
-  });
-
-  tl.from(".team-card", {
-    y: 100,
-    opacity: 0,
-    stagger: 0.1,
-    duration: 1,
-    repeat: 2,
-    yoyo: true,
-  });
-}
-</script> -->
-
-<script setup>
-import { onMounted } from 'vue';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
-
-onMounted(() => {
-  AOS.init()
-  initGsapAnimation()
-})
-
-function initGsapAnimation() {
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: '.section-team',
-      start: 'top 90%', 
-      end: 'bottom 70%', 
-      scrub: true, 
-    },
-  });
-
-  tl.from(".team-card", {
-    y: 100, 
-    opacity: 0, 
-    duration: 3
-  },1);
-}
-
-</script>
