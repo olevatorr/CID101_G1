@@ -36,25 +36,20 @@
     }
     .category ul {
         display: flex;
-        padding: 60px 0 70px 0;
+        padding: 60px 0 50px 0;
         justify-content: center;
         border-right: 2px soild #fff;
     }
-    .category ul li:hover{
-        background-color: #005FA1;
-    }
     .category ul li {
         background-color: #D9E8F3;
-        font-size: 18px;
         padding: 2px 64px;
         margin-right: 3px;
-        color: #fff;
+        color: #000000;
     }
-    .category ul li a{
-        color: black;
-    }
-    .category ul li a:hover{
+    .category ul li:hover{
         color: #fff;
+        cursor: pointer;
+        background-color: #005FA1;
     }
     .category ul li:nth-child(1) {
         background-color: #005FA1;
@@ -65,7 +60,6 @@
 
 .section-product-list {
     padding: 0;
-
     .container {
         text-align: center;
     }
@@ -112,9 +106,9 @@
     .cart button {
         width: 100%;
         padding: 10px 0;
-        background-color: #005FA1;
+        // background-color: #005FA1;
         color: #fff;
-        opacity: 0.7;
+        opacity: 0.9;
         font-size: 16px;
         margin: 0 auto;
         cursor: pointer;
@@ -133,7 +127,7 @@
     .hot {
         width: 60px;
         padding: 2px 4px;
-        background-color: #e19c12;
+        background-color: #005FA1;
         border: 1px solid white;
         color: white;
         text-align: center;

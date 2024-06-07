@@ -143,37 +143,247 @@ section {
 .section-knowledge {
     h2 {
         text-align: center;
+        color: #fff;
     }
+    background: url(../../../../public/img/knowledge/banner3.jpg) no-repeat;
+    background-size: cover;
 
+    // .card-c {
+    //     cursor: pointer;
+    //     padding: 10px;
+    //     margin-bottom: 10px;
+    //     background: rgba(214, 214, 214, 0.15);
+    //     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    //     backdrop-filter: blur(7.8px);
+    //     -webkit-backdrop-filter: blur(7.8px);
+    //     border: 1px solid rgba(255, 255, 255, 0.3);
+    //     margin-bottom: 20px;
+    //     color: #fff;
+    //     .pic-card{
+    //         position: relative;
+    //         overflow: hidden;
+    //         // width: 100%;
+    //         // height: 100%;
+    //         img{
+    //             width: 100%;
+    //             // vertical-align: top;
+    //         }
+    //     }
+    //     img:hover {
+    //         transform: scale(1.10);
+    //         transition: transform 0.3s;
+    //     }
+    //     .card-body{
+    //         h3{
+    //             margin: 10px 0;
+    //         }
+    //         p{
+    //             overflow: hidden;
+    //             text-overflow: ellipsis;
+    //             display: -webkit-box;
+    //             -webkit-box-orient: vertical;
+    //             -webkit-line-clamp: 2;
+    //             line-height: 23px;
+    //         }
+    //     }
+    // }
 
-    .card-c {
-        margin: 0 auto;
-        cursor: pointer;
-        padding: 10px;
-        margin-bottom: 10px;
+h1 {
+	font-size: 5.25vmin;
+	// text-align: center;
+	color: white;
+}
+p {
+	font-size: max(10pt, 2.5vmin);
+	line-height: 1.4;
+	color: #4E97CA;
+	margin-bottom: 0rem;
+}
 
-        .card{
-            .pic-card{
-                position: relative;
-                overflow: hidden;
-                // width: 100%;
-                // height: 100%;
-                img{
-                    width: 100%;
-                    vertical-align: top;
-                }
-            }
-            img:hover {
-                transform: scale(1.10);
-                transition: transform 0.3s;
-            }
-            .card-body{
-                h5{
-                    margin: 5px 0;
-                }
-            }
-        }
+.wrap {
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	width: 45vmin;
+	margin: 4rem auto;
+	transition: 0.3s ease-in-out;
+	position: relative;
+	overflow: hidden;
+    width: 100%;
+    // height: 100%;
+}
+.overlay {
+	position: relative;
+	display: flex;
+	width: 100%;
+	padding: 1rem 0.75rem;
+    background: rgba(214, 214, 214, 0.15);
+    // box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(7.8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+	transition: 0.4s ease-in-out;
+	z-index: 1;
+}
+.overlay-content {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 15vmin;
+	// padding: 0.5rem 0 0 0.5rem;
+	// border: 3px solid;
+	// border-image: linear-gradient(
+	// 		to bottom,
+	// 		#6d5ee1 5%,
+	// 		rgb(8, 91, 234) 35% 65%,
+	// 		#110358 95%
+	// 	)
+	// 	0 0 0 100%;
+	transition: 0.3s ease-in-out 0.2s;
+	z-index: 1;
+}
+.image-content {
+    width: 100%;
+	position: absolute;
+	top: 0;
+	right: 0;   
+	background-image: url("../../../../public/img/knowledge/2.png");
+	background-size: cover;
+	transition: 0.3s ease-in-out;
+}
+
+.inset {
+	max-width: 100%;
+	border-radius: 0.25em;
+	float: left;
+}
+
+.text {
+	position: absolute;
+	top: 0;
+	right: 0;
+    height: 100%;
+	// padding: 3vmin 4vmin;
+	background: rgba(214, 214, 214, 0.15);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(7.8px);
+    -webkit-backdrop-filter: blur(7.8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+	box-shadow: inset 1px 1px 15px 0 rgba(0 0 0 / 0.4);
+    img{
+        width: 100%;
+        height: 100%;
+        vertical-align: top;
     }
+}
+
+.wrap:hover .overlay {
+	transform: translateX(-60vmin);
+}
+.wrap:hover .image-content {
+	width: 30vmin;
+}
+.wrap:hover .overlay-content {
+	transition-delay: 0.2s;
+	transform: translateX(60vmin);
+}
+.wrap:hover .dots {
+	transform: translateX(1rem);
+}
+.wrap:hover .dots .dot {
+	background: white;
+}
+
+/* Animations and timing delays */
+.animate {
+	// animation-duration: 0.7s;
+	animation-timing-function: cubic-bezier(0.26, 0.53, 0.74, 1.48);
+	// animation-fill-mode: backwards;
+}
+/* Pop In */
+.pop {
+	animation-name: pop;
+}
+@keyframes pop {
+	0% {
+		opacity: 0;
+		transform: scale(0.5, 0.5);
+	}
+	100% {
+		// opacity: 1;
+		transform: scale(1, 1);
+	}
+}
+
+/* Slide In */
+.slide {
+	animation-name: slide;
+}
+@keyframes slide {
+	0% {
+		opacity: 0;
+		transform: translate(4em, 0);
+	}
+	100% {
+		opacity: 1;
+		transform: translate(0, 0);
+	}
+}
+
+/* Slide Left */
+.slide-left {
+	animation-name: slide-left;
+}
+@keyframes slide-left {
+	0% {
+		opacity: 0;
+		transform: translate(-40px, 0);
+	}
+	100% {
+		opacity: 1;
+		transform: translate(0, 0);
+	}
+}
+
+.slide-up {
+	animation-name: slide-up;
+}
+@keyframes slide-up {
+	0% {
+		opacity: 0;
+		transform: translateY(3em);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.delay-1 {
+	animation-delay: 0.3s;
+}
+.delay-2 {
+	animation-delay: 0.6s;
+}
+.delay-3 {
+	animation-delay: 0.9s;
+}
+.delay-4 {
+	animation-delay: 1.2s;
+}
+.delay-5 {
+	animation-delay: 1.5s;
+}
+.delay-6 {
+	animation-delay: 1.8s;
+}
+.delay-7 {
+	animation-delay: 2.1s;
+}
+.delay-8 {
+	animation-delay: 2.4s;
+}
+
 }
 // ------------------------------------遊戲 
 .section-game {
