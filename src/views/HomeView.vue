@@ -8,6 +8,7 @@ import { ref, onMounted, onBeforeUnmount, computed, watch } from 'vue';
 import anime from 'animejs';
 import { Chart } from 'chart.js/auto';
 import { RouterLink } from 'vue-router';
+import EventCard from '@/components/EventCard.vue';
 
 // banner 動畫
 gsap.registerPlugin(ScrollTrigger)
@@ -44,8 +45,8 @@ onMounted(() => {
     .to(trashRight.value, { x: '100%', duration: 1 }, 0)
     .to(smokeLeft.value, { x: '-100%', duration: 1 }, 1)
     .to(smokeRight.value, { x: '100%', duration: 1 }, 1)
-    .to(indexLogo.value, { width : '15%', duration: 1 }, 1)
-    .fromTo(cover.value, { opacity: 0 }, { opacity: 1 , duration: 1, ease: 'power4.out' }, 1)
+    .to(indexLogo.value, { width: '15%', duration: 1 }, 1)
+    .fromTo(cover.value, { opacity: 0 }, { opacity: 1, duration: 1, ease: 'power4.out' }, 1)
     .fromTo(cover.value, { y: '100%' }, { y: '0%', duration: 1, ease: 'power4.out' }, 1)
 
   const introTl = gsap.timeline({
@@ -57,10 +58,10 @@ onMounted(() => {
   })
 
   introTl
-    .fromTo(introTitle.value, { opacity: 0 }, { opacity: 1, duration:1 }, 0 )
-    .fromTo(introTitle.value, { x: '-30%' }, { x: '0%' , duration:1 }, 0 )
-    .fromTo(introContent.value, { opacity: 0 }, { opacity: 1, duration:1 }, 0 )
-    .fromTo(introContent.value, { x: '-30%' }, { x: '0%' , duration:1 }, 0 )
+    .fromTo(introTitle.value, { opacity: 0 }, { opacity: 1, duration: 1 }, 0)
+    .fromTo(introTitle.value, { x: '-30%' }, { x: '0%', duration: 1 }, 0)
+    .fromTo(introContent.value, { opacity: 0 }, { opacity: 1, duration: 1 }, 0)
+    .fromTo(introContent.value, { x: '-30%' }, { x: '0%', duration: 1 }, 0)
 
 
   const debrisTl = gsap.timeline({
@@ -72,8 +73,8 @@ onMounted(() => {
   })
 
   debrisTl
-    .fromTo(debris.value, { opacity: 0 }, { opacity: 1, duration:1 }, 0)
-    .fromTo(debris.value, { y: '20%' }, { y: '0%' , duration:1 }, 0)
+    .fromTo(debris.value, { opacity: 0 }, { opacity: 1, duration: 1 }, 0)
+    .fromTo(debris.value, { y: '20%' }, { y: '0%', duration: 1 }, 0)
 })
 
 
@@ -124,7 +125,7 @@ function animateNumber(element, targetValue) {
     duration: 1000,
     round: 1,
     easing: 'easeOutQuad',
-    update: function() {
+    update: function () {
       element.innerHTML = formatNumber(element.textContent);
     }
   });
@@ -368,6 +369,46 @@ onMounted(() => {
     }
   });
 });
+
+
+const eventList = [
+  {
+    id: "005",
+    title: "澎湖海洋淨灘活動",
+    place: "澎湖縣馬公市西嶼海灘",
+    date: "活動日期：2024年6月20日",
+    Deadline: "截止日期：2024年6月5日",
+    imageUrl: "https://picsum.photos/300/200/?random=5",
+    people: "報名人數：250/300"
+  },
+  {
+    id: "006",
+    title: "綠島珊瑚礁保育淨灘行動",
+    place: "綠島珊瑚礁區",
+    date: "活動日期：2024年7月12日",
+    Deadline: "截止日期：2024年6月28日",
+    imageUrl: "https://picsum.photos/300/200/?random=6",
+    people: "報名人數：80/100"
+  },
+  {
+    id: "007",
+    title: "蘭嶼淨灘環保之旅",
+    place: "蘭嶼島東清部落海灘",
+    date: "活動日期：2024年8月3日",
+    Deadline: "截止日期：2024年7月20日",
+    imageUrl: "https://picsum.photos/300/200/?random=7",
+    people: "報名人數：120/150"
+  },
+  {
+    id: "008",
+    title: "澎湖七美海岸淨灘日",
+    place: "澎湖七美鄉海口村海灘",
+    date: "活動日期：2024年9月14日",
+    Deadline: "截止日期：2024年8月30日",
+    imageUrl: "https://picsum.photos/300/200/?random=8",
+    people: "報名人數：180/220"
+  }
+]
 </script>
 
 <template>
@@ -410,41 +451,42 @@ onMounted(() => {
       </div>
     </section>
     <section class="section section-debris" ref="debris">
-    <div class="container">
-      <h3>
-        OVERVIEW OF MARINE DEBRIS<br>
-        海洋垃圾一覽
-      </h3>
-      <div class="row">
-        <div class="col-12 col-lg-6">
-          <ul class="debris-sort">
-            <li v-for="sort in hebrisSort" :key="sort.area" @click="handleAreaClick(sort)" :class="{ 'select': selectedArea === sort.area }">
-              <span class="material-symbols-outlined">line_end</span> {{ sort.selectArea }}
-            </li>
-          </ul>
-          <div ref="mapContainer" class="map-container"></div>
-        </div>
-        <div class="debris-data col-12 col-lg-6">
-          <div class="clean-tons">
-            <span class="debris-word">已清理</span>
-            <span class="debris-num" ref="totalWeight"></span>
-            <span class="debris-word">噸海廢</span>
+      <div class="container">
+        <h3>
+          OVERVIEW OF MARINE DEBRIS<br>
+          海洋垃圾一覽
+        </h3>
+        <div class="row">
+          <div class="col-12 col-lg-6">
+            <ul class="debris-sort">
+              <li v-for="sort in hebrisSort" :key="sort.area" @click="handleAreaClick(sort)"
+                :class="{ 'select': selectedArea === sort.area }">
+                <span class="material-symbols-outlined">line_end</span> {{ sort.selectArea }}
+              </li>
+            </ul>
+            <div ref="mapContainer" class="map-container"></div>
           </div>
-          <div class="clean-attend">
-            <span class="debris-word">參與人數</span>
-            <span class="debris-num" ref="totalParticipants"></span>
-            <span class="debris-word">人次</span>
+          <div class="debris-data col-12 col-lg-6">
+            <div class="clean-tons">
+              <span class="debris-word">已清理</span>
+              <span class="debris-num" ref="totalWeight"></span>
+              <span class="debris-word">噸海廢</span>
+            </div>
+            <div class="clean-attend">
+              <span class="debris-word">參與人數</span>
+              <span class="debris-num" ref="totalParticipants"></span>
+              <span class="debris-word">人次</span>
+            </div>
+            <div class="clean-session">
+              <span class="debris-word">總共</span>
+              <span class="debris-num" ref="totalSessions"></span>
+              <span class="debris-word">場次</span>
+            </div>
+            <p>*皆為本年度資訊,與海洋委員會海洋保育署資料同步</p>
           </div>
-          <div class="clean-session">
-            <span class="debris-word">總共</span>
-            <span class="debris-num" ref="totalSessions"></span>
-            <span class="debris-word">場次</span>
-          </div>
-          <p>*皆為本年度資訊,與海洋委員會海洋保育署資料同步</p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
     <section class="section section-comparation">
       <div class="container">
         <h3>
@@ -557,6 +599,10 @@ onMounted(() => {
           EVENT<br>
           活動
         </h3>
+        <div class="row">
+          <EventCard :eventList="eventList" />
+        </div>
+        <button>查看更多活動</button>
       </div>
     </section>
     <section class="section section-index-news">
