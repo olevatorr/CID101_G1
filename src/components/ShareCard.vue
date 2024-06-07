@@ -70,3 +70,7 @@ export default {
 }
 
 </script>
+<style lang="scss" scoped>
+@import "../assets/sass/base/var";
+@import "../assets/sass/component/eventcard";
+</style>

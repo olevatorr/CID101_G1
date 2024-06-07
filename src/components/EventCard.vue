@@ -15,7 +15,7 @@
                 <img :src="card.imageUrl" />
             </div>
             <div class="people">
-                <span>{{ card.people }}</span>
+                <span>報名人數:{{ card.curAttend }}/{{ card.maxAttend }}</span>
                 <i class="fa-solid fa-user-plus"></i>
             </div>
         </div>
@@ -27,3 +27,7 @@ export default {
     props: {eventList:[]},
 }
 </script>
+<style lang="scss" scoped>
+@import "../assets/sass/base/var";
+@import "../assets/sass/component/eventcard";
+</style>
