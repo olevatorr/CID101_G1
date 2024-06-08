@@ -42,21 +42,32 @@
             box-sizing: border-box;
             padding: 5% 5vw;
             background-color: rgba(255, 255, 255, 0.5);
+            &.-viewClose {
+                display:none;
+            }
             .beachgame-title {
                 font-size: 4vw;
                 font-weight: 600;
                 letter-spacing: 2vw;
                 line-height: 6rem;
             }
+          
         }
+       
         .rules-lightbox {
-            // display: none;
+            display: none;
             width: 100%;
             box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
             background-color: $color-subprimary;
             border-radius: 20px;
             box-sizing: border-box;
             padding: 20px;
+            &.-viewShow{
+                display:block;
+            }
+            &.-viewClose{
+                display:none;
+            }
             .rules-content {
                 background-color: $color-white;
                 border-radius: 20px;
@@ -73,15 +84,27 @@
             }
         }
         .character-lightbox {
+            display:none;
             color: #fff;
             box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
             border-radius: 20px;
             text-align: center;
             background-color: $color-subprimary;
             padding: 50px 20px;
+            // 出現整張大圖
+            &.-viewShow{
+                display:block;
+            }
+            // 選其中圖片後會消失整張大圖
+            &.-viewClose{
+                display: none;
+            }
             .character-list {
                 margin: 30px 0;
                 .character-item {
+                    &:hover{
+                        background-color: $color-highlight;
+                    }
                     height: 100%;
                     display: flex;
                     flex-direction: column;
@@ -102,12 +125,19 @@
             }
         }
         .character-check-lightbox {
+            display:none;
             color: #fff;
             box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
             border-radius: 20px;
             text-align: center;
             background-color: $color-subprimary;
             padding: 50px 20px;
+            &.-viewShow{
+                display:block;
+            }
+            &.-viewClose{
+                display:none;
+            }
             .character-oneset {
                 display: flex;
                 flex-direction: column;
