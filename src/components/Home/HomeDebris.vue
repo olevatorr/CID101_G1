@@ -96,6 +96,8 @@ const counties = {
 }
 
 let svg
+let projection
+let path
 
 onBeforeUnmount(() => {
     window.removeEventListener('resize', resizeMap)
@@ -104,20 +106,17 @@ onBeforeUnmount(() => {
 async function initMap() {
     const container = mapContainer.value
 
-    const width = container.clientWidth
-    const height = container.clientHeight
-
     svg = d3.select(container)
         .append('svg')
-        .attr('width', width)
-        .attr('height', height)
+        .attr('width', '100%')
+        .attr('height', '100%')
 
-    const projection = d3.geoMercator()
+    projection = d3.geoMercator()
         .center([120, 23.5])
-        .scale(5000)
-        .translate([width / 2, height / 2])
+        .scale(1)
 
-    const path = d3.geoPath().projection(projection)
+    path = d3.geoPath().projection(projection)
+
     const topoData = await d3.json('../../public/localjson/map/twCounty2010.topo.json')
     const geoData = topojson.feature(topoData, topoData.objects.layer1)
 
@@ -125,9 +124,22 @@ async function initMap() {
         .data(geoData.features)
         .enter()
         .append('path')
-        .attr('d', path)
         .attr('fill', '#E7A600')
         .attr('stroke', 'white')
+
+    updateProjection()
+}
+
+function updateProjection() {
+    const width = svg.node().clientWidth
+    const height = svg.node().clientHeight
+
+    projection
+        .scale(5000)
+        .translate([width / 2, height / 2])
+
+    svg.selectAll('path')
+        .attr('d', path)
 }
 
 onMounted(() => {
@@ -143,7 +155,6 @@ function updateMapColor(area) {
             .attr('fill', '#E7A600')
     } else {
         const selectedRegions = counties[area]
-
         svg.selectAll('path')
             .transition()
             .duration(500)
@@ -165,13 +176,9 @@ function handleAreaClick(sort) {
 }
 
 function resizeMap() {
-    const container = mapContainer.value
-    d3.select(container).select('svg').remove()
-    initMap()
+    updateProjection()
 }
-
 </script>
-
 <template>
     <section class="section section-debris" ref="debris">
         <div class="container">

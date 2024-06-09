@@ -25,7 +25,6 @@ onMounted(() => {
         .fromTo(introContent.value, { x: '-30%' }, { x: '0%', duration: 1 }, 0)
 })
 </script>
-
 <template>
     <section class="section section-intro" ref="intro">
         <div class="container">
