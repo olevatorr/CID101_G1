@@ -2,7 +2,7 @@
     background-image: url(../../../../public/img/member/member12.png);
     background-size: cover;
     .row{
-        padding: 10rem 5%;
+        padding: 10rem 1rem;
     }
 
     .container-profile {
@@ -37,7 +37,7 @@
                     top: 0;
                     left: 0;
                     position: absolute;
-                    max-width: 15rem;
+                    width: 15rem;
                     height: 15rem;
                     border-radius: 50%;
                     object-fit: cover;
@@ -48,6 +48,14 @@
                 p {
                     padding: 1rem;
                     color: $color-white;
+                }
+                .logout{
+                    display: none;
+                    @media screen and (max-width: 575px) {
+                        margin-top: 0;
+                        display: block;
+                        width: 100%;
+                    }
                 }
             }
 
@@ -68,6 +76,7 @@
 
                 }
             }
+
         }
 
         .profile-pets {
@@ -75,13 +84,22 @@
         }
 
         .profile-txt {
+            margin: 0 auto;
             text-align: center;
             background-color: $color-white;
 
             h1 {
+                text-align: center;
                 padding-top: 9rem;
                 padding-bottom: 3rem;
-            }
+                @media screen and (max-width: 575px) {
+                    padding-top: 3rem;
+                }
+            }                    
+            button:first-of-type {
+                        margin-top: 2rem;
+                        margin-right: 10rem;
+                    }
 
             ul {
                 padding-bottom: 2rem;
@@ -89,15 +107,16 @@
                 li {
                     padding-bottom: 2rem;
 
-                    button:first-of-type {
-                        margin-top: 2rem;
-                        margin-right: 10rem;
+
+                    @media screen and (max-width: 575px) {
+                        text-align: left;
                     }
                 }
 
                 label {
                     padding-right: 2rem;
                     font-size: 1.4rem;
+
                 }
 
                 input {
@@ -109,6 +128,9 @@
                     outline: none;
                     height: 4rem;
 
+                    @media screen and (max-width: 575px) {
+                        width: 100%;
+                    }
                 }
             }
         }
@@ -117,25 +139,38 @@
     //表格    
     .registration {
         overflow-x: auto;
-        white-space: nowrap;
-        margin: 2rem auto;
-        padding: 0;
-
+        margin: 0 auto;
+        background-color:$color-white ;
+        
+        @media screen and (max-width: 576px) {
+            overflow-x: unset;
+        }
+        
         table {
+            margin: 0 auto;
+            // overflow:scroll;
             border-collapse: collapse;
             background-color: $color-white;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             text-align: center;
-            table-layout:fixed; 
-            width: 150%;
-            caption{
-                width: 67%;
-                font-size: 2rem;
-                padding-bottom: 1rem;
+            width: 776px;
+            @media screen and (max-width: 576px) {
+                overflow-x: unset;
+                border-collapse: unset;
+                width: 100%;
             }
 
-            tr:first-child {
+            caption{
+                font-size: 2rem;
+                padding-top: 9rem;
+                padding-bottom: 1rem ;
+            }
+
+            th {
                 background-color: $color-subprimary;
+                @media screen and (max-width: 600px) {
+                    background-color: $color-white;
+                }
             }
 
             tr {
@@ -154,7 +189,9 @@
                     height: 4rem;
                     vertical-align: middle;
                     white-space: wrap;
-                    
+                    button{
+                        padding:0.75rem 2rem;
+                    }
                     
                 }
             }
@@ -165,8 +202,6 @@
             display: flex;
             justify-content: center;
             padding: 1rem 0;
-            background-color: $color-white;
-            width: 150%;
             :hover{
                 background-color: #bbb;
             }
@@ -177,16 +212,40 @@
             text-decoration: none;
         }
         }
-
+        .shop{
+            tr{
+            th:nth-child(1),th:nth-child(3)
+            {
+                width: 90px;
+            }
+        }
+        }
         .order {
             tr {
+                th:nth-child(1),th:nth-child(3)
+                {
+                    width: 80px;
+                }
+                td:nth-child(4){
+                    padding-left: 4rem;
+                    text-align: left;
+
+                }
+                td:nth-child(5)
+                {
+                    text-align: left;
+                    padding-left: 2rem;
+                    
+                    @media screen and (max-width:576px) {
+                        text-align: right;
+                    }
+                }
                 th {
                     height: 5rem;
                 }
 
                 td {
                     height: 5rem;
-
                     button.cancel {
                         background-color: #bbb;
                         cursor: not-allowed;
@@ -200,6 +259,16 @@
             border-collapse: collapse;
 
             tr {
+                td:nth-child(1),td:nth-child(4)
+                {
+                    text-align: left;
+                    padding-left: 2rem;
+                    @media screen and (max-width:576px) {
+                        text-align: right;
+                    }
+                }
+                
+
                 th {
                     height: 5rem;
                 }
@@ -221,13 +290,45 @@
             }
     
         }
+        //破壞表格排列
+            @media (max-width: 576px) {
+                table, thead, tbody, th, td, tr {
+                display: block;
+                }
+                caption{
+                    width:10rem;
+                }
+                thead tr {
+                  display: none;
+                }
+                tr {
+                  margin-bottom: 10px;
+                  border-bottom: 2px solid #ddd;
+                }
+                td {
+                  text-align: right;
+                  padding-left: 50%;
+                  position: relative;
+                }
+                td::before {
+                  content: attr(data-label);
+                  position: absolute;
+                  left: 10px;
+                  width: calc(50% - 20px);
+                  text-align: left;
+                  font-weight: bold;
+                }
+              }
+        
+        
 
     }
         //修改密碼
     .profile-revise{
+        margin: 0 auto;
+        padding-top: 4rem;
         text-align: center;
         background-color: $color-white;
-        margin: 10rem auto 0 auto ;
         
         
         h1 {
@@ -272,7 +373,7 @@
             display: block;
 
             .profile-box {
-                padding-bottom: 4rem;
+                padding-bottom: 12rem;
             }
 
             .profile-button {
@@ -288,9 +389,12 @@
             }
 
             .profile-txt {
-
+                
                 ul li button:first-of-type {
                     margin-right: 5rem;
+                }
+                .store{
+                    margin-bottom: 2rem;
                 }
             }
         }
