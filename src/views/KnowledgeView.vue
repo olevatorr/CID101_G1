@@ -1,5 +1,3 @@
-<canvas ref="doughnutChartCanvas"></canvas>
-<canvas ref="lineChartCanvas"></canvas>
 <!-- ----------------------------------------------------------------垃圾種類圖 -->
 <template>
   <div id="app">
@@ -48,22 +46,27 @@
         </div>
     <!-- --------------------------------------------------------------------------------------------垃圾種類 -->
         <div class="col-12 col-md-6">
-          <div class="box" style="height:300px; width:500px;">
-            <canvas id="twChart"></canvas>
+          <div class="row" style="height: 100%">
+            <div class="col-12">
+              <div class="box" style="width: 100%; height: 100%;">
+                <canvas id="twChart"></canvas>
+              </div>
+            </div>
+            <!-- 淨灘人數與次數 -->
+            <div class="col-12">
+              <div class="box" style="width: 100%;height: 100%;">
+                <canvas id="attendChart"></canvas>
+              </div>
+            </div>
+            <!-- 垃圾處理分類 -->
+            <div class="col-12">
+              <div class="box" style="width: 100%;height: 100%;">
+                <canvas id="trash"></canvas>
+              </div>
+            </div>
           </div>
         </div>
-        <!-- 淨灘人數與次數 -->
-        <div class="col-12 col-md-6">
-          <div class="box" style="height: 300px;width: 100%;">
-            <canvas id="attendChart"></canvas>
-          </div>
-        </div>
-        <!-- 垃圾處理分類 -->
-        <div class="col-12 col-md-6">
-          <div class="box" style="height: 300px;width: 100%;">
-            <canvas id="trash"></canvas>
-          </div>
-        </div>
+  
         <!-- 新增的 Canvas 元素 -->
         <!-- <div class="col-12 col-md-6">
           <div class="box" style="height: 300px;width: 100%;">
@@ -471,7 +474,7 @@ function updateChartForRegion(regionName) {
         }
       },
       maintainAspectRatio: false, // 關閉自動調整長寬比
-      aspectRatio: 2, // 設定長寬比為 2:1
+      aspectRatio: 3, // 設定長寬比為 2:1
       plugins: {
         title: {
           display: true,
@@ -481,13 +484,18 @@ function updateChartForRegion(regionName) {
           }
         },
         legend: {
-          position: 'right',  // 設置圖例位置
+          position: 'left',  // 設置圖例位置
+          // maxWidth:30,
+          align: 'end',
+          // fullSize: false,
           labels: {
-          boxWidth: 10,
-          font: {
+            usePointStyle: true,
+            // padding: 15,
+            // boxWidth: 10,
+            font: {
             size: 12 // 设置图例文字的字体大小
+            }
           }
-        }
         },
         annotation: {
           annotations: [{
@@ -535,7 +543,7 @@ function updateChartForRegion(regionName) {
         }
       },
       maintainAspectRatio: false, // 關閉自動調整長寬比
-      aspectRatio: 2.5, // 設定長寬比為 2:1
+      aspectRatio: 3, // 設定長寬比為 2:1
       plugins: {
         title: {
           display: true,
@@ -598,7 +606,7 @@ function updateChartForRegion(regionName) {
         }
       },
       maintainAspectRatio: false, // 關閉自動調整長寬比
-      aspectRatio: 2.5, // 設定長寬比為 2.5:1
+      aspectRatio: 3, // 設定長寬比為 2:1
       plugins: {
         title: {
           display: true,
