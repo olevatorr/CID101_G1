@@ -2,8 +2,6 @@
 <canvas ref="lineChartCanvas"></canvas>
 <!-- ----------------------------------------------------------------垃圾種類圖 -->
 <template>
-  <!-- 图表 -->
-
   <div id="app">
     <!-- ----------------------------------------------------------------banner -->
     <section class="section section-knowledge-banner">
@@ -36,81 +34,56 @@
     </section>
     <!-- ----------------------------------------------------------------全台灣沿海廢棄數據 -->
     <section class="section section-data">
-      <div class="container">
-        <h3>全台灣沿海廢棄數據</h3>
-        <div class="row">
-          <div class="col-6">
-            <div class="chart-container">
-              <select @change="changeIndicator">
-                <option v-for="indicator in indicators" :key="indicator.value" :value="indicator.value">
-                  {{ indicator.label }}
-                </option>
-              </select>
-              <canvas id="myChart"></canvas>
-            </div>
-          </div>
-          <div class="col-6">
-            <div id="map" ref="myMap" style="width: 100%; height: 100%;"></div>
-          </div>
-          <div class="col-12">
-            <div class="description-container">
-              <h3>{{ indicators.find(item => item.value === selectedIndicator).label }}</h3>
-              <p>{{ indicatorDescriptions[selectedIndicator].description }}</p>
-              <table>
-                <tr>
-                  <th>污染程度</th>
-                  <th>範圍</th>
-                </tr>
-                <tr v-for="range in indicatorDescriptions[selectedIndicator].ranges" :key="range.level">
-                  <td>{{ range.level }}</td>
-                  <td>{{ range.value }}</td>
-                </tr>
-              </table>
-            </div>
-          </div>
-          <div class="col-12 col-md-6">
-            <div>
-              <img src="https://picsum.photos/562/528/?random=19" width="100%">
-            </div>
-          </div>
-          <div class="col-12 col-md-6">
-            <div class="button button-area">
-              <button>水質</button>
-              <button>懸浮粒子</button>
-              <button>垃圾總量</button>
-              <button>還在找</button>
-            </div>
-            <div class="news-filter">
-              <select name="name" id="">
-                <option value="0">請選擇地區</option>
-                <option value="1">台北市</option>
-                <option value="2">新北市</option>
-                <option value="3">桃園市</option>
-                <option value="4">桃園縣</option>
-              </select>
-            </div>
-            <div class="card-data">
-              <h3>基隆市海廢月份圖表</h3>
-              <div class="span-flex">
-                <!-- <span>
-                <div class="red-box"></div>
-                <p>海廢頓數</p>
-              </span>
-              <span>
-                <div class="blue-box"></div>
-                <p>淨灘人數統計</p>
-              </span> -->
-              </div>
-              <!-- <img src="https://picsum.photos/550/250/?random=10"> -->
-              <canvas ref="lineChartCanvas"></canvas>
-            </div>
-            <p>
-              塑料是最常見的海洋廢棄物之一，尤其是一次性塑料製品，如吸管、塑料袋和瓶子。這些塑料製品長期漂浮在海洋中，分解成微小的塑料碎片，危害海洋生物的健康，甚至進入了人類的食物鏈。
-            </p>
+    <div class="container">
+      <div>
+        <h2>各縣市海洋廢棄物清理次數與參與人數</h2>
+        <div id="scatter-plot"></div>
+      </div>
+      <h3>全台灣沿海廢棄數據</h3>
+      <div class="row">
+          <!-- 台灣地圖 -->
+        <div class="col-12 col-md-6">
+          <button @click="ShowAll">全台灣總計</button>
+          <div id="map" ref="myMap" style="width: 100%; height: 400px"></div>
+        </div>
+        <!-- 海洋廢棄物分類 -->
+        <div class="col-12 col-md-6">
+          <div class="box" style="height: 300px;width: 100%;">
+            <canvas id="twChart"></canvas>
           </div>
         </div>
+        <!-- 新增的 Canvas 元素 -->
+        <div class="col-12 col-md-6">
+          <div class="box" style="height: 300px;width: 100%;">
+            <canvas id="twChart1"></canvas>
+          </div>
+        </div>
+        <!-- 新增的 Canvas 元素 -->
+        <div class="col-12 col-md-6">
+          <div class="box" style="height: 300px;width: 100%;">
+            <canvas id="twChart2"></canvas>
+          </div>
+        </div>
+        <!-- 新增的 Canvas 元素 -->
+        <div class="col-12 col-md-6">
+          <div class="box" style="height: 300px;width: 100%;">
+            <canvas id="twChart3"></canvas>
+          </div>
+        </div>
+        <!-- 海水汙染指標 -->
+        <div class="col-12 col-md-6">
+          <div class="news-filter">
+            <select name="name" id="" @change="changeIndicator">
+              <option value="0">請選擇類型</option>
+              <option v-for="indicator in indicators" :key="indicator.value" :value="indicator.value">{{ indicator.label }}</option>
+            </select>
+            <canvas id="myChart" width="400px" height="200px"></canvas>
+          </div>
+        </div>
+        
       </div>
-    </section>
+    </div>
+  </section>
     <!-- ----------------------------------------------------------------垃圾種類 -->
     <section class="section">
       <div class="container">
@@ -218,8 +191,6 @@
             </div>
           </div>
         </div>
-
-
         <div class="card">
           <div class="row">
             <div class="card-content col-12 col-md-3">
@@ -240,25 +211,32 @@
         </div>
       </div>
     </section>
+    
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
 import { Chart, registerables } from 'chart.js';
 import jsonData from '../../public/json/海域水質.json';
+import wasteData from '../../public/json/海洋委員會公務統計報表-海洋廢棄物清理-113.01.json';
 import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
 
+// 使用 ref 定義響應式數據變量
+const apiData = ref(null);  // 儲存水質數據
+const wasteDataRef = ref(null);  // 儲存廢棄物數據
+const selectedIndicator = ref('SS');  // 預設選中的指標
+let myChart = null;  // 定義圖表實例
+let twChart = null;  // 定義台灣地區圖表實例
+let twChart1 = null;
+let twChart2 = null;
+let twChart3 = null;
+const myMap = ref(null);  // 地圖容器引用
 
-const apiData = ref(null);
-const selectedIndicator = ref('SS');
-let myChart = null;
-const myMap = ref(null)
-
+// 定義指標描述信息
 const indicatorDescriptions = {
   SS: {
-    description: '懸浮固體是指水中未溶解的固體顆粒。懸浮固體濃度過高可能來自土壤侵蝕、建築工地的徑流、污水排放等。高濃度的懸浮固體會影響水的透明度,阻礙光線穿透,影響水生植物的光合作用。',
     ranges: [
       { level: '正常', value: '< 10 mg/L' },
       { level: '輕度污染', value: '10 - 20 mg/L' },
@@ -266,89 +244,10 @@ const indicatorDescriptions = {
       { level: '重度污染', value: '> 50 mg/L' },
     ],
   },
-  CHL_a: {
-    description: '葉綠素a是衡量水體中藻類數量的重要指標。藻類是水生生態系統的基礎,但過量的藻類可能表明水體富營養化。富營養化會導致藻類大量繁殖,消耗水中的溶解氧,影響其他水生生物。',
-    ranges: [
-      { level: '正常', value: '< 2 μg/L' },
-      { level: '輕度污染', value: '2 - 5 μg/L' },
-      { level: '中度污染', value: '5 - 20 μg/L' },
-      { level: '重度污染', value: '> 20 μg/L' },
-    ],
-  },
-  NO3_N: {
-    description: '硝酸鹽氮是水中氮的一種形式。高濃度的硝酸鹽氮通常來自農業肥料的徑流,或者生活和工業污水。過量的氮會導致藻類過度生長,引起富營養化。',
-    ranges: [
-      { level: '正常', value: '< 0.2 mg/L' },
-      { level: '輕度污染', value: '0.2 - 0.5 mg/L' },
-      { level: '中度污染', value: '0.5 - 1.0 mg/L' },
-      { level: '重度污染', value: '> 1.0 mg/L' },
-    ],
-  },
-  NO2_N: {
-    description: '亞硝酸鹽氮是水中氮的另一種形式。它通常是硝酸鹽還原的中間產物,高濃度可能表明水體受到污染。亞硝酸鹽氮也可以被藻類和其他植物利用,因此也會促進富營養化。',
-    ranges: [
-      { level: '正常', value: '< 0.02 mg/L' },
-      { level: '輕度污染', value: '0.02 - 0.05 mg/L' },
-      { level: '中度污染', value: '0.05 - 0.10 mg/L' },
-      { level: '重度污染', value: '> 0.10 mg/L' },
-    ],
-  },
-  MI3PO4: {
-    description: '磷酸鹽是水中磷的一種形式。像氮一樣,磷是植物生長的重要營養素。高濃度的磷酸鹽通常來自農業徑流(化肥)和生活污水(如洗滌劑)。過量的磷也會導致富營養化。',
-    ranges: [
-      { level: '正常', value: '< 0.02 mg/L' },
-      { level: '輕度污染', value: '0.02 - 0.05 mg/L' },
-      { level: '中度污染', value: '0.05 - 0.10 mg/L' },
-      { level: '重度污染', value: '> 0.10 mg/L' },
-    ],
-  },
-  Cr: {
-    description: '鉻是一種重金屬,通常來自工業污染,如電鍍、製革等。六價鉻對人體和水生生物都有毒性。',
-    ranges: [
-      { level: '正常', value: '< 0.01 mg/L' },
-      { level: '輕度污染', value: '0.01 - 0.05 mg/L' },
-      { level: '中度污染', value: '0.05 - 0.10 mg/L' },
-      { level: '重度污染', value: '> 0.10 mg/L' },
-    ],
-  },
-  Zn: {
-    description: '鋅是另一種重金屬,可能來自工業污染或生活污水。高濃度的鋅對水生生物有毒性。',
-    ranges: [
-      { level: '正常', value: '< 0.05 mg/L' },
-      { level: '輕度污染', value: '0.05 - 0.20 mg/L' },
-      { level: '中度污染', value: '0.20 - 0.50 mg/L' },
-      { level: '重度污染', value: '> 0.50 mg/L' },
-    ],
-  },
-  DO_ELE: {
-    description: '溶解氧是水中溶解的氧氣量。它對水生生物至關重要。溶解氧濃度過低,可能表明水體受到有機污染,因為微生物分解有機物會消耗氧氣。低溶解氧會對魚類和其他水生生物造成壓力。',
-    ranges: [
-      { level: '正常', value: '> 6.5 mg/L' },
-      { level: '輕度污染', value: '4.6 - 6.5 mg/L' },
-      { level: '中度污染', value: '2.0 - 4.5 mg/L' },
-      { level: '重度污染', value: '< 2.0 mg/L' },
-    ],
-  },
-  DO_S: {
-    description: '溶解氧飽和度是水中實際溶解氧量與該溫度下水所能容納的最大氧量之比。它類似於溶解氧濃度,表示水體中可用於水生生物的氧氣量。',
-    ranges: [
-      { level: '正常', value: '> 90%' },
-      { level: '輕度污染', value: '75% - 90%' },
-      { level: '中度污染', value: '50% - 75%' },
-      { level: '重度污染', value: '< 50%' },
-    ],
-  },
-  PH: {
-    description: 'pH表示水的酸鹼度。大多數水生生物適應在pH 6.5到8.5之間的水體。異常的pH值(過酸或過鹼)可能表明水體受到污染,會對水生生物造成壓力。',
-    ranges: [
-      { level: '正常', value: '6.5 - 8.5' },
-      { level: '輕度污染', value: '6.0 - 6.4 或 8.6 - 9.0' },
-      { level: '中度污染', value: '5.5 - 5.9 或 9.1 - 9.5' },
-      { level: '重度污染', value: '< 5.5 或 > 9.5' },
-    ],
-  },
+  // 其他指標省略...
 };
 
+// 定義指標選項
 const indicators = [
   { value: 'SS', label: '懸浮固體(mg/L)' },
   { value: 'CHL_a', label: '葉綠素a(μg/L)' },
@@ -362,51 +261,54 @@ const indicators = [
   { value: 'PH', label: '酸鹼值' },
 ];
 
+// 設置數據並初始化圖表
 function setupData() {
+  // 將數據按時間排序
   const sortedData = jsonData.sort((a, b) => new Date(b.UPDATE_TIME) - new Date(a.UPDATE_TIME));
-
-  apiData.value = sortedData;
-  setupChart();
+  apiData.value = sortedData;  // 設置 API 數據
+  wasteDataRef.value = wasteData;  // 設定海洋廢棄物數據
+  setupChart();  // 初始化圖表
 }
 
+// Vue 組件掛載時執行
 onMounted(() => {
-  Chart.register(...registerables);
-  setupData();
+  Chart.register(...registerables);  // 註冊 Chart.js 組件
+  setupData();  // 設置數據
 });
 
+// 設置圖表
 function setupChart() {
   const ctx = document.getElementById('myChart');
 
-  const filteredData = apiData.value.filter(item => item.BODY_LEVEL === "丙類");
+  // 過濾數據，只顯示丙類水質數據
+  const filteredData = apiData.value.filter(item => item.BODY_LEVEL === "丙類");// 獲取標籤和指標值
   const labels = filteredData.map(item => item.STATION_NAME);
-  const indicatorValues = filteredData.map(item => item[selectedIndicator.value]);
-  const sampleDate = filteredData[0].SAMPLE_DATE;
-
+  const indicatorValues = filteredData.map(item => item[selectedIndicator.value]); // 獲取樣本日期
+  const sampleDate = filteredData.length > 0 ? filteredData[0].SAMPLE_DATE : '無資料';
 
   if (myChart) {
-    myChart.destroy();
+    myChart.destroy();  // 如果圖表已存在，先銷毀舊圖表
   }
 
   myChart = new Chart(ctx, {
-    type: 'line',
+    type: 'line',  // 設置圖表類型為折線圖
     data: {
-      labels: labels,
+      labels: labels,  // 設置圖表標籤
       datasets: [{
-        label: indicators.find(item => item.value === selectedIndicator.value).label,
-        data: indicatorValues,
-        backgroundColor: 'rgba(75, 192, 192, 0.6)',
-        borderColor: 'rgba(75, 192, 192, 1)',
-        borderWidth: 1,
-        pointBackgroundColor: 'rgba(75, 192, 192, 1)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(75, 192, 192, 1)',
+        label: indicators.find(item => item.value === selectedIndicator.value).label,  // 設置數據集標籤
+        data: indicatorValues,  // 設置數據集數據
+        backgroundColor: 'blue',  // 設置背景顏色
+        borderColor: 'blue',  // 設置邊框顏色
+        borderWidth: 1,  // 設置邊框寬度
+        pointBackgroundColor: 'blue',  // 設置數據點背景顏色
+        pointBorderColor: '#fff',  // 設置數據點邊框顏色
+        pointHoverBackgroundColor: '#fff',  // 設置數據點懸停背景顏色
       }]
     },
     options: {
       scales: {
         y: {
-          beginAtZero: true
+          beginAtZero: true  // 設置 y 軸從 0 開始
         }
       },
       plugins: {
@@ -414,22 +316,22 @@ function setupChart() {
           display: true,
           text: '海水污染指標',
           font: {
-            size: 20
+            size: 20  // 設置標題字體大小
           }
         },
         legend: {
-          position: 'top',
+          position: 'top',  // 設置圖例位置
         },
         annotation: {
           annotations: [{
             type: 'label',
-            xValue: labels[labels.length - 1],
-            yValue: indicatorValues[indicatorValues.length - 1],
-            backgroundColor: 'rgba(0, 0, 0, 0.8)',
-            content: ['採樣時間: ' + sampleDate],
+            xValue: labels[labels.length - 1],  // 設置標註 x 軸值
+            yValue: indicatorValues[indicatorValues.length - 1],  // 設置標註 y 軸值
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',  // 設置標註背景顏色
+            content: ['採樣時間: ' + sampleDate],  // 設置標註內容
             font: {
               style: 'italic',
-              color: 'white'
+              color: 'white'  // 設置標註字體顏色
             }
           }]
         }
@@ -438,23 +340,25 @@ function setupChart() {
   });
 }
 
+// 切換指標
 function changeIndicator(event) {
-  selectedIndicator.value = event.target.value;
-  setupChart();
+  selectedIndicator.value = event.target.value;  // 更新選中指標
+  setupChart();  // 重新設置圖表
 }
-
 
 let svg;
 
+// 組件卸載前移除事件監聽器
 onBeforeUnmount(() => {
-  window.removeEventListener('resize', resizeMap);
+  window.removeEventListener('resize', resizeMap);  // 移除調整地圖大小事件監聽器
 });
 
+// 初始化地圖
 async function initMap() {
   const container = myMap.value;
 
-  const width = container.clientWidth;
-  const height = container.clientHeight;
+  const width = container.clientWidth;  // 獲取容器寬度
+  const height = container.clientHeight;  // 獲取容器高度
 
   svg = d3.select(container)
     .append('svg')
@@ -462,150 +366,162 @@ async function initMap() {
     .attr('height', height);
 
   const projection = d3.geoMercator()
-    .center([120, 23.5])
-    .scale(5000)
+    .center([120, 23.5])  // 設置投影中心
+    .scale(5000)  // 設置投影縮放
     .translate([width / 2, height / 2]);
 
   const path = d3.geoPath().projection(projection);
-  const topoData = await d3.json('../../public/localjson/map/twCounty2010.topo.json');
-  const geoData = topojson.feature(topoData, topoData.objects.layer1);
+  const topoData = await d3.json('../../public/localjson/map/COUNTY_tw.topo.json');  // 加載地圖數據
+  const geoData = topojson.feature(topoData, topoData.objects.COUNTY_MOI_1090820);
 
+  // 將地理數據附加到 SVG 元素中並設定屬性
   svg.selectAll('path')
     .data(geoData.features)
     .enter()
     .append('path')
     .attr('d', path)
     .attr('fill', '#E7A600')
-    .attr('stroke', 'white');
+    .attr('stroke', 'white')
+    .on('click', function(event, d) {
+      // 重置所有路徑的顏色
+      svg.selectAll('path').attr('fill', '#E7A600');
+      // 改變選中路徑的顏色
+      d3.select(this).attr('fill', 'blue');
+      
+      // 根據選中地區更新圖表數據
+      const regionName = d.properties.COUNTYNAME;
+      updateChartForRegion(regionName);
+    });
 }
 
+// 顯示全台灣總計數據
+const ShowAll = function (){
+  const regionName = '總計';
+  updateChartForRegion(regionName);
+}
 
+const hebrisData = ref(null);  // 儲存垃圾數據
+
+// 定義垃圾分類標籤
+const hebrisSortLabels = [
+  "清理數量分類(噸)_寶特瓶",
+  "清理數量分類(噸)_鐵罐",
+  "清理數量分類(噸)_鋁罐",
+  "清理數量分類(噸)_玻璃瓶",
+  "清理數量分類(噸)_廢紙",
+  "清理數量分類(噸)_竹木",
+  "清理數量分類(噸)_保麗龍",
+  "清理數量分類(噸)_廢漁具漁網",
+  "清理數量分類(噸)_無法分類廢棄物",
+];
+
+// 定義垃圾分類名稱
+const hebrisLabels = [
+  "寶特瓶",
+  "鐵罐",
+  "鋁罐",
+  "玻璃瓶",
+  "廢紙",
+  "竹木",
+  "保麗龍",
+  "廢漁具漁網",
+  "無法分類廢棄物",
+];
+
+// 組件掛載時加載垃圾數據
+onMounted(() => {
+  fetch('../../public/json/海洋委員會公務統計報表-海洋廢棄物清理-113.01.json')
+    .then(res => res.json())
+    .then(jsonData => {
+      hebrisData.value = jsonData;
+    });
+});
+
+// 監視垃圾數據變化
+watch(hebrisData, () => {
+  if (hebrisData.value) {
+    ShowAll();
+  }
+});
+
+// 更新圖表數據根據選中地區
+function updateChartForRegion(regionName) {
+  const filteredData = hebrisData.value.find(item => item["縣市別"] === regionName);
+  console.log(filteredData);
+  const displayData = hebrisSortLabels.map(key => filteredData[key]);
+
+  if (twChart) {
+    twChart.destroy();
+  }
+
+  const ctx = document.getElementById('twChart');
+  twChart = new Chart(ctx, {
+    type: 'doughnut',  // 設置圖表類型為甜甜圈圖
+    data: {
+      labels: hebrisLabels,  // 設置圖表標籤
+      datasets: [{
+        label: "噸數",
+        data: displayData,  // 設置圖表數據
+        backgroundColor: [
+          '#D60000', '#F46300', '#0358B6', '#44DE28',
+          '#8B008B', '#FF8C00', '#008B8B', '#B8860B',
+          '#006400', '#A9A9A9', '#BDB76B', '#8B008B'
+        ],
+        borderColor: 'rgba(255, 99, 132, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true  // 設置 y 軸從 0 開始
+        }
+      },
+      plugins: {
+        title: {
+          display: true,
+          text: '海洋廢棄物分類 - ' + regionName,
+          font: {
+            size: 20  // 設置標題字體大小
+          }
+        },
+        legend: {
+          position: 'bottom',  // 設置圖例位置
+        },
+        annotation: {
+          annotations: [{
+            // 這裡可以設置額外的標註
+          }]
+        }
+      }
+    }
+  });
+}
+
+// Vue 組件掛載時初始化地圖並設置調整地圖大小事件
 onMounted(() => {
   initMap();
   window.addEventListener('resize', resizeMap);
-})
+});
+
+// 調整地圖大小
 function resizeMap() {
   const container = myMap.value;
-  d3.select(container).select('svg').remove();
-  initMap();
+  d3.select(container).select('svg').remove();  // 移除舊的 svg 元素
+  initMap();  // 重新初始化地圖
 }
 
-initMap();
-window.addEventListener('resize', resizeMap);
 
-// // 导航菜单状态
-// const isMenuOpen = ref(false);
-// const isSubmenuOpen = ref(false);
 
-// 导航菜单控制方法
-// const toggleMenu = () => {
-//   isMenuOpen.value = !isMenuOpen.value;
-// };
 
-// const toggleSubmenu = () => {
-//   isSubmenuOpen.value = !isSubmenuOpen.value;
-// };
 
-// 甜甜圈图表数据
-const doughnutData = [
-  { label: '塑膠垃圾', data: 30, color: '#00ADF3' },
-  { label: '捕魚漁網', data: 15, color: '#E7A600' },
-  { label: '漂流木', data: 30, color: '#D35656' }
-];
 
-const doughnutChartCanvas = ref(null);
-const lineChartCanvas = ref(null);
 
-// 折线图表数据
-const months = [
-  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-];
 
-const mixedData = {
-  labels: months,
-  datasets: [
-    {
-      type: 'bar', // 垃圾總量使用柱狀圖
-      label: '海費噸數',
-      data: [23, 18, 25, 19, 20, 21, 22, 19, 18, 17, 16, 15],
-      backgroundColor: '#D35656',
-      borderColor: '#D35656',
-      borderWidth: 1,
-      fill: true
-    },
-    {
-      type: 'line', // 淨灘人數統計使用折線圖
-      label: '淨灘人數統計',
-      data: [30, 25, 28, 22, 24, 23, 26, 21, 20, 19, 18, 17],
-      backgroundColor: 'rgba(255,255,255,0)',
-      borderColor: '#2F80DE',
-      borderWidth: 1,
-      fill: true
-    }
-  ]
-};
 
-const mixedOptions = {
-  scales: {
-    y: {
-      beginAtZero: true,
-      title: {
-        display: true,
-        text: '數量'
-      }
-    },
-    x: {
-      title: {
-        display: true,
-        text: '月份'
-      }
-    }
-  },
-  plugins: {
-    legend: {
-      display: true,
-      position: 'top',
-    },
-  }
-};
 
-// 绘制图表
-onMounted(() => {
-  // 绘制甜甜圈图表
-  const doughnutCtx = doughnutChartCanvas.value.getContext('2d');
-  const doughnutDataNum = doughnutData.map((item) => item.data);
-  const doughnutLabels = doughnutData.map((item) => item.label + ' ' + item.data + '%');
-  const doughnutColors = doughnutData.map((item) => item.color);
 
-  new Chart(doughnutCtx, {
-    type: 'doughnut',
-    data: {
-      labels: doughnutLabels,
-      datasets: [
-        {
-          data: doughnutDataNum,
-          backgroundColor: doughnutColors,
-        }
-      ]
-    },
-    options: {
-      plugins: {
-        legend: {
-          display: false // 隐藏图例标签
-        }
-      }
-    }
-  });
 
-  // 绘制混合图表
-  const lineCtx = lineChartCanvas.value.getContext('2d');
-  new Chart(lineCtx, {
-    type: 'bar', // 预设类型为柱状图，混合图表会根据每个数据集的类型分别渲染
-    data: mixedData,
-    options: mixedOptions
-  });
-});
 
 // 卡片数据
 const cards = Array.from({ length: 16 }, (_, index) => ({
@@ -629,3 +545,83 @@ const closeLightbox = () => {
 };
 
 </script>
+
+<style scoped>
+#scatter-plot {
+  border: 1px solid #ccc;
+  margin-top: 20px;
+}
+</style>
+
+
+<!-- ---------------------------------------------------------------------------------------------------------------- -->
+<!-- <template>
+    <div>
+      <canvas id="bar-chart"></canvas>
+    </div>
+  </template>
+  
+  <script setup>
+  import { ref, onMounted } from 'vue';
+  import Chart from 'chart.js/auto';
+  import wasteData from '../../public/json/海洋委員會公務統計報表-海洋廢棄物清理-113.01.json';
+  
+  // 移除北部地區、中部地區和南部地區的資料
+  const filteredData = wasteData.filter(item => !['北部地區', '中部地區', '南部地區'].includes(item['縣市別']));
+  
+  const data = ref(filteredData);
+  
+  onMounted(() => {
+    drawBarChart(data.value);
+  });
+  
+  function drawBarChart(data) {
+    const labels = data.map(item => item['縣市別']);
+    const cleanTimes = data.map(item => item['清理次數(次)']);
+    const participantCounts = data.map(item => item['參與人數(人次)']);
+    const marineDebris = data.map(item => item['海洋廢棄物來源(噸)_海漂']);
+  
+    const ctx = document.getElementById('bar-chart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: '清理次數(次)',
+          data: cleanTimes,
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }, {
+          label: '參與人數(人次)',
+          data: participantCounts,
+          backgroundColor: 'rgba(255, 159, 64, 0.2)',
+          borderColor: 'rgba(255, 159, 64, 1)',
+          borderWidth: 1
+        }, {
+          label: '海洋廢棄物來源(噸)_海漂',
+          data: marineDebris,
+          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          borderColor: 'rgba(255, 99, 132, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  }
+  </script>
+  
+  <style scoped>
+  #bar-chart {
+    padding: 100px;
+    width: 600px;
+    height: 400px;
+    margin-top: 20px;
+  }
+  </style> -->
