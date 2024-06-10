@@ -32,7 +32,7 @@
         </div>
       </div>
     </section>
-    <!-- ----------------------------------------------------------------全台灣沿海廢棄數據 -->
+    <!-- ---------------------------------------------------------------------------------------全台灣沿海廢棄數據 -->
     <section class="section section-data">
     <div class="container">
       <div>
@@ -46,30 +46,30 @@
           <button @click="ShowAll">全台灣總計</button>
           <div id="map" ref="myMap" style="width: 100%; height: 400px"></div>
         </div>
-        <!-- 海洋廢棄物分類 -->
+    <!-- --------------------------------------------------------------------------------------------垃圾種類 -->
         <div class="col-12 col-md-6">
-          <div class="box" style="height: 300px;width: 100%;">
+          <div class="box" style="height:300px; width:500px;">
             <canvas id="twChart"></canvas>
           </div>
         </div>
-        <!-- 新增的 Canvas 元素 -->
+        <!-- 淨灘人數與次數 -->
         <div class="col-12 col-md-6">
           <div class="box" style="height: 300px;width: 100%;">
-            <canvas id="twChart1"></canvas>
+            <canvas id="attendChart"></canvas>
+          </div>
+        </div>
+        <!-- 垃圾處理分類 -->
+        <div class="col-12 col-md-6">
+          <div class="box" style="height: 300px;width: 100%;">
+            <canvas id="trash"></canvas>
           </div>
         </div>
         <!-- 新增的 Canvas 元素 -->
-        <div class="col-12 col-md-6">
-          <div class="box" style="height: 300px;width: 100%;">
-            <canvas id="twChart2"></canvas>
-          </div>
-        </div>
-        <!-- 新增的 Canvas 元素 -->
-        <div class="col-12 col-md-6">
+        <!-- <div class="col-12 col-md-6">
           <div class="box" style="height: 300px;width: 100%;">
             <canvas id="twChart3"></canvas>
           </div>
-        </div>
+        </div> -->
         <!-- 海水汙染指標 -->
         <div class="col-12 col-md-6">
           <div class="news-filter">
@@ -84,45 +84,6 @@
       </div>
     </div>
   </section>
-    <!-- ----------------------------------------------------------------垃圾種類 -->
-    <section class="section">
-      <div class="container">
-        <div class="row">
-          <div class="flex col-12 col-md-6">
-            <div class="trash-type">
-              <h3>垃圾種類</h3>
-              <div class="piechart">
-                <canvas ref="doughnutChartCanvas"></canvas>
-              </div>
-            </div>
-            <div class="card-type">
-              <div class="p-type">
-                <div class="color-box">
-                  <div class="blue-box"></div>
-                  <p>塑膠垃圾</p>
-                </div>
-                <div class="color-box">
-                  <div class="yellow-box"></div>
-                  <p>捕魚漁網</p>
-                </div>
-                <div class="color-box">
-                  <div class="red-box"></div>
-                  <p>漂流木</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-md-6">
-            <div class="trash-card">
-              <h3>基隆垃圾處理方式</h3>
-              <div>
-                <img src="https://picsum.photos/535/232/?random=10" width="100%">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
     <!-- ----------------------------------------------------------------海廢知識庫 -->
     <section class="section section-knowledge">
       <div class="container">
@@ -204,7 +165,7 @@
             </div>
             <div class="card-content col-12 col-md-3">
               <button>
-                <RouterLink to="/MbtiView">立即前往</RouterLink>
+                <RouterLink to="./MbtiView.vue">立即前往</RouterLink>
               </button>
             </div>
           </div>
@@ -219,20 +180,20 @@
 import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
 import { Chart, registerables } from 'chart.js';
 import jsonData from '../../public/json/海域水質.json';
-import wasteData from '../../public/json/海洋委員會公務統計報表-海洋廢棄物清理-113.01.json';
 import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
 
 // 使用 ref 定義響應式數據變量
 const apiData = ref(null);  // 儲存水質數據
-const wasteDataRef = ref(null);  // 儲存廢棄物數據
 const selectedIndicator = ref('SS');  // 預設選中的指標
 let myChart = null;  // 定義圖表實例
 let twChart = null;  // 定義台灣地區圖表實例
-let twChart1 = null;
-let twChart2 = null;
-let twChart3 = null;
+let attendChart = null;
+let trash = null;
+// let twChart3 = null;
 const myMap = ref(null);  // 地圖容器引用
+
+
 
 // 定義指標描述信息
 const indicatorDescriptions = {
@@ -266,7 +227,6 @@ function setupData() {
   // 將數據按時間排序
   const sortedData = jsonData.sort((a, b) => new Date(b.UPDATE_TIME) - new Date(a.UPDATE_TIME));
   apiData.value = sortedData;  // 設置 API 數據
-  wasteDataRef.value = wasteData;  // 設定海洋廢棄物數據
   setupChart();  // 初始化圖表
 }
 
@@ -297,10 +257,10 @@ function setupChart() {
       datasets: [{
         label: indicators.find(item => item.value === selectedIndicator.value).label,  // 設置數據集標籤
         data: indicatorValues,  // 設置數據集數據
-        backgroundColor: 'blue',  // 設置背景顏色
-        borderColor: 'blue',  // 設置邊框顏色
+        backgroundColor: '#00AFB9',  // 設置背景顏色
+        borderColor: '#00AFB9',  // 設置邊框顏色
         borderWidth: 1,  // 設置邊框寬度
-        pointBackgroundColor: 'blue',  // 設置數據點背景顏色
+        pointBackgroundColor: '#40916C',  // 設置數據點背景顏色
         pointBorderColor: '#fff',  // 設置數據點邊框顏色
         pointHoverBackgroundColor: '#fff',  // 設置數據點懸停背景顏色
       }]
@@ -345,7 +305,7 @@ function changeIndicator(event) {
   selectedIndicator.value = event.target.value;  // 更新選中指標
   setupChart();  // 重新設置圖表
 }
-
+// ---------------------------------------------------------------------------------------------------------------------地圖
 let svg;
 
 // 組件卸載前移除事件監聽器
@@ -357,7 +317,7 @@ onBeforeUnmount(() => {
 async function initMap() {
   const container = myMap.value;
 
-  const width = container.clientWidth;  // 獲取容器寬度
+  const width = container.clientWidth;  // 獲取容器寬度 父層的content+padding
   const height = container.clientHeight;  // 獲取容器高度
 
   svg = d3.select(container)
@@ -386,14 +346,26 @@ async function initMap() {
       // 重置所有路徑的顏色
       svg.selectAll('path').attr('fill', '#E7A600');
       // 改變選中路徑的顏色
-      d3.select(this).attr('fill', 'blue');
+      d3.select(this).attr('fill', '#48BFE3');
       
       // 根據選中地區更新圖表數據
       const regionName = d.properties.COUNTYNAME;
       updateChartForRegion(regionName);
     });
 }
+// Vue 組件掛載時初始化地圖並設置調整地圖大小事件
+onMounted(() => {
+  initMap();
+  window.addEventListener('resize', resizeMap);
+});
 
+// 調整地圖大小
+function resizeMap() {
+  const container = myMap.value;
+  d3.select(container).select('svg').remove();  // 移除舊的 svg 元素
+  initMap();  // 重新初始化地圖
+}
+//------------------------------------------------------------------------------------------------------------------------垃圾數據
 // 顯示全台灣總計數據
 const ShowAll = function (){
   const regionName = '總計';
@@ -424,9 +396,31 @@ const hebrisLabels = [
   "廢紙",
   "竹木",
   "保麗龍",
-  "廢漁具漁網",
+  "漁網、釣具...等",
   "無法分類廢棄物",
 ];
+
+// 定義垃圾分類標籤
+const hebrisAttendLabels = [
+  "清理次數(次)",
+  "參與人數(人次)",
+];
+
+// 定義垃圾處理方式標籤
+const hebristrashLabels = [
+  "清理後處理方式(噸)_焚化",
+  "清理後處理方式(噸)_掩埋",
+  "清理後處理方式(噸)_回收再利用",
+];
+
+// 定義垃圾處理名稱
+const hebristrash = [
+  "焚化(噸)",
+  "掩埋(噸)",
+  "回收再利用(噸)",
+];
+
+
 
 // 組件掛載時加載垃圾數據
 onMounted(() => {
@@ -434,6 +428,7 @@ onMounted(() => {
     .then(res => res.json())
     .then(jsonData => {
       hebrisData.value = jsonData;
+      console.log(hebrisData.value);
     });
 });
 
@@ -443,11 +438,9 @@ watch(hebrisData, () => {
     ShowAll();
   }
 });
-
 // 更新圖表數據根據選中地區
 function updateChartForRegion(regionName) {
   const filteredData = hebrisData.value.find(item => item["縣市別"] === regionName);
-  console.log(filteredData);
   const displayData = hebrisSortLabels.map(key => filteredData[key]);
 
   if (twChart) {
@@ -463,20 +456,22 @@ function updateChartForRegion(regionName) {
         label: "噸數",
         data: displayData,  // 設置圖表數據
         backgroundColor: [
-          '#D60000', '#F46300', '#0358B6', '#44DE28',
-          '#8B008B', '#FF8C00', '#008B8B', '#B8860B',
-          '#006400', '#A9A9A9', '#BDB76B', '#8B008B'
+          '#00AFB9', '#5390D9', '#48BFE3', '#64DFDF',
+          '#008F66', '#4D908E', '#B7E4C7', '#74C69D',
+          '#40916C', '#1B4332', '#081C15', '#00AFB9'
         ],
-        borderColor: 'rgba(255, 99, 132, 1)',
+        borderColor: 'white',
         borderWidth: 1
       }]
     },
     options: {
       scales: {
         y: {
-          beginAtZero: true  // 設置 y 軸從 0 開始
+          display: false,
         }
       },
+      maintainAspectRatio: false, // 關閉自動調整長寬比
+      aspectRatio: 2, // 設定長寬比為 2:1
       plugins: {
         title: {
           display: true,
@@ -486,30 +481,156 @@ function updateChartForRegion(regionName) {
           }
         },
         legend: {
-          position: 'bottom',  // 設置圖例位置
+          position: 'right',  // 設置圖例位置
+          labels: {
+          boxWidth: 10,
+          font: {
+            size: 12 // 设置图例文字的字体大小
+          }
+        }
         },
         annotation: {
           annotations: [{
             // 這裡可以設置額外的標註
           }]
+        },
+      }
+    }
+  });
+
+
+// -----------------------------------------------------------------------------------------淨灘人數與次數
+
+  const displayAttendData = hebrisAttendLabels.map(key => {
+    const value = filteredData[key];
+    if (typeof value === 'string') {
+      // 移除逗號並轉換為數值
+      return Number(value.replace(/,/g, ''));
+    }
+    return value;
+  });
+
+  if (attendChart) {
+    attendChart.destroy();
+  }
+
+  const ctx1 = document.getElementById('attendChart');
+  attendChart = new Chart(ctx1, {
+    type: 'doughnut',  // 設置圖表類型為甜甜圈圖
+    data: {
+      labels: hebrisAttendLabels,  // 設置圖表標籤
+      datasets: [{
+        data: displayAttendData,  // 設置圖表數據
+        backgroundColor: [
+          '#00AFB9', '#5390D9'
+        ],
+        borderColor: 'white',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          display: false,
         }
+      },
+      maintainAspectRatio: false, // 關閉自動調整長寬比
+      aspectRatio: 2.5, // 設定長寬比為 2:1
+      plugins: {
+        title: {
+          display: true,
+          text: '淨灘各縣市人數與次數 - ' + regionName,
+          font: {
+            size: 20  // 設置標題字體大小
+          }
+        },
+        legend: {
+          position: 'right',  // 設置圖例位置
+          labels: {
+          boxWidth: 10,
+          font: {
+            size: 12 // 设置图例文字的字体大小
+          }
+        }
+        },
+        annotation: {
+          annotations: [{
+            // 這裡可以設置額外的標註
+          }]
+        },
+      }
+    }
+  });
+
+
+
+
+// -----------------------------------------------------------------------------------------垃圾處理方式
+  const displaytrashdData = hebristrashLabels.map(key => {
+    const value = filteredData[key];
+    if (typeof value === 'string') {
+      // 移除逗號並轉換為數值
+      return Number(value.replace(/,/g, ''));
+    }
+    return value;
+  });
+  if (trash) {
+    trash.destroy();
+  }
+  const ctx2 = document.getElementById('trash');
+  trash = new Chart(ctx2, {
+    type: 'doughnut',  // 設置圖表類型為甜甜圈圖
+    data: {
+      labels: hebristrash,  // 設置圖表標籤
+      datasets: [{
+        data: displaytrashdData,  // 設置圖表數據
+        backgroundColor: [
+          '#00AFB9', '#5390D9', '#48BFE3', '#64DFDF',
+        ],
+        borderColor: 'white',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          display: false,
+        }
+      },
+      maintainAspectRatio: false, // 關閉自動調整長寬比
+      aspectRatio: 2.5, // 設定長寬比為 2.5:1
+      plugins: {
+        title: {
+          display: true,
+          text: '垃圾處理方法 - ' + regionName,
+          font: {
+            size: 20  // 設置標題字體大小
+          }
+        },
+        legend: {
+          position: 'right',  // 設置圖例位置
+          labels: {
+          boxWidth: 10,
+          font: {
+            size: 12 // 设置图例文字的字体大小
+          }
+        }
+        },
+        annotation: {
+          annotations: [{
+            // 這裡可以設置額外的標註
+          }]
+        },
       }
     }
   });
 }
 
-// Vue 組件掛載時初始化地圖並設置調整地圖大小事件
-onMounted(() => {
-  initMap();
-  window.addEventListener('resize', resizeMap);
-});
 
-// 調整地圖大小
-function resizeMap() {
-  const container = myMap.value;
-  d3.select(container).select('svg').remove();  // 移除舊的 svg 元素
-  initMap();  // 重新初始化地圖
-}
+
+//------------------------------------------------------------------------------------------------------------------------垃圾數據
+
+// 更新圖表數據根據選中地區
 
 
 
@@ -519,11 +640,7 @@ function resizeMap() {
 
 
 
-
-
-
-
-// 卡片数据
+//------------------------------------------------------------------------------------------------------ 卡片數據
 const cards = Array.from({ length: 16 }, (_, index) => ({
   id: index + 1,
   imgSrc: `https://picsum.photos/300/150/?random=${index + 1}`,
