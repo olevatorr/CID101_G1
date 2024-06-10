@@ -24,3 +24,20 @@ import HomeFeedback from '@/components/Home/HomeFeedback.vue'
     <HomeFeedback/>
   </main>
 </template>
+
+
+<!-- <script>
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://iocean.oca.gov.tw',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
+  },
+});
+</script> -->
