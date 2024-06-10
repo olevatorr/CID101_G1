@@ -86,10 +86,10 @@ function formatNumber(value) {
 const mapContainer = ref(null)
 
 const counties = {
-    北部地區: ['台北縣', '桃園縣', '宜蘭縣', '新竹縣', '基隆市', '新竹市'],
-    中部地區: ['台中縣', '台中市', '苗栗縣', '彰化縣', '雲林縣'],
-    南部地區: ['嘉義縣', '台南縣', '台南市', '高雄縣', '高雄市', '屏東縣'],
-    東部地區: ['台東縣', '花蓮縣'],
+    北部地區: ['新北市', '桃園市', '宜蘭縣', '新竹縣', '基隆市', '新竹市'],
+    中部地區: ['臺中市', '苗栗縣', '彰化縣', '雲林縣'],
+    南部地區: ['嘉義縣', '臺南市', '高雄市', '屏東縣'],
+    東部地區: ['臺東縣', '花蓮縣'],
     離島地區: ['澎湖縣', '金門縣', '連江縣']
 }
 
@@ -115,8 +115,8 @@ async function initMap() {
 
     path = d3.geoPath().projection(projection)
 
-    const topoData = await d3.json('../../public/localjson/map/twCounty2010.topo.json')
-    const geoData = topojson.feature(topoData, topoData.objects.layer1)
+    const topoData = await d3.json('../../public/localjson/map/COUNTY_tw.topo.json')
+    const geoData = topojson.feature(topoData, topoData.objects.COUNTY_MOI_1090820)
 
     svg.selectAll('path')
         .data(geoData.features)
