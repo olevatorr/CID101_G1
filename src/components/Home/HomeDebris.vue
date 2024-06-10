@@ -4,7 +4,6 @@ import * as topojson from 'topojson-client'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ref, onMounted, onBeforeUnmount, watch, computed } from 'vue'
-import anime from 'animejs'
 
 // 卷軸動畫
 gsap.registerPlugin(ScrollTrigger)
@@ -25,12 +24,12 @@ onMounted(() => {
 
 // 篩選對照
 const hebrisSort = [
-    { id: 1, area: '總計', selectArea: '全台灣' },
-    { id: 2, area: '北部地區', selectArea: '北部地區' },
-    { id: 3, area: '中部地區', selectArea: '中部地區' },
-    { id: 4, area: '南部地區', selectArea: '南部地區' },
-    { id: 5, area: '東部地區', selectArea: '東部地區' },
-    { id: 6, area: '離島地區', selectArea: '離島地區' }
+    { area: '總計', selectArea: '全台灣' },
+    { area: '北部地區', selectArea: '北部地區' },
+    { area: '中部地區', selectArea: '中部地區' },
+    { area: '南部地區', selectArea: '南部地區' },
+    { area: '東部地區', selectArea: '東部地區' },
+    { area: '離島地區', selectArea: '離島地區' }
 ]
 
 const hebrisData = ref(null)
@@ -54,34 +53,33 @@ const filteredData = computed(() => {
     return {}
 })
 watch(filteredData, () => {
-    const weightValue = parseFloat(filteredData.value['清理數量分類(噸)_總計'] || '0')
-    const participantsValue = parseFloat(removeCommas(filteredData.value['參與人數(人次)'] || '0'))
-    const sessionsValue = parseFloat(removeCommas(filteredData.value['清理次數(次)'] || '0'))
+    const weightValue = filteredData.value['清理數量分類(噸)_總計'] || '0';
+    const participantsValue = removeCommas(filteredData.value['參與人數(人次)'] || '0');
+    const sessionsValue = removeCommas(filteredData.value['清理次數(次)'] || '0');
 
-    animateNumber(totalWeight.value, weightValue)
-    animateNumber(totalParticipants.value, participantsValue)
-    animateNumber(totalSessions.value, sessionsValue)
-})
+    animateNumber(totalWeight.value, weightValue);
+    animateNumber(totalParticipants.value, participantsValue);
+    animateNumber(totalSessions.value, sessionsValue);
+});
 
 function animateNumber(element, targetValue) {
-    anime({
-        targets: element,
-        textContent: [0, targetValue],
-        duration: 1000,
-        round: 1,
-        easing: 'easeOutQuad',
-        update: function () {
-            element.innerHTML = formatNumber(element.textContent)
-        }
-    })
+    gsap.to(element, {
+        textContent: targetValue,
+        duration: 1,
+        ease: 'power2.out',
+        snap: { textContent: 1 },
+        onUpdate: function () {
+            element.innerHTML = formatNumber(element.textContent);
+        },
+    });
 }
 
 function removeCommas(value) {
-    return value.replace(/,/g, '')
+    return value.replace(/,/g, '');
 }
 
 function formatNumber(value) {
-    return parseFloat(value).toLocaleString()
+    return parseFloat(value).toLocaleString();
 }
 
 // D3 地圖
@@ -163,8 +161,8 @@ function updateMapColor(area) {
                     return '#E7A600'
                 } else {
                     return '#005FA1'
-            }
-        })
+                }
+            })
     }
 }
 

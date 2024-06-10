@@ -58,4 +58,5 @@ onMounted(() => {
             <img src="../../../public/img/index/trash-right.png" alt="">
         </div>
     </section>
+
 </template>

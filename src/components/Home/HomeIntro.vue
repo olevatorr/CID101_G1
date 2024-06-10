@@ -7,6 +7,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 const intro = ref(null)
 const introTitle = ref(null)
 const introContent = ref(null)
+const gotop = ref(null)
+
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -23,7 +25,26 @@ onMounted(() => {
         .fromTo(introTitle.value, { x: '-30%' }, { x: '0%', duration: 1 }, 0)
         .fromTo(introContent.value, { opacity: 0 }, { opacity: 1, duration: 1 }, 0)
         .fromTo(introContent.value, { x: '-30%' }, { x: '0%', duration: 1 }, 0)
+
+    const tl2 = gsap.timeline({
+        scrollTrigger: {
+            trigger: intro.value,
+            start: 'bottom bottom',
+            end: '0',
+            scrub: 1,
+        }
+    })
+    tl2.fromTo(gotop.value, { opacity: 0 }, { opacity: 1, duration: 1 }, 0)
+        .fromTo(gotop.value, { y: '-30%' }, { x: '0%', duration: 1 }, 0)
 })
+
+const scrollToTop = () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    })
+}
+
 </script>
 <template>
     <section class="section section-intro" ref="intro">
@@ -40,4 +61,8 @@ onMounted(() => {
             </p>
         </div>
     </section>
+    <div class="gotop" ref="gotop" @click="scrollToTop">
+        <i class="fa-solid fa-chevron-up"></i>
+        <span>TOP</span>
+    </div>
 </template>
