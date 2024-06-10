@@ -39,7 +39,7 @@
                         <div class="col-4">
                             <div class="character-item" @click="choseBird">
                                 <div class="character-pic">
-                                    <img src="../../public/img/beachgame/sea-bird.png" alt="">
+                                    <img src="../../public/img/beachgame/sea-bird.png" alt="海鷗鷗">
                                 </div>
                                 <div class="character-name">
                                     <h3>海鷗鷗</h3>
@@ -49,7 +49,7 @@
                         <div class="col-4">
                             <div class="character-item" @click="choseTurtle">
                                 <div class="character-pic">
-                                    <img src="../../public/img/beachgame/sea-turtle.png" alt="">
+                                    <img src="../../public/img/beachgame/sea-turtle.png" alt="龜吉">
                                 </div>
                                 <div class="character-name">
                                     <h3>龜吉</h3>
@@ -59,7 +59,7 @@
                         <div class="col-4">
                             <div class="character-item" @click="choseShark">
                                 <div class="character-pic">
-                                    <img src="../../public/img/beachgame/shark.png" alt="">
+                                    <img src="../../public/img/beachgame/shark.png" alt="胖鯊">
                                 </div>
                                 <div class="character-name">
                                     <h3>胖莎</h3>
@@ -75,13 +75,13 @@
                     <h2 class="ori">淨灘去</h2>
                     <div class="character-oneset">
                         <div v-if="showBirdimage" class="character-oneset-pic">
-                            <img src="../../public/img/beachgame/sea-bird.png" alt="">
+                            <img src="../../public/img/beachgame/sea-bird.png" alt="海鷗鷗">
                         </div>
                         <div v-if="showTurtleimage" class="character-oneset-pic">
-                            <img src="../../public/img/beachgame/sea-turtle.png" alt="">
+                            <img src="../../public/img/beachgame/sea-turtle.png" alt="龜吉">
                         </div>
                         <div v-if="showShark" class="character-oneset-pic">
-                            <img src="../../public/img/beachgame/shark.jpg" alt="">
+                            <img src="../../public/img/beachgame/shark.png" alt="胖鯊">
                         </div>
                         <div v-if="showBirdimage" class="character-name">
                             <h3>海鷗鷗</h3>
@@ -96,66 +96,47 @@
                     <button @click="finishCharacter">START</button>
                 </div>
                 <!-- 選擇工具 -->
-                <!-- <div class="trash-lightbox">
-                    <h2 class="trash-title">橡膠拖鞋</h2>
+                <!-- 垃圾點選後的彈窗 -->
+                <div v-if="selectedTrash" class="trash-lightbox">
+                    <h2 class="trash-title">{{ selectedTrash.name }}</h2>
                     <div class="trash-pic">
-                        <img src="../../public/img/beachgame/slippers.png" alt="">
+                        <img :src="selectedTrash.image" :alt="selectedTrash.name">
                     </div>
                     <div class="trash-text">
-                        <p>不當棄置 許多人使用後直接將舊的橡膠拖鞋隨意丟棄,
-                            它們可能被沖入水流、排水系統,最終流入河川或海洋。</p>
+                        <p>{{ selectedTrash.description }}</p>
                     </div>
-                    <button>選擇淨灘工具</button>
-                </div> -->
+                    <button @click="showSlidePage">選擇淨灘工具</button>
+                </div>
                 <!-- 滑入頁面 -->
-                <!-- <div class="slide-page">
-                    <h3>挑選工具</h3>
-                    <div class="row tool-list">
-                        <div class="col-4">
-                            <div class="tool-item">
-                                <div class="tool-pic">
-                                    <img src="../../public/img/beachgame/clamp.jpg" alt="">
-                                </div>
-                                <div class="tool-name">
-                                    <h3>鐵夾子</h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="tool-item">
-                                <div class="tool-pic">
-                                    <img src="../../public/img/beachgame/gloves.jpg" alt="">
-                                </div>
-                                <div class="tool-name">
-                                    <h3>手套</h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="tool-item">
-                                <div class="tool-pic">
-                                    <img src="../../public/img/beachgame/hat.jpg" alt="">
-                                </div>
-                                <div class="tool-name">
-                                    <h3>防曬帽</h3>
+                <!-- v-if是否顯示，條件為 true 或 false 時才渲染 -->
+                <!-- <transition> 组件可實現滑入動畫 -->
+                <transition name="slide-up">
+                    <div v-if="slidePage" class="slide-tool-page">
+                        <h3>挑選工具</h3>
+                        <div class="row tool-list">
+                            <div class="col-4" v-for="tool in tools" :key="tool.name">
+                                <div class="tool-item">
+                                    <div class="tool-pic">
+                                        <img :src="tool.image" alt="tool.name">
+                                    </div>
+                                    <div class="tool-name">
+                                        <h3>{{ tool.name }}</h3>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <button>確定工具</button>
-                </div> -->
+                </transition>
                 <!-- 撿取成功 -->
                 <!-- <div class="col success-lightbox">
                     <h2 class="ori">撿取垃圾成功</h2>
                     <div class="success-content">
                         <div class="success-pic">
-                            <img src="../../public/img/beachgame/shark.jpg" alt="">
+                            <img src="../../public/img/beachgame/shark.png" alt="胖鯊">
                         </div>
                         <div class="success-text">
                             <p class="b">吃很多的鯊魚小姐</p>
-                            <p>終於可以在乾淨的海水裡生活了， 每次從海邊
-                                漂來奇怪的東西，都很容易受傷。
-                            </p>
+                            <p>終於可以在乾淨的海水裡生活了， 每次從海邊漂來奇怪的東西，都很容易受傷。</p>
                         </div>
                     </div>
                     <button>繼續淨灘</button>
@@ -165,7 +146,7 @@
                     <h2 class="ori">撿取垃圾失敗</h2>
                     <div class="fail-content">
                         <div class="fail-pic">
-                            <img src="../../public/img/beachgame/fail.jpg" alt="">
+                            <img src="../../public/img/beachgame/fail.jpg" alt="失敗">
                         </div>
                         <div class="fail-text">
                             <p>淨灘也存在危險性，記得選擇適合的工具
@@ -195,21 +176,33 @@
                         <button>
                             <RouterLink to="/Beachgame">重新挑戰</RouterLink>
                         </button>
-                        <button>
-                            <RouterLink to="/MbtiView">海廢小知識</RouterLink>
-                        </button>
+                        <RouterLink to="/Mbti">
+                            <button>
+                                海廢小知識
+                            </button>
+                        </RouterLink>
                         <button>
                             <RouterLink to="/">回首頁</RouterLink>
                         </button>
                     </div>
                 </div> -->
             </div>
+            <!-- 隨機垃圾分佈 -->
+            <!-- selectedTrash為null時，顯示視窗，被設置時隱藏視窗 -->
+            <div v-if="!selectedTrash" class="trash-container" :class="{ '-viewShow': showTrashContainer }">
+                <div class="trash-pic" v-for="(image, index) in trashImage" :key="index"
+                    @click="handleTrashClick(index)">
+                    <img :src="image" alt="">
+                </div>
+            </div>
         </section>
     </main>
 </template>
 
 <script>
+
 export default {
+
     data() {
         return {
             beachgameText: false,
@@ -227,12 +220,74 @@ export default {
             characterCheck: false,
             // 選好的角色圖要消失
             characterOk: false,
+            // 控制垃圾圖片顯示
+            showTrashContainer: false,
+            trashImage: [
+                "../../public/img/beachgame/trash01.png",
+                "../../public/img/beachgame/trash02.png",
+                "../../public/img/beachgame/trash03.png",
+                "../../public/img/beachgame/trash04.png",
+                "../../public/img/beachgame/trash05.png"
+            ],
+
+            // 垃圾點選後出現的視窗
             // trashLightbox: false,
-            // slidePage: false,
+            selectedTrash: null,
+            choseTrash: [
+                {
+                    id: 1,
+                    name: '橡膠拖鞋',
+                    image: '../../public/img/beachgame/trash01.png',
+                    description: '不當棄置 許多人使用後直接將舊的橡膠拖鞋隨意丟棄,它們可能被沖入水流、排水系統,最終流入河川或海洋。',
+                },
+                {
+                    id: 2,
+                    name: '輪胎',
+                    image: '../../public/img/beachgame/trash02.png',
+                    description: '廢棄輪胎會釋放有害化學物質，對海洋生物構成威脅，並且難以分解，移除廢棄輪胎，有助於保護海洋生態。',
+                },
+                {
+                    id: 3,
+                    name: '吸管',
+                    image: '../../public/img/beachgame/trash03.png',
+                    description: '塑膠吸管是海洋垃圾的常見組成部分，會對海洋生物造成窒息危險,撿起塑膠吸管，減少海洋污染。',
+                },
+                {
+                    id: 4,
+                    name: '塑膠袋',
+                    image: '../../public/img/beachgame/trash04.png',
+                    description: '塑膠袋被視為海洋中最危險的污染物之一,它們會被海洋生物誤食,造成消化道阻塞和飢餓，塑膠袋雖然看起來很小,但對海洋生物的危害卻很大,一定要小心清理。',
+                },
+                {
+                    id: 5,
+                    name: '漁網',
+                    image: '../../public/img/beachgame/trash05.png',
+                    description: '遺棄的漁網會繼續捕獲海洋生物，並且對海底環境造成破壞，清理遺棄漁網，有助於保護海洋生物。',
+                }
+            ],
+            // 顯示工具選擇頁面
+            slidePage: false,
+            tools: [
+                {
+                    name: '鐵夾子',
+                    image: '../../public/img/beachgame/clamp.jpg',
+                },
+                {
+                    name: '手套',
+                    image: '../../public/img/beachgame/gloves.jpg',
+                },
+                {
+                    name: '防曬帽',
+                    image: '../../public/img/beachgame/hat.jpg'
+                }
+            ],
             // successLightbox: false,
             // failLightbox: false,
             // finishLightbox: false,
         }
+    },
+    // 隨機垃圾渲染
+    mounted() {
     },
     methods: {
         showRules() {
@@ -272,16 +327,26 @@ export default {
         },
         finishCharacter() {
             this.characterOk = true;
+            this.shuffleImages();//隨機排列圖片
+            this.showTrashContainer = true; // 顯示垃圾圖片容器
+
+        },
+        shuffleImages() {
+            this.trashImage = this.trashImage.sort(() => Math.random() - 0.5);
+        },
+
+        // 點選垃圾圖片
+        handleTrashClick(index) {
+            this.selectedTrash = this.choseTrash[index];
+        },
+        showSlidePage() {
+            console.log(124);
+            this.slidePage = true;
         }
 
-
-
-
-
-    }
-
-
+    },
 }
+
 </script>
 
 <!--<script>
