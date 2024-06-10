@@ -160,6 +160,7 @@
                 }
             }
         }
+    
         // 選擇工具
         .trash-lightbox {
             color: #fff;
@@ -177,8 +178,7 @@
                 position: relative;
                 overflow: hidden;
                 img {
-                    text-align: center;
-                    width: 120px;
+                    width: 100%;
                     position: absolute;
                     top: 50%;
                     left: 50%;
@@ -190,7 +190,9 @@
             }
         }
         // 選取工具滑入頁面
-        .slide-page {
+        .slide-tool-page {
+            transform: translateY(0);
+            width: 100%;
             color: #fff;
             box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
             border-radius: 20px;
@@ -214,6 +216,17 @@
                 }
             }
         }
+
+        //vue過渡期間自動生成類名 enter-active、leave-active
+        .slide-up-enter-active, .slide-up-leave-active {
+            transition: transform 1s ease;
+          }
+          .slide-up-leave-active {
+            transition: transform 1s ease;
+          }
+          .slide-up-enter, .slide-up-leave-to {
+            transform: translateY(100%);
+          }
         // 撿取成功
         .success-lightbox {
             color: #fff;
@@ -316,4 +329,25 @@
             }
         }
     }
+    .trash-container{
+        width:80%;
+        display:none;
+        &.-viewShow{
+            display: flex;
+        }
+        .trash-pic{
+            &:hover{
+                background-color:#fff;
+                border:4px solid #333;
+                border-radius:50%;
+                transform: scale(1.5);
+            }
+            img{
+                width: 100%;
+                
+            }
+        }
+    }
 }
+
+
