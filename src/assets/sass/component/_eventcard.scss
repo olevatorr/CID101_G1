@@ -1,5 +1,7 @@
-
 //卡片(共用)
+@import '../mixin/evenHover.scss';
+@import '../mixin/fixedSize.scss';
+
 .event-card {
   display: flex;
   flex-direction: column;
@@ -9,28 +11,9 @@
   background-color: $color-white;
   text-align: left;
   box-shadow: 2px 2px 10px $color-border;
-  &:hover {
-    background-color: $color-subprimary;
-    transition: .5s ease;
-    color: $color-white;
+  box-sizing: border-box;
+  .fa-regular{
     cursor: pointer;
-    .text .theme .event-name h3{
-      color: $color-white;
-    }
-    .addnew i,
-    h3 {
-      color: $color-white;
-    }
-    .text .Thoughts a {
-      color: $color-white ;
-    }
-    .pic{
-      overflow: hidden;
-      img{
-        transform: scale(1.5) rotate(-5deg);
-        transition: .5s ease;
-      }
-    }
   }
   .text {
     width: 100%;
@@ -60,6 +43,7 @@
         position: absolute;
         top: 5%;
         right: 0;
+        cursor: pointer;
         @keyframes shack {
           0%{transform: translateX(0);}
           25%{transform: translateX(-10%);}
@@ -72,11 +56,44 @@
         }
       }
     }
+    .Thoughts {
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      flex-grow: 1;
+
+      a {
+          margin-top: 10px;
+          display: flex;
+          flex-grow: 1;
+          justify-content: start;
+          align-items: end;
+          text-decoration: none;
+          font-size: 1.5rem;
+          color: #000;
+      }
+    }
     span{
       font-size: 1.75rem;
       display: block;
       margin: 10px 0;
+      letter-spacing: .08em;
       line-height: 1.2;
+      @media screen and (max-width:992px) {
+      font-size: 1.55rem;
+      letter-spacing: .06em;
+      line-height: 1;
+      }
+      @media screen and (max-width:768px) {
+      font-size: 1.35rem;
+      letter-spacing: .04em;
+      line-height: .8;
+      }
+      // @media screen and (max-width:576px) {
+      // font-size: 1.15rem;
+      // letter-spacing: .02em;
+      // line-height: .6;
+      // }
       &:last-of-type{
         margin: 0;
         line-height: 2;
@@ -105,13 +122,8 @@
     }
   }
   .pic {
-    width: 100%;
-    img {
-      width: 100%;
-      vertical-align: top;
-    }
+    @include fixed-size-image(200px);
   }
-
   .addnew {
     display: flex;
     justify-content: space-between;
@@ -126,6 +138,45 @@
     i {
       font-size: 2rem;
       color: $color-primary;
+    }
+  }
+  .fa-regular {
+    display: inline-block;
+  color: $color-white;
+  font-size: 3rem;
+  position: absolute;
+  top: 4%;
+  right: 4%;
+  z-index: 1;
+  // @keyframes rotate360 {
+  //   0%{transform: rotateY(0deg);}
+  //   50%{transform: rotateY(180deg);}
+  //   100%{transform: rotateY(360deg);}
+  // }
+  &:hover{
+    color: $color-highlight;
+    // animation: rotate360 1s ease;
+  }
+  }
+}
+.section-event-share .event-card,.section-event-list .event-card{
+    @include hover-effect(true);
+}
+.section-detailed .event-card{
+    @include hover-effect(false);
+}
+.section-detailed {
+  .col-12{
+    .event-card{
+      position: absolute;
+      top: 350%;
+      left: 20%;
+      width: 60%;
+      height: auto;
+      z-index: 200;
+      .pic{
+        @include fixed-size-image(100%);
+      }
     }
   }
 }
