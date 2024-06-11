@@ -189,6 +189,7 @@
             </div>
             <!-- 隨機垃圾分佈 -->
             <!-- selectedTrash為null時，顯示視窗，被設置時隱藏視窗 -->
+            <!-- v-for綁唯一值，有刪除絕對不能用會影響索引值 -->
             <div v-if="!selectedTrash" class="trash-container" :class="{ '-viewShow': showTrashContainer }">
                 <div class="trash-pic" v-for="(image, index) in trashImage" :key="index"
                     @click="handleTrashClick(index)">
