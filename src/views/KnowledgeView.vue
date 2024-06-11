@@ -42,25 +42,25 @@
           <!-- 台灣地圖 -->
         <div class="col-12 col-md-6">
           <button @click="ShowAll">全台灣總計</button>
-          <div id="map" ref="myMap" style="width: 100%; height: 400px"></div>
+          <div id="map" ref="myMap" style="width: 100%; height: 500px"></div>
         </div>
-    <!-- --------------------------------------------------------------------------------------------垃圾種類 -->
+            <!-- 垃圾種類 -->
         <div class="col-12 col-md-6">
-          <div class="row" style="height: 100%">
+          <div class="row" style="width: 50%;">
             <div class="col-12">
-              <div class="box" style="width: 100%; height: 100%;">
+              <div class="box" style="width: 100%;">
                 <canvas id="twChart"></canvas>
               </div>
             </div>
             <!-- 淨灘人數與次數 -->
             <div class="col-12">
-              <div class="box" style="width: 100%;height: 100%;">
+              <div class="box">
                 <canvas id="attendChart"></canvas>
               </div>
             </div>
             <!-- 垃圾處理分類 -->
             <div class="col-12">
-              <div class="box" style="width: 100%;height: 100%;">
+              <div class="box">
                 <canvas id="trash"></canvas>
               </div>
             </div>
@@ -199,17 +199,17 @@ const myMap = ref(null);  // 地圖容器引用
 
 
 // 定義指標描述信息
-const indicatorDescriptions = {
-  SS: {
-    ranges: [
-      { level: '正常', value: '< 10 mg/L' },
-      { level: '輕度污染', value: '10 - 20 mg/L' },
-      { level: '中度污染', value: '20 - 50 mg/L' },
-      { level: '重度污染', value: '> 50 mg/L' },
-    ],
-  },
-  // 其他指標省略...
-};
+// const indicatorDescriptions = {
+//   SS: {
+//     ranges: [
+//       { level: '正常', value: '< 10 mg/L' },
+//       { level: '輕度污染', value: '10 - 20 mg/L' },
+//       { level: '中度污染', value: '20 - 50 mg/L' },
+//       { level: '重度污染', value: '> 50 mg/L' },
+//     ],
+//   },
+//   // 其他指標省略...
+// };
 
 // 定義指標選項
 const indicators = [
@@ -474,7 +474,7 @@ function updateChartForRegion(regionName) {
         }
       },
       maintainAspectRatio: false, // 關閉自動調整長寬比
-      aspectRatio: 3, // 設定長寬比為 2:1
+      aspectRatio: 1, // 設定長寬比為 2:1
       plugins: {
         title: {
           display: true,
@@ -484,23 +484,19 @@ function updateChartForRegion(regionName) {
           }
         },
         legend: {
-          position: 'left',  // 設置圖例位置
-          // maxWidth:30,
-          align: 'end',
+          position: 'right',  // 設置圖例位置
+          // align: 'end',
           // fullSize: false,
           labels: {
             usePointStyle: true,
-            // padding: 15,
-            // boxWidth: 10,
             font: {
             size: 12 // 设置图例文字的字体大小
             }
           }
         },
-        annotation: {
-          annotations: [{
-            // 這裡可以設置額外的標註
-          }]
+        animation: {
+          animateRotate: true,
+          duration: 2000
         },
       }
     }
@@ -543,7 +539,7 @@ function updateChartForRegion(regionName) {
         }
       },
       maintainAspectRatio: false, // 關閉自動調整長寬比
-      aspectRatio: 3, // 設定長寬比為 2:1
+      aspectRatio: 1, // 設定長寬比為 2:1
       plugins: {
         title: {
           display: true,
@@ -561,10 +557,9 @@ function updateChartForRegion(regionName) {
           }
         }
         },
-        annotation: {
-          annotations: [{
-            // 這裡可以設置額外的標註
-          }]
+        animation: {
+          animateRotate: true,
+          duration: 2000
         },
       }
     }
@@ -606,7 +601,7 @@ function updateChartForRegion(regionName) {
         }
       },
       maintainAspectRatio: false, // 關閉自動調整長寬比
-      aspectRatio: 3, // 設定長寬比為 2:1
+      aspectRatio: 1, // 設定長寬比為 2:1
       plugins: {
         title: {
           display: true,
@@ -620,14 +615,13 @@ function updateChartForRegion(regionName) {
           labels: {
           boxWidth: 10,
           font: {
-            size: 12 // 设置图例文字的字体大小
+            size: 12 // 設置圖形文字大小
           }
         }
         },
-        annotation: {
-          annotations: [{
-            // 這裡可以設置額外的標註
-          }]
+        animation: {
+          animateRotate: true,
+          duration: 2000
         },
       }
     }
