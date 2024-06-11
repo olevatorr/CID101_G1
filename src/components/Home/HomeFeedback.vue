@@ -1,7 +1,6 @@
 <script setup>
 
 </script>
-
 <template>
     <section class="section section-index-event-feedback">
         <div class="container">

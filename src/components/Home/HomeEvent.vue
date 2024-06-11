@@ -39,7 +39,6 @@ const eventList = [
     }
 ]
 </script>
-
 <template>
     <section class="section section-index-event">
         <div class="container">

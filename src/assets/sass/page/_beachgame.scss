@@ -1,5 +1,7 @@
 // 遊戲進入頁面
+
 .section-beachgame {
+    // box-sizing: border-box;
     width: 100%;
     height: 100vh;
     padding: 0;
@@ -17,360 +19,335 @@
         position: absolute;
         left: 30px;
         top: 30px;
-        font-size: 3rem;
-        color: #fff;
-    }
-
-    .beachgame-text {
-        width: 50%;
-        padding: 50px;
-        border-radius: 20px;
-        text-align: center;
-        border: 2px solid #333;
-        background-color: rgba(255, 255, 255, 0.5)
-    }
-
-    .beachgame-title {
-        font-size: 4vw;
-        font-weight: 600;
-        letter-spacing: 2vw;
-        line-height: 6rem;
-    }
-
-
-}
-
-.section-beachgame-rules {
-
-    .rules-lightbox {
-        max-width: 600px;
-        width: 90%;
-        box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
-        background-color: $color-subprimary;
-        padding: 25px;
-        padding: 50px 20px;
-
-        .rules-content {
-            background-color: #fff;
-            padding: 20px 60px;
-            border-radius: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            ol {
-                padding: 20px;
-                list-style-type: decimal;
-            }
+        width: 40px;
+        height: 40px;
+        background-color: $color-highlight;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        .fa-house{
+            font-size: 2rem;
+            color: #fff;
         }
     }
-}
-
-.section-beachgame-character {
-    .character-lightbox {
-        color: #fff;
-        width: 90%;
-        max-width: 600px;
-        box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
-        border-radius: 20px;
+    .show-window-outside{
+        width: 70%;
         text-align: center;
-        background-color: $color-subprimary;
-        padding: 50px 20px;
-
-        .character-list {
-            margin: 30px 0;
-
-            .character-item {
-                height: 100%;
+        .beachgame-text {
+            // display: none;
+            border: 2px solid #333;
+            border-radius: 20px;
+            width:100%;
+            box-sizing: border-box;
+            padding: 5% 5vw;
+            background-color: rgba(255, 255, 255, 0.5);
+            &.-viewClose {
+                display:none;
+            }
+            .beachgame-title {
+                font-size: 4vw;
+                font-weight: 600;
+                letter-spacing: 2vw;
+                line-height: 6rem;
+            }
+          
+        }
+       
+        .rules-lightbox {
+            display: none;
+            width: 100%;
+            box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
+            background-color: $color-subprimary;
+            border-radius: 20px;
+            box-sizing: border-box;
+            padding: 20px;
+            &.-viewShow{
+                display:block;
+            }
+            &.-viewClose{
+                display:none;
+            }
+            .rules-content {
+                background-color: $color-white;
+                border-radius: 20px;
+                // box-sizing: border-box;
+                padding: 20px;
                 display: flex;
                 flex-direction: column;
-                justify-content: space-between;
                 align-items: center;
-                background-color: #fff;
-                border-radius: 20px;
-                margin: 0 10px;
-
-                .character-pic img {
-                    width: 100%;
-                    vertical-align: top;
-                }
-
-                .character-name h3 {
-                    color: #333;
-                    margin-bottom: 10px;
+                ol {
+                    padding: 20px;
+                    list-style-type: decimal;
+                    text-align: start;
                 }
             }
         }
-    }
-}
-
-
-// 選擇角色
-.section-beachgame-character-select {
-    .character-lightbox {
-        color: #fff;
-        width: 90%;
-        max-width: 600px;
-        box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
-        border-radius: 20px;
-        text-align: center;
-        background-color: $color-subprimary;
-        padding: 50px 20px;
-
-        .character-oneset {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-
-            .character-oneset-pic {
-                width: 150px;
-                height: 150px;
-                background-color: #fff;
-                border-radius: 50%;
-                overflow: hidden;
-                margin: 20px 0 10px 0;
-
-                img {
-                    width: 100%;
-                    vertical-align: top;
-                }
-            }
-
-            .character-name {
-                margin-bottom: 30px;
-            }
-        }
-    }
-
-}
-
-// 選擇工具
-.section-select-tool {
-    .trash-lightbox {
-        color: #fff;
-        width: 90%;
-        max-width: 600px;
-        box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
-        border-radius: 20px;
-        text-align: center;
-        background-color: $color-subprimary;
-        padding: 50px 20px;
-
-        .trash-pic {
-            width: 150px;
-            height: 150px;
-            margin: 0 auto;
-            background-color: #fff;
-            border-radius: 50%;
-            position: relative;
-            overflow: hidden;
-
-            img {
-                text-align: center;
-                width: 120px;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-            }
-        }
-
-        .trash-text p {
-            margin: 20px 35%;
-        }
-    }
-
-    .slide-page {
-        color: #fff;
-        max-width: 600px;
-        width: 90%;
-        max-width: 600px;
-        box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
-        border-radius: 20px;
-        text-align: center;
-        background-color: $color-primary;
-        padding: 20px;
-
-        .tool-list {
+        .character-lightbox {
+            display:none;
             color: #fff;
-            margin: 30px;
-
-            .tool-item {
-                .tool-pic {
+            box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
+            border-radius: 20px;
+            text-align: center;
+            background-color: $color-subprimary;
+            padding: 50px 20px;
+            // 出現整張大圖
+            &.-viewShow{
+                display:block;
+            }
+            // 選其中圖片後會消失整張大圖
+            &.-viewClose{
+                display: none;
+            }
+            .character-list {
+                margin: 30px 0;
+                .character-item {
+                    &:hover{
+                        background-color: $color-highlight;
+                    }
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    align-items: center;
+                    background-color: #fff;
+                    border-radius: 20px;
+                    margin: 0 10px;
+                    .character-pic img {
+                        width: 80%;
+                        vertical-align: top;
+                    }
+                    .character-name h3 {
+                        color: #333;
+                        margin-bottom: 10px;
+                    }
+                }
+            }
+        }
+        .character-check-lightbox {
+            display:none;
+            color: #fff;
+            box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
+            border-radius: 20px;
+            text-align: center;
+            background-color: $color-subprimary;
+            padding: 50px 20px;
+            &.-viewShow{
+                display:block;
+            }
+            &.-viewClose{
+                display:none;
+            }
+            .character-oneset {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                .character-oneset-pic {
+                    width: 150px;
+                    height: 150px;
                     background-color: #fff;
                     border-radius: 50%;
-                    margin: 20px;
                     overflow: hidden;
-
+                    margin: 20px 0 10px 0;
                     img {
                         width: 100%;
                         vertical-align: top;
                     }
                 }
+                .character-name {
+                    margin-bottom: 30px;
+                }
             }
         }
-    }
-}
-
-// 撿取成功
-.section-beachgame-success {
-    .success-lightbox {
-        color: #fff;
-        width: 90%;
-        max-width: 600px;
-        box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
-        border-radius: 20px;
-        text-align: center;
-        background-color: $color-subprimary;
-        padding: 50px 20px;
-
-        .success-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-
-            .success-pic {
+    
+        // 選擇工具
+        .trash-lightbox {
+            color: #fff;
+            box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
+            border-radius: 20px;
+            text-align: center;
+            background-color: $color-subprimary;
+            padding: 50px 20px;
+            .trash-pic {
                 width: 150px;
                 height: 150px;
+                margin: 0 auto;
                 background-color: #fff;
                 border-radius: 50%;
+                position: relative;
                 overflow: hidden;
-                margin: 20px 0 10px 0;
-
                 img {
                     width: 100%;
-                    vertical-align: top;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
                 }
             }
+            .trash-text p {
+                margin: 20px 0;
+            }
+        }
+        // 選取工具滑入頁面
+        .slide-tool-page {
+            transform: translateY(0);
+            width: 100%;
+            color: #fff;
+            box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
+            border-radius: 20px;
+            text-align: center;
+            background-color: $color-primary;
+            padding: 20px;
+            .tool-list {
+                color: #fff;
+                margin: 30px;
+                .tool-item {
+                    .tool-pic {
+                        background-color: #fff;
+                        border-radius: 50%;
+                        margin: 20px;
+                        overflow: hidden;
+                        img {
+                            width: 100%;
+                            vertical-align: top;
+                        }
+                    }
+                }
+            }
+        }
 
-            .success-text {
-                padding: 10px 35% 20px 35%;
+        //vue過渡期間自動生成類名 enter-active、leave-active
+        .slide-up-enter-active, .slide-up-leave-active {
+            transition: transform 1s ease;
+          }
+          .slide-up-leave-active {
+            transition: transform 1s ease;
+          }
+          .slide-up-enter, .slide-up-leave-to {
+            transform: translateY(100%);
+          }
+        // 撿取成功
+        .success-lightbox {
+            color: #fff;
+            box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
+            border-radius: 20px;
+            text-align: center;
+            background-color: $color-subprimary;
+            padding: 50px 20px;
+            .success-content {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                .success-pic {
+                    width: 150px;
+                    height: 150px;
+                    background-color: #fff;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    margin: 20px 0 10px 0;
+                    img {
+                        width: 100%;
+                        vertical-align: top;
+                    }
+                }
+                .success-text {
+                    padding: 10px 0 20px 0;
+                }
+            }
+        }
+        .fail-lightbox {
+            color: #fff;
+            box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
+            border-radius: 20px;
+            text-align: center;
+            background-color: $color-subprimary;
+            padding: 50px 20px;
+            .fail-content {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                .fail-pic {
+                    width: 150px;
+                    height: 150px;
+                    background-color: #fff;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    margin: 20px 0 10px 0;
+                    img {
+                        width: 100%;
+                        vertical-align: top;
+                    }
+                }
+                .fail-text {
+                    padding: 10px 0 20px 0;
+                }
+            }
+        }
+        .finish-lightbox {
+            color: #fff;
+            box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
+            border-radius: 20px;
+            text-align: center;
+            background-color: $color-subprimary;
+            padding: 50px 20px;
+            .finish-content {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                .finish-pic {
+                    position:relative;
+                    width: 150px;
+                    height: 150px;
+                    background-color: #fff;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    margin: 20px 0 10px 0;
+                    img {
+                        position:absolute;
+                        left:50%;
+                        top:50%;
+                        transform: translate(-50%,-45%);
+                        width: 80%;
+                    }
+                }
+                .finish-text {
+                    padding: 10px 0 20px 0;
+                }
+            }
+            .beachgame-button-wrap{
+                button {
+                    margin: 0 10px;
+                    a {
+                        text-decoration: none;
+                        color:$color-white;
+                    }
+                } 
             }
         }
     }
-}
-
-// 撿取成功
-.section-beachgame-success {
-    .success-lightbox {
-        color: #fff;
-        width: 90%;
-        max-width: 600px;
-        box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
-        border-radius: 20px;
-        text-align: center;
-        background-color: $color-subprimary;
-        padding: 50px 20px;
-
-        .success-content {
+    .trash-container{
+        width:80%;
+        display:none;
+        &.-viewShow{
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-
-            .success-pic {
-                width: 150px;
-                height: 150px;
-                background-color: #fff;
-                border-radius: 50%;
-                overflow: hidden;
-                margin: 20px 0 10px 0;
-
-                img {
-                    width: 100%;
-                    vertical-align: top;
-                }
+        }
+        .trash-pic{
+            &:hover{
+                background-color:#fff;
+                border:4px solid #333;
+                border-radius:50%;
+                transform: scale(1.5);
             }
-
-            .success-text {
-                padding: 10px 35% 20px 35%;
+            img{
+                width: 100%;
+                
             }
         }
     }
 }
 
-// 撿取失敗
-.section-beachgame-fail {
-    .fail-lightbox {
-        color: #fff;
-        width: 90%;
-        max-width: 600px;
-        box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
-        border-radius: 20px;
-        text-align: center;
-        background-color: $color-subprimary;
-        padding: 50px 20px;
 
-        .fail-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-
-            .fail-pic {
-                width: 150px;
-                height: 150px;
-                background-color: #fff;
-                border-radius: 50%;
-                overflow: hidden;
-                margin: 20px 0 10px 0;
-
-                img {
-                    width: 100%;
-                    vertical-align: top;
-                }
-            }
-
-            .fail-text {
-                padding: 10px 35% 20px 35%;
-            }
-        }
-    }
-}
-
-// 挑戰成功頁面
-.section-beachgame-finish {
-    .finish-lightbox {
-        color: #fff;
-        width: 90%;
-        max-width: 600px;
-        box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
-        border-radius: 20px;
-        text-align: center;
-        background-color: $color-subprimary;
-        padding: 50px 20px;
-
-        .finish-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-
-            .finish-pic {
-                width: 150px;
-                height: 150px;
-                background-color: #fff;
-                border-radius: 50%;
-                overflow: hidden;
-                margin: 20px 0 10px 0;
-
-                .finish-pic img {
-                    width: 100%;
-                    height: 100%;
-                    line-height: 200px;
-                    object-fit: cover;
-                }
-            }
-
-            .finish-text {
-                padding: 10px 35% 20px 35%;
-            }
-        }
-
-        .beachgame-button-wrap button {
-            margin: 0 10px;
-        }
-    }
-}

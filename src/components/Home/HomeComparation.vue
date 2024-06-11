@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted } from 'vue'
 
 // 對比照動畫
 const comparationArea = ref(null)
@@ -38,10 +38,6 @@ onMounted(() => {
     control.value.addEventListener('touchstart', startDrag)
 })
 
-onBeforeUnmount(() => {
-    control.value.removeEventListener('mousedown', startDrag)
-    control.value.removeEventListener('touchstart', startDrag)
-})
 </script>
 
 <template>
@@ -53,7 +49,7 @@ onBeforeUnmount(() => {
             </h3>
         </div>
         <div ref="comparationArea" class="comparation-area">
-            <div ref="control" class="control" @mousedown="startDrag"></div>
+            <div ref="control" class="control"></div>
             <div ref="dirty" class="dirty">
                 <img src="../../../public/img/index/compare-dirty.png" alt="垃圾海洋" @dragstart.prevent>
             </div>
