@@ -1,21 +1,21 @@
 <template>
-    <div class="col-12 col-sm-6 col-md-4 col-lg-3" v-for="card in eventList" :key="card.id">
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3" v-for="card in eventContent" :key="card.E_ID" @click="cardClicked(card)">
         <div class="event-card">
             <div class="text">
                 <div class="theme">
                     <div class="event-name">
-                        <h3>{{ card.title }}</h3>
+                        <h3>{{ card.E_TITLE }}</h3>
                     </div>
                 </div>
-                <span>{{ card.place }}</span>
-                <span>{{ card.date }}</span>
-                <span>{{ card.Deadline }}</span>
+                <span>{{ card.E_ADDRESS }}</span>
+                <span>{{ card.E_DATE }}</span>
+                <span>{{ card.E_DEADLINE }}</span>
             </div>
             <div class="pic">
-                <img :src="card.imageUrl" />
+                <img :src="card.E_IMG" />
             </div>
             <div class="people">
-                <span>報名人數:{{ card.curAttend }}/{{ card.maxAttend }}</span>
+                <span>報名人數{{ card.E_SIGN_UP }}/{{ card.E_MAX_ATTEND }}</span>
                 <i class="fa-solid fa-user-plus"></i>
             </div>
         </div>
@@ -24,10 +24,11 @@
 
 <script>
 export default {
-    props: {eventList:[]},
+    props: {eventContent:[]},
+    methods: {
+    cardClicked(card) {
+        this.$emit('card-click', card);
+    },
+    },
 }
 </script>
-<style lang="scss" scoped>
-@import "../assets/sass/base/var";
-@import "../assets/sass/component/eventcard";
-</style>

@@ -86,7 +86,9 @@
         </select>
       </div>
       <div class="row">
-        <EventCard :eventList=eventList />
+        <EventCard :eventContent="eventContent"
+        @card-click="handleEventCardClick"
+        />
       </div>
       <div class="pagenumber">
         <a href="#" v-for="pageNumber in 4" :key="pageNumber">{{
@@ -98,9 +100,9 @@
     <h2>活動分享</h2>
     <div class="container">
       <div class="row">
-        <ShareCard :ShareCard=shareList 
+        <ShareCard :shareContent="shareContent"
         :even="true" 
-        @card-click="handleCardClick" />
+        @card-click="handleShareCardClick" />
       </div>
       <div class="pagenumber">
         <a href="#" v-for="pageNumber in 4" :key="pageNumber">{{  pageNumber }}</a>
@@ -130,7 +132,7 @@
       </div>
     </div>
   </section>
-  <section class="section section-light-box">
+  <section class="section section-light-box" @click.self="closeEventModal" v-if="selectedEventCard">
     <div class="container">
       <div class="row">
           <div class="pic">
@@ -143,7 +145,7 @@
             </div>
           </div>
         <div class="content">
-          <i class="fa-regular fa-circle-xmark"></i>
+          <i class="fa-regular fa-circle-xmark" @click="closeEventModal"></i>
           <div class="activity-area">
           <div class="text">
             <h3>北海岸環保淨灘行動</h3>
@@ -288,13 +290,12 @@
       </form>
     </div>
   </section>
-  <section class="section section-detailed" @click.self="closeModal" v-if="selectedCard" >
-    <div class="overlay" @click="closeModal"></div>
+  <section class="section section-detailed" v-if="selectedShareCard" >
+    <div class="overlay" @click="closeShareModal"></div>
     <div class="container">
-      <ShareCard :ShareCard="[selectedCard]" 
-      :limit="1" 
+      <ShareCard :shareContent="[selectedShareCard]" 
       :even="false" 
-      @close-click="closeModal" />
+      @close-click="closeShareModal" />
     </div>
   </section>
 </template>
@@ -359,119 +360,57 @@ export default defineComponent({
       plugins: [dayGridPlugin, timeGridPlugin]
     });
     //定義預設跳窗卡片是隱藏狀態false
-    const selectedCard = ref(null);
+    const selectedEventCard  = ref(null);
+    const selectedShareCard  = ref(null);
     //跳窗卡片抓取點擊卡片時的卡片資訊
-    const handleCardClick = (card) => {
-        selectedCard.value = card;
+    const handleEventCardClick  = (card) => {
+      selectedEventCard.value = card;
     };
-    //點擊彈窗區域以外的關閉方法
-    const closeModal = () => {
-        selectedCard.value = null;
+    const handleShareCardClick = (card) => {
+      selectedShareCard.value = card;
+        };
+    //點擊關閉方法
+    const closeEventModal  = () => {
+      selectedEventCard.value = null;
     };
-    //定義shareContent是一個物件
+    const closeShareModal  = () => {
+      selectedShareCard.value = null;
+    };
+    //定義shareContent、eventContent是一個物件
     const shareContent = ref({});
+    const eventContent = ref({});
 
     // 在組件掛載後加載 JSON 文件
     onMounted(async () => {
+      //抓取活動分享json
       try {
         const response = await fetch('../../public/Share.json');
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
         shareContent.value = await response.json();
-      } catch (error) {
-        console.error('Error loading JSON:', error);
-      }
+      } 
+      catch (error) {
+        console.error('Error:', '無資料');
+      };
+      //抓取活動列表json
+      try {
+        const res = await fetch('../../public/evenList.json');
+        eventContent.value = await res.json();
+      } 
+      catch (error) {
+        console.error('Error:', '無資料');
+      };
+      
     });
     
     return {
       calendarOptions,
-      shareList: shareContent,
-      eventList: [
-        {
-          id: "005",
-          title: "澎湖海洋淨灘活動",
-          place: "澎湖縣馬公市西嶼海灘",
-          date: "活動日期：2024/6/20",
-          Deadline: "截止日期：2024/6/5",
-          imageUrl: "https://picsum.photos/300/200/?random=5",
-          maxAttend:300,
-          curAttend:250
-        },
-        {
-          id: "006",
-          title: "綠島珊瑚礁保育淨灘行動",
-          place: "綠島珊瑚礁區",
-          date: "活動日期：2024/7/12",
-          Deadline: "截止日期：2024/6/28",
-          imageUrl: "https://picsum.photos/300/200/?random=6",
-          maxAttend:100,
-          curAttend:80
-        },
-        {
-          id: "007",
-          title: "蘭嶼淨灘環保之旅",
-          place: "蘭嶼島東清部落海灘",
-          date: "活動日期：2024/8/3",
-          Deadline: "截止日期：2024/7/20",
-          imageUrl: "https://picsum.photos/300/200/?random=7",
-          maxAttend:150,
-          curAttend:120
-        },
-        {
-          id: "008",
-          title: "澎湖七美海岸淨灘日",
-          place: "澎湖七美鄉海口村海灘",
-          date: "活動日期：2024/9/14",
-          Deadline: "截止日期：2024/8/30",
-          imageUrl: "https://picsum.photos/300/200/?random=8",
-          maxAttend:220,
-          curAttend:180
-        },
-        {
-          id: "009",
-          title: "小琉球海洋教育淨灘之旅",
-          place: "小琉球伍桐部落海灘",
-          date: "活動日期：2024/10/5",
-          Deadline: "截止日期：2024/9/20",
-          imageUrl: "https://picsum.photos/300/200/?random=9",
-          maxAttend:120,
-          curAttend:100
-        },
-        {
-          id: "010",
-          title: "花蓮石梯坪淨灘推廣活動",
-          place: "花蓮縣新城鄉石梯坪海岸",
-          date: "活動日期：2024/11/2",
-          Deadline: "截止日期：2024/10/18",
-          imageUrl: "https://picsum.photos/300/200/?random=10",
-          maxAttend:120,
-          curAttend:90
-        },
-        {
-          id: "011",
-          title: "綠島珊瑚礁保育",
-          place: "綠島珊瑚礁區",
-          date: "活動日期：2024/12/7",
-          Deadline: "截止日期：2024/11/25",
-          imageUrl: "https://picsum.photos/300/200/?random=11",
-          maxAttend:200,
-          curAttend:150
-        },
-        {
-          id: "012",
-          title: "澎湖馬公海灘淨灘推廣日",
-          place: "澎湖縣馬公市中興海灘",
-          date: "活動日期：2025/1/18",
-          Deadline: "截止日期：2025/1/5",
-          imageUrl: "https://picsum.photos/300/200/?random=12",
-          maxAttend:250,
-          curAttend:200
-        }
-      ],
-      selectedCard,
-      handleCardClick,
-      closeModal
+      shareContent,
+      eventContent,
+      selectedEventCard,
+      selectedShareCard,
+      handleEventCardClick,
+      handleShareCardClick,
+      closeEventModal,
+      closeShareModal
     }
 
   },
