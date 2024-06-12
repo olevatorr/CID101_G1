@@ -54,22 +54,18 @@
 .section-event-date {
     background-color: #fff;
     text-align: center;
-    .event-dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background-color: #ff0000;
-        margin: 0 auto;
-    }
 
     .calendar {
         width: clamp(600px, auto, 1200px);
         margin: 40px auto;
     }
-
+    .fc-event-main {
+        text-align: center;
+    }
     .area-list {
         height: 470px;
         overflow-y: auto;
+
 
         @media screen and (max-width: 992px) {
             margin-top: 20px;
@@ -83,7 +79,11 @@
             padding: 10px 0;
 
             h3 {
-                width: 50%;
+                color: #fff;
+                padding: 10px 20px;
+                background-color: $color-subprimary;
+                border-radius: 10PX;
+                margin-right: 10px;
             }
 
             p {
