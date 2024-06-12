@@ -18,7 +18,7 @@ section {
 @import 'mixin/fixedSize.scss';
 
 // component 元件
-@import 'component/eventcard';
+@import 'component/eventcard.scss';
 // layout 共用nav / footer
 @import 'layout/nav';
 @import 'layout/footer';
@@ -27,6 +27,7 @@ section {
 @import 'page/index';
 @import 'page/aboutus';
 @import 'page/member';
+@import 'page/event';
 @import 'page/knowledge';
 @import 'page/register';
 @import 'page/foget';

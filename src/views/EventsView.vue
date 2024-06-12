@@ -22,7 +22,7 @@
       <div class="row">
         <div class="col-12 col-lg-6">
           <div>
-            <FullCalendar :options="calendarOptions" />
+            <FullCalendar v-if="calendarList" :options="calendarOptions" />
           </div>
         </div>
         <div class="col-12 col-lg-6">
@@ -300,7 +300,7 @@
 </template>
 
 <script>
-import { defineComponent, ref,onMounted  } from 'vue'
+import { defineComponent, ref,onMounted, watch } from 'vue'
 import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
@@ -315,48 +315,35 @@ export default defineComponent({
     ShareCard,
   },
   setup() {
-    const eventRemove=function (info) {
-        const startDate =info.event.start;
-        const endDate  =info.event.end;
-
-        // 檢查 startDate 和 endDate 是否為 null
-        if (!startDate || !endDate) {
-          return;
-        }
-        const formattedEndDate = endDate.toLocaleString();
-        const formattedStartDate = startDate.toLocaleString();
-
-        Swal.fire({
-          icon: info.event.allDay ? 'success' : 'info',
-          title: info.event.title,
-          text: `${formattedStartDate} - ${formattedEndDate}`,
-          confirmButtonText: '確認',
-        })
-      };
       //定義行事曆的內容資訊
+     // 定義行事曆的內容資訊
     const calendarOptions = ref({
       initialView: 'dayGridMonth',
       headerToolbar: {
         left: '',
         center: 'title',
-        right: 'prev,next'
+        right: 'prev,next',
       },
-      events: [
-        {
-          title: '小龜老師meeting',
-          start: '2024-06-07',
-          end: '2024-06-08'
-        },
-        {
-          title: '走一步是一步',
-          start: '2024-06-10 00:00:00',
-          end: '2024-06-21 24:00:00'
-        }
-      ],
-      eventClick: function (info) {
-        eventRemove(info);
-      },
-      plugins: [dayGridPlugin, timeGridPlugin]
+      events: [],
+      eventClick: function (arg) {
+    const event = arg.event;
+    const startDate = event.start;
+    const endDate = event.end;
+
+    // 檢查 startDate 和 endDate 是否為 null
+    if (!startDate || !endDate) {
+      return;
+    }
+    const formattedStartDate = startDate.toLocaleString();
+
+    Swal.fire({
+      icon: event.allDay ? 'success' : 'info',
+      title: event.title,
+      text: formattedStartDate,
+      confirmButtonText: '確認',
+    });
+  },
+      plugins: [dayGridPlugin, timeGridPlugin],
     });
     //定義預設跳窗卡片是隱藏狀態false
     const selectedCard = ref(null);
@@ -371,118 +358,48 @@ export default defineComponent({
     //定義shareContent是一個物件
     const shareContent = ref({});
 
+
+    const eventList = ref(null);
+    const calendarList = ref(null);
     // 在組件掛載後加載 JSON 文件
     onMounted(async () => {
       try {
-        const response = await fetch('../../public/Share.json');
-        if (!response.ok) {
+        // 加載 Share.json
+        const shareResponse = await fetch('../../public/Share.json');
+        if (!shareResponse.ok) {
           throw new Error('Network response was not ok');
         }
-        shareContent.value = await response.json();
+        shareContent.value = await shareResponse.json();
+
+        // 加載 event.json
+        const eventResponse = await fetch('../../public/json/event.json');
+        if (!eventResponse.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const jsonData = await eventResponse.json();
+        eventList.value = jsonData;
+        calendarList.value = eventList.value.map((event) => ({
+          title: event.E_TITLE,
+          start: event.E_START,
+        }));
       } catch (error) {
         console.error('Error loading JSON:', error);
       }
     });
-    
-    // 使用json提取活動資料
-    const eventList = ref(null)
-    onMounted(() => {
-      fetch(`../../public/json/event.json`)
-        .then((res) => res.json())
-        .then(jsonData => {
-          eventList.value = jsonData
-        })
-    })
+
+    watch(calendarList, (newValue) => {
+      calendarOptions.value.events = newValue;
+    });
+
     return {
       calendarOptions,
-      shareList: shareContent,
-      eventList: [
-        {
-          id: "005",
-          title: "澎湖海洋淨灘活動",
-          place: "澎湖縣馬公市西嶼海灘",
-          date: "活動日期：2024/6/20",
-          Deadline: "截止日期：2024/6/5",
-          imageUrl: "https://picsum.photos/300/200/?random=5",
-          maxAttend:300,
-          curAttend:250
-        },
-        {
-          id: "006",
-          title: "綠島珊瑚礁保育淨灘行動",
-          place: "綠島珊瑚礁區",
-          date: "活動日期：2024/7/12",
-          Deadline: "截止日期：2024/6/28",
-          imageUrl: "https://picsum.photos/300/200/?random=6",
-          maxAttend:100,
-          curAttend:80
-        },
-        {
-          id: "007",
-          title: "蘭嶼淨灘環保之旅",
-          place: "蘭嶼島東清部落海灘",
-          date: "活動日期：2024/8/3",
-          Deadline: "截止日期：2024/7/20",
-          imageUrl: "https://picsum.photos/300/200/?random=7",
-          maxAttend:150,
-          curAttend:120
-        },
-        {
-          id: "008",
-          title: "澎湖七美海岸淨灘日",
-          place: "澎湖七美鄉海口村海灘",
-          date: "活動日期：2024/9/14",
-          Deadline: "截止日期：2024/8/30",
-          imageUrl: "https://picsum.photos/300/200/?random=8",
-          maxAttend:220,
-          curAttend:180
-        },
-        {
-          id: "009",
-          title: "小琉球海洋教育淨灘之旅",
-          place: "小琉球伍桐部落海灘",
-          date: "活動日期：2024/10/5",
-          Deadline: "截止日期：2024/9/20",
-          imageUrl: "https://picsum.photos/300/200/?random=9",
-          maxAttend:120,
-          curAttend:100
-        },
-        {
-          id: "010",
-          title: "花蓮石梯坪淨灘推廣活動",
-          place: "花蓮縣新城鄉石梯坪海岸",
-          date: "活動日期：2024/11/2",
-          Deadline: "截止日期：2024/10/18",
-          imageUrl: "https://picsum.photos/300/200/?random=10",
-          maxAttend:120,
-          curAttend:90
-        },
-        {
-          id: "011",
-          title: "綠島珊瑚礁保育",
-          place: "綠島珊瑚礁區",
-          date: "活動日期：2024/12/7",
-          Deadline: "截止日期：2024/11/25",
-          imageUrl: "https://picsum.photos/300/200/?random=11",
-          maxAttend:200,
-          curAttend:150
-        },
-        {
-          id: "012",
-          title: "澎湖馬公海灘淨灘推廣日",
-          place: "澎湖縣馬公市中興海灘",
-          date: "活動日期：2025/1/18",
-          Deadline: "截止日期：2025/1/5",
-          imageUrl: "https://picsum.photos/300/200/?random=12",
-          maxAttend:250,
-          curAttend:200
-        }
-      ],
       selectedCard,
       handleCardClick,
-      closeModal
+      closeModal,
+      shareContent,
+      eventList,
+      calendarList,
     }
-
   },
 })
 </script>

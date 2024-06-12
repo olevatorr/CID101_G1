@@ -43,7 +43,7 @@
         @media screen and (max-width:768px){
             flex-wrap: wrap;
             gap: 30px 0;
-            h2{
+            h2 {
                 flex: 100%;
             }
         }
@@ -54,6 +54,14 @@
 .section-event-date {
     background-color: #fff;
     text-align: center;
+    .event-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background-color: #ff0000;
+        margin: 0 auto;
+    }
+
     .calendar {
         width: clamp(600px, auto, 1200px);
         margin: 40px auto;
