@@ -343,8 +343,8 @@ function setupChart() {
 
     // 創建漸變色
     const gradient = ctx.getContext('2d').createLinearGradient(0, 0, 0, ctx.height);
-      gradient.addColorStop(0, 'rgba(10, 0, 255, 0.5)');  // 淡藍色
-      gradient.addColorStop(0.5, 'rgba(80, 0, 0, 0.5)');  // 淡藍色
+      gradient.addColorStop(0, 'rgba(80, 0, 0, 0.5)'); 
+      gradient.addColorStop(0.5, 'rgba(10, 0, 255, 0.5)');  // 淡藍色
       gradient.addColorStop(1, 'rgba(64, 145, 160, 0.5)');  // 淡綠色
 
   myChart = new Chart(ctx, {
@@ -357,7 +357,7 @@ function setupChart() {
         backgroundColor: gradient,  // 設置漸變背景顏色
         borderColor: '#00AFB9',  // 設置邊框顏色
         borderWidth: 1,  // 設置邊框寬度
-        pointBackgroundColor: 'rgba(80, 0, 0, 0.5)',  // 設置數據點背景顏色
+        pointBackgroundColor: 'rgba(10, 0, 255, 0.5)',  // 設置數據點背景顏色
         pointBorderColor: '#fff',  // 設置數據點邊框顏色
         pointHitRadius:100,
         pointRadius:5,
