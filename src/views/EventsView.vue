@@ -22,50 +22,27 @@
       <div class="row">
         <div class="col-12 col-lg-6">
           <div>
-            <FullCalendar :options="calendarOptions" />
+            <FullCalendar v-if="calendarList" :options="calendarOptions" />
           </div>
         </div>
         <div class="col-12 col-lg-6">
           <div class="area-list">
-            <div class="area">
-              <h3>北部</h3>
-              <div class="activities">
-                <p>北海岸環保淨灘行動</p>
-                <p>系統自動帶入當天活動資訊</p>
-                <p>系統自動帶入當天活動資訊</p>
+            <div v-if="filteredEvents && filteredEvents.length > 0">
+              <div v-for="area in areas" :key="area.id" class="area">
+                <template v-if="hasEvents(area.id)">
+                  <h3>{{ area.name }}</h3>
+                  <div class="activities">
+                    <ul>
+                      <li v-for="event in getAreaEvents(area.id)" :key="event.E_ID">
+                        {{ event.E_TITLE }}
+                      </li>
+                    </ul>
+                  </div>
+                </template>
               </div>
             </div>
-            <div class="area">
-              <h3>中部</h3>
-              <div class="activities">
-                <p>台中海洋守護淨灘</p>
-                <p>系統自動帶入當天活動資訊</p>
-                <p>系統自動帶入當天活動資訊</p>
-              </div>
-            </div>
-            <div class="area">
-              <h3>南部</h3>
-              <div class="activities">
-                <p>南台灣淨灘大會</p>
-                <p>系統自動帶入當天活動資訊</p>
-                <p>系統自動帶入當天活動資訊</p>
-              </div>
-            </div>
-            <div class="area">
-              <h3>東部</h3>
-              <div class="activities">
-                <p>東部海岸守護者淨灘</p>
-                <p>系統自動帶入當天活動資訊</p>
-                <p>系統自動帶入當天活動資訊</p>
-              </div>
-            </div>
-            <div class="area">
-              <h3>離島</h3>
-              <div class="activities">
-                <p>綠島海岸守護者淨灘</p>
-                <p>系統自動帶入當天活動資訊</p>
-                <p>系統自動帶入當天活動資訊</p>
-              </div>
+            <div v-else>
+              請點擊行事曆
             </div>
           </div>
         </div>
@@ -105,7 +82,7 @@
         @card-click="handleShareCardClick" />
       </div>
       <div class="pagenumber">
-        <a href="#" v-for="pageNumber in 4" :key="pageNumber">{{  pageNumber }}</a>
+        <a href="#" v-for="pageNumber in 4" :key="pageNumber">{{ pageNumber }}</a>
       </div>
       <div class="sharebtn">
         <button>活動分享</button>
@@ -135,40 +112,40 @@
   <section class="section section-light-box" @click.self="closeEventModal" v-if="selectedEventCard">
     <div class="container">
       <div class="row">
-          <div class="pic">
-            <img src="https://picsum.photos/300/200/?random=10" />
-            <div class="text">
-              <h3>活動敘述</h3>
-              <p>
-                由環保志工組織的淨灘活動，旨在清理淡水區海灘垃圾並向參與者進行環保教育。
-              </p>
-            </div>
+        <div class="pic">
+          <img src="https://picsum.photos/300/200/?random=10" />
+          <div class="text">
+            <h3>活動敘述</h3>
+            <p>
+              由環保志工組織的淨灘活動，旨在清理淡水區海灘垃圾並向參與者進行環保教育。
+            </p>
           </div>
+        </div>
         <div class="content">
           <i class="fa-regular fa-circle-xmark" @click="closeEventModal"></i>
           <div class="activity-area">
-          <div class="text">
-            <h3>北海岸環保淨灘行動</h3>
-            <span>活動地點：淡水漁人碼頭Subheading</span>
-            <span>活動日期：2024年6月15日</span>
-            <span>截止日期：2024年6月10日</span>
-            <span>報名人數：100/150</span>
-            <div class="join">
-              <span class="people">參加人數:</span>
-              <select name="">
-                <option value="">1</option>
-                <option value="">2</option>
-                <option value="">3</option>
-                <option value="">4</option>
-                <option value="">5</option>
-                <option value="">6</option>
-                <option value="">7</option>
-                <option value="">8</option>
-                <option value="">9</option>
-                <option value="">10</option>
-              </select>
+            <div class="text">
+              <h3>北海岸環保淨灘行動</h3>
+              <span>活動地點：淡水漁人碼頭Subheading</span>
+              <span>活動日期：2024年6月15日</span>
+              <span>截止日期：2024年6月10日</span>
+              <span>報名人數：100/150</span>
+              <div class="join">
+                <span class="people">參加人數:</span>
+                <select name="">
+                  <option value="">1</option>
+                  <option value="">2</option>
+                  <option value="">3</option>
+                  <option value="">4</option>
+                  <option value="">5</option>
+                  <option value="">6</option>
+                  <option value="">7</option>
+                  <option value="">8</option>
+                  <option value="">9</option>
+                  <option value="">10</option>
+                </select>
+              </div>
             </div>
-          </div>
           </div>
           <div class="state">
             <button class="now">立即報名</button>
@@ -176,7 +153,7 @@
             <button class="full">報名已滿</button>
             <button class="end">活動結束</button>
           </div>
-          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -232,7 +209,7 @@
         </div>
         <div class="box box-5">
           <label>活動圖片</label>
-          <input type="file" name="" id=""  class="newFile">
+          <input type="file" name="" id="" class="newFile">
         </div>
         <div class="box box-6">
           <label>活動心得</label>
@@ -301,7 +278,7 @@
 </template>
 
 <script>
-import { defineComponent, ref,onMounted  } from 'vue'
+import { defineComponent, ref, onMounted, watch } from 'vue'
 import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
@@ -316,48 +293,76 @@ export default defineComponent({
     ShareCard,
   },
   setup() {
-    const eventRemove=function (info) {
-        const startDate =info.event.start;
-        const endDate  =info.event.end;
-
-        // 檢查 startDate 和 endDate 是否為 null
-        if (!startDate || !endDate) {
-          return;
-        }
-        const formattedEndDate = endDate.toLocaleString();
-        const formattedStartDate = startDate.toLocaleString();
-
-        Swal.fire({
-          icon: info.event.allDay ? 'success' : 'info',
-          title: info.event.title,
-          text: `${formattedStartDate} - ${formattedEndDate}`,
-          confirmButtonText: '確認',
-        })
-      };
-      //定義行事曆的內容資訊
+    const areas = ref([
+      { id: 0, name: '北部' },
+      { id: 1, name: '中部' },
+      { id: 2, name: '南部' },
+      { id: 3, name: '東部' },
+      { id: 4, name: '離島' },
+    ]);
     const calendarOptions = ref({
       initialView: 'dayGridMonth',
       headerToolbar: {
         left: '',
         center: 'title',
-        right: 'prev,next'
+        right: 'prev,next',
       },
-      events: [
-        {
-          title: '小龜老師meeting',
-          start: '2024-06-07',
-          end: '2024-06-08'
-        },
-        {
-          title: '走一步是一步',
-          start: '2024-06-10 00:00:00',
-          end: '2024-06-21 24:00:00'
+      events: [],
+      eventDidMount: (info) => {
+        const eventEl = info.el;
+        const event = info.event;
+        const eventDate = event.start.toISOString().slice(0, 10);
+
+        if (eventEl.style.display === 'none') {
+          return;
         }
-      ],
-      eventClick: function (info) {
-        eventRemove(info);
+
+        const sameDateEvents = info.view.calendar.getEvents().filter(
+          (e) => e.start.toISOString().slice(0, 10) === eventDate
+        );
+
+        if (sameDateEvents.length > 1) {
+          sameDateEvents.forEach((e, index) => {
+            if (index > 0) {
+              e.setProp('display', 'none');
+            }
+          });
+        }
       },
-      plugins: [dayGridPlugin, timeGridPlugin]
+      eventContent: () => {
+        return { html: `<i class="fas fa-circle"></i>` };
+      },
+      eventClick: (arg) => {
+        const date = arg.event.start;
+        const events = eventList.value.filter((event) => {
+          const eventDate = new Date(event.E_DATE);
+          const clickedDate = new Date(date);
+          const result = eventDate.toDateString() === clickedDate.toDateString();
+          // console.log('Event Date:', eventDate.toDateString());
+          // console.log('Clicked Date:', clickedDate.toDateString());
+          // console.log('Comparison Result:', result);
+          return result;
+        });
+
+        filteredEvents.value = events;
+        // console.log(date);
+        // console.log(events);
+
+        if (events.length > 0) {
+          Swal.fire({
+            icon: 'info',
+            title: `${date.toLocaleDateString()} 的活動`,
+            html: events.map((event) => `
+        <div>
+          <h4>${event.E_TITLE}</h4>
+          <p>地點：${event.E_ADDRESS}</p>
+        </div>
+      `).join(''),
+            confirmButtonText: '確認',
+          });
+        }
+      },
+      plugins: [dayGridPlugin, timeGridPlugin],
     });
     //定義預設跳窗卡片是隱藏狀態false
     const selectedEventCard  = ref(null);
@@ -370,63 +375,78 @@ export default defineComponent({
       selectedShareCard.value = card;
         };
     //點擊關閉方法
-    const closeEventModal  = () => {
+    const closeEventModal = () => {
       selectedEventCard.value = null;
     };
-    const closeShareModal  = () => {
+    const closeShareModal = () => {
       selectedShareCard.value = null;
     };
+
     //定義shareContent、eventContent是一個物件
     const shareContent = ref({});
     const eventContent = ref({});
 
+
+    const eventList = ref(null);
+    const calendarList = ref(null);
+    const filteredEvents = ref([]);
     // 在組件掛載後加載 JSON 文件
     onMounted(async () => {
       //抓取活動分享json
       try {
-        const response = await fetch('../../public/Share.json');
-        shareContent.value = await response.json();
-      } 
-      catch (error) {
-        console.error('Error:', '無資料');
-      };
-      //抓取活動列表json
-      try {
-        const res = await fetch('../../public/evenList.json');
-        eventContent.value = await res.json();
-      } 
-      catch (error) {
-        console.error('Error:', '無資料');
-      };
-      
+        // 加載 Share.json
+        const shareResponse = await fetch('../../public/Share.json');
+        if (!shareResponse.ok) {
+          throw new Error('Network response was not ok');
+        }
+        shareContent.value = await shareResponse.json();
+
+        // 加載 event.json
+        const eventResponse = await fetch('../../public/json/event.json');
+        if (!eventResponse.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const jsonData = await eventResponse.json();
+        eventList.value = jsonData;
+        calendarList.value = eventList.value.map((event) => ({
+          title: event.E_TITLE,
+          start: event.E_DATE,
+          allDay: true,
+          backgroundColor: 'rgba(255,0,0,0)',
+          borderColor: 'rgba(255,0,0,0)',
+          textColor: '#E7A600',
+        }));
+      } catch (error) {
+        console.error('Error loading JSON:', error);
+      }
     });
-    
-    // 使用json提取活動資料
-    const eventList = ref(null)
-    onMounted(() => {
-      fetch(`../../public/json/event.json`)
-        .then((res) => res.json())
-        .then(jsonData => {
-          eventList.value = jsonData
-        })
-    })
+
+    const hasEvents = (areaId) => {
+      return getAreaEvents(areaId).length > 0;
+    };
+    const getAreaEvents = (areaId) => {
+      return filteredEvents.value.filter((event) => event.E_AREA === areaId);
+    };
+
+    watch(calendarList, (newValue) => {
+      calendarOptions.value.events = newValue;
+    });
+
     return {
       calendarOptions,
       shareContent,
       eventContent,
-      selectedEventCard,
-      selectedShareCard,
       handleEventCardClick,
       handleShareCardClick,
       closeEventModal,
-      closeShareModal
+      closeShareModal,
+      eventList,
+      calendarList,
+      areas,
+      getAreaEvents,
+      hasEvents,
+      filteredEvents,
     }
-
   },
 })
 </script>
-
-<style lang="scss" scoped>
-@import "../assets/sass/base/var";
-@import "../assets/sass/page/event";
-</style>
