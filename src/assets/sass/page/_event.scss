@@ -189,9 +189,9 @@
 
 //section-light-box
 .section-light-box {
-    position: absolute;
-    top: 250%;
-    left: 15%;
+    position: fixed;
+    top: 10%;
+    left:15%;
     .row{
         position: relative;
         padding: 10px;

@@ -17,59 +17,25 @@
       </div>
     </div>
   </section>
-  <section class="section section-event-date">
-    <div class="container">
-      <div class="row">
-        <div class="col-12 col-lg-6">
-          <div>
-            <FullCalendar v-if="calendarList" :options="calendarOptions" />
-          </div>
-        </div>
-        <div class="col-12 col-lg-6">
-          <div class="area-list">
-            <div v-if="filteredEvents && filteredEvents.length > 0">
-              <div v-for="area in areas" :key="area.id" class="area">
-                <template v-if="hasEvents(area.id)">
-                  <h3>{{ area.name }}</h3>
-                  <div class="activities">
-                    <ul>
-                      <li v-for="event in getAreaEvents(area.id)" :key="event.E_ID">
-                        {{ event.E_TITLE }}
-                      </li>
-                    </ul>
-                  </div>
-                </template>
-              </div>
-            </div>
-            <div v-else>
-              請點擊行事曆
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <calendar/>
   <section class="section section-event-list">
     <div class="container">
       <h2>活動列表</h2>
       <div class="menu">
-        <select name="">
+        <select name="" v-model="selectedRegion">
           <option value="">全台灣(地區)</option>
-          <option value="">北部</option>
-          <option value="">中部</option>
-          <option value="">南部</option>
-          <option value="">東部</option>
-          <option value="">離島</option>
+          <option value="0">北部</option>
+          <option value="1">中部</option>
+          <option value="2">南部</option>
+          <option value="3">東部</option>
+          <option value="4">離島</option>
         </select>
       </div>
       <div class="row">
-        <EventCard :eventContent="eventContent"
-        @card-click="handleEventCardClick"
-        />
+        <EventCard :filteredEvents="filteredEvents" @card-click="handleEventCardClick" />
       </div>
       <div class="pagenumber">
-        <a href="#" v-for="pageNumber in 4" :key="pageNumber">{{
-          pageNumber }}</a>
+        <a href="#" v-for="pageNumber in 4" :key="pageNumber">{{ pageNumber }}</a>
       </div>
     </div>
   </section>
@@ -77,9 +43,7 @@
     <h2>活動分享</h2>
     <div class="container">
       <div class="row">
-        <ShareCard :shareContent="shareContent"
-        :even="true" 
-        @card-click="handleShareCardClick" />
+        <ShareCard :shareContent="shareContent" :even="true" @card-click="handleShareCardClick" />
       </div>
       <div class="pagenumber">
         <a href="#" v-for="pageNumber in 4" :key="pageNumber">{{ pageNumber }}</a>
@@ -267,30 +231,28 @@
       </form>
     </div>
   </section>
-  <section class="section section-detailed" v-if="selectedShareCard" >
+  <section class="section section-detailed" v-if="selectedShareCard">
     <div class="overlay" @click="closeShareModal"></div>
     <div class="container">
-      <ShareCard :shareContent="[selectedShareCard]" 
-      :even="false" 
-      @close-click="closeShareModal" />
+      <ShareCard :shareContent="[selectedShareCard]" :even="false" @close-click="closeShareModal" />
     </div>
   </section>
 </template>
 
 <script>
-import { defineComponent, ref, onMounted, watch } from 'vue'
-import FullCalendar from '@fullcalendar/vue3'
+import { defineComponent, ref, onMounted, watch, computed } from 'vue'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import Swal from 'sweetalert2'
 import EventCard from '../components/EventCard.vue'
 import ShareCard from '../components/ShareCard.vue'
+import calendar from '@/components/even/calendar.vue'
 
 export default defineComponent({
   components: {
-    FullCalendar,
     EventCard,
     ShareCard,
+    calendar,
   },
   setup() {
     const areas = ref([
@@ -364,16 +326,16 @@ export default defineComponent({
       },
       plugins: [dayGridPlugin, timeGridPlugin],
     });
-    //定義預設跳窗卡片是隱藏狀態false
-    const selectedEventCard  = ref(null);
-    const selectedShareCard  = ref(null);
+    //定義跳窗預設是隱藏狀態
+    const selectedEventCard = ref(null);
+    const selectedShareCard = ref(null);
     //跳窗卡片抓取點擊卡片時的卡片資訊
-    const handleEventCardClick  = (card) => {
+    const handleEventCardClick = (card) => {
       selectedEventCard.value = card;
     };
     const handleShareCardClick = (card) => {
       selectedShareCard.value = card;
-        };
+    };
     //點擊關閉方法
     const closeEventModal = () => {
       selectedEventCard.value = null;
@@ -389,10 +351,27 @@ export default defineComponent({
 
     const eventList = ref(null);
     const calendarList = ref(null);
-    const filteredEvents = ref([]);
+    const calendarFilteredEvents = ref([]);
+    //定義下拉式選單域設為空
+    const selectedRegion = ref('');
+    const includePlace = {
+      0: [0, 12], //北部
+      1: [1, 2, 3], //中部
+      2: [4, 5, 6, 13], //南部
+      3: [7, 8, 9, 15], //東部
+      4: [10, 11, 14], //離島
+    }
+    const filteredEvents = computed(() => {
+      if (selectedRegion.value === '') {
+        return eventContent.value;
+      } else {
+        const selectedRegionIds = includePlace[selectedRegion.value];
+        return eventContent.value.filter(event => selectedRegionIds.includes(event.E_ID));
+      }
+    });
+    // const eventList = ref(null);
     // 在組件掛載後加載 JSON 文件
     onMounted(async () => {
-      //抓取活動分享json
       try {
         // 加載 Share.json
         const shareResponse = await fetch('../../public/Share.json');
@@ -408,6 +387,7 @@ export default defineComponent({
         }
         const jsonData = await eventResponse.json();
         eventList.value = jsonData;
+        eventContent.value = jsonData;
         calendarList.value = eventList.value.map((event) => ({
           title: event.E_TITLE,
           start: event.E_DATE,
@@ -425,28 +405,27 @@ export default defineComponent({
       return getAreaEvents(areaId).length > 0;
     };
     const getAreaEvents = (areaId) => {
-      return filteredEvents.value.filter((event) => event.E_AREA === areaId);
+      return calendarFilteredEvents.value.filter((event) => event.E_AREA === areaId);
     };
 
     watch(calendarList, (newValue) => {
       calendarOptions.value.events = newValue;
     });
-
-    return {
-      calendarOptions,
-      shareContent,
-      eventContent,
-      handleEventCardClick,
-      handleShareCardClick,
-      closeEventModal,
-      closeShareModal,
-      eventList,
-      calendarList,
-      areas,
-      getAreaEvents,
-      hasEvents,
-      filteredEvents,
-    }
+return {
+  calendarOptions,
+  shareContent,
+  eventContent,
+  handleEventCardClick,
+  handleShareCardClick,
+  closeEventModal,
+  closeShareModal,
+  eventList,
+  calendarList,
+  areas,
+  getAreaEvents,
+  hasEvents,
+  filteredEvents,
+}
   },
 })
 </script>
