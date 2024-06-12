@@ -384,6 +384,15 @@ export default defineComponent({
       }
     });
     
+    // 使用json提取活動資料
+    const eventList = ref(null)
+    onMounted(() => {
+      fetch(`../../public/json/event.json`)
+        .then((res) => res.json())
+        .then(jsonData => {
+          eventList.value = jsonData
+        })
+    })
     return {
       calendarOptions,
       shareList: shareContent,
