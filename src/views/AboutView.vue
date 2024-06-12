@@ -1,10 +1,10 @@
 <script setup>
-import { onMounted, ref,computed } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
+import Swal from 'sweetalert2'
 
 //team member animation
 gsap.registerPlugin(ScrollTrigger);
@@ -71,7 +71,7 @@ function drawCaptcha() {
   }
 
   // 對驗證碼文本應用隨機的字體大小、顏色和旋轉角度
-  const fontSize = 20;
+  const fontSize = 30;
   ctx.font = `${fontSize}px serif`;
   ctx.fillStyle = getRandomColor();
   ctx.textAlign = 'center';
@@ -117,6 +117,81 @@ function getRandomColor() {
   const b = Math.floor(Math.random() * 256);
   return `rgb(${r}, ${g}, ${b})`;
 }
+
+//表單
+
+const formData = ref({
+  name: '',
+  phone: '',
+  email: '',
+  message: '',
+  captcha: ''
+});
+
+// 模擬提交表單的數據（用於測試）
+// formData.value = {
+//   name: '測試用戶',
+//   phone: '1234567890',
+//   email: 'test@example.com',
+//   message: '測試',
+//   captcha: '1234'
+// };
+
+const showConfirmModal = () => {
+  Swal.fire({
+    title: '確認提交表單?',
+    text: '請檢查您的表單數據是否正確。',
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonText: '確認',
+    cancelButtonText: '取消'
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      submitForm()
+    }
+  })
+}
+
+const submitForm = async () => {
+  try {
+    const response = await fetch('/submit-form.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData.value)
+    })
+
+    if (response.ok) {
+      const data = await response.json()
+      Swal.fire({
+        title: '表單提交成功!',
+        text: data.message,
+        icon: 'success'
+      })
+      // 執行其他操作,如重置表單
+    } else {
+      Swal.fire({
+        title: '表單提交失敗',
+        text: '請稍後再試',
+        icon: 'error'
+      })
+    }
+  } catch (error) {
+    Swal.fire({
+      title: '發生錯誤',
+      text: error.message,
+      icon: 'error'
+    })
+  }
+}
+
+
+console.log(formData.value);
+
+submitForm();
+
+
 
 </script>
 
@@ -386,19 +461,19 @@ function getRandomColor() {
                 referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
           </div>
-          <form action="" method="post" class="col-12">
+          <form action="" method="post" class="col-12" @submit.prevent="showConfirmModal">
             <h3>傳送訊息給我們</h3>
             <div class="row">
               <div class="col-12 col-md-6">
                 <div class="form-item">
                   <label for="">姓名</label>
-                  <input type="text" name="name" required />
+                  <input type="text" name="name" required v-model="formData.name" />
                 </div>
               </div>
               <div class="col-12 col-md-6">
                 <div class="form-item">
                   <label for="">手機</label>
-                  <input type="text" name="phone" required />
+                  <input type="text" name="phone" required v-model="formData.phone" />
                 </div>
               </div>
             </div>
@@ -406,13 +481,14 @@ function getRandomColor() {
               <div class="col-12 col-md-6">
                 <div class="form-item">
                   <label for="">信箱</label>
-                  <input type="email" name="email" required />
+                  <input type="email" name="email" required v-model="formData.email" />
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-12">
-                <textarea cols="30" rows="10" placeholder="請輸入訊息..." maxlength="200" required></textarea>
+                <textarea cols="30" rows="10" placeholder="請輸入訊息..." maxlength="200" v-model="formData.message"
+                  required></textarea>
               </div>
             </div>
             <div class="auth-line row">
@@ -431,7 +507,7 @@ function getRandomColor() {
                 </div>
               </div>
             </div>
-            <button type="button">送出</button>
+            <button type="submit">送出</button>
           </form>
         </div>
       </div>
