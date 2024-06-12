@@ -1,5 +1,5 @@
 <template>
-    <div class="col-12 col-sm-6 col-md-4 col-lg-3" v-for="card in eventContent" :key="card.E_ID" @click="cardClicked(card)">
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3" v-for="card in filteredEvents" :key="card.E_ID" @click="cardClicked(card)">
         <div class="event-card">
             <div class="text">
                 <div class="theme">
@@ -8,8 +8,8 @@
                     </div>
                 </div>
                 <span>{{ card.E_ADDRESS }}</span>
-                <span>{{ card.E_DATE }}</span>
-                <span>{{ card.E_DEADLINE }}</span>
+                <span>活動日期:{{ card.E_DATE }}</span>
+                <span>截止日期:{{ card.E_DEADLINE }}</span>
             </div>
             <div class="pic">
                 <img :src="card.E_IMG" />
@@ -24,7 +24,7 @@
 
 <script>
 export default {
-    props: {eventContent:[]},
+    props: ['filteredEvents'],
     methods: {
     cardClicked(card) {
         this.$emit('card-click', card);

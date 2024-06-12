@@ -10,7 +10,7 @@
       "E_MAX_ATTEND": 200,
       "E_SIGN_UP": 156,
       "E_CONTENT": "邀請大家一起來清理美麗的北海岸,守護我們的海洋環境!",
-      "E_IMG": "01.jpg",
+      "E_IMG": "../img/event/event_07.jpg",
       "E_STATUS": 0
     },
     {
@@ -24,7 +24,7 @@
       "E_MAX_ATTEND": 150,
       "E_SIGN_UP": 87,
       "E_CONTENT": "讓我們一起清理南寮漁港,維護美麗海岸!",
-      "E_IMG": "02.jpg",
+      "E_IMG": "../img/event/event_08.jpg",
       "E_STATUS": 0
     },
     {
@@ -38,7 +38,7 @@
       "E_MAX_ATTEND": 100,
       "E_SIGN_UP": 58,
       "E_CONTENT": "讓我們齊心協力清理清水斷崖,還海岸原有的美麗風貌!",
-      "E_IMG": "03.jpg",
+      "E_IMG": "../img/event/event_09.jpg",
       "E_STATUS": 0
     },
     {
@@ -52,7 +52,7 @@
       "E_MAX_ATTEND": 120,
       "E_SIGN_UP": 112,
       "E_CONTENT": "高美濕地需要我們的守護,一起清理海岸垃圾吧!",
-      "E_IMG": "04.jpg",
+      "E_IMG": "../img/event/event_10.jpg",
       "E_STATUS": 1
     },
     {
@@ -66,7 +66,7 @@
       "E_MAX_ATTEND": 80,
       "E_SIGN_UP": 45,
       "E_CONTENT": "七股潟湖是台灣重要的濕地,讓我們一起清理這片美麗的海岸!",
-      "E_IMG": "05.jpg",
+      "E_IMG": "../img/event/event_11.jpg",
       "E_STATUS": 0
     },
     {
@@ -80,7 +80,7 @@
       "E_MAX_ATTEND": 150,
       "E_SIGN_UP": 93,
       "E_CONTENT": "旗津海岸是高雄著名的景點,也需要我們共同守護,一起淨灘吧!",
-      "E_IMG": "06.jpg",
+      "E_IMG": "../img/event/event_12.jpg",
       "E_STATUS": 0
     },
     {
@@ -94,7 +94,7 @@
       "E_MAX_ATTEND": 200,
       "E_SIGN_UP": 178,
       "E_CONTENT": "墾丁是著名的觀光勝地,讓我們一起清理沙灘,還墾丁海岸原有的美麗!",
-      "E_IMG": "07.jpg",
+      "E_IMG": "../img/event/event_13.jpg",
       "E_STATUS": 0
     },
     {
@@ -108,7 +108,7 @@
       "E_MAX_ATTEND": 100,
       "E_SIGN_UP": 67,
       "E_CONTENT": "烏石港是宜蘭重要的漁港,讓我們一起清理港口周邊,維護海洋環境!",
-      "E_IMG": "08.jpg",
+      "E_IMG": "../img/event/event_14.jpg",
       "E_STATUS": 0
     },
     {
@@ -122,7 +122,7 @@
       "E_MAX_ATTEND": 120,
       "E_SIGN_UP": 105,
       "E_CONTENT": "三仙台是花蓮著名的地質公園,讓我們一起守護這片美麗的海岸!", 
-      "E_IMG": "09.jpg",
+      "E_IMG": "../img/event/event_15.jpg",
       "E_STATUS": 0
     },
     {
@@ -136,7 +136,7 @@
       "E_MAX_ATTEND": 80,
       "E_SIGN_UP": 62,
       "E_CONTENT": "成功漁港是台東重要的漁業基地,讓我們清理港區,維護海洋資源!",
-      "E_IMG": "10.jpg",
+      "E_IMG": "../img/event/event_16.jpg",
       "E_STATUS": 2
     },
     {
@@ -150,7 +150,7 @@
       "E_MAX_ATTEND": 60,
       "E_SIGN_UP": 28,
       "E_CONTENT": "白沙灣是澎湖著名的沙灘,讓我們清理沙灘,還白沙灣潔淨的面貌!",
-      "E_IMG": "11.jpg",
+      "E_IMG": "../img/event/event_17.jpg",
       "E_STATUS": 0
     },
     {
@@ -164,7 +164,7 @@
       "E_MAX_ATTEND": 100,
       "E_SIGN_UP": 73,
       "E_CONTENT": "馬公第二漁港是澎湖重要的漁港,讓我們清理港區,減少海洋污染!",
-      "E_IMG": "12.jpg",
+      "E_IMG": "../img/event/event_18.jpg",
       "E_STATUS": 0
     },
     {
@@ -178,7 +178,7 @@
       "E_MAX_ATTEND": 300,
       "E_SIGN_UP": 246,
       "E_CONTENT": "號召北海岸的朋友們一起淨灘,清理綠石槽周邊海岸,守護我們的海洋!",
-      "E_IMG": "13.jpg",
+      "E_IMG": "../img/event/event_19.jpg",
       "E_STATUS": 0
     },
     {
@@ -192,7 +192,7 @@
       "E_MAX_ATTEND": 500,
       "E_SIGN_UP": 384,
       "E_CONTENT": "號召墾丁地區的民眾與遊客一起淨灘,清理南灣沙灘,維護墾丁海岸!",
-      "E_IMG": "14.jpg",
+      "E_IMG": "../img/event/event_20.jpg",
       "E_STATUS": 0
     },
     {
@@ -206,7 +206,7 @@
       "E_MAX_ATTEND": 150,
       "E_SIGN_UP": 92,
       "E_CONTENT": "金門也需要我們的守護,讓我們一起清理成功海灘,還海岸原貌!",
-      "E_IMG": "15.jpg",
+      "E_IMG": "../img/event/event_21.jpg",
       "E_STATUS": 0
     },
     {
@@ -220,7 +220,7 @@
       "E_MAX_ATTEND": 200, 
       "E_SIGN_UP": 167,
       "E_CONTENT": "號召花蓮地區民眾一起淨灘,清理鯉魚潭周邊海岸,守護美麗的東海岸!",
-      "E_IMG": "16.jpg",
+      "E_IMG": "../img/event/event_22.jpg",
       "E_STATUS": 0
     }
   ]

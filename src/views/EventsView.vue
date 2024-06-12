@@ -76,23 +76,20 @@
     <div class="container">
       <h2>活動列表</h2>
       <div class="menu">
-        <select name="">
+        <select name="" v-model="selectedRegion">
           <option value="">全台灣(地區)</option>
-          <option value="">北部</option>
-          <option value="">中部</option>
-          <option value="">南部</option>
-          <option value="">東部</option>
-          <option value="">離島</option>
+          <option value="0">北部</option>
+          <option value="1">中部</option>
+          <option value="2">南部</option>
+          <option value="3">東部</option>
+          <option value="4">離島</option>
         </select>
       </div>
       <div class="row">
-        <EventCard :eventContent="eventContent"
-        @card-click="handleEventCardClick"
-        />
+        <EventCard :filteredEvents="filteredEvents" @card-click="handleEventCardClick" />
       </div>
       <div class="pagenumber">
-        <a href="#" v-for="pageNumber in 4" :key="pageNumber">{{
-          pageNumber }}</a>
+        <a href="#" v-for="pageNumber in 4" :key="pageNumber">{{ pageNumber }}</a>
       </div>
     </div>
   </section>
@@ -100,12 +97,10 @@
     <h2>活動分享</h2>
     <div class="container">
       <div class="row">
-        <ShareCard :shareContent="shareContent"
-        :even="true" 
-        @card-click="handleShareCardClick" />
+        <ShareCard :shareContent="shareContent" :even="true" @card-click="handleShareCardClick" />
       </div>
       <div class="pagenumber">
-        <a href="#" v-for="pageNumber in 4" :key="pageNumber">{{  pageNumber }}</a>
+        <a href="#" v-for="pageNumber in 4" :key="pageNumber">{{ pageNumber }}</a>
       </div>
       <div class="sharebtn">
         <button>活動分享</button>
@@ -135,40 +130,40 @@
   <section class="section section-light-box" @click.self="closeEventModal" v-if="selectedEventCard">
     <div class="container">
       <div class="row">
-          <div class="pic">
-            <img src="https://picsum.photos/300/200/?random=10" />
-            <div class="text">
-              <h3>活動敘述</h3>
-              <p>
-                由環保志工組織的淨灘活動，旨在清理淡水區海灘垃圾並向參與者進行環保教育。
-              </p>
-            </div>
+        <div class="pic">
+          <img src="https://picsum.photos/300/200/?random=10" />
+          <div class="text">
+            <h3>活動敘述</h3>
+            <p>
+              由環保志工組織的淨灘活動，旨在清理淡水區海灘垃圾並向參與者進行環保教育。
+            </p>
           </div>
+        </div>
         <div class="content">
           <i class="fa-regular fa-circle-xmark" @click="closeEventModal"></i>
           <div class="activity-area">
-          <div class="text">
-            <h3>北海岸環保淨灘行動</h3>
-            <span>活動地點：淡水漁人碼頭Subheading</span>
-            <span>活動日期：2024年6月15日</span>
-            <span>截止日期：2024年6月10日</span>
-            <span>報名人數：100/150</span>
-            <div class="join">
-              <span class="people">參加人數:</span>
-              <select name="">
-                <option value="">1</option>
-                <option value="">2</option>
-                <option value="">3</option>
-                <option value="">4</option>
-                <option value="">5</option>
-                <option value="">6</option>
-                <option value="">7</option>
-                <option value="">8</option>
-                <option value="">9</option>
-                <option value="">10</option>
-              </select>
+            <div class="text">
+              <h3>北海岸環保淨灘行動</h3>
+              <span>活動地點：淡水漁人碼頭Subheading</span>
+              <span>活動日期：2024年6月15日</span>
+              <span>截止日期：2024年6月10日</span>
+              <span>報名人數：100/150</span>
+              <div class="join">
+                <span class="people">參加人數:</span>
+                <select name="">
+                  <option value="">1</option>
+                  <option value="">2</option>
+                  <option value="">3</option>
+                  <option value="">4</option>
+                  <option value="">5</option>
+                  <option value="">6</option>
+                  <option value="">7</option>
+                  <option value="">8</option>
+                  <option value="">9</option>
+                  <option value="">10</option>
+                </select>
+              </div>
             </div>
-          </div>
           </div>
           <div class="state">
             <button class="now">立即報名</button>
@@ -176,7 +171,7 @@
             <button class="full">報名已滿</button>
             <button class="end">活動結束</button>
           </div>
-          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -232,7 +227,7 @@
         </div>
         <div class="box box-5">
           <label>活動圖片</label>
-          <input type="file" name="" id=""  class="newFile">
+          <input type="file" name="" id="" class="newFile">
         </div>
         <div class="box box-6">
           <label>活動心得</label>
@@ -290,18 +285,16 @@
       </form>
     </div>
   </section>
-  <section class="section section-detailed" v-if="selectedShareCard" >
+  <section class="section section-detailed" v-if="selectedShareCard">
     <div class="overlay" @click="closeShareModal"></div>
     <div class="container">
-      <ShareCard :shareContent="[selectedShareCard]" 
-      :even="false" 
-      @close-click="closeShareModal" />
+      <ShareCard :shareContent="[selectedShareCard]" :even="false" @close-click="closeShareModal" />
     </div>
   </section>
 </template>
 
 <script>
-import { defineComponent, ref,onMounted  } from 'vue'
+import { defineComponent, ref, onMounted, computed } from 'vue'
 import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
@@ -316,25 +309,25 @@ export default defineComponent({
     ShareCard,
   },
   setup() {
-    const eventRemove=function (info) {
-        const startDate =info.event.start;
-        const endDate  =info.event.end;
+    const eventRemove = function (info) {
+      const startDate = info.event.start;
+      const endDate = info.event.end;
 
-        // 檢查 startDate 和 endDate 是否為 null
-        if (!startDate || !endDate) {
-          return;
-        }
-        const formattedEndDate = endDate.toLocaleString();
-        const formattedStartDate = startDate.toLocaleString();
+      // 檢查 startDate 和 endDate 是否為 null
+      if (!startDate || !endDate) {
+        return;
+      }
+      const formattedEndDate = endDate.toLocaleString();
+      const formattedStartDate = startDate.toLocaleString();
 
-        Swal.fire({
-          icon: info.event.allDay ? 'success' : 'info',
-          title: info.event.title,
-          text: `${formattedStartDate} - ${formattedEndDate}`,
-          confirmButtonText: '確認',
-        })
-      };
-      //定義行事曆的內容資訊
+      Swal.fire({
+        icon: info.event.allDay ? 'success' : 'info',
+        title: info.event.title,
+        text: `${formattedStartDate} - ${formattedEndDate}`,
+        confirmButtonText: '確認',
+      })
+    };
+    //定義行事曆的內容資訊
     const calendarOptions = ref({
       initialView: 'dayGridMonth',
       headerToolbar: {
@@ -359,57 +352,58 @@ export default defineComponent({
       },
       plugins: [dayGridPlugin, timeGridPlugin]
     });
-    //定義預設跳窗卡片是隱藏狀態false
-    const selectedEventCard  = ref(null);
-    const selectedShareCard  = ref(null);
+    //定義跳窗預設是隱藏狀態
+    const selectedEventCard = ref(null);
+    const selectedShareCard = ref(null);
     //跳窗卡片抓取點擊卡片時的卡片資訊
-    const handleEventCardClick  = (card) => {
+    const handleEventCardClick = (card) => {
       selectedEventCard.value = card;
     };
     const handleShareCardClick = (card) => {
       selectedShareCard.value = card;
-        };
+    };
     //點擊關閉方法
-    const closeEventModal  = () => {
+    const closeEventModal = () => {
       selectedEventCard.value = null;
     };
-    const closeShareModal  = () => {
+    const closeShareModal = () => {
       selectedShareCard.value = null;
     };
     //定義shareContent、eventContent是一個物件
     const shareContent = ref({});
     const eventContent = ref({});
-
+    //定義下拉式選單域設為空
+    const selectedRegion = ref('');
+    const includePlace = {
+      0: [0, 12], //北部
+      1: [1, 2, 3], //中部
+      2: [4, 5, 6, 13], //南部
+      3: [7, 8, 9, 15], //東部
+      4: [10, 11, 14], //離島
+    }
+    const filteredEvents = computed(() => {
+    if (selectedRegion.value === '') {
+        return eventContent.value;
+    } else {
+        const selectedRegionIds = includePlace[selectedRegion.value];
+        return eventContent.value.filter(event => selectedRegionIds.includes(event.E_ID));
+    }
+});
+    // const eventList = ref(null);
     // 在組件掛載後加載 JSON 文件
     onMounted(async () => {
-      //抓取活動分享json
       try {
-        const response = await fetch('../../public/Share.json');
+        const [response, res] = await Promise.all([
+          fetch('../../public/Share.json'),
+          fetch('../../public/json/event.json')
+        ]);
         shareContent.value = await response.json();
-      } 
-      catch (error) {
-        console.error('Error:', '無資料');
-      };
-      //抓取活動列表json
-      try {
-        const res = await fetch('../../public/evenList.json');
         eventContent.value = await res.json();
-      } 
-      catch (error) {
-        console.error('Error:', '無資料');
+      } catch (error) {
+        console.error('錯誤:', '無資料');
       };
-      
+
     });
-    
-    // 使用json提取活動資料
-    const eventList = ref(null)
-    onMounted(() => {
-      fetch(`../../public/json/event.json`)
-        .then((res) => res.json())
-        .then(jsonData => {
-          eventList.value = jsonData
-        })
-    })
     return {
       calendarOptions,
       shareContent,
@@ -419,7 +413,8 @@ export default defineComponent({
       handleEventCardClick,
       handleShareCardClick,
       closeEventModal,
-      closeShareModal
+      closeShareModal,
+      filteredEvents
     }
 
   },
