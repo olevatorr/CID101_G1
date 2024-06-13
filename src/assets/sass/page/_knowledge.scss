@@ -41,15 +41,68 @@
 }
 // ------------------------------------全台灣沿海廢棄數據
 .section-data {
-    background-color: #fff;
+    .container{
 
-    .button-area {
-        margin-left: -3px;
-
-        button {
-            margin: 1px;
+        .row{
+            .bgTwMap{
+                .datah2{
+                    h3{ 
+                        margin-left: 30px;
+                        margin-bottom: 20px;
+                    }
+                }
+                button{
+                    margin-bottom: 10px;
+                }
+                .map-container{
+                    background: url(../../../../public/img/knowledge/bg3.jpg);
+                    border-radius: 10px;
+                }
+                p{
+                    text-align: end;
+                    span{
+                        color: red;
+                    }
+                    margin-bottom: 50px;
+                }
+                .map-container{
+                    // margin-bottom: 30px;
+                }
+            }
+            .row{
+                .box-chart{
+                    margin-top: 100px;
+                }
+            }
+            .indicatorsea{
+                .news-filter{
+                    margin: 50px 0 50px 0;
+                }
+                .myChartbg {
+                    width: 100%;
+                }
+                
+                
+            }
+            .tableChart{
+                background: #E7A600;
+                border: 1px solid black;
+                font-size: 12px;
+                margin: auto;
+                color: rgb(0, 30, 59);
+                tr{
+                    border: 1px solid black;
+                    th{
+                        border: 1px solid black;
+                        padding: 5px;
+                    }
+                }
+                td{
+                    border: 1px solid black;
+                    padding: 10px;
+                }
+            }
         }
-
     }
 }
 
@@ -61,79 +114,6 @@
     height: 3em;
     padding: 10px;
     border: none;
-}
-// ------------------------------------
-section {
-    background-color: #fff;
-
-    .card-data {
-        h3 {
-            margin: 20px auto;
-            text-align: center;
-        }
-
-        .span-flex {
-            display: flex;
-            justify-content: center;
-            margin: 10px auto;
-
-            span {
-                display: flex;
-
-                .red-box {
-                    margin: auto 5px;
-                    width: 35px;
-                    height: 10px;
-                    background: #D35656;
-                }
-
-                .blue-box {
-                    margin: auto 5px;
-                    width: 35px;
-                    height: 10px;
-                    background: #2F80DE;
-                }
-            }
-        }
-    }
-}
-// ------------------------------------垃圾種類
-.section .flex {
-    display: flex;
-
-    .card-type {
-        display: flex;
-        align-self: flex-end;
-
-        .p-type {
-            margin: 10px;
-
-            .color-box {
-                display: flex;
-
-                .blue-box {
-                    width: 35px;
-                    height: 10px;
-                    background: #00ADF3;
-                    margin: auto 5px;
-                }
-
-                .yellow-box {
-                    width: 35px;
-                    height: 10px;
-                    background: #E7A600;
-                    margin: auto 5px;
-                }
-
-                .red-box {
-                    width: 35px;
-                    height: 10px;
-                    background: #D35656;
-                    margin: auto 5px;
-                }
-            }
-        }
-    }
 }
 // ------------------------------------基隆垃圾處理方式
 .trash-card {
@@ -148,48 +128,8 @@ section {
     background: url(../../../../public/img/knowledge/banner3.jpg) no-repeat;
     background-size: cover;
 
-    // .card-c {
-    //     cursor: pointer;
-    //     padding: 10px;
-    //     margin-bottom: 10px;
-    //     background: rgba(214, 214, 214, 0.15);
-    //     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    //     backdrop-filter: blur(7.8px);
-    //     -webkit-backdrop-filter: blur(7.8px);
-    //     border: 1px solid rgba(255, 255, 255, 0.3);
-    //     margin-bottom: 20px;
-    //     color: #fff;
-    //     .pic-card{
-    //         position: relative;
-    //         overflow: hidden;
-    //         // width: 100%;
-    //         // height: 100%;
-    //         img{
-    //             width: 100%;
-    //             // vertical-align: top;
-    //         }
-    //     }
-    //     img:hover {
-    //         transform: scale(1.10);
-    //         transition: transform 0.3s;
-    //     }
-    //     .card-body{
-    //         h3{
-    //             margin: 10px 0;
-    //         }
-    //         p{
-    //             overflow: hidden;
-    //             text-overflow: ellipsis;
-    //             display: -webkit-box;
-    //             -webkit-box-orient: vertical;
-    //             -webkit-line-clamp: 2;
-    //             line-height: 23px;
-    //         }
-    //     }
-    // }
-
-h1 {
-	font-size: 5.25vmin;
+h4 {
+	font-size: 5vmin;
 	// text-align: center;
 	color: white;
 }
@@ -230,15 +170,6 @@ p {
 	flex-direction: column;
 	justify-content: space-between;
 	width: 15vmin;
-	// padding: 0.5rem 0 0 0.5rem;
-	// border: 3px solid;
-	// border-image: linear-gradient(
-	// 		to bottom,
-	// 		#6d5ee1 5%,
-	// 		rgb(8, 91, 234) 35% 65%,
-	// 		#110358 95%
-	// 	)
-	// 	0 0 0 100%;
 	transition: 0.3s ease-in-out 0.2s;
 	z-index: 1;
 }
@@ -283,10 +214,10 @@ p {
 .wrap:hover .image-content {
 	width: 30vmin;
 }
-.wrap:hover .overlay-content {
-	transition-delay: 0.2s;
-	transform: translateX(60vmin);
-}
+// .wrap:hover .overlay-content {
+// 	transition-delay: 0.2s;
+// 	transform: translateX(60vmin);
+// }
 .wrap:hover .dots {
 	transform: translateX(1rem);
 }
@@ -295,69 +226,69 @@ p {
 }
 
 /* Animations and timing delays */
-.animate {
-	// animation-duration: 0.7s;
-	animation-timing-function: cubic-bezier(0.26, 0.53, 0.74, 1.48);
-	// animation-fill-mode: backwards;
-}
-/* Pop In */
-.pop {
-	animation-name: pop;
-}
-@keyframes pop {
-	0% {
-		opacity: 0;
-		transform: scale(0.5, 0.5);
-	}
-	100% {
-		// opacity: 1;
-		transform: scale(1, 1);
-	}
-}
+// .animate {
+// 	// animation-duration: 0.7s;
+// 	animation-timing-function: cubic-bezier(0.26, 0.53, 0.74, 1.48);
+// 	// animation-fill-mode: backwards;
+// }
+// /* Pop In */
+// .pop {
+// 	anim。ation-name: pop;
+// }
+// @keyframes pop {
+// 	0% {
+// 		opacity: 0;
+// 		transform: scale(0.5, 0.5);
+// 	}
+// 	100% {
+// 		// opacity: 1;
+// 		transform: scale(1, 1);
+// 	}
+// }
 
-/* Slide In */
-.slide {
-	animation-name: slide;
-}
-@keyframes slide {
-	0% {
-		opacity: 0;
-		transform: translate(4em, 0);
-	}
-	100% {
-		opacity: 1;
-		transform: translate(0, 0);
-	}
-}
+// /* Slide In */
+// .slide {
+// 	animation-name: slide;
+// }
+// @keyframes slide {
+// 	0% {
+// 		opacity: 0;
+// 		transform: translate(4em, 0);
+// 	}
+// 	100% {
+// 		opacity: 1;
+// 		transform: translate(0, 0);
+// 	}
+// }
 
-/* Slide Left */
-.slide-left {
-	animation-name: slide-left;
-}
-@keyframes slide-left {
-	0% {
-		opacity: 0;
-		transform: translate(-40px, 0);
-	}
-	100% {
-		opacity: 1;
-		transform: translate(0, 0);
-	}
-}
+// /* Slide Left */
+// .slide-left {
+// 	animation-name: slide-left;
+// }
+// @keyframes slide-left {
+// 	0% {
+// 		opacity: 0;
+// 		transform: translate(-40px, 0);
+// 	}
+// 	100% {
+// 		opacity: 1;
+// 		transform: translate(0, 0);
+// 	}
+// }
 
-.slide-up {
-	animation-name: slide-up;
-}
-@keyframes slide-up {
-	0% {
-		opacity: 0;
-		transform: translateY(3em);
-	}
-	100% {
-		opacity: 1;
-		transform: translateY(0);
-	}
-}
+// .slide-up {
+// 	animation-name: slide-up;
+// }
+// @keyframes slide-up {
+// 	0% {
+// 		opacity: 0;
+// 		transform: translateY(3em);
+// 	}
+// 	100% {
+// 		opacity: 1;
+// 		transform: translateY(0);
+// 	}
+// }
 
 .delay-1 {
 	animation-delay: 0.3s;
@@ -461,7 +392,7 @@ p {
 
 .image-caption {
     width: 100%;
-    height: 100%;
-    margin: 10px;
+    padding: auto;
+    margin: auto;
 }
 // --------------------------------------------
