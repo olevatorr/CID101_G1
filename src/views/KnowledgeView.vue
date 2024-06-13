@@ -188,7 +188,7 @@ import { Chart, registerables } from 'chart.js';
 import jsonData from '../../public/json/海域水質.json';
 import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
-import { _vertical } from 'gsap/Observer';
+// import { _vertical } from 'gsap/Observer';
 
 // 使用 ref 定義響應式數據變量
 const apiData = ref(null);  // 儲存水質數據
@@ -355,13 +355,14 @@ function setupChart() {
         label: indicators.find(item => item.value === selectedIndicator.value).label,  // 設置數據集標籤
         data: indicatorValues,  // 設置數據集數據
         backgroundColor: gradient,  // 設置漸變背景顏色
-        borderColor: '#00AFB9',  // 設置邊框顏色
-        borderWidth: 1,  // 設置邊框寬度
-        pointBackgroundColor: 'rgba(10, 0, 255, 0.5)',  // 設置數據點背景顏色
+        borderColor: 'white',  // 設置邊框顏色
+        borderWidth: 3,  // 設置邊框寬度
+        pointBackgroundColor: 'rgba(10, 0, 255, 0.6)',  // 設置數據點背景顏色
         pointBorderColor: '#fff',  // 設置數據點邊框顏色
         pointHitRadius:100,
-        pointRadius:5,
+        pointRadius:6,
         overBackgroundColor: '#fff',  // 設置數據點懸停背景顏色
+        cubicInterpolationMode: 'monotone',   // 設置弧度線
         fill: true  // 設置填充
       }]
     },
@@ -485,7 +486,7 @@ async function initMap() {
           .attr('transform', 'translate(0, -5) ');  // 向上移动 5px
       }
     })
-    .on('mouseout', function(event, d) {
+    .on('mouseout', function() {
       d3.select(this)
         .transition()
         .duration(200)
@@ -639,20 +640,19 @@ twChart = new Chart(ctx, {
         '#40916C', '#1B4332', '#081C15', '#00AFB9'
       ],
       borderColor: 'white',
-      borderWidth: 1
+      borderWidth: 2
     }]
   },
   options: {
     maintainAspectRatio: false, // 關閉自動調整長寬比
-    aspectRatio: 1.4, // 設定長寬比
-    responsive: true,
+    aspectRatio:  1.4 , // 設定長寬比
+    responsive: true,             // 啟用響應式佈局
     scales: {
       y: {
         display: false,
       }
     },
-    maintainAspectRatio: false, // 關閉自動調整長寬比
-    aspectRatio: isMobile ? 1 : 1.4, // 移动设备上使用1:1的长宽比，桌面设备上使用1.4:1的长宽比
+     // 移动设备上使用1:1的长宽比，桌面设备上使用1.4:1的长宽比
     plugins: {
       title: {
         display: true,
@@ -717,7 +717,7 @@ twChart = new Chart(ctx, {
           '#00AFB9', '#5390D9'
         ],
         borderColor: 'white',
-        borderWidth: 1
+        borderWidth: 2
       }]
     },
     options: {
@@ -727,7 +727,7 @@ twChart = new Chart(ctx, {
         }
       },
       maintainAspectRatio: false, // 關閉自動調整長寬比
-      aspectRatio: 1.4, // 設定長寬比
+      aspectRatio: 1.3, // 設定長寬比
       plugins: {
         title: {
           display: true,
@@ -781,7 +781,7 @@ twChart = new Chart(ctx, {
           '#00AFB9', '#5390D9', '#48BFE3', '#64DFDF',
         ],
         borderColor: 'white',
-        borderWidth: 1
+        borderWidth: 2
       }]
     },
     options: {
@@ -791,7 +791,7 @@ twChart = new Chart(ctx, {
         }
       },
       maintainAspectRatio: false, // 關閉自動調整長寬比
-      aspectRatio: 1.4, // 設定長寬比為 2:1
+      aspectRatio: 1.3, // 設定長寬比為 2:1
       plugins: {
         title: {
           display: true,
@@ -846,8 +846,8 @@ const displaysourceData = hebrissourceLabels.map(key => {
           '#00AFB9', '#5390D9', '#48BFE3', '#64DFDF',
           '#008F66',
         ],
-          borderColor: '#4D97FF',
-          borderWidth: 3
+          borderColor: 'white',
+          borderWidth: 3,
         },]
       },
       options: {

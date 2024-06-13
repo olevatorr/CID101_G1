@@ -41,6 +41,8 @@
 }
 // ------------------------------------全台灣沿海廢棄數據
 .section-data {
+    background: #B2D9D9;
+    padding: 100px 0;
     .container{
 
         .row{
@@ -55,7 +57,7 @@
                     margin-bottom: 10px;
                 }
                 .map-container{
-                    background: url(../../../../public/img/knowledge/bg3.jpg);
+                    background-color: #6686d2;
                     border-radius: 10px;
                 }
                 p{
@@ -66,7 +68,7 @@
                     margin-bottom: 50px;
                 }
                 .map-container{
-                    // margin-bottom: 30px;
+                    margin-bottom: 30px;
                 }
             }
             .row{
