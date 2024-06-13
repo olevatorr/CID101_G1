@@ -3,7 +3,6 @@ import { ref, onMounted, watch } from 'vue'
 import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
-import Swal from 'sweetalert2'
 
 const areas = ref([
     { id: 0, name: '北部' },
@@ -60,19 +59,6 @@ const calendarOptions = ref({
         // console.log(date);
         // console.log(events);
 
-        if (events.length > 0) {
-            Swal.fire({
-                icon: 'info',
-                title: `${date.toLocaleDateString()} 的活動`,
-                html: events.map((event) => `
-        <div>
-          <h4>${event.E_TITLE}</h4>
-          <p>地點：${event.E_ADDRESS}</p>
-        </div>
-      `).join(''),
-                confirmButtonText: '確認',
-            });
-        }
     },
     plugins: [dayGridPlugin, timeGridPlugin],
 });
@@ -104,10 +90,6 @@ onMounted(async () => {
         console.error('Error loading JSON:', error);
     }
 });
-
-const hasEvents = (areaId) => {
-    return getAreaEvents(areaId).length > 0;
-};
 const getAreaEvents = (areaId) => {
     return calendarFilteredEvents.value.filter((event) => event.E_AREA === areaId);
 };
@@ -130,16 +112,14 @@ watch(calendarList, (newValue) => {
                     <div class="area-list">
                         <div v-if="calendarFilteredEvents && calendarFilteredEvents.length > 0">
                             <div v-for="area in areas" :key="area.id" class="area">
-                                <template v-if="hasEvents(area.id)">
-                                    <h3>{{ area.name }}</h3>
-                                    <div class="activities">
-                                        <ul>
-                                            <li v-for="event in getAreaEvents(area.id)" :key="event.E_ID">
-                                                {{ event.E_TITLE }}
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </template>
+                                <h3>{{ area.name }}</h3>
+                                <div class="activities">
+                                    <ul>
+                                        <li v-for="event in getAreaEvents(area.id)" :key="event.E_ID">
+                                            {{ event.E_TITLE }}
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                         <div v-else>

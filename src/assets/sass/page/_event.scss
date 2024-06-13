@@ -59,13 +59,30 @@
         width: clamp(600px, auto, 1200px);
         margin: 40px auto;
     }
+    .fc-day {
+        border: 1px solid $color-subprimary;
+        i {
+            transition: .3s;
+        }
+        i:hover {
+            color: $color-highlight-dark
+        }
+    }
+    .fc .fc-daygrid-day.fc-day-today {
+        background-color: #005FA140;
+    }
     .fc-event-main {
         text-align: center;
     }
     .area-list {
-        height: 470px;
         overflow-y: auto;
+        height: 475px;
 
+        &>div {
+            height: 100%;
+            display: grid;
+            grid-template-rows: 20%;
+        }
 
         @media screen and (max-width: 992px) {
             margin-top: 20px;
@@ -76,7 +93,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 10px 0;
 
             h3 {
                 color: #fff;
