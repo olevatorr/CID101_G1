@@ -128,14 +128,6 @@ const formData = ref({
   captcha: ''
 });
 
-// 模擬提交表單的數據（用於測試）
-// formData.value = {
-//   name: '測試用戶',
-//   phone: '1234567890',
-//   email: 'test@example.com',
-//   message: '測試',
-//   captcha: '1234'
-// };
 
 const showConfirmModal = () => {
   Swal.fire({
@@ -152,7 +144,8 @@ const showConfirmModal = () => {
   })
 }
 
-const submitForm = async () => {
+
+const submitForm = async (e) => {e.preventDefault()
   try {
     const response = await fetch('/submit-form.php', {
       method: 'POST',
