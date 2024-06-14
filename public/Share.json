@@ -2,7 +2,7 @@
     {
         "F_ID": 2345678,
         "U_ID": 12345,
-        "F_IMG": "@/../img/event/event_03.jpg",
+        "F_IMG": "@/../img/event/event_01.jpg",
         "E_TITLE": "台灣海洋保護行動",
         "E_ADDRESS": "台北市淡水河口",
         "E_DATE": "2024年5月15日",
@@ -15,7 +15,7 @@
     {
         "F_ID": 2345679,
         "U_ID": 12346,
-        "F_IMG": "@/../img/event/event_05.jpg",
+        "F_IMG": "@/../img/event/event_03.jpg",
         "E_TITLE": "澎湖海洋淨灘活動",
         "E_ADDRESS": "澎湖縣馬公市西嶼海灘",
         "E_DATE": "2024年6月20日",
@@ -28,7 +28,7 @@
     {
         "F_ID": 2345680,
         "U_ID": 12347,
-        "F_IMG": "@/../img/event/event_01.jpg",
+        "F_IMG": "@/../img/event/event_04.jpg",
         "E_TITLE": "東北角海岸淨灘日",
         "E_ADDRESS": "宜蘭縣頭城鎮東北角海岸",
         "E_DATE": "2024年7月5日",
@@ -41,7 +41,7 @@
     {
         "F_ID": 2345681,
         "U_ID": 12348,
-        "F_IMG": "@/../img/event/event_06.jpg",
+        "F_IMG": "@/../img/event/event_05.jpg",
         "E_TITLE": "綠島淨灘愛地球行動",
         "E_ADDRESS": "綠島人權紀念公園海灘",
         "E_DATE": "2024年8月10日",
