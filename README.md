@@ -32,10 +32,13 @@
 ## 使用技術
 <img src="https://static-00.iconduck.com/assets.00/html-5-icon-726x1024-evem6gg5.png" height="100px"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968242.png" height="100px">
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Javascript-shield.svg/1200px-Javascript-shield.svg.png" height="100px">
-<img src="https://iconape.com/wp-content/png_logo_vector/jquery.png" height="100px">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Sass_Logo_Color.svg/2560px-Sass_Logo_Color.svg.png" height="100px">
 <img src="https://cdn-icons-png.flaticon.com/512/5968/5968332.png" height="100px">
 <img src="https://static-00.iconduck.com/assets.00/mysql-original-wordmark-icon-2048x1064-jfbaqrzh.png" height="100px">
 <img src="https://cdn.iconscout.com/icon/free/png-256/free-vuejs-1175052.png?f=webp" height="100px">
-<img src="https://cdn.worldvectorlogo.com/logos/jquery-ui.svg" height="100px">
 <img src="https://raw.githubusercontent.com/d3/d3-logo/master/d3.png" height="100px">
-<img src="https://bootstrap-vue.org/_nuxt/icons/icon_512x512.67aef2.png" height="100px">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Bootstrap_logo.svg/640px-Bootstrap_logo.svg.png" height="100px">
+<img src="https://seeklogo.com/images/C/chart-js-logo-BB0E7C3308-seeklogo.com.png" height="100px">
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-XXoN9fWeptv1CbW9iHlfAMoSyhw0_g0Ziw&s" height="100px">
+<img src="https://sweetalert2.github.io/images/SweetAlert2.png" height="100px">
+<img src="https://avatars.githubusercontent.com/u/13825204?s=200&v=4" height="100px">
