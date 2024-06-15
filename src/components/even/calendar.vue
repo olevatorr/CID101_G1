@@ -49,19 +49,29 @@ const calendarOptions = ref({
             const eventDate = new Date(event.E_DATE);
             const clickedDate = new Date(date);
             const result = eventDate.toDateString() === clickedDate.toDateString();
-            // console.log('Event Date:', eventDate.toDateString());
-            // console.log('Clicked Date:', clickedDate.toDateString());
-            // console.log('Comparison Result:', result);
             return result;
         });
 
         calendarFilteredEvents.value = events;
-        // console.log(date);
-        // console.log(events);
 
     },
     plugins: [dayGridPlugin, timeGridPlugin],
 });
+
+const eventEnded = (eventDay) => {
+    return new Date(eventDay) < today();
+};
+
+const registrationClosed = (eventDeadline) => {
+    return new Date(eventDeadline) < today();
+};
+
+const registrationFull = (attendee, maxAttendee) => {
+    return attendee === maxAttendee;
+};
+const today = () => {
+    return new Date();
+};
 
 const eventList = ref(null);
 const calendarList = ref(null);
@@ -97,7 +107,6 @@ const getAreaEvents = (areaId) => {
 watch(calendarList, (newValue) => {
     calendarOptions.value.events = newValue;
 });
-
 </script>
 <template>
     <section class="section section-event-date">
@@ -117,6 +126,10 @@ watch(calendarList, (newValue) => {
                                     <ul>
                                         <li v-for="event in getAreaEvents(area.id)" :key="event.E_ID">
                                             {{ event.E_TITLE }}
+                                            <span class="end" v-if="eventEnded(event.E_DATE)">活動結束</span>
+                                            <span class="deadline" v-else-if="registrationClosed(event.E_DEADLINE)">報名截止</span>
+                                            <span class="fullsign" v-else-if="registrationFull(event.E_SIGN_UP, event.E_MAX_ATTEND)">報名額滿</span>
+                                            <span class="ongoing" v-else>報名中</span>
                                         </li>
                                     </ul>
                                 </div>
