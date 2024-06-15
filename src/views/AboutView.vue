@@ -116,77 +116,6 @@ function getRandomColor() {
   return `rgb(${r}, ${g}, ${b})`;
 }
 
-//表單
-
-const formData = ref({
-  name: '',
-  phone: '',
-  email: '',
-  message: '',
-  captcha: ''
-});
-
-
-const showConfirmModal = () => {
-  Swal.fire({
-    title: '確認提交表單?',
-    text: '請檢查您的表單數據是否正確。',
-    icon: 'question',
-    showCancelButton: true,
-    confirmButtonText: '確認',
-    cancelButtonText: '取消'
-  }).then(async (result) => {
-    if (result.isConfirmed) {
-      submitForm()
-    }
-  })
-}
-
-// 表單驗證
-
-const submitForm = async (e) => {
-  e.preventDefault()
-  try {
-    const response = await fetch('/submit-form.php', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData.value)
-    })
-
-    if (response.ok) {
-      const data = await response.json()
-      Swal.fire({
-        title: '表單提交成功!',
-        text: data.message,
-        icon: 'success'
-      })
-      window.location.href = '/'
-      // 執行其他操作,如重置表單
-      } else {
-        Swal.fire({
-          title: '表單提交失敗',
-          text: '請稍後再試',
-          icon: 'error'
-      })
-    }
-  } catch (error) {
-    Swal.fire({
-      title: '發生錯誤',
-      text: error.message,
-      icon: 'error'
-    })
-  }
-}
-
-
-console.log(formData.value);
-
-submitForm();
-
-
-
 </script>
 
 
@@ -501,7 +430,7 @@ submitForm();
                 </div>
               </div>
             </div>
-            <button type="submit" @click.prevent="showConfirmModal">送出</button>
+            <button type="button">送出</button>
           </form>
         </div>
       </div>
