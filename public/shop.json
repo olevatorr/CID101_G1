@@ -9,8 +9,8 @@
     {
         "id": 2,
         "class": "上衣",
-        "title": "【大學T經典款-鯨魚】",
-        "price": 1980,
+        "title": "【大學衛衣經典款-鯨魚】",
+        "price": 990,
         "imgUrl": "../../public/img/shop/02.png"
     },
     {
@@ -37,8 +37,8 @@
     {
         "id": 6,
         "class": "上衣",
-        "title": "【大學T經典款-海龜】",
-        "price": 1980,
+        "title": "【大學衛衣經典款-海龜】",
+        "price": 990,
         "imgUrl": "../../public/img/shop/06.png"
     },
     {
@@ -65,8 +65,8 @@
     {
         "id": 10,
         "class": "上衣",
-        "title": "【大學T經典款-企鵝】",
-        "price": 1980,
+        "title": "【大學衛衣經典款-企鵝】",
+        "price": 990,
         "imgUrl": "../../public/img/shop/10.png"
     },
     {
@@ -93,8 +93,8 @@
     {
         "id": 14,
         "class": "上衣",
-        "title": "【大學T經典款-海豚】",
-        "price": 1980,
+        "title": "【大學衛衣經典款-海豚】",
+        "price": 990,
         "imgUrl": "../../public/img/shop/14.png"
     },
     {
@@ -121,8 +121,8 @@
     {
         "id": 18,
         "class": "上衣",
-        "title": "【大學T經典款-海龜(藍)】",
-        "price": 1980,
+        "title": "【大學衛衣經典款-海龜(藍)】",
+        "price": 990,
         "imgUrl": "../../public/img/shop/18.png"
     },
     {
@@ -149,8 +149,8 @@
     {
         "id": 22,
         "class": "上衣",
-        "title": "【大學T經典款-北極熊】",
-        "price": 1980,
+        "title": "【大學衛衣經典款-北極熊】",
+        "price": 990,
         "imgUrl": "../../public/img/shop/22.png"
     },
     {
@@ -177,8 +177,8 @@
     {
         "id": 26,
         "class": "上衣",
-        "title": "【大學T經典款-酷企鵝】",
-        "price": 1980,
+        "title": "【大學衛衣經典款-酷企鵝】",
+        "price": 990,
         "imgUrl": "../../public/img/shop/26.png"
     },
     {
@@ -205,8 +205,8 @@
     {
         "id": 30,
         "class": "上衣",
-        "title": "【大學T經典款-海星】",
-        "price": 1980,
+        "title": "【大學衛衣經典款-海星】",
+        "price": 990,
         "imgUrl": "../../public/img/shop/30.png"
     },
     {
