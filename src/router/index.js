@@ -3,8 +3,8 @@ import HomeView from '../views/HomeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  scrollBehavior () {
-    return {top:0}
+  scrollBehavior() {
+    return { top: 0 }
   },
   routes: [
     {
@@ -86,7 +86,7 @@ const router = createRouter({
       component: () => import('../views/DonateView.vue')
     },
     {
-      path: '/Newsinner',
+      path: '/Newsinner/:id',
       name: 'Newsinner',
       component: () => import('../views/NewsinnerView.vue')
     },
@@ -102,6 +102,5 @@ const router = createRouter({
     }
   ]
 })
-
 
 export default router
