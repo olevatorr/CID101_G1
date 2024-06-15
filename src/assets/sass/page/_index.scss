@@ -426,8 +426,19 @@
         }
     }
 }
+
+.section-index-event {
+    button {
+        display: block;
+        margin: 20px auto;
+    }
+}
 .section-index-news {
     background-color: $color-subprimary;
+    button {
+        display: block;
+        margin: 20px auto;
+    }
 }
 
 .gotop {
