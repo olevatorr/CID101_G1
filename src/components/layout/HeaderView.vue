@@ -1,7 +1,9 @@
 <script setup>
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
-import { store } from '@/store.js';
+import { store, fetchProfile, logout as logoutStore } from '@/store.js';
+
+fetchProfile()
 
 const isMenuOpen = ref(false)
 const isSubmenuDropDown = ref(false)
@@ -14,7 +16,7 @@ const toggleSubmenuDropDown = () => {
 }
 
 const logout = () => {
-    store.logout();
+    logoutStore();
 }
 
 </script>

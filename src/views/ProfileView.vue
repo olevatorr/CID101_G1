@@ -5,11 +5,10 @@
       <div class="row">
         <div class="profile-box col-12 col-sm-4 col-md-3">
           <div class="avatra">
-            <!-- <img id="image" ref="member.U_ADDRESS" :src=" imageSrc" @error="imageLoaded = false"> -->
-            <img id="image" :src="member.U_AVATAR">
+            <img :src="imageSrc" alt="User Avatar" id="image" />
             <input type="file" id="theFile" @change="fileChange" ref="fileIn put">
             <button>Upload</button>
-            <p>Shark</p>
+            <p>{{ member?.U_NAME }}</p>
             <RouterLink to="/Member">
               <button class=" logouts" @click="logout">會員登出</button>
             </RouterLink>
@@ -370,40 +369,32 @@
 </template>
 
 <script>
-import { store } from '@/store.js';
-import { ref, onMounted, computed} from 'vue'
+import { store, fetchProfile, logout as logoutStore } from '@/store.js';
+import { ref, computed} from 'vue'
+fetchProfile()
 export default {
   setup() {
-    const member = computed(() => {
-    return store.member
-})
+    const member = computed(() => store.member);
+    const imageSrc = ref(member.value?.U_AVATAR); // Initial image source
+    const fileInput = ref(null);
+    const currentSection = ref('profile');
+    const selectedOption = ref('')
 
-    const fileInput = ref(null)
-    const imageElement = ref(null)
-    const imageSrc = ref('')
-    //會員按鈕切換
-    const currentSection = ref('profile')
-
-    const selectedOption = ref('') 
-    
     const fileChange = (event) => {
-      const file = event.target.files[0]
-      console.log(file)
-    
-      const reader = new FileReader()
-      reader.readAsDataURL(file)
-    
-      reader.onload = () => {
-        imageSrc.value = reader.result
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          imageSrc.value = e.target.result;
+        };
+        reader.readAsDataURL(file);
       }
-    }
+    };
     const logout = () => {
-    store.logout();
+    logoutStore();
     }
+
     
-    onMounted(() => {
-      // fileInput.value.addEventListener('change', fileChange)
-    })
     const changeSection = (section) => {
       currentSection.value = section
     }
@@ -414,7 +405,6 @@ export default {
 
     return {
       fileInput,
-      imageElement,
       imageSrc,
       fileChange,
       imageLoaded: true,

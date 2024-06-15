@@ -1,7 +1,7 @@
 <script setup>
-import { ref , computed} from 'vue';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { store, login as loginStore } from '@/store.js'; // Adjust the import path as necessary
+import { login as loginStore } from '@/store.js'; // Adjust the import path as necessary
 import Swal from 'sweetalert2'
 
 const username = ref('');
@@ -11,9 +11,6 @@ const router = useRouter();
 const usernameError = ref('');
 const passwordError = ref('');
 
-const member = computed(() => {
-    return store.member
-})
 
 const validateUsername = () => {
     if (!username.value) {
@@ -79,7 +76,6 @@ const login = async () => {
 
 <template>
     <section class="section section-member">
-        {{ member }}
         <div class="container">
                 <div class="member-box row">
                     <div class="member-box-img col-12 col-md-6">
