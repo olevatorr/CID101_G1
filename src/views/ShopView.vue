@@ -1,4 +1,3 @@
-
 <template>
     <div>
         <section class="section section-shop-banner">
@@ -32,7 +31,7 @@
         <section class="section section-product-list">
             <div class="container">
                 <div class="row">
-                    <ProductItem 
+                    <ProductItem @add-to-cart="addToCart(item)" 
                     v-for=" item in paginatedProdList" 
                     :key="item.id"
                     :item="item"
@@ -40,6 +39,46 @@
                 </div> 
             </div> 
         </section>
+        
+        <section class="section section-shoppingcart">
+            <div class="container">
+                <div class="carticon" :class="{ show: showCartIcon }" @click="toggleCartBox">
+                    <div class="pic">
+                        <img src="../../public/img/shop/cart.png" alt="">
+                    </div>
+                    <div class="icon">
+                        <span>{{ cartCount }}</span>
+                    </div>
+                </div>    
+                <div class="cartbox" :class="{ show: showCartBox }">
+                    <div class="carttitle">
+                            <p>購物車</p>
+                            <i class="fa-regular fa-circle-xmark" @click="toggleCartBox"></i>
+                    </div>
+                    <div class="cartinfo">
+                        <div class="info" v-for="(item, index) in cartItems" :key="item.id">
+                            <span>{{ index + 1 }}.</span>
+                            <span>{{ item.title }}</span>
+                            <span>數量 :</span>
+                            <button @click="decreaseQuantity(item)" :disabled="item.quantity <= 1">-</button>
+                            <span>{{ item.quantity }}</span>
+                            <button @click="increaseQuantity(item)" :disabled="item.quantity >= 10">+</button>
+                            <span class="price">NT$ {{ item.price * item.quantity }}</span>
+                            <div class="delete">
+                                <img src="../../public/img/shop/delete2.png" alt="" @click="removeFromCart(item)">
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="carttotal">
+                        <RouterLink :to="'/mallcart'">
+                            <button>立即購買</button>
+                        </RouterLink>
+                        <span>NT$ {{ addPrice }}</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section class="section section-pagination">
             <div class="container">
                 <div class="button">
@@ -51,20 +90,29 @@
                 <img src="../../public/img/shop/sea.png" alt="">
             </div>
         </section>
+
+        <ProductInfoView @add-to-cart="handleAddToCart" :sharedCart="sharedCart" />
     </div>
 </template>
 
 <script>
 import ProductItem from '../components/ProductItem.vue';
+
 export default{
     components: {
-        ProductItem
+        ProductItem,
     },
     data() {
         return {
             product: [],
             prodList: [],
-            currentPage: 1
+            cart: [],
+            currentPage: 1,
+            cartCount: 0,
+            cartItems: [],
+            showCartIcon: false,
+            showCartBox: false,
+            sharedCart: []
         }
     },
     computed: {
@@ -72,7 +120,15 @@ export default{
             const startIndex = (this.currentPage - 1) * 16;
             const endIndex = startIndex + 16;
             return this.prodList.slice(startIndex, endIndex);
-        }
+        },
+        totalPrice() {
+            return this.quantity * this.productdetail.price;
+        },
+        addPrice() {
+            return this.cartItems.reduce((total, item) => {
+            return total + item.price * item.quantity;
+            }, 0);
+        },
     },
     mounted() {
         fetch("/public/shop.json")
@@ -96,9 +152,52 @@ export default{
             this.currentPage = 1;
         },
         changePage(page) {
-        this.currentPage = page;
-        window.scrollTo(0, 0);
-    }
+            this.currentPage = page;
+            window.scrollTo(0, 0);
+        },
+        addToCart(product) {
+            this.cartCount++;
+            const existingProduct = this.cartItems.find(item => item.id === product.id);
+            if (existingProduct) {
+                existingProduct.quantity++;
+            } else {
+                this.cartItems.push({ ...product, quantity: 1 });
+            }
+            this.showCartIcon = true;
+        },
+        removeFromCart(item) {
+            const index = this.cartItems.indexOf(item);
+            if (index !== -1) {
+                this.cartItems.splice(index, 1);
+                this.cartIndex--;
+                this.cartCount--;
+                if (this.cartItems.length === 0) {
+                    this.showCartIcon = false; 
+                    this.showCartBox = false;
+                }
+            }
+        },
+        decreaseQuantity(item) {
+            if (item.quantity > 1) {
+                item.quantity--;
+            }
+            },
+        increaseQuantity(item) {
+            if (item.quantity < 10) {
+                item.quantity++;
+            }
+        },
+        toggleCartBox() {
+            this.showCartBox = !this.showCartBox;
+            if (this.showCartBox) {
+            this.showCartIcon = false; 
+            } else if (this.cartItems.length > 0) {
+            this.showCartIcon = true; 
+            }
+        },
+        handleAddToCart(localCart) {
+            this.sharedCart = [...this.sharedCart, ...localCart]
+        }
     }
 }
 </script>
