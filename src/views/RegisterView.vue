@@ -1,3 +1,20 @@
+<script>
+export default {
+data() {
+    return {
+        account:"",
+    }
+},
+methods: {
+    checkac(){
+        if(this.account===""){
+            alert("請輸入帳號");
+        }
+    }
+},
+}
+</script>
+
 <template>
     <section class="section section-register">
         <div class="container">
@@ -10,7 +27,7 @@
                         </div>
                         <div class="from-group">
                             <label>會員帳號</label>
-                            <input type="text" name="" id="" maxlength="20" placeholder="請輸入帳號">
+                            <input type="text" name="" id="" maxlength="20" placeholder="請輸入帳號" @blur="checkac()" v-model="account"/>
                         </div>
                         <div class="from-group">
                             <label>會員密碼</label>
@@ -55,3 +72,4 @@
         </div>
     </section>
 </template>
+

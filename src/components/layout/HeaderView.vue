@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
+import { store } from '@/store.js';
 
 const isMenuOpen = ref(false)
 const isSubmenuDropDown = ref(false)
@@ -11,6 +12,11 @@ const toggleMenu = () => {
 const toggleSubmenuDropDown = () => {
     isSubmenuDropDown.value = !isSubmenuDropDown.value
 }
+
+const logout = () => {
+    store.logout();
+}
+
 </script>
 
 <template>
@@ -56,8 +62,13 @@ const toggleSubmenuDropDown = () => {
                 </li>
                 <li><router-link to="/news" @click="toggleMenu">最新消息</router-link></li>
                 <li class="nav-member">
-                    <RouterLink to="/Member" @click="toggleMenu">會員登入</RouterLink>
+                    <RouterLink v-if="store.isLoging" to="/ProfileView" @click="toggleMenu">
+                        <img :src="store.memberAvatar" alt="Member Avatar" class="member-avatar">
+                        <p>{{ store.memberName }}</p>
+                    </RouterLink>
+                    <RouterLink v-else to="/Member" @click="toggleMenu">會員登入</RouterLink>
                 </li>
+                <li v-if="store.isLoging" class="logoutbutton"><button @click="logout">登出</button></li>
             </ul>
         </nav>
     </header>
