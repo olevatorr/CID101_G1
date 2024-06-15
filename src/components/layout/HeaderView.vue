@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { store, fetchProfile, logout as logoutStore } from '@/store.js';
 
-fetchProfile()
+fetchProfile()  // 獲取會員資訊
 
 const isMenuOpen = ref(false)
 const isSubmenuDropDown = ref(false)
@@ -17,6 +17,7 @@ const toggleSubmenuDropDown = () => {
 
 const logout = () => {
     logoutStore();
+    toggleMenu()
 }
 
 </script>

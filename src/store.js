@@ -7,7 +7,6 @@ export const store = reactive({
     member: null,
 });
 
-
 export const fetchProfile = () => {
     const memberName = localStorage.getItem('web_name');
     const memberAvatar = localStorage.getItem('web_img');
@@ -29,8 +28,8 @@ export const fetchProfile = () => {
         store.memberAvatar = '';
         store.isLoging = false;
     }
-    
 };
+
 export const login = (member) => {
     store.member = member;
     store.isLoging = true;
