@@ -6,19 +6,19 @@
                     <div class="register-login ">
                         <div class="from-group">
                             <label>會員姓名</label>
-                            <input type="text" maxlength="10" placeholder="請輸入姓名">
+                            <input type="text" maxlength="20" placeholder="請輸入姓名">
                         </div>
                         <div class="from-group">
                             <label>會員帳號</label>
-                            <input type="text" name="" id="" maxlength="10" placeholder="請輸入帳號">
+                            <input type="text" name="" id="" maxlength="20" placeholder="請輸入帳號">
                         </div>
                         <div class="from-group">
                             <label>會員密碼</label>
-                            <input type="number" name="" id="" maxlength="10" placeholder="請輸入密碼">
+                            <input type="number" name="" id="" maxlength="20" placeholder="請輸入密碼">
                         </div>
                         <div class="from-group">
                             <label>確認密碼</label>
-                            <input type="number" name="" id="" maxlength="10" placeholder="再輸入一次密碼">
+                            <input type="number" name="" id="" maxlength="20" placeholder="再輸入一次密碼">
                         </div>
                         <div class="from-group">
                             <label>電話號碼</label>
@@ -32,7 +32,7 @@
                             <label>會員地址</label>
                             <input type="text" name="" id="" placeholder="請輸入地址">
                         </div>
-                        <button>立即註冊</button>
+                        <RouterLink to="/Member"><button>立即註冊</button></RouterLink>
                         <div class="other-login">
                             <p>其他登入方式</p>
                             <div class="third-party">
@@ -49,7 +49,6 @@
                             <img src="../../public/img/member/logo.png" alt="logo">
                         </div>
                         <span>潔淨海洋&emsp;綠色明天</span>
-                        <RouterLink to="/RegisterView"><button class="add">加入會員</button></RouterLink>
                     </div>
                 </div>
             </div>

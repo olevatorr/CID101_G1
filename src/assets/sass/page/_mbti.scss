@@ -28,7 +28,7 @@
     }
 }
 
-// 遊戲開始
+// 遊戲規則
 .section-mbti-rule {
     background-image: url(../../../../public/img/mbti/mbti-bg.png);
     background-size: cover;
@@ -39,6 +39,10 @@
         margin: 10rem auto;
         max-width: 60rem;
         text-align: center;
+        h3{
+            line-height: 3rem;
+
+        }
         span{
         font-size: 2rem;
         color: $color-white;
@@ -81,14 +85,14 @@
                 margin: 4rem 0;
                 gap: 2rem;
                 img{
-                    width: 15rem;
+                    height:15rem;
                     margin-bottom: 1rem;
                     @media (max-width: 574px) {
                         width: 10rem;
                     }
                 }
                 .choose{
-                    border: 1px solid black;
+                    position: relative;
                     width: 7rem;
                     height: 7rem;
                     border-radius: 50%;
@@ -98,6 +102,27 @@
                     background-color: $color-highlight;
                     color: $color-white;
                     cursor: pointer;
+                    .choosebtn{
+                        //讓按鈕跟choose(父元素)一樣大小
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 50%;
+                        background-color: transparent;
+                        color: inherit;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        padding: 0;
+                        border: none;
+                        outline: none;
+                        cursor: pointer;
+                        font-size: 1.5rem;
+                        //預防文字換行
+                        white-space: nowrap;
+                        @media (max-width: 574px) {
+                            font-size: 0.8rem;
+                        }
+                    }
                     @media (max-width: 574px) {
                         width: 4rem;
                         height: 4rem;
@@ -168,3 +193,38 @@
     }
 }
 
+.section-mbti-result .container {
+    a{
+        display: inline-block;
+        font-size: 1.6rem;
+        letter-spacing: 0.1em;
+        line-height: 1.2;
+        font-weight: bold;
+        background-color: #E7A600;
+        color: #fff;
+        padding: 0.75rem 4rem;
+        border: none;
+        cursor: pointer;
+        &:hover {
+            background-color: $color-highlight-dark;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+.section-mbti-result .container{
+    a {
+        font-size: 1.4rem;
+        padding: 0.625rem 1.25rem;
+    }
+}
+}
+
+@media screen and (max-width: 576px) {
+    .section-mbti-result .container{
+        a {
+            font-size: 1.2rem;
+            padding: 0.5rem 1rem;
+        }
+    }
+    }

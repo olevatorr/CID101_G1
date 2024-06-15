@@ -4,13 +4,26 @@
     overflow: hidden;
     background: url(../img/index/banner1.png) no-repeat 50% 50% / cover;
     .container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-        h1, h2 {
-            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            .img {
+                width: 20%;
+                margin-bottom: 20px;
+                img{
+                    width: 100%;
+                }
+            }
+        .cover {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            h1, h2 {
+                color: #fff;
+            }
         }
     }
 }
@@ -25,17 +38,22 @@
         left: 0;
         height: 100%;
         width: 50%;
+        @media (max-width: 575px) {
+            width: 70%;
+        }
         img {
             height: 100%;
             vertical-align: top;
             width: 100%;
-
         }
     }
     .smoke-right {
         right: 0;
         height: 100%;
         width: 50%;
+        @media (max-width: 575px) {
+            width: 70%;
+        }
         img {
             height: 100%;
             vertical-align: top;
@@ -45,26 +63,35 @@
     .trash-left {
         left: 0;
         width: 60%;
+        @media (max-width: 575px) {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: flex-end;
+        }
         img {
             width: 100%;
             vertical-align: top;
-        }
-        @media screen and (max-width: 991px) {
-            img {
-                height: 80%;
+            @media (max-width: 575px) {
+                width: unset;
+                height: 100%;
             }
         }
+        
     }
     .trash-right {
         right: 0;
         width: 60%;
+        @media (max-width: 575px) {
+            height: 100%;
+            width: 100%;
+        }
         img {
             width: 100%;
             vertical-align: top;
-        }
-        @media screen and (max-width: 991px) {
-            img {
-                height: 80%;
+            @media (max-width: 575px) {
+                width: unset;
+                height: 100%;
             }
         }
     }
@@ -99,11 +126,17 @@
             align-items: center;
             gap: 10px;
             cursor: pointer;
+            transition: .5s;
+        }
+        li.select {
+            scale: 1.2;
+            color: $color-highlight;
+            transform: translateX(5%);
         }
     }
     .map-container {
         width: 100%;
-        height: 500px;
+        height: 400px;
     }
     .debris-data {
         display: flex;
@@ -155,6 +188,7 @@
         max-width: 1920px;
         margin: auto;
         position: relative;
+        overflow: hidden;
     }
     .control {
         height: 40px;
@@ -196,14 +230,19 @@
         height: 100%;
         overflow: hidden;
         img {
-            width: 1920px;
+            // max-width: 1920px;
+            width: 100vw;
             vertical-align: top;
+            @media (max-width: 991px) {
+                width: 100vw;
+            }
         }
     }
     .dirty {
         width: 50%;
         position: absolute;
         border-right: 1px solid #fff;
+        
     }
 }
 .section-survey {
@@ -225,11 +264,83 @@
     p {
         align-self: flex-start;
     }
-    ul {
+    ul.survey-desc {
         margin-bottom: 20px;
         li {
             margin-left: 3rem;
         }
+    }
+    .survey-box {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(0,0,0,.4);
+        justify-content: center;
+        align-items: center;
+        z-index: 20;
+        .wrapper {
+            background-color: #fff;
+            padding: 5% 5%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 50%;
+            @media (max-width:991px) {
+                width: 70%;
+            }
+            @media (max-width:575px) {
+                width: 80%;
+            }
+            .buttons {
+                display: flex;
+                gap:30px;
+            }
+            .survey-result {
+                text-align-last: center;
+
+                .score {
+                    font-size: 1.6rem;
+                    span {
+                        font-size: 8rem;
+                        font-weight: bold;
+                        color: $color-highlight;
+                    }
+                }
+
+            }
+        }
+    }
+    .survey-box.show {
+        display: flex;
+    }
+    .survey-form {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        @media (max-width:575px) {
+            grid-template-columns: 100%;
+        }
+        width: 100%;
+        input {
+            display: none;
+        }
+        li {
+            margin: 2% 5%;
+            border: #000 solid 1px;
+            label {
+                display: block;
+                padding: 10px 20px;
+            }
+        }
+        li:has(:checked) {
+            background-color: $color-highlight;
+            color: #fff;
+            border: none;
+        }
+        
     }
 }
 .section-donation-summary {
@@ -266,47 +377,70 @@
         justify-content: center;
         margin-top: 30px;
     }
-    .donate-btn {
-        margin: auto;
-        margin-top: 20px;
-        display: inline-block;
-        gap: 10px;
-        align-items: center;
-        max-width: 130px;
-        height: 40px;
-        color: #fff;
-        background-color: $color-subprimary;
-        border-radius: 100px;
-        position: relative;
-        transition: .5s;
-        .donate-txt {
-            margin-left: 50px;
-            width: 80px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            line-height: 1.6rem;
-        }
-        .donate-btn-circle {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 40px;
-            width: 40px;
-            border-radius: 50%;
-            background-color: $color-highlight;
-            i {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
+    .hover-zone {
+        width: 130px;
+        display: flex;
+        justify-content: center;
+        &:hover {
+            .donate-btn {
+                max-width: 130px;
             }
         }
-        &:hover {
+        .donate-btn {
+            margin: auto;
+            margin-top: 20px;
+            display: inline-block;
+            gap: 10px;
+            align-items: center;
             max-width: 40px;
+            height: 40px;
+            color: #fff;
+            background-color: $color-subprimary;
+            border-radius: 100px;
+            position: relative;
+            transition: .5s;
+            .donate-txt {
+                margin-left: 50px;
+                width: 80px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                line-height: 1.6rem;
+            }
+            .donate-btn-circle {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 40px;
+                width: 40px;
+                border-radius: 50%;
+                background-color: $color-highlight;
+                i {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                }
+            }
+            
         }
     }
 }
 .section-index-news {
     background-color: $color-subprimary;
+}
+
+.gotop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    right: 5%;
+    bottom: 10%;
+    padding: 5px 10px;
+    background-color: $color-subprimary;
+    color: #fff;
+    font-size: 2rem;
+    z-index: 20;
+    cursor: pointer;
 }

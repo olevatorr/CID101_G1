@@ -41,15 +41,70 @@
 }
 // ------------------------------------全台灣沿海廢棄數據
 .section-data {
-    background-color: #fff;
+    background: #B2D9D9;
+    padding: 100px 0;
+    .container{
 
-    .button-area {
-        margin-left: -3px;
-
-        button {
-            margin: 1px;
+        .row{
+            .bgTwMap{
+                .datah2{
+                    h3{ 
+                        margin-left: 30px;
+                        margin-bottom: 20px;
+                    }
+                }
+                button{
+                    margin-bottom: 10px;
+                }
+                .map-container{
+                    background-color: #6686d2;
+                    border-radius: 10px;
+                }
+                p{
+                    text-align: end;
+                    span{
+                        color: red;
+                    }
+                    margin-bottom: 50px;
+                }
+                .map-container{
+                    margin-bottom: 30px;
+                }
+            }
+            .row{
+                .box-chart{
+                    margin-top: 100px;
+                }
+            }
+            .indicatorsea{
+                .news-filter{
+                    margin: 50px 0 50px 0;
+                }
+                .myChartbg {
+                    width: 100%;
+                }
+                
+                
+            }
+            .tableChart{
+                background: #E7A600;
+                border: 1px solid black;
+                font-size: 12px;
+                margin: auto;
+                color: rgb(0, 30, 59);
+                tr{
+                    border: 1px solid black;
+                    th{
+                        border: 1px solid black;
+                        padding: 5px;
+                    }
+                }
+                td{
+                    border: 1px solid black;
+                    padding: 10px;
+                }
+            }
         }
-
     }
 }
 
@@ -62,79 +117,6 @@
     padding: 10px;
     border: none;
 }
-// ------------------------------------
-section {
-    background-color: #fff;
-
-    .card-data {
-        h3 {
-            margin: 20px auto;
-            text-align: center;
-        }
-
-        .span-flex {
-            display: flex;
-            justify-content: center;
-            margin: 10px auto;
-
-            span {
-                display: flex;
-
-                .red-box {
-                    margin: auto 5px;
-                    width: 35px;
-                    height: 10px;
-                    background: #D35656;
-                }
-
-                .blue-box {
-                    margin: auto 5px;
-                    width: 35px;
-                    height: 10px;
-                    background: #2F80DE;
-                }
-            }
-        }
-    }
-}
-// ------------------------------------垃圾種類
-.section .flex {
-    display: flex;
-
-    .card-type {
-        display: flex;
-        align-self: flex-end;
-
-        .p-type {
-            margin: 10px;
-
-            .color-box {
-                display: flex;
-
-                .blue-box {
-                    width: 35px;
-                    height: 10px;
-                    background: #00ADF3;
-                    margin: auto 5px;
-                }
-
-                .yellow-box {
-                    width: 35px;
-                    height: 10px;
-                    background: #E7A600;
-                    margin: auto 5px;
-                }
-
-                .red-box {
-                    width: 35px;
-                    height: 10px;
-                    background: #D35656;
-                    margin: auto 5px;
-                }
-            }
-        }
-    }
-}
 // ------------------------------------基隆垃圾處理方式
 .trash-card {
     text-align: center;
@@ -143,33 +125,198 @@ section {
 .section-knowledge {
     h2 {
         text-align: center;
+        color: #fff;
     }
+    background: url(../../../../public/img/knowledge/banner3.jpg) no-repeat;
+    background-size: cover;
 
+h4 {
+	font-size: 5vmin;
+	// text-align: center;
+	color: white;
+}
+p {
+	font-size: max(10pt, 2.5vmin);
+	line-height: 1.4;
+	color: #4E97CA;
+	margin-bottom: 0rem;
+}
 
-    .card-c {
-        margin: 0 auto;
-        cursor: pointer;
+.wrap {
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	width: 45vmin;
+	margin: 4rem auto;
+	transition: 0.3s ease-in-out;
+	position: relative;
+	overflow: hidden;
+    width: 100%;
+    // height: 100%;
+}
+.overlay {
+	position: relative;
+	display: flex;
+	width: 100%;
+	padding: 1rem 0.75rem;
+    background: rgba(214, 214, 214, 0.15);
+    // box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(7.8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+	transition: 0.4s ease-in-out;
+	z-index: 1;
+}
+.overlay-content {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 15vmin;
+	transition: 0.3s ease-in-out 0.2s;
+	z-index: 1;
+}
+.image-content {
+    width: 100%;
+	position: absolute;
+	top: 0;
+	right: 0;   
+	background-image: url("../../../../public/img/knowledge/2.png");
+	background-size: cover;
+	transition: 0.3s ease-in-out;
+}
 
+.inset {
+	max-width: 100%;
+	border-radius: 0.25em;
+	float: left;
+}
 
-        .card{
-            .pic-card{
-                position: relative;
-                overflow: hidden;
-                // width: 100%;
-                // height: 100%;
-                img{
-                    width: 100%;
-                    vertical-align: top;
-                    
-                }
-
-            }
-            img:hover {
-                transform: scale(1.10);
-                transition: transform 0.3s;
-            }
-        }
+.text {
+	position: absolute;
+	top: 0;
+	right: 0;
+    height: 100%;
+	// padding: 3vmin 4vmin;
+	background: rgba(214, 214, 214, 0.15);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(7.8px);
+    -webkit-backdrop-filter: blur(7.8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+	box-shadow: inset 1px 1px 15px 0 rgba(0 0 0 / 0.4);
+    img{
+        width: 100%;
+        height: 100%;
+        vertical-align: top;
     }
+}
+
+.wrap:hover .overlay {
+	transform: translateX(-60vmin);
+}
+.wrap:hover .image-content {
+	width: 30vmin;
+}
+// .wrap:hover .overlay-content {
+// 	transition-delay: 0.2s;
+// 	transform: translateX(60vmin);
+// }
+.wrap:hover .dots {
+	transform: translateX(1rem);
+}
+.wrap:hover .dots .dot {
+	background: white;
+}
+
+/* Animations and timing delays */
+// .animate {
+// 	// animation-duration: 0.7s;
+// 	animation-timing-function: cubic-bezier(0.26, 0.53, 0.74, 1.48);
+// 	// animation-fill-mode: backwards;
+// }
+// /* Pop In */
+// .pop {
+// 	anim。ation-name: pop;
+// }
+// @keyframes pop {
+// 	0% {
+// 		opacity: 0;
+// 		transform: scale(0.5, 0.5);
+// 	}
+// 	100% {
+// 		// opacity: 1;
+// 		transform: scale(1, 1);
+// 	}
+// }
+
+// /* Slide In */
+// .slide {
+// 	animation-name: slide;
+// }
+// @keyframes slide {
+// 	0% {
+// 		opacity: 0;
+// 		transform: translate(4em, 0);
+// 	}
+// 	100% {
+// 		opacity: 1;
+// 		transform: translate(0, 0);
+// 	}
+// }
+
+// /* Slide Left */
+// .slide-left {
+// 	animation-name: slide-left;
+// }
+// @keyframes slide-left {
+// 	0% {
+// 		opacity: 0;
+// 		transform: translate(-40px, 0);
+// 	}
+// 	100% {
+// 		opacity: 1;
+// 		transform: translate(0, 0);
+// 	}
+// }
+
+// .slide-up {
+// 	animation-name: slide-up;
+// }
+// @keyframes slide-up {
+// 	0% {
+// 		opacity: 0;
+// 		transform: translateY(3em);
+// 	}
+// 	100% {
+// 		opacity: 1;
+// 		transform: translateY(0);
+// 	}
+// }
+
+.delay-1 {
+	animation-delay: 0.3s;
+}
+.delay-2 {
+	animation-delay: 0.6s;
+}
+.delay-3 {
+	animation-delay: 0.9s;
+}
+.delay-4 {
+	animation-delay: 1.2s;
+}
+.delay-5 {
+	animation-delay: 1.5s;
+}
+.delay-6 {
+	animation-delay: 1.8s;
+}
+.delay-7 {
+	animation-delay: 2.1s;
+}
+.delay-8 {
+	animation-delay: 2.4s;
+}
+
 }
 // ------------------------------------遊戲 
 .section-game {
@@ -247,7 +394,7 @@ section {
 
 .image-caption {
     width: 100%;
-    height: 100%;
-    margin: 10px;
+    padding: auto;
+    margin: auto;
 }
 // --------------------------------------------

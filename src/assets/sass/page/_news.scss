@@ -21,15 +21,66 @@
         margin:3rem 0 3rem 2rem;
         
     }
-    
-
+    .news-pagination{
+        margin:0 auto;
+        ul{
+            display:flex;
+            li{
+                border:1px solid #333;
+                margin: 50px 10px;
+                padding: 5px;
+                &:hover{
+                    background-color:$color-subprimary;
+                    color:$color-white;
+                    border:1px solid $color-subprimary;
+                }
+            }
+           
+        }
+    }
     .news-card-content,.news-cards-title,.news-cards-time,.filter-name
     {
         color:#333;
     }
-    
-    img {
-        width: 100%;
-        vertical-align: top;
+    .news-card {
+        position:relative;
+        padding: 10px;
+        background-color: #fff;
+        margin-top: 20px;
+        .news-card-pic{
+            img {
+                width: 100%;
+                vertical-align: top;
+            }
+        }
+        .news-card-txt{
+            .news-card-content {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                box-sizing:border-box;
+                margin: 5px 0;
+            }
+            .filter-name {
+                // 定去new-card上
+                box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+                position:absolute;
+                top:3%;
+                left:3%;
+                background-color: $color-subprimary;
+                display: block;
+                width: 70px;
+                display: flex;
+                justify-content: center;
+                color: #fff;
+                padding: 0 10px;
+            }
+        }
     }
+    
+    
+    
+    
 }

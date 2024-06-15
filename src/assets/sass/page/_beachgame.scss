@@ -1,128 +1,352 @@
-.section-beachgame{
-    width:100%;
-    height:100vh;
+// 遊戲進入頁面
+
+.section-beachgame {
+    // box-sizing: border-box;
+    width: 100%;
+    height: 100vh;
     padding: 0;
-        background: url(../public/img/beachgame/beachgame-background.png);
-        background-size: cover;
-        background-position: 50% 50%;
-        z-index: 99999;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    .container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-    .beachgame-text {
-        width: 50%;
-        padding:50px;
-        border-radius: 20px;
-        text-align: center;
-        border: 2px solid #333;
-        background-color: rgba(255, 255, 255, 0.5)
-    }
-
-    .beachgame-title{
-        font-size: 4vw;
-        font-weight:600;
-        letter-spacing: 2vw;
-        line-height: 6rem;
-    }
-
-    
-}
-.rules-lightbox{
-    width: 90%;
-    box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
-    background-color: #4E97CA;  
-    padding:25px;
-    border-radius:20px;
-}
-.rules-content{
-    background-color: #fff;
-    padding: 20px 60px;
-    border-radius: 20px;
+    background: url(../public/img/beachgame/beachgame-background.png);
+    background-size: cover;
+    background-position: 50% 50%;
+    z-index: 99999;
+    position: relative;
     display: flex;
     flex-direction: column;
-    align-items: center;
-}
-.rules-content ol {
-    padding: 20px; 
-    list-style-type: decimal;
-}
-.character-lightbox,.trash-lightbox{
-    width: 90%;
-    box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
-    border-radius:20px;
-    text-align: center;
-    background-color: #4E97CA;
-    padding:20px;
-}
-.character-list{
-    margin:30px 0;
-}
-.character-item{
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #fff;
-    border-radius:20px;
-    margin: 0 10px;
-}
-.character-select-list {
-    display: flex;
     justify-content: center;
-    .character-select {
-        background-color: #fff;
-        border-radius:20px;
-        padding: 0 20px;
-        margin: 30px 0;
-        .character-name {
-            margin-bottom: 10px;
-        }
-        .character-pic img{
-            width: 100%;
-            vertical-align: top;
-        }
-    }
-}
+    align-items: center;
 
-
-    .trash-pic {
-        width: 150px;
-        height: 150px;
-        margin:0 auto;
-        background-color: #fff;
-        border-radius: 50%;
-        position: relative;
-        overflow: hidden;
-        img {
-            text-align: center;
-            width: 120px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-    }
-
-.tool-list{
-    background-color: #4E97CA;
-    .tool-item{
-        height: 100%;
+    .left-game {
+        position: absolute;
+        left: 30px;
+        top: 30px;
+        width: 40px;
+        height: 40px;
+        background-color: $color-highlight;
         display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
-        background-color: #fff;
-        border-radius:20px;
-        margin: 0 10px;
+        border-radius: 50%;
+        .fa-house{
+            font-size: 2rem;
+            color: #fff;
+        }
+    }
+    .show-window-outside{
+        width: 70%;
+        text-align: center;
+        .beachgame-text {
+            // display: none;
+            border: 2px solid #333;
+            border-radius: 20px;
+            width:100%;
+            box-sizing: border-box;
+            padding: 5% 5vw;
+            background-color: rgba(255, 255, 255, 0.5);
+            &.-viewClose {
+                display:none;
+            }
+            .beachgame-title {
+                font-size: 4vw;
+                font-weight: 600;
+                letter-spacing: 2vw;
+                line-height: 6rem;
+            }
+          
+        }
+       
+        .rules-lightbox {
+            display: none;
+            width: 100%;
+            box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
+            background-color: $color-subprimary;
+            border-radius: 20px;
+            box-sizing: border-box;
+            padding: 20px;
+            &.-viewShow{
+                display:block;
+            }
+            &.-viewClose{
+                display:none;
+            }
+            .rules-content {
+                background-color: $color-white;
+                border-radius: 20px;
+                // box-sizing: border-box;
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                ol {
+                    padding: 20px;
+                    list-style-type: decimal;
+                    text-align: start;
+                }
+            }
+        }
+        .character-lightbox {
+            display:none;
+            color: #fff;
+            box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
+            border-radius: 20px;
+            text-align: center;
+            background-color: $color-subprimary;
+            padding: 50px 20px;
+            // 出現整張大圖
+            &.-viewShow{
+                display:block;
+            }
+            // 選其中圖片後會消失整張大圖
+            &.-viewClose{
+                display: none;
+            }
+            .character-list {
+                margin: 30px 0;
+                .character-item {
+                    &:hover{
+                        background-color: $color-highlight;
+                    }
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    align-items: center;
+                    background-color: #fff;
+                    border-radius: 20px;
+                    margin: 0 10px;
+                    .character-pic img {
+                        width: 80%;
+                        vertical-align: top;
+                    }
+                    .character-name h3 {
+                        color: #333;
+                        margin-bottom: 10px;
+                    }
+                }
+            }
+        }
+        .character-check-lightbox {
+            display:none;
+            color: #fff;
+            box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
+            border-radius: 20px;
+            text-align: center;
+            background-color: $color-subprimary;
+            padding: 50px 20px;
+            &.-viewShow{
+                display:block;
+            }
+            &.-viewClose{
+                display:none;
+            }
+            .character-oneset {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                .character-oneset-pic {
+                    width: 150px;
+                    height: 150px;
+                    background-color: #fff;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    margin: 20px 0 10px 0;
+                    img {
+                        width: 100%;
+                        vertical-align: top;
+                    }
+                }
+                .character-name {
+                    margin-bottom: 30px;
+                }
+            }
+        }
+    
+        // 選擇工具
+        .trash-lightbox {
+            color: #fff;
+            box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
+            border-radius: 20px;
+            text-align: center;
+            background-color: $color-subprimary;
+            padding: 50px 20px;
+            .trash-pic {
+                width: 150px;
+                height: 150px;
+                margin: 0 auto;
+                background-color: #fff;
+                border-radius: 50%;
+                position: relative;
+                overflow: hidden;
+                img {
+                    width: 100%;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                }
+            }
+            .trash-text p {
+                margin: 20px 0;
+            }
+        }
+        // 選取工具滑入頁面
+        .slide-tool-page {
+            transform: translateY(0);
+            color: #fff;
+            box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
+            border-radius: 20px;
+            text-align: center;
+            background-color: $color-primary;
+            padding: 20px;
+            .tool-list {
+                color: #fff;
+                margin: 30px;
+                .tool-item {
+                    .tool-pic {
+                        background-color: #fff;
+                        border-radius: 50%;
+                        margin: 20px;
+                        overflow: hidden;
+                        img {
+                            width: 100%;
+                            vertical-align: top;
+                        }
+                    }
+                }
+            }
+        }
+
+        //vue過渡期間自動生成類名 enter-active、leave-active
+        .slide-up-enter-active, .slide-up-leave-active {
+            transition: transform 1s ease;
+          }
+          .slide-up-leave-active {
+            transition: transform 1s ease;
+          }
+          .slide-up-enter, .slide-up-leave-to {
+            transform: translateY(100%);
+          }
+        // 撿取成功
+        .success-lightbox {
+            color: #fff;
+            box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
+            border-radius: 20px;
+            text-align: center;
+            background-color: $color-subprimary;
+            padding: 50px 20px;
+            .success-content {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                .success-pic {
+                    width: 150px;
+                    height: 150px;
+                    background-color: #fff;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    margin: 20px 0 10px 0;
+                    img {
+                        width: 100%;
+                        vertical-align: top;
+                    }
+                }
+                .success-text {
+                    padding: 10px 0 20px 0;
+                }
+            }
+        }
+        .fail-lightbox {
+            color: #fff;
+            box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
+            border-radius: 20px;
+            text-align: center;
+            background-color: $color-subprimary;
+            padding: 50px 20px;
+            .fail-content {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                .fail-pic {
+                    width: 150px;
+                    height: 150px;
+                    background-color: #fff;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    margin: 20px 0 10px 0;
+                    img {
+                        width: 100%;
+                        vertical-align: top;
+                    }
+                }
+                .fail-text {
+                    padding: 10px 0 20px 0;
+                }
+            }
+        }
+        .finish-lightbox {
+            color: #fff;
+            box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
+            border-radius: 20px;
+            text-align: center;
+            background-color: $color-subprimary;
+            padding: 50px 20px;
+            .finish-content {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                .finish-pic {
+                    position:relative;
+                    width: 150px;
+                    height: 150px;
+                    background-color: #fff;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    margin: 20px 0 10px 0;
+                    img {
+                        position:absolute;
+                        left:50%;
+                        top:50%;
+                        transform: translate(-50%,-45%);
+                        width: 80%;
+                    }
+                }
+                .finish-text {
+                    padding: 10px 0 20px 0;
+                }
+            }
+            .beachgame-button-wrap{
+                button {
+                    margin: 0 10px;
+                    a {
+                        text-decoration: none;
+                        color:$color-white;
+                    }
+                } 
+            }
+        }
+    }
+    .trash-container{
+        width:80%;
+        display:none;
+        &.-viewShow{
+            display: flex;
+        }
+        .trash-pic{
+            &:hover{
+                background-color:#fff;
+                border:4px solid #333;
+                border-radius:50%;
+                transform: scale(1.5);
+            }
+            img{
+                width: 100%;
+                
+            }
+        }
     }
 }
+
 

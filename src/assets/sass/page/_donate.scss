@@ -80,11 +80,20 @@
                         display: flex;
                         overflow: hidden;
                         margin-right: 25px;
-                        input {
+                        input{
                             border: none;
                             outline: none;
                             background-color: transparent;
                             color: #fff;
+                        }
+                        input[type=number] {
+                            -moz-appearance:textfield;
+                            appearance: none;
+                        }
+                        input[type=number]::-webkit-inner-spin-button,
+                        input[type=number]::-webkit-outer-spin-button {
+                            -webkit-appearance: none;
+                            margin: 0;
                         }
                         i {
                             display: block;
@@ -131,7 +140,7 @@
             }
         }
     }
-    .pic{
+    .pic-1{
         margin-top: auto;
         margin-left: auto;
         display: flex;
@@ -159,6 +168,7 @@
 section{
     .container{
         .sx-txt{
+            margin-top: -100px;
             p{
                 text-align: center;
             }
@@ -179,7 +189,7 @@ section{
             .donation-box{
                 border: 1px solid #E7A600;
                 border-radius: 40px;
-                padding-bottom: 100px;
+                padding-bottom: 20px;
                 margin: 10px;
                 h3{
                     color: #E7A600;

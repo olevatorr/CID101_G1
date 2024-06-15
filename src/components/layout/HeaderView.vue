@@ -12,7 +12,6 @@ const toggleSubmenuDropDown = () => {
     isSubmenuDropDown.value = !isSubmenuDropDown.value
 }
 </script>
-
 <template>
     <header>
         <nav>
