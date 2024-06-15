@@ -218,13 +218,11 @@
 
         //vue過渡期間自動生成類名 enter-active、leave-active
         .slide-up-enter-active, .slide-up-leave-active {
-            transition: transform 1s ease;
+            transition: transform 0.5s ease;
           }
-          .slide-up-leave-active {
-            transition: transform 1s ease;
-          }
-          .slide-up-enter, .slide-up-leave-to {
+          .slide-up-enter-from, .slide-up-leave-to {
             transform: translateY(100%);
+            opacity: 0;
           }
         // 撿取成功
         .success-lightbox {
@@ -329,7 +327,12 @@
         }
     }
     .trash-container{
-        width:80%;
+        position: absolute;
+        left:50%;
+        top: 50%;
+        transform: translate(-50%, -50%,);
+        width: calc(100% - 300px);
+        height: calc(100% - 300px);
         display:none;
         &.-viewShow{
             display: flex;

@@ -191,9 +191,10 @@
             <!-- selectedTrash為null時，顯示視窗，被設置時隱藏視窗 -->
             <!-- v-for綁唯一值，有刪除絕對不能用會影響索引值 -->
             <div v-if="!selectedTrash" class="trash-container" :class="{ '-viewShow': showTrashContainer }">
-                <div class="trash-pic" v-for="(image, index) in trashImage" :key="index"
+                <div class="trash-pic" v-for="(image, index) in trashItem" :key="index"
+                    :style="{ 'position': 'absolute', left: `${image.x}%`, top: `${image.y}%`, width: '80px', }"
                     @click="handleTrashClick(index)">
-                    <img :src="image" alt="">
+                    <img :src="image.url" alt="">
                 </div>
             </div>
         </section>
@@ -201,6 +202,27 @@
 </template>
 
 <script>
+
+const pos = [{
+    x: 100,
+    y: 100,
+}, {
+    x: 100,
+    y: 50,
+}, {
+    x: 50,
+    y: 75,
+}, {
+    x: 20,
+    y: 80,
+}, {
+    x: 50,
+    y: 69,
+}, {
+    x: 20,
+    y: 100,
+}
+]
 
 export default {
 
@@ -230,9 +252,19 @@ export default {
                 "../../public/img/beachgame/trash04.png",
                 "../../public/img/beachgame/trash05.png"
             ],
+            trashItem: Array.from({ length: 5 }, (_, i) => {
+                const x = pos[i].x
+                const y = pos[i].y
+                return {
+                    id: i,
+                    x,
+                    y,
+                    url: `../../public/img/beachgame/trash0${i + 1}.png`
+                }
+            }),
 
             // 垃圾點選後出現的視窗
-            // trashLightbox: false,
+            trashLightbox: false,
             selectedTrash: null,
             choseTrash: [
                 {
@@ -339,10 +371,13 @@ export default {
         // 點選垃圾圖片
         handleTrashClick(index) {
             this.selectedTrash = this.choseTrash[index];
+            //顯示沒有變成false
+            this.showTrashContainer = false;
         },
+        // 滑入工具列可選取
         showSlidePage() {
-            console.log(124);
             this.slidePage = true;
+            this.selectedTrash = null;
         }
 
     },
