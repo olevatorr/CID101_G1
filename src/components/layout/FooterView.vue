@@ -59,9 +59,9 @@ onMounted(() => {
                     <h3>聯絡資訊</h3>
                     <p>緯育TibaMe附設中壢職訓中心<br />320桃園市中壢區復興路46號9樓<br />(03) - 4251108</p>
                     <div class="footer-media">
-                        <a href="#"><img src="../public/img/footer/fb.svg" alt="" /></a>
-                        <a href="#"><img src="../public/img/footer/X.svg" alt="" /></a>
-                        <a href="#"><img src="../public/img/footer/ig.svg" alt="" /></a>
+                        <a href="#"><img src="../../../public/img/footer/fb.svg" alt="" /></a>
+                        <a href="#"><img src="../../../public/img/footer/X.svg" alt="" /></a>
+                        <a href="#"><img src="../../../public/img/footer/ig.svg" alt="" /></a>
                     </div>
                 </div>
             </div>
@@ -72,9 +72,9 @@ onMounted(() => {
                         <canvas ref="myChart" width="250" height="150"></canvas>
                     </div>
                     <div class="structure-sign">
-                        <img src="../public/img/footer/pie1.png" alt="" />
-                        <img src="../public/img/footer/pie2.png" alt="" />
-                        <img src="../public/img/footer/pie3.png" alt="" />
+                        <img src="../../../public/img/footer/pie1.png" alt="" />
+                        <img src="../../../public/img/footer/pie2.png" alt="" />
+                        <img src="../../../public/img/footer/pie3.png" alt="" />
                     </div>
                 </div>
             </div>

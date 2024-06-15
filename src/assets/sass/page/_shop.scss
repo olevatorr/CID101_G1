@@ -1,3 +1,6 @@
+section{
+    padding: 10px;
+}
 .section-shop-banner {
     width: 100%;
     height: 80vh;
@@ -77,6 +80,7 @@
     .row .text span {
         display: block;
         font-size: 16px;
+        color: black;
     }
     .shop-card {
         position: relative;
@@ -131,7 +135,7 @@
     }
     .hot {
         width: 60px;
-        padding: 2px 4px;
+        padding: 5px 4px;
         background-color: #005FA1;
         border: 1px solid white;
         color: white;
@@ -174,6 +178,123 @@
     .sea-img img {
         width: 100%;
         vertical-align: top;
+    }
+}
+
+.section-shoppingcart{
+    .container{
+        .carticon {
+            z-index: 2;
+            position: fixed; 
+            bottom: 20px; 
+            right: 20px; 
+            display: none; 
+            transition: opacity 0.3s ease;
+            &.show { 
+                display: block;
+                opacity: 1;
+            }
+            .pic{
+                position: absolute;
+                top: -90px;
+                right: 60px;
+                width: 30px;
+                height: 30px;
+            }
+            .icon{
+                position: absolute;
+                top: -105px;
+                right: 20px;
+                width: 20px;
+                height: 20px;
+                background-color: #D9E8F3;
+                border-radius: 50%;
+                padding: 4px;
+                span{
+                    font-size: 18px;
+                    color: black;
+                    padding-left: 5px;
+                }
+            }
+            
+        }
+        .cartbox{
+            z-index: 2;
+            width: 600px;
+            background-color: #005FA1;
+            color: white;
+            border-radius: 8px;
+            padding: 0 10px; 
+            position: fixed;
+            bottom: 70px; 
+            right: 20px; 
+            display: none; 
+            transform: translateY(100%); 
+            transition: transform 0.3s ease; 
+            &.show { 
+                display: block;
+                transform: translateY(0);
+            }
+            .carttitle{
+                padding: 8px 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1px solid #fff;
+                p{
+                    font-size: 20px;
+                }
+                i{
+                    font-size: 20px;
+                    cursor: pointer;
+                }
+            }
+            .cartinfo{
+                .info{
+                    padding: 10px 10px;
+                    display: flex;
+                    font-size: 16px;
+                    align-items: center;
+                    justify-content: space-around;
+                    button{
+                    background-color: unset;
+                    color: white;
+                    border: 1px solid white;
+                    padding: 3px 6px;
+                    margin:0 10px;
+                    }
+                    .price{
+                    padding-right: 10px;
+                    }
+                    .delete{
+                        cursor: pointer;
+                    }
+                }
+                
+            }
+            .carttotal{
+                padding: 10px 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-top: 1px solid #fff;
+                button{
+                    background-color: #D9E8F3;
+                    color: rgb(0, 0, 0);
+                    border: 1px solid white;
+                    margin:0 10px;
+                    padding: 8px 80px;
+                    margin: 0;
+                }
+                button:hover{
+                    background-color: #e19c12;
+                    color: #ffffff;
+                }
+                span{
+                    font-size: 20px;
+                }
+            }
+        }
     }
 }
 

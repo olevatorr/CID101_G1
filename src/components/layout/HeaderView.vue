@@ -20,7 +20,6 @@ const logout = () => {
 }
 
 </script>
-
 <template>
     <header>
         <nav>
