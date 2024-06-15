@@ -44,9 +44,7 @@ const enteredCaptcha = ref('');
 const captchaText = ref('');
 const captchaCanvas = ref(null);
 
-onMounted(() => {
-  drawCaptcha();
-});
+onMounted(() => {drawCaptcha();});
 
 const isCaptchaValid = computed(() => {
   return enteredCaptcha.value.toLowerCase() === captchaText.value.toLowerCase();
@@ -128,14 +126,6 @@ const formData = ref({
   captcha: ''
 });
 
-// 模擬提交表單的數據（用於測試）
-// formData.value = {
-//   name: '測試用戶',
-//   phone: '1234567890',
-//   email: 'test@example.com',
-//   message: '測試',
-//   captcha: '1234'
-// };
 
 const showConfirmModal = () => {
   Swal.fire({
@@ -152,7 +142,10 @@ const showConfirmModal = () => {
   })
 }
 
-const submitForm = async () => {
+// 表單驗證
+
+const submitForm = async (e) => {
+  e.preventDefault()
   try {
     const response = await fetch('/submit-form.php', {
       method: 'POST',
@@ -169,12 +162,13 @@ const submitForm = async () => {
         text: data.message,
         icon: 'success'
       })
+      window.location.href = '/'
       // 執行其他操作,如重置表單
-    } else {
-      Swal.fire({
-        title: '表單提交失敗',
-        text: '請稍後再試',
-        icon: 'error'
+      } else {
+        Swal.fire({
+          title: '表單提交失敗',
+          text: '請稍後再試',
+          icon: 'error'
       })
     }
   } catch (error) {
@@ -507,7 +501,7 @@ submitForm();
                 </div>
               </div>
             </div>
-            <button type="submit">送出</button>
+            <button type="submit" @click.prevent="showConfirmModal">送出</button>
           </form>
         </div>
       </div>

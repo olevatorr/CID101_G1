@@ -10,9 +10,9 @@
     <section class="section section-newsinner-breadcrumb">
         <div class="breadcrumb-wrap">
             <ol class="newsinner-breadcrumb">
-                <li><a href="#">首頁</a></li>
-                <li><a href="#">最新消息</a></li>
-                <li><a href="#">相關報導</a></li>
+                <li><router-link to="/">首頁</router-link></li>
+                <li><router-link to="/news">最新消息</router-link></li>
+                <li>相關報導</li>
             </ol>
         </div>
 
@@ -37,6 +37,4 @@
             </div>
         </div>
     </section>
-
-
 </template>
