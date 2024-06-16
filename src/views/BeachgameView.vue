@@ -98,35 +98,39 @@
                 <!-- 選擇工具 -->
                 <!-- 垃圾點選後的彈窗 -->
                 <div v-if="selectedTrash" class="trash-lightbox">
-                    <h2 class="trash-title">{{ selectedTrash.name }}</h2>
+                    <h2 class="trash-title ">{{ selectedTrash.name }}</h2>
                     <div class="trash-pic">
                         <img :src="selectedTrash.image" :alt="selectedTrash.name">
                     </div>
-                    <div class="trash-text">
+                    <!-- 成立後display:none -->
+                    <div class="trash-text" :class="{ '-viewClose': slidePage }">
                         <p>{{ selectedTrash.description }}</p>
                     </div>
-                    <button @click="showSlidePage">選擇淨灘工具</button>
-                </div>
-                <!-- 滑入頁面 -->
-                <!-- v-if是否顯示，條件為 true 或 false 時才渲染 -->
-                <!-- <transition> 组件可實現滑入動畫 -->
-                <transition name="slide-up">
-                    <div v-if="slidePage" class="slide-tool-page">
-                        <h3>挑選工具</h3>
-                        <div class="row tool-list">
-                            <div class="col-4" v-for="tool in tools" :key="tool.name">
-                                <div class="tool-item">
-                                    <div class="tool-pic">
-                                        <img :src="tool.image" alt="tool.name">
-                                    </div>
-                                    <div class="tool-name">
-                                        <h3>{{ tool.name }}</h3>
+                    <button @click="showSlidePage" :class="{ '-viewClose': slidePage }">選擇淨灘工具</button>
+                    <!-- 滑入頁面 -->
+                    <!-- v-if是否顯示，條件為 true 或 false 時才渲染 -->
+                    <!-- <transition> 组件可實現滑入動畫 -->
+                    <div class="slidepage-up">
+                        <transition name="slide-up">
+                            <div v-if="slidePage" class="slide-tool-page">
+                                <h3>挑選工具</h3>
+                                <div class="row tool-list">
+                                    <div class="col-4" v-for="tool in tools" :key="tool.name">
+                                        <div class="tool-item">
+                                            <div class="tool-pic">
+                                                <img :src="tool.image" alt="tool.name">
+                                            </div>
+                                            <div class="tool-name">
+                                                <h3>{{ tool.name }}</h3>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </transition>
                     </div>
-                </transition>
+                </div>
+
                 <!-- 撿取成功 -->
                 <!-- <div class="col success-lightbox">
                     <h2 class="ori">撿取垃圾成功</h2>
@@ -302,18 +306,24 @@ export default {
             slidePage: false,
             tools: [
                 {
+                    id: 1,
                     name: '鐵夾子',
                     image: '../../public/img/beachgame/clamp.jpg',
                 },
                 {
+                    id: 2,
                     name: '手套',
                     image: '../../public/img/beachgame/gloves.jpg',
                 },
                 {
+                    id: 3,
                     name: '防曬帽',
                     image: '../../public/img/beachgame/hat.jpg'
                 }
             ],
+            // 鐵夾的圖片
+            checkAns: null,
+
             // successLightbox: false,
             // failLightbox: false,
             // finishLightbox: false,
@@ -377,7 +387,12 @@ export default {
         // 滑入工具列可選取
         showSlidePage() {
             this.slidePage = true;
-            this.selectedTrash = null;
+            // this.selectedTrash = ;
+        },
+        // 選擇鐵夾子
+        choseclamp() {
+            this.choseTrash == 1;
+
         }
 
     },
