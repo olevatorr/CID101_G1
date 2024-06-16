@@ -34,7 +34,6 @@ onMounted(() => {
         .fromTo(cover.value, { y: '100%' }, { y: '0%', duration: 1, ease: 'power4.out' }, 1)
 })
 </script>
-
 <template>
     <section ref="banner" class="section section-index-banner">
         <div class="container">
@@ -59,4 +58,5 @@ onMounted(() => {
             <img src="../../../public/img/index/trash-right.png" alt="">
         </div>
     </section>
+
 </template>

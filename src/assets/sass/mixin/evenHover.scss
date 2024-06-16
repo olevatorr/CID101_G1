@@ -1,0 +1,33 @@
+//點擊進詳情頁面未套用hover
+@mixin hover-effect($apply-hover: true) {
+    @if $apply-hover {
+        &:hover {
+            background-color: $color-subprimary;
+            transition: .5s ease;
+            color: $color-white;
+            cursor: pointer;
+
+            .text .theme .event-name h3 {
+                color: $color-white;
+            }
+
+            .addnew i,
+            h3 {
+                color: $color-white;
+            }
+
+            .text .Thoughts,a {
+                color: $color-white ;
+            }
+
+            .pic {
+                overflow: hidden;
+
+                img {
+                    transform: scale(1.3);
+                    transition: .5s ease;
+                }
+            }
+        }
+    }
+}

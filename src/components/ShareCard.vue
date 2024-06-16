@@ -1,26 +1,28 @@
 <template>
     <!--使用v-for渲染多張卡片-->
-        <div v-if="even" class="col-12 col-sm-6 col-md-4 col-lg-3" v-for="card in filter" :key="card.id">
+        <div 
+        v-if="even" 
+        class="col-12 col-sm-6 col-md-4 col-lg-3" 
+        v-for="card in shareContent" 
+        :key="card.F_ID" 
+        @click="cardClicked(card)">
         <div class="event-card">
             <div class="pic">
-                <img :src="card.imageUrl" />
+                <img :src="card.F_IMG" />
             </div>
             <div class="text">
                 <div class="theme">
                     <div class="event-name">
-                        <h3>{{ card.title }}</h3>
+                        <h3>{{ card.E_TITLE }}</h3>
                     </div>
                     <div class="report">
                         <i class="fa-solid fa-triangle-exclamation"></i>
                     </div>
                 </div>
-                <span>{{ card.place }}</span>
-                <span>{{ card.date }}</span>
-                <span>{{ card.share }}</span>
-                <span>{{ card.exp }}</span>
-                <p class="Thoughts">
-                    {{ card.thoughts }}
-                    <a href="#">閱讀更多</a>
+                <span>活動地點：{{ card.E_ADDRESS }}</span>
+                <span>活動日期：{{ card.E_DATE }}</span>
+                <span>分享人：{{ card.U_NAME }}</span>
+                <p class="Thoughts">參加心得:<br/>{{ card.F_CONTENT }}
                 </p>
             </div>
         </div>
@@ -28,24 +30,23 @@
     <!-- 只渲染一張卡片 -->
     <div v-else class="col-12">
         <div class="event-card">
-            <i class="fa-regular fa-circle-xmark"></i>
+            <i class="fa-regular fa-circle-xmark" @click="closeCard"></i>
             <div class="pic">
-                <img :src="filter[0].imageUrl" />
+                <img :src="card.F_IMG" />
             </div>
             <div class="text">
                 <div class="theme">
                     <div class="event-name">
-                        <h3>{{ filter[0].title }}</h3>
+                        <h3>活動名稱：{{ card.E_TITLE }}</h3>
                     </div>
                     <div class="report">
                         <span><i class="fa-solid fa-triangle-exclamation"></i>檢舉此貼文</span>
                     </div>
                 </div>
-                <span>{{ filter[0].place }}</span>
-                <span>{{ filter[0].date }}</span>
-                <span>{{ filter[0].share }}</span>
-                <span>參加心得:</span>
-                <p>{{ filter[0].experience }}</p>
+                <span>活動地點：{{ card.E_ADDRESS }}</span>
+                <span>活動日期：{{ card.E_DATE }}</span>
+                <span>分享人：{{ card.U_NAME }}</span>
+                <p>參加心得:<br/>{{ card.F_CONTENT }}</p>
             </div>
         </div>
     </div>
@@ -54,22 +55,31 @@
 <script>
 export default {
     props: {
-        ShareCard: [],
-        limit: Number,
-        even:Boolean
-    },
-    computed: {
-        filter() {
-            if (this.limit === 0) {
-                return this.ShareCard;
-            } else {
-                return this.ShareCard.slice(0, this.limit);
-            }
+        shareContent: {
+            type:Array,
+            default:()=>[]
+        },
+        limit: {
+            type:Number,
+            default:0
+        },
+        even:{
+            type:Boolean,
+            default:true
         }
     },
+    methods: {
+        cardClicked(card) {
+            this.$emit('card-click', card);
+        },
+        closeCard() {
+            this.$emit('close-click');
+        }
+    }
 }
 
 </script>
+
 <style lang="scss" scoped>
 @import "../assets/sass/base/var";
 @import "../assets/sass/component/eventcard";

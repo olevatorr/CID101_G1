@@ -38,6 +38,9 @@
         left: 0;
         height: 100%;
         width: 50%;
+        @media (max-width: 575px) {
+            width: 70%;
+        }
         img {
             height: 100%;
             vertical-align: top;
@@ -48,6 +51,9 @@
         right: 0;
         height: 100%;
         width: 50%;
+        @media (max-width: 575px) {
+            width: 70%;
+        }
         img {
             height: 100%;
             vertical-align: top;
@@ -57,26 +63,35 @@
     .trash-left {
         left: 0;
         width: 60%;
+        @media (max-width: 575px) {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: flex-end;
+        }
         img {
             width: 100%;
             vertical-align: top;
-        }
-        @media screen and (max-width: 991px) {
-            img {
-                height: 80%;
+            @media (max-width: 575px) {
+                width: unset;
+                height: 100%;
             }
         }
+        
     }
     .trash-right {
         right: 0;
         width: 60%;
+        @media (max-width: 575px) {
+            height: 100%;
+            width: 100%;
+        }
         img {
             width: 100%;
             vertical-align: top;
-        }
-        @media screen and (max-width: 991px) {
-            img {
-                height: 80%;
+            @media (max-width: 575px) {
+                width: unset;
+                height: 100%;
             }
         }
     }
@@ -249,7 +264,7 @@
     p {
         align-self: flex-start;
     }
-    ul {
+    ul.survey-desc {
         margin-bottom: 20px;
         li {
             margin-left: 3rem;
@@ -268,21 +283,82 @@
         z-index: 20;
         .wrapper {
             background-color: #fff;
-            padding: 20px 30px;
+            padding: 5% 5%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            width: 50%;
+            @media (max-width:991px) {
+                width: 70%;
+            }
+            @media (max-width:575px) {
+                width: 80%;
+            }
             .buttons {
                 display: flex;
                 gap:30px;
+            }
+            .survey-result {
+                text-align: center;
+                .score-area {
+                    padding: 10px;
+                    border-radius: 10px;
+                    border: 2px solid #ccc;
+                    margin-bottom: 30px;
+                }
+                .score {
+                    font-size: 1.6rem;
+                    span {
+                        font-size: 8rem;
+                        font-weight: bold;
+                        color: $color-highlight;
+                    }
+                }
+                i {
+                    animation: loading 2s linear  infinite;
+                    font-size: 3rem;
+                    margin-top: 20px;
+                    color: #757575;
+                }
             }
         }
     }
     .survey-box.show {
         display: flex;
     }
+    .survey-form {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        @media (max-width:575px) {
+            grid-template-columns: 100%;
+        }
+        width: 100%;
+        input {
+            display: none;
+        }
+        li {
+            margin: 2% 5%;
+            border: #000 solid 1px;
+            label {
+                display: block;
+                padding: 10px 20px;
+            }
+        }
+        li:has(:checked) {
+            background-color: $color-highlight;
+            color: #fff;
+            border: none;
+        }
+        
+    }
 }
+
+@keyframes loading {
+    0% { rotate: 0deg }
+    100% { rotate: 360deg }
+}
+
 .section-donation-summary {
     background-color: #fff;
     h3 {
@@ -323,7 +399,7 @@
         justify-content: center;
         &:hover {
             .donate-btn {
-                max-width: 40px;
+                max-width: 130px;
             }
         }
         .donate-btn {
@@ -332,7 +408,7 @@
             display: inline-block;
             gap: 10px;
             align-items: center;
-            max-width: 130px;
+            max-width: 40px;
             height: 40px;
             color: #fff;
             background-color: $color-subprimary;
@@ -366,6 +442,32 @@
         }
     }
 }
+
+.section-index-event {
+    button {
+        display: block;
+        margin: 20px auto;
+    }
+}
 .section-index-news {
     background-color: $color-subprimary;
+    button {
+        display: block;
+        margin: 20px auto;
+    }
+}
+
+.gotop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    right: 5%;
+    bottom: 10%;
+    padding: 5px 10px;
+    background-color: $color-subprimary;
+    color: #fff;
+    font-size: 2rem;
+    z-index: 20;
+    cursor: pointer;
 }

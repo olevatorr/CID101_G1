@@ -1,3 +1,79 @@
+<script setup>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { login as loginStore } from '@/store.js'; // Adjust the import path as necessary
+import Swal from 'sweetalert2'
+
+const username = ref('');
+const password = ref('');
+const router = useRouter();
+
+const usernameError = ref('');
+const passwordError = ref('');
+
+
+const validateUsername = () => {
+    if (!username.value) {
+        usernameError.value = '請輸入帳號';
+    } else if (!/^[a-zA-Z0-9]{4,10}$/.test(username.value)) {
+        usernameError.value = '帳號必須是4到10個字母或數字';
+    } else {
+        usernameError.value = '';
+    }
+};
+
+const validatePassword = () => {
+    if (!password.value) {
+        passwordError.value = '請輸入密碼';
+    } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,10}$/.test(password.value)) {
+        passwordError.value = '密碼必須是6到10個字母和數字組合';
+    } else {
+        passwordError.value = '';
+    }
+};
+
+const login = async () => {
+    validateUsername();
+    validatePassword();
+    
+    if (usernameError.value || passwordError.value) {
+        return;
+    }
+
+    try {
+        const response = await fetch('/json/membertext.json');
+        if (!response.ok) {
+            throw new Error('網路回應不好');
+        }
+        const members = await response.json();
+        const member = members.find(member => member.U_ACCOUNT === username.value && member.U_PSW === password.value);
+        if (member) {
+            // Login successful
+            Swal.fire({
+                icon: "success",
+                title: "登入成功!",
+            });
+            loginStore(member);
+            router.push('/');
+        } else {
+            // Login failed
+            Swal.fire({
+                icon: "error",
+                title: "使用者名稱或密碼無效!",
+            });
+        }
+    } catch (error) {
+        console.error('Error fetching member data', error);
+        Swal.fire({
+            icon: "warning",
+            title: "尚未註冊會員!",
+        });
+    }
+};
+</script>
+
+
+
 <template>
     <section class="section section-member">
         <div class="container">
@@ -14,15 +90,17 @@
                     <div class="member-txt col-12 col-md-6">
                         <div class="member-login">
                             <label>帳號</label>
-                            <input type="text" maxlength="10" placeholder="請輸入帳號">
+                            <input v-model="username" type="text" maxlength="10" placeholder="請輸入帳號" @blur="validateUsername">
+                            <span v-if="usernameError" class="error">{{ usernameError }}</span>
                             <label>密碼</label>
-                            <input type="password" name="" id="" maxlength="10" placeholder="請輸入密碼">
+                            <input v-model="password" type="password" maxlength="10" placeholder="請輸入密碼" @blur="validatePassword">
+                            <span v-if="passwordError" class="error">{{ passwordError }}</span>
                         </div>
                         <span class="forgot">
                             <RouterLink to="/ForgetPasswordView">忘記密碼?</RouterLink>
                             <div class="member-button">
                                 <RouterLink to="/RegisterView"><button class="add">加入會員</button></RouterLink>
-                                <RouterLink to="/ProfileView"><button>&emsp;&emsp;登入&emsp;&emsp;</button></RouterLink>
+                                <button @click="login">&emsp;&emsp;登入&emsp;&emsp;</button>
                             </div>
                         </span>
                         <p>其他登入方式</p>
@@ -36,3 +114,10 @@
         </div>
     </section>
 </template>
+<style scoped>
+.error {
+    color: red;
+    font-size: 1.5rem;
+    margin-top: 0.5em;
+}
+</style>

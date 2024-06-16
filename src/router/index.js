@@ -1,8 +1,14 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '../views/HomeView.vue';
+import DonateView from '../views/DonateView.vue'; // 捐款表單頁面
+import DonatePage from '../views/DonatePage.vue'; // 捐款確認頁面
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+  scrollBehavior() {
+    return { top: 0 }
+  },
+
   routes: [
     {
       path: '/',
@@ -12,9 +18,6 @@ const router = createRouter({
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue')
     },
     {
@@ -78,26 +81,26 @@ const router = createRouter({
       component: () => import('../views/NewsView.vue')
     },
     {
-      path: '/Donate',
-      name: 'Donate',
-      component: () => import('../views/DonateView.vue')
-    },
-    {
-      path: '/Newsinner',
+      path: '/Newsinner/:id',
       name: 'Newsinner',
       component: () => import('../views/NewsinnerView.vue')
     },
     {
       path: '/TestView',
-      name: 'Test.View',
+      name: 'TestView',
       component: () => import('../views/TestView.vue')
     },
     {
       path: '/DonatePage',
       name: 'DonatePage',
-      component: () => import('../views/DonatePage.vue')
-    }
+      component: () => import('../views/DonatePage.vue') // 捐款確認頁面
+    },
+    {
+      path: '/Donate',
+      name: 'Donate',
+      component: () => import('../views/DonateView.vue') // 捐款表單頁面
+    },
   ]
-})
+});
 
-export default router
+export default router;

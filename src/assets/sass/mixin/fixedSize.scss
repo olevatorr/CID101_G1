@@ -1,0 +1,15 @@
+//固定圖片大小不爆版
+@mixin fixed-size-image($height) {
+    width: 100%;
+    height: $height;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}

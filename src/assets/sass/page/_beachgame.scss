@@ -160,6 +160,7 @@
                 }
             }
         }
+    
         // 選擇工具
         .trash-lightbox {
             color: #fff;
@@ -167,7 +168,41 @@
             border-radius: 20px;
             text-align: center;
             background-color: $color-subprimary;
-            padding: 50px 20px;
+            padding: 20px 20px;
+           .slidepage-up{
+            margin: 20px auto;
+            .slide-tool-page {
+                transform: translateY(0);
+                color: #fff;
+                box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
+                border-radius: 20px;
+                text-align: center;
+                background-color: $color-primary;
+                padding: 20px;
+                .tool-list {
+                    color: #fff;
+                    .tool-item {
+                        .tool-pic {
+                            background-color: #fff;
+                            border-radius: 50%;
+                            margin: 20px;
+                            overflow: hidden;
+                            img {
+                                width: 100%;
+                                vertical-align: top;
+                            }
+                        }
+                    }
+                }
+            }
+            .slide-up-enter-active, .slide-up-leave-active {
+                transition: transform 0.5s ease;
+              }
+              .slide-up-enter-from, .slide-up-leave-to {
+                transform: translateY(100%);
+                opacity: 0;
+              }
+            }
             .trash-pic {
                 width: 150px;
                 height: 150px;
@@ -177,43 +212,34 @@
                 position: relative;
                 overflow: hidden;
                 img {
-                    text-align: center;
-                    width: 120px;
+                    width: 100%;
                     position: absolute;
                     top: 50%;
                     left: 50%;
                     transform: translate(-50%, -50%);
                 }
             }
-            .trash-text p {
+            .trash-text{
+                &.-viewClose{
+                    display: none;
+                }
+            p {
                 margin: 20px 0;
-            }
-        }
-        // 選取工具滑入頁面
-        .slide-page {
-            color: #fff;
-            box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
-            border-radius: 20px;
-            text-align: center;
-            background-color: $color-primary;
-            padding: 20px;
-            .tool-list {
-                color: #fff;
-                margin: 30px;
-                .tool-item {
-                    .tool-pic {
-                        background-color: #fff;
-                        border-radius: 50%;
-                        margin: 20px;
-                        overflow: hidden;
-                        img {
-                            width: 100%;
-                            vertical-align: top;
-                        }
-                    }
                 }
             }
+            button{
+                &.-viewClose{
+                    display: none;
+                }
+            }
+
+
         }
+        // 選取工具滑入頁面
+        
+
+        //vue過渡期間自動生成類名 enter-active、leave-active
+        
         // 撿取成功
         .success-lightbox {
             color: #fff;
@@ -316,4 +342,30 @@
             }
         }
     }
+    .trash-container{
+        position: absolute;
+        left:50%;
+        top: 50%;
+        transform: translate(-50%, -50%,);
+        width: calc(100% - 300px);
+        height: calc(100% - 300px);
+        display:none;
+        &.-viewShow{
+            display: flex;
+        }
+        .trash-pic{
+            &:hover{
+                background-color:#fff;
+                border:4px solid #333;
+                border-radius:50%;
+                transform: scale(1.5);
+            }
+            img{
+                width: 100%;
+                
+            }
+        }
+    }
 }
+
+

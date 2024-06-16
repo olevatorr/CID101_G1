@@ -10,7 +10,6 @@ import HomeNews from '@/components/Home/HomeNews.vue'
 import HomeFeedback from '@/components/Home/HomeFeedback.vue'
 
 </script>
-
 <template>
   <main>
     <HomeBanner/>
