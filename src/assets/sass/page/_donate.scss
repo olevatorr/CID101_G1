@@ -40,6 +40,9 @@
             p {
                 color: #fff;
             }
+            span{
+                margin: 5px;
+            }
             .unit-table {
                 display: flex;
                 flex-wrap: wrap;
@@ -69,6 +72,7 @@
                     input {
                         display: none;
                     }
+
                 }
                 .donate-submit {
                     width: 100%;

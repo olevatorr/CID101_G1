@@ -1,10 +1,20 @@
+<script setup>
+import { onMounted, ref, computed } from 'vue';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
+onMounted(() => {
+    AOS.init()
+})
+</script>
+
 <template>
     <section class="section section-donation">
         <div class="container donation-list">
             <h3>
                 DISTRIBUTION OF DONATION<br />捐款用途
             </h3>
-            <div class="row donation-item">
+            <div class="row donation-item" data-aos="fade-up">
                 <div class="donation-box col-lg-3 col-sm-12">
                     <div class="universal-access">
                         <i class="fa-solid fa-universal-access"></i>
@@ -14,7 +24,7 @@
                         您的捐款將用於支付工作人員的薪資福利、辦公場地租賃、設備採購和維護等行政開支,確保組織能夠高效、持續地開展海洋保護工作。
                     </p>
                 </div>
-                <div class="donation-box col-lg-3 col-sm-12">
+                <div class="donation-box col-lg-3 col-sm-12" data-aos="fade-up">
                     <div class="person-chalkboard">
                         <i class="fa-solid fa-person-chalkboard"></i>
                     </div>
@@ -24,7 +34,7 @@
                         園舉辦海洋環保講座、組織學生參與互動體驗、製作和發放宣傳材料等。通過生動有趣的方式,我們希望讓更多人,尤其是青少年,瞭解海洋面臨的挑戰,并自覺踐行環保理念。
                     </p>
                 </div>
-                <div class="donation-box col-lg-3 col-sm-12">
+                <div class="donation-box col-lg-3 col-sm-12" data-aos="fade-up">
                     <div class="recycle">
                         <i class="fa-solid fa-recycle"></i>
                     </div>
@@ -36,10 +46,10 @@
             </div>
         </div>
 
-        <div class="container donation-list">
+        <div class="container donation-list" data-aos="fade-up">
             <div class="row donation-item">
                 <div class="donation-box col-lg-3 col-sm-12">
-                    <div class="school">
+                    <div class="school" >
                         <i class="fa-solid fa-school"></i>
                     </div>
                     <h3>海洋生態保育專案</h3>
@@ -48,7 +58,7 @@
                         ALERT將與專業的海洋保育團體合作，利用您的捐款開展針對性的保育專案，如珊瑚礁復育、濕地保護、海洋生物多樣性監測等。這些專案將由具有豐富經驗和專業知識的團隊負責實施，確保取得實質性的保育成果。
                     </p>
                 </div>
-                <div class="donation-box col-lg-3 col-sm-12">
+                <div class="donation-box col-lg-3 col-sm-12" data-aos="fade-up">
                     <div class="flask-vial">
                         <i class="fa-solid fa-flask-vial"></i>
                     </div>
@@ -58,7 +68,7 @@
                         ALERT將設立專項基金,資助高校、研究所等學術單位開展海洋環境相關的研究工作,如海洋污染治理技術、生態修復方法、可持續漁業模式等。這些研究成果將為我們的環保實踐提供科學指導,並為海洋可持續發展貢獻智慧。
                     </p>
                 </div>
-                <div class="donation-box col-lg-3 col-sm-12">
+                <div class="donation-box col-lg-3 col-sm-12" data-aos="fade-up">
                     <div class="display">
                         <i class="fa-solid fa-display"></i>
                     </div>

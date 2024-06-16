@@ -47,20 +47,49 @@
 </template>
 
 <script>
-// 引入必要的模塊
+// 導入 js-cookie 庫,用於讀取和寫入 Cookie
 import Cookies from 'js-cookie';
 
 export default {
-    name: 'DonateCart', // 組件名稱
+    // 定義組件名稱,便於調試和開發工具識別
+    name: 'DonateCart',
+
+    // data 函數返回組件的初始數據
     data() {
         return {
-            donationAmount: 0, // 存儲捐款金額
+            // 初始化捐款金額為 0
+            donationAmount: 0,
         };
     },
+
+    // mounted 是 Vue 的生命週期鉤子,在組件被掛載到 DOM 後調用
     mounted() {
-        // 從 Cookie 中讀取捐款金額
-        this.donationAmount = Cookies.get('donationAmount');
+        // 從當前路由的查詢參數中獲取 'refreshed' 的值
+        // 用於判斷頁面是否已經被重新整理過
+        const refreshed = this.$route.query.refreshed;
+        
+        // 如果 refreshed 參數不存在
+        if (!refreshed) {
+            // 將 refreshed 參數設置為 'true',並保留其他現有的查詢參數
+            // 這是為了標記頁面即將被重新整理
+            this.$router.replace({ query: { ...this.$route.query, refreshed: 'true' } })
+                .then(() => {
+                    // 路由更新完成後,強制重新整理頁面
+                    // 這確保了在讀取 Cookie 之前,頁面已經完全重新加載
+                    window.location.reload();
+                });
+        } else {
+            // 如果 refreshed 參數存在,表示頁面已經重新整理過
+            // 從 Cookie 中讀取捐款金額
+            const donationAmount = Cookies.get('donationAmount');
+
+            // 如果 Cookie 中存在捐款金額
+            if (donationAmount) {
+                // 將 Cookie 中的值轉換為整數,並賦值給 donationAmount
+                // 使用 parseInt 是為了確保 donationAmount 始終是一個數字
+                this.donationAmount = parseInt(donationAmount, 10);
+            }
+        }
     },
 };
 </script>
-
