@@ -14,40 +14,40 @@
                     <p>小計</p>
                 </div>
             </div>
-            <div class="cart-info">
+            <div class="cart-info" v-for="(item ,index) in productList" :key="index">
                 <div class="item">
-                    <p>1</p>
+                    <p>{{ index + 1 }}</p>
                 </div>
                 <div class="content">
                     <div class="pic">
-                        <img src="../../public/img/mallcart/01.png" alt="">
+                        <img :src=" item.imgUrl " alt="">
                     </div>
-                    <div class="pic">
-                        <p>【側背包經典款-鯨魚】</p>
+                    <div class="title">
+                        <p>{{ item.title }}</p>
                     </div>
                 </div>
                 <div class="price">
-                    <p>NT$ 520</p>
+                    <p>$NT {{ item.price }}</p>
                 </div>
                 <div class="amount">
-                    <button>-</button>
-                    <span>1</span>
-                    <button>+</button>
+                    <button @click="decreaseQuantity(item)">-</button>
+                    <span>{{ item.amount }}</span>
+                    <button @click="increaseQuantity(item)">+</button>
                 </div>
                 <div class="subtotal">
-                    <p>NT$ 520</p>
-                    <i class="fa-regular fa-circle-xmark"></i>
+                    <p>NT$ {{ item.price * item.amount }}</p>
+                    <i class="fa-regular fa-circle-xmark" @click="removeFromCart(item)"></i>
                 </div>
             </div>
             <div class="cart-price">
                 <div class="text">
-                    <h3>訂單金額 NT$640</h3>
-                    <h3>運費 +NT$60</h3>
+                    <h4>訂單金額 NT$ {{addPrice}}</h4>
+                    <h4>運費 +NT$60</h4>
                 </div>
             </div>
             <div class="cart-total">
                 <div class="text">
-                    <h3>應付金額 NT$ 700</h3>
+                    <h4>應付金額 NT$  {{addPrice + 60}}</h4>
                 </div>
             </div>
         </div>
@@ -202,3 +202,86 @@
         </div>
     </section>
 </template>
+
+<script>
+export default {
+    data() {
+        return {
+            cartItems: [],
+            showCartIcon: false,
+            showCartBox: false,
+            sharedCart: [],
+
+            // 該頁存儲localStorage資料
+            productList: [],
+        }
+    },
+    mounted() {
+        //登入後取得name並存入localStorage，在初始化layout時取得本機快取中的name 
+        this.productList = JSON.parse(localStorage.getItem("cartItems")) ? JSON.parse(localStorage.getItem("cartItems")) : [];
+        //依照自己需求來監聽對應的key 
+        window.addEventListener("setItemEvent", (e) => {
+            // e.key : 是值改變的key 
+            // e.newValue : 是可以對應的新值
+            if (e.key === "cartItems") {
+                this.productList = JSON.parse(e.newValue) ? JSON.parse(e.newValue) : [];
+            };
+        });
+    },
+    computed: {
+        addPrice() {
+            return this.productList.reduce((total, item) => {
+                return total + item.price * item.amount;
+            }, 0);
+        },
+        // 購物車商品數量
+        productCount() {
+            let count = 0;
+            console.log(this.productList)
+            this.productList.forEach(item => {
+                console.log(item.amount)
+                count = count + (item.amount ? item.amount : 1);
+            }); 
+            console.log(count)
+            return count
+        }
+    },
+    methods: {
+        // 點擊購物車Icon
+        toggleCartBox() {
+            // 收折list列表
+            this.showCartBox = !this.showCartBox;
+            if (this.showCartBox) {
+            this.showCartIcon = false; 
+            } else if (this.cartItems.length > 0) {
+            this.showCartIcon = true; 
+            }
+        },
+        removeFromCart(item) {
+            const index = this.productList.findIndex(element => element.id == item.id);
+            this.productList.splice(index, 1);
+            localStorage.setItem('cartItems', JSON.stringify(this.productList));
+        },
+        decreaseQuantity(item) {
+            if (item.amount > 1) {
+                this.productList.forEach(forItem => {
+                    if (forItem.id == item.id) {
+                        forItem.amount = forItem.amount - 1;
+                    };
+                });
+                localStorage.setItem('cartItems', JSON.stringify(this.productList));
+            }
+        },
+        increaseQuantity(item) {
+            if (item.amount < 10) {
+                this.productList.forEach(forItem => {
+                    if (forItem.id == item.id) {
+                        forItem.amount = forItem.amount + 1;
+                    };
+                });
+                localStorage.setItem('cartItems', JSON.stringify(this.productList));
+            }
+        },
+    }
+}
+</script>
