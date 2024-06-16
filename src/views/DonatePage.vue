@@ -4,6 +4,13 @@ import MemberInfo from '../components/Donate/MemberInfo.vue'
 import PaymentMethod from '../components/Donate/PaymentMethod.vue'
 import ConfirmationCheckbox from '../components/Donate/ConfirmationCheckbox.vue'
 import CheckoutButton from '../components/Donate/CheckoutButton.vue'
+import { onMounted, ref, computed } from 'vue';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
+onMounted(() => {
+    AOS.init()
+})
 
 </script>
 
