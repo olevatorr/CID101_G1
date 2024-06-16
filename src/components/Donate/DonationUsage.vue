@@ -1,12 +1,3 @@
-<script setup>
-import { onMounted, ref, computed } from 'vue';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-
-onMounted(() => {
-    AOS.init()
-})
-</script>
 
 <template>
     <section class="section section-donation">

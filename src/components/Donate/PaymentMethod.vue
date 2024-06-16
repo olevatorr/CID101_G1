@@ -11,25 +11,25 @@
                 <div class="row">
                     <div class="ship-method col-12 col-md-6">
                         <label for="credit-card">
-                            <input type="radio" id="credit-card" name="drone" value="credit-card" checked />
+                            <input type="radio" v-model="selectedPayment" id="credit-card" name="drone" value="credit-card" />
                             信用卡
                         </label>
                     </div>
                     <div class="ship-method col-12 col-md-6">
                         <label for="line-pay">
-                            <input type="radio" id="line-pay" name="drone" value="line-pay" checked />
+                            <input type="radio" v-model="selectedPayment" id="line-pay" name="drone" value="line-pay" />
                             LINE PAY
                         </label>
                     </div>
                     <div class="ship-method col-12 col-md-6">
                         <label for="store-code">
-                            <input type="radio" id="store-code" name="drone" value="store-code" checked />
+                            <input type="radio" v-model="selectedPayment" id="store-code" name="drone" value="store-code"  />
                             超商代碼
                         </label>
                     </div>
                     <div class="ship-method col-12 col-md-6">
                         <label for="atm">
-                            <input type="radio" id="atm" name="drone" value="atm" checked />
+                            <input type="radio" v-model="selectedPayment" id="atm" name="drone" value="atm"  />
                             ATM轉帳
                         </label>
                     </div>
@@ -38,3 +38,18 @@
         </div>
     </section>
 </template>
+
+<script>
+import { ref } from 'vue';
+
+export default {
+    name: 'MallcartPay',
+    setup() {
+        const selectedPayment = ref(''); // 默認不選中任何選項
+
+        return {
+            selectedPayment,
+        };
+    },
+};
+</script>

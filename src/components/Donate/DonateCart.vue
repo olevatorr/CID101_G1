@@ -4,7 +4,7 @@
             <div class="cart-wrap">
                 <div class="title">
                     <h3>01</h3>
-                    <h3>購物車內容</h3>
+                    <h3>捐款明細</h3>
                 </div>
                 <div class="cart-head">
                     <p>項目</p>
@@ -27,9 +27,6 @@
                 <div class="price">
                     <!-- 顯示捐款金額 -->
                     <p>NT$ {{ donationAmount }}</p>
-                </div>
-                <div class="subtotal">
-                    <i class="fa-regular fa-circle-xmark"></i>
                 </div>
             </div>
             <div class="cart-price">
