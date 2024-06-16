@@ -115,10 +115,13 @@ const emit = defineEmits(['update:isSurveyPopUp']);
       <template v-else>
         <div class="survey-result">
           <h2>測驗結果</h2>
-          <p>你的分數</p>
-          <div class="score"><span>{{ totalScore }}</span>分</div>
+          <div class="score-area">
+            <p>你的分數</p>
+            <div class="score"><span>{{ totalScore }}</span>分</div>
+          </div>
           <p v-if="totalScore < 80">在準備參加淨灘活動前，讓我們先了解更多海廢知識吧，將在5秒後跳轉至教育中心</p>
           <p v-else>太好了!你對海廢有很深的了解，馬上來去活動報名淨灘吧，將在5秒後跳轉至活動頁面</p>
+          <i class="fa-solid fa-spinner"></i>
         </div>
       </template>
     </div>

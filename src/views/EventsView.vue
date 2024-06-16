@@ -17,7 +17,7 @@
       </div>
     </div>
   </section>
-  <calendar />
+  <calendar @card-click="handleEventCardClick" />
   <section class="section section-event-list">
     <div class="container">
       <h2>活動列表</h2>
@@ -273,7 +273,7 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import Swal from 'sweetalert2'
 import EventCard from '../components/EventCard.vue'
 import ShareCard from '../components/ShareCard.vue'
-import calendar from '@/components/even/calendar.vue'
+import calendar from '@/components/even/calendarFilter.vue'
 
 export default defineComponent({
   components: {

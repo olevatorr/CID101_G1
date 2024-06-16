@@ -300,8 +300,13 @@
                 gap:30px;
             }
             .survey-result {
-                text-align-last: center;
-
+                text-align: center;
+                .score-area {
+                    padding: 10px;
+                    border-radius: 10px;
+                    border: 2px solid #ccc;
+                    margin-bottom: 30px;
+                }
                 .score {
                     font-size: 1.6rem;
                     span {
@@ -310,7 +315,12 @@
                         color: $color-highlight;
                     }
                 }
-
+                i {
+                    animation: loading 2s linear  infinite;
+                    font-size: 3rem;
+                    margin-top: 20px;
+                    color: #757575;
+                }
             }
         }
     }
@@ -343,6 +353,12 @@
         
     }
 }
+
+@keyframes loading {
+    0% { rotate: 0deg }
+    100% { rotate: 360deg }
+}
+
 .section-donation-summary {
     background-color: #fff;
     h3 {
