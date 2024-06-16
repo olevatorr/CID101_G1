@@ -1,10 +1,10 @@
 <script>
 // 引入必要的模塊
 import Cookies from 'js-cookie';
-import { ref } from 'vue';
-import { useRouter } from 'vue-router'
-import { store } from '@/store.js' // 引入store
-
+import { ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
+import { store } from '@/store.js'; // 引入store
+import Swal from 'sweetalert2'; // 引入sweetalert2
 
 export default {
     name: 'DonationBanner', // 組件名稱
@@ -13,28 +13,52 @@ export default {
         const donationAmounts = [100, 500, 1000, 2000];
         const selectedAmount = ref(null); // 被選中的捐款金額
         const customAmount = ref(null); // 自訂捐款金額
-        const router = useRouter()
+        const router = useRouter();
 
         // 選擇預設捐款金額
-        const selectAmount = (amount) => {selectedAmount.value = amount;};
+        const selectAmount = (amount) => { 
+            selectedAmount.value = amount;
+            customAmount.value = null; // 清空自定義金額
+        };
 
-        const checkMaxAmount = (event) => {if (event.target.value > 100000) {customAmount.value = 100000}}
+        const checkMaxAmount = (event) => {
+            if (event.target.value > 100000) { 
+                customAmount.value = 100000; 
+            }
+        };
+
+        // 監聽自定義金額輸入框的變化
+        watch(customAmount, (newVal) => {
+            if (newVal !== null && newVal !== "") {
+                selectedAmount.value = null; // 取消預設金額選中狀態
+            }
+        });
 
         // 提交捐款金額
         const submitDonation = () => {
             if (!store.isLoging) {
-                alert('請先登入會員才能進行捐款');
-                router.push('/Member'); // 未登入跳轉至會員登入頁面
+                Swal.fire({
+                    icon: 'error',
+                    title: '未登入',
+                    text: '請先登入會員才能進行捐款'
+                }).then(() => {
+                    router.push('/Member'); // 未登入跳轉至會員登入頁面
+                });
                 return;
             }
             const amountToDonate = selectedAmount.value || customAmount.value; // 確定捐款金額
             if (amountToDonate < 100) {
-                alert('請輸入有效的捐款金額，單筆交易最低100元');
-                // location.reload(); // 重新整理頁面
+                Swal.fire({
+                    icon: 'error',
+                    title: '無效金額',
+                    text: '請輸入有效的捐款金額，單筆交易最低100元'
+                }).then(() => {
+                    // location.reload(); // 重新整理頁面
+                });
                 return;
             }
             // 計算過期時間為10秒
-            const expires = new Date(new Date().getTime() + 10*1000 );
+            const expires = new Date(new Date().getTime() + 10 * 1000);
             Cookies.set('donationAmount', amountToDonate, { expires }); // 將捐款金額儲存到 Cookie 中，有效期為10秒
             router.push('/DonatePage'); // 跳轉至捐款頁面
         };
@@ -51,6 +75,8 @@ export default {
     },
 };
 </script>
+
+
 
 <template>
     <section class="section section-banner">

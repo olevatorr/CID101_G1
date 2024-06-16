@@ -46,16 +46,24 @@ export default {
     </section>
 
     <!-- Lightbox 彈窗 -->
-    <div v-if="isLightboxVisible" class="lightbox">
-        <div class="lightbox-content">
-            <h2>捐款成功</h2>
-            <p>捐款編號: {{ donationId }}</p>
-            <p>會員姓名: {{ store.member.U_NAME }}</p>
-            <p>捐款金額: NT$ {{ donationAmount }}</p>
-            <p>捐款日期: {{ donationDate }}</p>
-            <RouterLink to="/"><button>回首頁</button></RouterLink>
+    <section class="lightboxbg">
+        <div v-if="isLightboxVisible" class="lightbox">
+            <!-- <div class="lightbox_bg">
+                <h2>捐款成功</h2>
+                <p class="thankyou-paragraph">感謝您對海洋資源的保護，為未來世代留下了更美好的環境。您的智慧和付出，讓我們能夠更好地理解和利用海洋資源，同時保護海洋生態的多樣性和穩定性，為後人留下了寶貴的遺產。</p> -->
+                <div class="lightbox-content">
+                    <h2>捐款證書</h2>
+                    <p>捐款編號:{{ donationId }}</p>
+                    <p>捐款姓名: {{ store.member.U_NAME }}</p>
+                    <p>捐款金額: NT$ {{ donationAmount }}</p>
+                    <p>捐款日期: {{ donationDate }}</p>
+                    <p>社福財團法人:Tibame績育海洋服務</p>
+                    <p>捐款用途:捐款可能會用於開展海洋教育項目，促進公眾對海洋生態的認識和理解，提高對海洋保護的關注度。</p>
+                    <RouterLink to="/"><button>下載並至首頁</button></RouterLink>
+                </div>
+            <!-- </div> -->
         </div>
-    </div>
+    </section>
 </template>
 
 <style scoped>
@@ -64,14 +72,17 @@ export default {
     position: fixed;
     top: 0;
     left: 0;
-    /* width: 100%; */
+    width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.8);
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
+/* .lightbox_bg{
+    background: #0056b3;
+    padding: 150px 100px 100px 100px;
+} */
 .lightbox-content {
     background: white;
     padding: 20px;
@@ -87,17 +98,4 @@ export default {
     margin: 10px 0;
 }
 
-.lightbox-content button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.lightbox-content button:hover {
-    background: #0056b3;
-}
 </style>
