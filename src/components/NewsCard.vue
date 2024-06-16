@@ -1,6 +1,6 @@
 <template>
-    <div class="col-6 col-md-4 col-lg-3" v-for="news in newsitem" :key="news.id">
-        <RouterLink to="/Newsinner">
+    <div class="col-6 col-md-4 col-lg-3" v-for="news in filterNewsList" :key="news.id"> <!--改成filterNewsList-->>
+        <RouterLink v-if="news" :to="`/Newsinner/${news.id}`">
             <!-- 放入app -->
             <div class="news-card">
                 <div class="news-card-pic">
@@ -20,12 +20,37 @@
 <script>
 
 export default {
-    props: {
-        newsitem: {
-            type: Array,
-            required: true
+    props: ["filterNewsList"], // 創建接收父組件容器
+    data() {
+        return {
         }
     },
+}
+</script>
+<!-- <template>
+    <div>
+        <div class="col-6 col-md-4 col-lg-3" v-for="news in filteredNews" :key="news.id">
+            <RouterLink v-if="news" :to="`/Newsinner/${news.id}`">
+                <div class="news-card">
+                    <div class="news-card-pic">
+                        <img :src="news.imgUrl" alt="">
+                    </div>
+                    <div class="news-card-txt">
+                        <p class="news-cards-time">{{ news.time }}</p>
+                        <h4 class="news-cards-title b">{{ news.title }}</h4>
+                        <p class="news-card-content">{{ news.content }}</p>
+                        <p class="filter-name">{{ news.filter }}</p>
+                    </div>
+                </div>
+            </RouterLink>
+        </div>
+    </div>
+</template>
+
+<script>
+
+export default {
+    props: ["newsitem"],
     data() {
         return {
             responseData: [],
@@ -37,4 +62,4 @@ export default {
 
     },
 }
-</script>
+</script> -->

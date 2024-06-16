@@ -98,35 +98,39 @@
                 <!-- 選擇工具 -->
                 <!-- 垃圾點選後的彈窗 -->
                 <div v-if="selectedTrash" class="trash-lightbox">
-                    <h2 class="trash-title">{{ selectedTrash.name }}</h2>
+                    <h2 class="trash-title ">{{ selectedTrash.name }}</h2>
                     <div class="trash-pic">
                         <img :src="selectedTrash.image" :alt="selectedTrash.name">
                     </div>
-                    <div class="trash-text">
+                    <!-- 成立後display:none -->
+                    <div class="trash-text" :class="{ '-viewClose': slidePage }">
                         <p>{{ selectedTrash.description }}</p>
                     </div>
-                    <button @click="showSlidePage">選擇淨灘工具</button>
-                </div>
-                <!-- 滑入頁面 -->
-                <!-- v-if是否顯示，條件為 true 或 false 時才渲染 -->
-                <!-- <transition> 组件可實現滑入動畫 -->
-                <transition name="slide-up">
-                    <div v-if="slidePage" class="slide-tool-page">
-                        <h3>挑選工具</h3>
-                        <div class="row tool-list">
-                            <div class="col-4" v-for="tool in tools" :key="tool.name">
-                                <div class="tool-item">
-                                    <div class="tool-pic">
-                                        <img :src="tool.image" alt="tool.name">
-                                    </div>
-                                    <div class="tool-name">
-                                        <h3>{{ tool.name }}</h3>
+                    <button @click="showSlidePage" :class="{ '-viewClose': slidePage }">選擇淨灘工具</button>
+                    <!-- 滑入頁面 -->
+                    <!-- v-if是否顯示，條件為 true 或 false 時才渲染 -->
+                    <!-- <transition> 组件可實現滑入動畫 -->
+                    <div class="slidepage-up">
+                        <transition name="slide-up">
+                            <div v-if="slidePage" class="slide-tool-page">
+                                <h3>挑選工具</h3>
+                                <div class="row tool-list">
+                                    <div class="col-4" v-for="tool in tools" :key="tool.name">
+                                        <div class="tool-item">
+                                            <div class="tool-pic">
+                                                <img :src="tool.image" alt="tool.name">
+                                            </div>
+                                            <div class="tool-name">
+                                                <h3>{{ tool.name }}</h3>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </transition>
                     </div>
-                </transition>
+                </div>
+
                 <!-- 撿取成功 -->
                 <!-- <div class="col success-lightbox">
                     <h2 class="ori">撿取垃圾成功</h2>
@@ -191,9 +195,10 @@
             <!-- selectedTrash為null時，顯示視窗，被設置時隱藏視窗 -->
             <!-- v-for綁唯一值，有刪除絕對不能用會影響索引值 -->
             <div v-if="!selectedTrash" class="trash-container" :class="{ '-viewShow': showTrashContainer }">
-                <div class="trash-pic" v-for="(image, index) in trashImage" :key="index"
+                <div class="trash-pic" v-for="(image, index) in trashItem" :key="index"
+                    :style="{ 'position': 'absolute', left: `${image.x}%`, top: `${image.y}%`, width: '80px', }"
                     @click="handleTrashClick(index)">
-                    <img :src="image" alt="">
+                    <img :src="image.url" alt="">
                 </div>
             </div>
         </section>
@@ -201,6 +206,27 @@
 </template>
 
 <script>
+
+const pos = [{
+    x: 100,
+    y: 100,
+}, {
+    x: 100,
+    y: 50,
+}, {
+    x: 50,
+    y: 75,
+}, {
+    x: 20,
+    y: 80,
+}, {
+    x: 50,
+    y: 69,
+}, {
+    x: 20,
+    y: 100,
+}
+]
 
 export default {
 
@@ -230,9 +256,19 @@ export default {
                 "../../public/img/beachgame/trash04.png",
                 "../../public/img/beachgame/trash05.png"
             ],
+            trashItem: Array.from({ length: 5 }, (_, i) => {
+                const x = pos[i].x
+                const y = pos[i].y
+                return {
+                    id: i,
+                    x,
+                    y,
+                    url: `../../public/img/beachgame/trash0${i + 1}.png`
+                }
+            }),
 
             // 垃圾點選後出現的視窗
-            // trashLightbox: false,
+            trashLightbox: false,
             selectedTrash: null,
             choseTrash: [
                 {
@@ -270,18 +306,24 @@ export default {
             slidePage: false,
             tools: [
                 {
+                    id: 1,
                     name: '鐵夾子',
                     image: '../../public/img/beachgame/clamp.jpg',
                 },
                 {
+                    id: 2,
                     name: '手套',
                     image: '../../public/img/beachgame/gloves.jpg',
                 },
                 {
+                    id: 3,
                     name: '防曬帽',
                     image: '../../public/img/beachgame/hat.jpg'
                 }
             ],
+            // 鐵夾的圖片
+            checkAns: null,
+
             // successLightbox: false,
             // failLightbox: false,
             // finishLightbox: false,
@@ -339,10 +381,18 @@ export default {
         // 點選垃圾圖片
         handleTrashClick(index) {
             this.selectedTrash = this.choseTrash[index];
+            //顯示沒有變成false
+            this.showTrashContainer = false;
         },
+        // 滑入工具列可選取
         showSlidePage() {
-            console.log(124);
             this.slidePage = true;
+            // this.selectedTrash = ;
+        },
+        // 選擇鐵夾子
+        choseclamp() {
+            this.choseTrash == 1;
+
         }
 
     },

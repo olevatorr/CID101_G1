@@ -1,15 +1,16 @@
 <template>
   <section class="section section-profile">
+    <!-- {{member}} -->
     <div class="container container-profile">
       <div class="row">
         <div class="profile-box col-12 col-sm-4 col-md-3">
           <div class="avatra">
-            <img id="image" ref="imageElement" :src="imageSrc" @error="imageLoaded = false">
-            <input type="file" id="theFile" @change="fileChange" ref="fileInput">
+            <img :src="imageSrc" alt="User Avatar" id="image" />
+            <input type="file" id="theFile" @change="fileChange" ref="fileIn put">
             <button>Upload</button>
-            <p>Shark</p>
+            <p>{{ member?.U_NAME }}</p>
             <RouterLink to="/Member">
-              <button class=" logout">會員登出</button>
+              <button class=" logouts" @click="logout">會員登出</button>
             </RouterLink>
           </div>
 
@@ -20,7 +21,7 @@
             <button class="btn" @click="changeSection('orders')">訂單查詢</button>
             <button class="btn" @click="changeSection('donations')">捐款查詢</button>
             <button class="btn" @click="changeSection('favorites')">商品收藏</button>
-            <RouterLink to="/Member"><button class="btn">會員登出</button></RouterLink>
+            <RouterLink to="/Member"><button class="btn" @click="logout">會員登出</button></RouterLink>
           </div>
         </div>
         <select name="pfl-pets" id="" class="profile-pets"
@@ -39,27 +40,23 @@
           <ul>
             <li>
               <label for="">會員姓名</label>
-              <input type="text" name="" id="" maxlength="20" value="張曉明" readonly>
+              <input type="text" name="" id="" maxlength="20" v-model="member.U_NAME" readonly>
             </li>
             <li>
               <label for="">會員帳號</label>
-              <input type="text" name="" id="" maxlength="20" value="abcd" readonly>
+              <input type="text" name="" id="" maxlength="20" v-model="member.U_ACCOUNT" readonly>
             </li>
             <li>
               <label for="">會員信箱</label>
-              <input type="text" name="" id="" value="abc@gmail.com" readonly>
+              <input type="text" name="" id="" v-model="member.U_EMAIL" readonly>
             </li>
             <li>
               <label for="">會員電話</label>
-              <input type="tel" name="" id="" maxlength="10" value="0912345678" readonly>
+              <input type="tel" name="" id="" maxlength="10" v-model="member.U_PHONE" readonly>
             </li>
             <li>
               <label for="">會員地址</label>
-              <input type="text" name="" id="" value="302新竹縣竹北市嘉興路62號" readonly>
-            </li>
-            <li>
-              <label for="">會員頭像</label>
-              <input type="file" name="" id="" value="">
+              <input type="text" name="" id="" v-model="member.U_ADDRESS" readonly>
             </li>
           </ul>
           <div class="store"><button>儲存變更</button><button>取消變更</button></div>
@@ -146,8 +143,8 @@
               <td data-label="訂單日期">2024-05-15</td>
               <td data-label="總金額">NT$30,000 </td>
               <td data-label="付款方式">信用卡</td>
-              <td data-label="功能"><button>取消訂單</button></td>
               <td><button class="view">檢視</button></td>
+              <td data-label="功能"><button>取消訂單</button></td>
             </tr>
             <tr>
               <td data-label="訂單編號">1002</td>
@@ -155,8 +152,8 @@
               <td data-label="訂單日期">2024-05-16</td>
               <td data-label="總金額">NT$35,000</td>
               <td data-label="付款方式">銀行轉帳</td>
-              <td data-label="功能"><button >取消訂單</button></td>
               <td><button class="view">檢視</button></td>
+              <td data-label="功能"><button >取消訂單</button></td>
             </tr>
             <tr>
               <td data-label="訂單編號">1003</td>
@@ -164,8 +161,8 @@
               <td data-label="訂單日期">2024-05-17</td>
               <td data-label="總金額">NT$7,000</td>
               <td data-label="付款方式">行動支付</td>
-              <td data-label="功能"><button class="cancel">完成訂單</button></td>
               <td><button class="view">檢視</button></td>
+              <td data-label="功能"><button class="cancel">完成訂單</button></td>
             </tr>
             <tr>
               <td data-label="訂單編號">1004</td>
@@ -173,8 +170,8 @@
               <td data-label="訂單日期">2024-05-18</td>
               <td  data-label="總金額">NT$15,000</td>
               <td data-label="付款方式">信用卡</td>
-              <td data-label="功能"><button class="cancel">完成訂單</button></td>
               <td><button class="view">檢視</button></td>
+              <td data-label="功能"><button class="cancel">完成訂單</button></td>
             </tr>
             <tr>
               <td data-label="訂單編號">1005</td>
@@ -182,8 +179,8 @@
               <td data-label="訂單日期">2024-05-19</td>
               <td data-label="總金額">NT$40,000</td>
               <td data-label="付款方式">銀行轉帳</td>
-              <td data-label="功能"><button class="cancel">完成訂單</button></td>
               <td><button class="view">檢視</button></td>
+              <td data-label="功能"><button class="cancel">完成訂單</button></td>
             </tr>
           </tbody>
           </table>
@@ -372,33 +369,32 @@
 </template>
 
 <script>
-import { ref, onMounted} from 'vue'
+import { store, fetchProfile, logout as logoutStore } from '@/store.js';
+import { ref, computed} from 'vue'
+fetchProfile()
 export default {
   setup() {
-    const fileInput = ref(null)
-    const imageElement = ref(null)
-    const imageSrc = ref('')
-    //會員按鈕切換
-    const currentSection = ref('profile')
+    const member = computed(() => store.member);
+    const imageSrc = ref(member.value?.U_AVATAR); // Initial image source
+    const fileInput = ref(null);
+    const currentSection = ref('profile');
+    const selectedOption = ref('')
 
-    const selectedOption = ref('') 
-    
     const fileChange = (event) => {
-      const file = event.target.files[0]
-      console.log(file)
-    
-      const reader = new FileReader()
-      reader.readAsDataURL(file)
-    
-      reader.onload = () => {
-        imageSrc.value = reader.result
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          imageSrc.value = e.target.result;
+        };
+        reader.readAsDataURL(file);
       }
+    };
+    const logout = () => {
+    logoutStore();
     }
+
     
-    
-    onMounted(() => {
-      fileInput.value.addEventListener('change', fileChange)
-    })
     const changeSection = (section) => {
       currentSection.value = section
     }
@@ -409,14 +405,15 @@ export default {
 
     return {
       fileInput,
-      imageElement,
       imageSrc,
       fileChange,
       imageLoaded: true,
       currentSection,
       changeSection,
       selectedOption,
-      selectOption
+      selectOption,
+      logout,
+      member
     }
   }
 }

@@ -32,74 +32,75 @@
     </section>
     <!-- ---------------------------------------------------------------------------------------全台灣沿海廢棄數據 -->
     <section class="section section-data">
-    <div class="container">
-      <div class="row">
+      <div class="container">
+        <div class="row">
           <!-- 台灣地圖 -->
-        <div class="col-12 col-md-6 bgTwMap">
-          <div class="datah2">
-            <h2>各縣市海洋廢棄物清理數據</h2>
-            <h3>全台灣沿海廢棄數據</h3>
-          </div>
-          <button  @click="ShowAll">全台灣總計</button>
-          <div id="map" ref="myMap" class="map-container" style="width: 100%; height: 500px"></div>
-          <p>請<span>點擊</span><i class="fa-regular fa-hand-point-up"></i>地圖進行操作</p>
-          <!-- 海廢來源 -->
+          <div class="col-12 col-md-6 bgTwMap">
+            <div class="datah2">
+              <h2>各縣市海洋廢棄物清理數據</h2>
+              <h3>全台灣沿海廢棄數據</h3>
+            </div>
+            <button @click="ShowAll">全台灣總計</button>
+            <div id="map" ref="myMap" class="map-container" style="width: 100%; height: 500px"></div>
+            <p>請<span>點擊</span><i class="fa-regular fa-hand-point-up"></i>地圖進行操作</p>
+            <!-- 海廢來源 -->
             <div class="col-12 col-md-12">
               <div class="box chart-allbox" style="width: 100%;">
                 <canvas id="source"></canvas>
               </div>
             </div>
           </div>
-            <!-- 垃圾種類 -->
-        <div class="col-12 col-md-6 chart-allbox">
-          <div class="row" style="width: 100%;">
-            <div class="col-12">
-              <div class="box-chart" style="width: 100%;">
-                <canvas id="twChart"></canvas>
+          <!-- 垃圾種類 -->
+          <div class="col-12 col-md-6 chart-allbox">
+            <div class="row" style="width: 100%;">
+              <div class="col-12">
+                <div class="box-chart" style="width: 100%;">
+                  <canvas id="twChart"></canvas>
+                </div>
               </div>
-            </div>
-            <!-- 淨灘人數與次數 -->
-            <div class="col-12">
-              <div class="box-chart">
-                <canvas id="attendChart"></canvas>
+              <!-- 淨灘人數與次數 -->
+              <div class="col-12">
+                <div class="box-chart">
+                  <canvas id="attendChart"></canvas>
+                </div>
               </div>
-            </div>
-            <!-- 垃圾處理分類 -->
-            <div class="col-12">
-              <div class="box-chart">
-                <canvas id="trash"></canvas>
+              <!-- 垃圾處理分類 -->
+              <div class="col-12">
+                <div class="box-chart">
+                  <canvas id="trash"></canvas>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <!-- 海水汙染指標 -->
-        <div class="col-12 col-md-12 indicatorsea">
-          <div class="news-filter">
-            <select name="name" id="" @change="changeIndicator">
-              <option v-for="indicator in indicators" :key="indicator.value" :value="indicator.value">{{ indicator.label }}</option>
-            </select>
-            <canvas id="myChart" class="myChartbg"></canvas>
+          <!-- 海水汙染指標 -->
+          <div class="col-12 col-md-12 indicatorsea">
+            <div class="news-filter">
+              <select name="name" id="" @change="changeIndicator">
+                <option v-for="indicator in indicators" :key="indicator.value" :value="indicator.value">{{
+                  indicator.label }}</option>
+              </select>
+              <canvas id="myChart" class="myChartbg"></canvas>
+            </div>
           </div>
-        </div>
-        <div class="col-12 col-md-9">
-          <h3>{{ indicators.find(item => item.value === selectedIndicator).label }}</h3>
-          <p>{{ indicatorDescriptions[selectedIndicator].description }}</p>
-        </div>
-        <div class="col-12 col-md-3">
-          <table class="tableChart">
-            <tr>
-              <th>污染程度</th>
-              <th>範圍</th>
-            </tr>
-            <tr v-for="range in indicatorDescriptions[selectedIndicator].ranges" :key="range.level">
-              <td>{{ range.level }}</td>
-              <td>{{ range.value }}</td>
-            </tr>
-          </table>
+          <div class="col-12 col-md-9">
+            <h3>{{ indicators.find(item => item.value === selectedIndicator).label }}</h3>
+            <p>{{ indicatorDescriptions[selectedIndicator].description }}</p>
+          </div>
+          <div class="col-12 col-md-3">
+            <table class="tableChart">
+              <tr>
+                <th>污染程度</th>
+                <th>範圍</th>
+              </tr>
+              <tr v-for="range in indicatorDescriptions[selectedIndicator].ranges" :key="range.level">
+                <td>{{ range.level }}</td>
+                <td>{{ range.value }}</td>
+              </tr>
+            </table>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
     <!-- ----------------------------------------------------------------海廢知識庫 -->
     <section class="section section-knowledge">
       <div class="container">
@@ -161,7 +162,11 @@
         <div class="card">
           <div class="row">
             <div class="card-content col-12 col-md-3">
-              <img src="/public/img/mbti/carton.png" width="250px" height="250px">
+<<<<<<< HEAD
+              <img src="../../public/img/mbti/1.png" width="250px" height="250px">
+=======
+              <img src="/public/img/mbti/1.png" width="250px" height="250px">
+>>>>>>> 42-功能海廢小遊戲-按鈕下一頁
             </div>
             <div class="card-content col-12 col-md-6">
               <h3>海廢Q&A</h3>
@@ -178,7 +183,7 @@
         </div>
       </div>
     </section>
-    
+
   </div>
 </template>
 
@@ -309,8 +314,8 @@ const indicators = [
   { value: 'PH', label: '酸鹼值' },
 ];
 
-const labels  = [
-"阿公店溪口","大林火力發電廠堤外","曾文溪口","鹿耳門溪口","鹽水溪口","線西水道口","後龍溪口","大崛溪口","老街溪口"
+const labels = [
+  "阿公店溪口", "大林火力發電廠堤外", "曾文溪口", "鹿耳門溪口", "鹽水溪口", "線西水道口", "後龍溪口", "大崛溪口", "老街溪口"
 ]
 
 
@@ -341,11 +346,11 @@ function setupChart() {
     myChart.destroy();  // 如果圖表已存在，先銷毀舊圖表
   }
 
-    // 創建漸變色
-    const gradient = ctx.getContext('2d').createLinearGradient(0, 0, 0, ctx.height);
-      gradient.addColorStop(0, 'rgba(80, 0, 0, 0.5)'); 
-      gradient.addColorStop(0.5, 'rgba(10, 0, 255, 0.5)');  // 淡藍色
-      gradient.addColorStop(1, 'rgba(64, 145, 160, 0.5)');  // 淡綠色
+  // 創建漸變色
+  const gradient = ctx.getContext('2d').createLinearGradient(0, 0, 0, ctx.height);
+  gradient.addColorStop(0, 'rgba(80, 0, 0, 0.5)');
+  gradient.addColorStop(0.5, 'rgba(10, 0, 255, 0.5)');  // 淡藍色
+  gradient.addColorStop(1, 'rgba(64, 145, 160, 0.5)');  // 淡綠色
 
   myChart = new Chart(ctx, {
     type: 'line',  // 設置圖表類型為折線圖
@@ -359,8 +364,8 @@ function setupChart() {
         borderWidth: 3,  // 設置邊框寬度
         pointBackgroundColor: 'rgba(10, 0, 255, 0.6)',  // 設置數據點背景顏色
         pointBorderColor: '#fff',  // 設置數據點邊框顏色
-        pointHitRadius:100,
-        pointRadius:6,
+        pointHitRadius: 100,
+        pointRadius: 6,
         overBackgroundColor: '#fff',  // 設置數據點懸停背景顏色
         cubicInterpolationMode: 'monotone',   // 設置弧度線
         fill: true  // 設置填充
@@ -390,7 +395,7 @@ function setupChart() {
             yValue: indicatorValues[indicatorValues.length - 1],  // 設置標註 y 軸值
             backgroundColor: 'rgba(0, 0, 0, 0.8)',  // 設置標註背景顏色
             content: ['採樣時間: ' + sampleDate],  // 設置標註內容
-            maxwidth:10,
+            maxwidth: 10,
             font: {
               style: 'italic',
               color: 'white'  // 設置標註字體顏色
@@ -442,7 +447,7 @@ async function initMap() {
     .enter()
     .append('path')
     .attr('d', path)
-    .attr('fill', function(d) {
+    .attr('fill', function (d) {
       // 設定嘉義市、台北市、南投縣的顏色為灰色，其餘為黃色
       if (d.properties.COUNTYNAME === '嘉義市' || d.properties.COUNTYNAME === '臺北市' || d.properties.COUNTYNAME === '南投縣') {
         return 'gray';
@@ -450,21 +455,21 @@ async function initMap() {
       return '#E7A600';
     })
     .attr('stroke', 'white')
-    .style('cursor', function(d) {
+    .style('cursor', function (d) {
       // 只有非禁用區塊才設置鼠標樣式為點擊手勢
       if (d.properties.COUNTYNAME !== '嘉義市' && d.properties.COUNTYNAME !== '臺北市' && d.properties.COUNTYNAME !== '南投縣') {
         return 'pointer';
       }
       return 'default';
     })
-    .on('click', function(event, d) {
+    .on('click', function (event, d) {
       // 如果是嘉義市、台北市、南投縣，則不觸發 click 事件
       if (d.properties.COUNTYNAME === '嘉義市' || d.properties.COUNTYNAME === '臺北市' || d.properties.COUNTYNAME === '南投縣') {
         return;
       }
 
       // 重置所有路徑的顏色
-      svg.selectAll('path').attr('fill', function(d) {
+      svg.selectAll('path').attr('fill', function (d) {
         if (d.properties.COUNTYNAME === '嘉義市' || d.properties.COUNTYNAME === '臺北市' || d.properties.COUNTYNAME === '南投縣') {
           return 'gray';
         }
@@ -478,7 +483,7 @@ async function initMap() {
       const regionName = d.properties.COUNTYNAME;
       updateChartForRegion(regionName);
     })
-    .on('mouseover', function(event, d) {
+    .on('mouseover', function (event, d) {
       if (d.properties.COUNTYNAME !== '嘉義市' && d.properties.COUNTYNAME !== '臺北市' && d.properties.COUNTYNAME !== '南投縣') {
         d3.select(this)
           .transition()
@@ -486,7 +491,7 @@ async function initMap() {
           .attr('transform', 'translate(0, -5) ');  // 向上移动 5px
       }
     })
-    .on('mouseout', function() {
+    .on('mouseout', function () {
       d3.select(this)
         .transition()
         .duration(200)
@@ -509,9 +514,9 @@ function resizeMap() {
 
 //----------------------------------------------------------------------------------------------------------------垃圾數據
 // 顯示全台灣總計數據
-const ShowAll = function (){
+const ShowAll = function () {
   // 重置所有路徑的顏色
-  svg.selectAll('path').attr('fill', function(d) {
+  svg.selectAll('path').attr('fill', function (d) {
     if (d.properties.COUNTYNAME === '嘉義市' || d.properties.COUNTYNAME === '臺北市' || d.properties.COUNTYNAME === '南投縣') {
       return 'gray';
     }
@@ -625,73 +630,73 @@ function updateChartForRegion(regionName) {
   }
 
   const ctx = document.getElementById('twChart');
-const isMobile = window.innerWidth <= 768; // 检测是否是移动设备
+  const isMobile = window.innerWidth <= 768; // 检测是否是移动设备
 
-twChart = new Chart(ctx, {
-  type: 'doughnut',  // 設置圖表類型為甜甜圈圖
-  data: {
-    labels: hebrisLabels,  // 設置圖表標籤
-    datasets: [{
-      label: "噸數",
-      data: displayData,  // 設置圖表數據
-      backgroundColor: [
-        '#00AFB9', '#5390D9', '#48BFE3', '#64DFDF',
-        '#008F66', '#4D908E', '#B7E4C7', '#74C69D',
-        '#40916C', '#1B4332', '#081C15', '#00AFB9'
-      ],
-      borderColor: 'white',
-      borderWidth: 2
-    }]
-  },
-  options: {
-    maintainAspectRatio: false, // 關閉自動調整長寬比
-    aspectRatio:  1.4 , // 設定長寬比
-    responsive: true,             // 啟用響應式佈局
-    scales: {
-      y: {
-        display: false,
-      }
+  twChart = new Chart(ctx, {
+    type: 'doughnut',  // 設置圖表類型為甜甜圈圖
+    data: {
+      labels: hebrisLabels,  // 設置圖表標籤
+      datasets: [{
+        label: "噸數",
+        data: displayData,  // 設置圖表數據
+        backgroundColor: [
+          '#00AFB9', '#5390D9', '#48BFE3', '#64DFDF',
+          '#008F66', '#4D908E', '#B7E4C7', '#74C69D',
+          '#40916C', '#1B4332', '#081C15', '#00AFB9'
+        ],
+        borderColor: 'white',
+        borderWidth: 2
+      }]
     },
-     // 移动设备上使用1:1的长宽比，桌面设备上使用1.4:1的长宽比
-    plugins: {
-      title: {
-        display: true,
-        text: `海洋廢棄物分類 - ${regionName}`,
-        font: {
-          size: 20  // 設置標題字體大小
-        },
-        padding: {
-          top: isMobile ? 20 : 0,
-          bottom: isMobile ? 10 : 0,
+    options: {
+      maintainAspectRatio: false, // 關閉自動調整長寬比
+      aspectRatio: 1.4, // 設定長寬比
+      responsive: true,             // 啟用響應式佈局
+      scales: {
+        y: {
+          display: false,
         }
       },
-      legend: {
-        position: isMobile ? 'bottom' : 'right',  // 移动设备上将图例放在底部，桌面设备上放在右侧
-        labels: {
-          PointStyle: 'rect',
-          boxWidth: 10,
+      // 移动设备上使用1:1的长宽比，桌面设备上使用1.4:1的长宽比
+      plugins: {
+        title: {
+          display: true,
+          text: `海洋廢棄物分類 - ${regionName}`,
           font: {
-            size: 12 // 设置图例文字的字体大小
+            size: 20  // 設置標題字體大小
+          },
+          padding: {
+            top: isMobile ? 20 : 0,
+            bottom: isMobile ? 10 : 0,
           }
         },
-        padding: isMobile ? 30 : 0 // 移动设备上增加图例的顶部填充
+        legend: {
+          position: isMobile ? 'bottom' : 'right',  // 移动设备上将图例放在底部，桌面设备上放在右侧
+          labels: {
+            PointStyle: 'rect',
+            boxWidth: 10,
+            font: {
+              size: 12 // 设置图例文字的字体大小
+            }
+          },
+          padding: isMobile ? 30 : 0 // 移动设备上增加图例的顶部填充
+        },
+        animation: {
+          animateRotate: true,
+          duration: 2000
+        },
       },
-      animation: {
-        animateRotate: true,
-        duration: 2000
-      },
-    },
-    layout: {
-      padding: {
-        top: isMobile ? 30 : 0, // 手機設備增加上面填充
-        bottom: isMobile ? 30 : 0, // 手機設備增加下面填充
+      layout: {
+        padding: {
+          top: isMobile ? 30 : 0, // 手機設備增加上面填充
+          bottom: isMobile ? 30 : 0, // 手機設備增加下面填充
+        }
       }
     }
-  }
-});
+  });
 
 
-// -------------------------------------------------------------------------------------------------------淨灘人數與次數
+  // -------------------------------------------------------------------------------------------------------淨灘人數與次數
 
   const displayAttendData = hebrisAttendLabels.map(key => {
     const value = filteredData[key];
@@ -742,7 +747,7 @@ twChart = new Chart(ctx, {
             PointStyle: 'rect',
             boxWidth: 10,
             font: {
-            size: 12 // 设置图例文字的字体大小
+              size: 12 // 设置图例文字的字体大小
             }
           },
         },
@@ -750,7 +755,7 @@ twChart = new Chart(ctx, {
           animateRotate: true,
           duration: 2000
         },
-        
+
       }
     }
   });
@@ -758,7 +763,7 @@ twChart = new Chart(ctx, {
 
 
 
-// -----------------------------------------------------------------------------------------垃圾處理方式
+  // -----------------------------------------------------------------------------------------垃圾處理方式
   const displaytrashdData = hebristrashLabels.map(key => {
     const value = filteredData[key];
     if (typeof value === 'string') {
@@ -806,7 +811,7 @@ twChart = new Chart(ctx, {
             PointStyle: 'rect',
             boxWidth: 10,
             font: {
-            size: 12 // 设置图例文字的字体大小
+              size: 12 // 设置图例文字的字体大小
             }
           },
         },
@@ -821,8 +826,8 @@ twChart = new Chart(ctx, {
 
 
 
-//------------------------------------------------------------------------------------------------------垃圾來源數據
-const displaysourceData = hebrissourceLabels.map(key => {
+  //------------------------------------------------------------------------------------------------------垃圾來源數據
+  const displaysourceData = hebrissourceLabels.map(key => {
     const value = filteredData[key];
     if (typeof value === 'string') {
       // 移除逗號並轉換為數值
@@ -838,26 +843,26 @@ const displaysourceData = hebrissourceLabels.map(key => {
   const ctx3 = document.getElementById('source');
   source = new Chart(ctx3, {
     type: 'bar',
-      data: {
-        labels: hebrissource,
-        datasets: [{
-          data: displaysourceData,
-          backgroundColor: [
+    data: {
+      labels: hebrissource,
+      datasets: [{
+        data: displaysourceData,
+        backgroundColor: [
           '#00AFB9', '#5390D9', '#48BFE3', '#64DFDF',
           '#008F66',
         ],
-          borderColor: 'white',
-          borderWidth: 3,
-        },]
+        borderColor: 'white',
+        borderWidth: 3,
+      },]
+    },
+    options: {
+      maintainAspectRatio: false, // 關閉自動調整長寬比
+      aspectRatio: 1.4, // 設定長寬比
+      scales: {
+        y: {
+          beginAtZero: true
+        }
       },
-      options: {
-        maintainAspectRatio: false, // 關閉自動調整長寬比
-        aspectRatio: 1.4, // 設定長寬比
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        },
       plugins: {
         title: {
           display: true,
@@ -865,17 +870,17 @@ const displaysourceData = hebrissourceLabels.map(key => {
           font: {
             size: 20  // 設置標題字體大小
           }
-      },
-      legend:{
-          display:false
+        },
+        legend: {
+          display: false
         }
-    }
-      },
-      animation: {
-          animateRotate: true,
-          duration: 2000
-      },
-    });
+      }
+    },
+    animation: {
+      animateRotate: true,
+      duration: 2000
+    },
+  });
 
 
 }
@@ -908,7 +913,9 @@ const closeLightbox = () => {
 
 <style scoped>
 .map-path:hover {
-  transform: scale(1.5); /* 調整放大倍率 */
-  transition: transform 0.3s ease; /* 添加平滑過渡效果 */
+  transform: scale(1.5);
+  /* 調整放大倍率 */
+  transition: transform 0.3s ease;
+  /* 添加平滑過渡效果 */
 }
 </style>
