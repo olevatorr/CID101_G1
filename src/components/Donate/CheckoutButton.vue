@@ -33,21 +33,21 @@ export default {
                 });
                 return;
             }
-            this.donationId = 'abc' + Date.now(); // 生成簡單的捐款編號
+            this.donationId = 'D' + Date.now(); // 生成簡單的捐款編號
             this.donationDate = new Date().toLocaleString(); // 獲取當前日期和時間
             this.isLightboxVisible = true; // 顯示 Lightbox
         },
         // 關閉 Lightbox 的處理函數
         closeLightbox() {
             this.isLightboxVisible = false; // 隱藏 Lightbox
-        }
+        },
     }
 };
 </script>
 
 
 <template>
-<section class="section section-confirm">
+<section class="section">
     <div class="container">
         <div class="cart-confirm">
             <div>
@@ -57,10 +57,13 @@ export default {
         </div>
     </div>
 </section>
-<section class="section section-confirm">
+<section class="section section-CheckoutButton">
     <div class="container">
-        <div class="cart-checkout">
-            <button @click="confirmDonation">確認捐款</button>
+        <div class="row">
+            <div class="cart-checkout">
+                <button @click="confirmDonation" class="">確認捐款</button>
+                <RouterLink to="/Donate"><button class="DonateBackBtn">返回捐款頁面</button></RouterLink>
+            </div>
         </div>
     </div>
 </section>
