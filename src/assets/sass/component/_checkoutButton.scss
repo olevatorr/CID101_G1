@@ -1,0 +1,20 @@
+.section-CheckoutButton{
+    .container{
+        .row{
+            .cart-checkout{
+                margin: auto;
+                button{
+                    margin: 30px;
+
+                }
+                .DonateBackBtn{
+                    background: rgb(148, 148, 148);
+                    // color: black;
+                }
+                .DonateBackBtn:hover{
+                    background: rgb(77, 77, 77);
+                }
+            }
+        }
+    }
+}
