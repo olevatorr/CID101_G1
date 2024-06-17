@@ -33,7 +33,7 @@ export default {
                 });
                 return;
             }
-            this.donationId = 'D' + Date.now(); // 生成簡單的捐款編號
+            this.donationId = 'abc' + Date.now(); // 生成簡單的捐款編號
             this.donationDate = new Date().toLocaleString(); // 獲取當前日期和時間
             this.isLightboxVisible = true; // 顯示 Lightbox
         },
