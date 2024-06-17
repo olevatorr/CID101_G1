@@ -51,6 +51,11 @@
         margin-right: auto;
         text-align: left;
         padding: 0 10%;
+        .error {
+            color: red;
+            font-size: 1.5rem;
+            margin-top: 0.5em;
+        }
     
         label {
             display: block;
