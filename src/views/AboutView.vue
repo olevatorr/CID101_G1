@@ -169,7 +169,6 @@ const formData = ref({
 });
 
 
-
 const showConfirmModal = () => {
   Swal.fire({
     title: '確認提交表單?',
@@ -185,7 +184,21 @@ const showConfirmModal = () => {
   })
 }
 
-const submitForm = async () => {
+const submitForm = async (e) => {
+  e.preventDefault()
+
+
+  // 表單驗證
+  const isValid = validateForm()
+  if (!isValid) {
+    Swal.fire({
+      title: '表單錯誤',
+      text: '請填寫所有欄位並輸入正確的驗證碼。',
+      icon: 'error'
+    })
+    return
+  }
+
   try {
     const response = await fetch('/submit-form.php', {
       method: 'POST',
@@ -194,7 +207,6 @@ const submitForm = async () => {
       },
       body: JSON.stringify(formData.value)
     })
-
     if (response.ok) {
       const data = await response.json()
       Swal.fire({
@@ -202,7 +214,8 @@ const submitForm = async () => {
         text: data.message,
         icon: 'success'
       })
-      // 執行其他操作,如重置表單
+      // 跳轉到首頁
+      window.location.href = '/'
     } else {
       Swal.fire({
         title: '表單提交失敗',
@@ -217,6 +230,15 @@ const submitForm = async () => {
       icon: 'error'
     })
   }
+}
+
+// 表單驗證函數
+const validateForm = () => {
+  const { name, phone, email, message } = formData.value
+  if (!name || !phone || !email || !message || !isCaptchaValid.value) {
+    return false
+  }
+  return true
 }
 
 
