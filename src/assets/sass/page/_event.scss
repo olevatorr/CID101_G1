@@ -249,14 +249,16 @@
 
 
 ////section-confirm
-.section-confirm {
+.event-confirm {
     position: fixed;
-    top: 20%;
-    left: 25%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 50%;
-    height: 70%;
     z-index: 40;
     box-shadow: 2px 2px 10px $color-border;
+    background-color: #fff;
+    padding: 20px;
 
     .apply-wrap {
         .close {

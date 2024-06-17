@@ -139,7 +139,7 @@
       </div>
     </div>
   </div>
-  <div class="section section-confirm" v-if="openConfirm">
+  <div class="event-confirm" v-if="openConfirm">
     <div class="container">
       <div class="apply-wrap">
         <div class="close" @click.stop="closeConfirm">
@@ -335,7 +335,9 @@ export default defineComponent({
       selectedShareCard.value = card
     }
     const showConfirmModal = () => {
+      console.log(openConfirm.value);
       openConfirm.value = true;
+      console.log(openConfirm.value);
     };
     //報名完成提示後跳轉回首頁
     const SubmitEvent = () => {
@@ -376,7 +378,7 @@ export default defineComponent({
       return false;
     });
     const date = () => {
-      // 實現 date() 函數來獲取當前日期
+    // 實現 date() 函數來獲取當前日期
       return new Date();
     };
 
