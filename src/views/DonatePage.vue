@@ -2,7 +2,6 @@
 import DonateCart from '../components/Donate/DonateCart.vue'
 import MemberInfo from '../components/Donate/MemberInfo.vue'
 import PaymentMethod from '../components/Donate/PaymentMethod.vue'
-import ConfirmationCheckbox from '../components/Donate/ConfirmationCheckbox.vue'
 import CheckoutButton from '../components/Donate/CheckoutButton.vue'
 
 </script>
@@ -15,8 +14,6 @@ import CheckoutButton from '../components/Donate/CheckoutButton.vue'
         <MemberInfo />
         <!-- -------------------------------------------------------------------付款方式 -->
         <PaymentMethod />
-        <!-- -------------------------------------------------------------------確認權益 -->
-        <ConfirmationCheckbox />
         <!-- -------------------------------------------------------------------送出捐款表單 -->
         <CheckoutButton />
     </main>
