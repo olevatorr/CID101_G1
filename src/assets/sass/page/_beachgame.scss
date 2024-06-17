@@ -163,12 +163,15 @@
     
         // 選擇工具
         .trash-lightbox {
+            &.-viewClose{
+                display:none;
+            }
             color: #fff;
             box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
             border-radius: 20px;
             text-align: center;
             background-color: $color-subprimary;
-            padding: 20px 20px;
+            padding: 5%;
            .slidepage-up{
             margin: 20px auto;
             .slide-tool-page {
@@ -178,10 +181,16 @@
                 border-radius: 20px;
                 text-align: center;
                 background-color: $color-primary;
-                padding: 20px;
+                padding: 5%;
                 .tool-list {
                     color: #fff;
                     .tool-item {
+                        &:hover{
+                            background-color:#fff;
+                            border:10px solid $color-highlight;
+                            border-radius:50%;
+                            // transform: scale(1);
+                        }
                         .tool-pic {
                             background-color: #fff;
                             border-radius: 50%;
@@ -241,42 +250,51 @@
         //vue過渡期間自動生成類名 enter-active、leave-active
         
         // 撿取成功
-        .success-lightbox {
-            color: #fff;
-            box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
-            border-radius: 20px;
-            text-align: center;
-            background-color: $color-subprimary;
-            padding: 50px 20px;
-            .success-content {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                .success-pic {
-                    width: 150px;
-                    height: 150px;
-                    background-color: #fff;
-                    border-radius: 50%;
-                    overflow: hidden;
-                    margin: 20px 0 10px 0;
-                    img {
-                        width: 100%;
-                        vertical-align: top;
-                    }
-                }
-                .success-text {
-                    padding: 10px 0 20px 0;
-                }
-            }
-        }
+        // .success-lightbox {
+        //     color: #fff;
+        //     box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
+        //     border-radius: 20px;
+        //     text-align: center;
+        //     background-color: $color-subprimary;
+        //     padding: 50px 20px;
+
+        //     .success-content {
+        //         display: flex;
+        //         flex-direction: column;
+        //         justify-content: center;
+        //         align-items: center;
+        //         .success-pic {
+        //             width: 150px;
+        //             height: 150px;
+        //             background-color: #fff;
+        //             border-radius: 50%;
+        //             overflow: hidden;
+        //             margin: 20px 0 10px 0;
+        //             img {
+        //                 width: 100%;
+        //                 vertical-align: top;
+        //             }
+        //         }
+        //         .success-text {
+        //             padding: 10px 0 20px 0;
+        //         }
+        //     }
+        // }
         .fail-lightbox {
+            display: none;
             color: #fff;
             box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
             border-radius: 20px;
             text-align: center;
             background-color: $color-subprimary;
             padding: 50px 20px;
+            &.-viewShow{
+                display:block;
+            }
+            &.-viewClose{
+                display:none;
+            }
+
             .fail-content {
                 display: flex;
                 flex-direction: column;
@@ -300,12 +318,16 @@
             }
         }
         .finish-lightbox {
+            display:none;
             color: #fff;
             box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
             border-radius: 20px;
             text-align: center;
             background-color: $color-subprimary;
             padding: 50px 20px;
+            &.-viewShow{
+                display:block;
+            }
             .finish-content {
                 display: flex;
                 flex-direction: column;
@@ -351,7 +373,7 @@
         height: calc(100% - 300px);
         display:none;
         &.-viewShow{
-            display: flex;
+            display: block;
         }
         .trash-pic{
             &:hover{
