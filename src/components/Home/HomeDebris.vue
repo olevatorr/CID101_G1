@@ -39,7 +39,7 @@ const totalParticipants = ref(null)
 const totalSessions = ref(null)
 
 onMounted(() => {
-    fetch('../../../public/json/海洋委員會公務統計報表-海洋廢棄物清理-113.01.json')
+    fetch('..//json/海洋委員會公務統計報表-海洋廢棄物清理-113.01.json')
         .then(res => res.json())
         .then(jsonData => {
             hebrisData.value = jsonData
@@ -115,7 +115,7 @@ async function initMap() {
 
     path = d3.geoPath().projection(projection)
 
-    const topoData = await d3.json('../../public/localjson/map/COUNTY_tw.topo.json')
+    const topoData = await d3.json('/localjson/map/COUNTY_tw.topo.json')
     const geoData = topojson.feature(topoData, topoData.objects.COUNTY_MOI_1090820)
 
     svg.selectAll('path')

@@ -3,7 +3,7 @@
     <template v-if="shareContent.length && shareContent.length > 1">
         <div class="col-12 col-sm-6 col-md-4 col-lg-3" v-for="card in shareContent" :key="card.F_ID"
             @click="cardClicked(card)">
-            <div class="event-card">
+            <div class="share-card">
                 <div class="pic">
                     <img :src="card.F_IMG" />
                 </div>
@@ -30,7 +30,7 @@
     </template>
     <!-- 只渲染一張卡片 -->
     <div v-else-if="shareContent.length" class="col-12">
-        <div class="event-card">
+        <div class="share-card">
             <div class="close">
                 <i class="fa-regular fa-circle-xmark" @click="closeCard"></i>
             </div>
