@@ -156,6 +156,7 @@
 .section-team {
   background-color: $color-subprimary;
   color: $color-white;
+  overflow: hidden;
   .row {
     text-align: center;
     img {
