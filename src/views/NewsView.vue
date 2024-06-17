@@ -8,7 +8,7 @@
         </div>
     </section>
     <section class="section section-news-content">
-        <div class="container">
+        <div class="container recent-news-container">
             <h4 class="news-info">最新消息</h4>
             <div class="news-filter">
                 <button @click="filterNews('')">全部</button>
@@ -17,8 +17,7 @@
                 <button @click="filterNews('淨灘活動')">淨灘活動</button>
             </div>
             <div class="row">
-                <newsCard 
-                :filterNewsList="filterNewsList"/>
+                <newsCard :filterNewsList="filterNewsList" />
                 <div class="news-pagination">
                     <ul class="pagination">
                         <li v-for="page in totalPages" :key="page" @click="goToPage(page)"
@@ -64,17 +63,17 @@ export default {
         },
         filterNews(category) {
             this.selectedCategory = category; // 將篩選值丟進去
-            if(this.selectedCategory){ // 判斷selectedCategory是否為true，請記得空值也是false
-                this.filterNewsList = this.newsList.filter(news=> news.filter == this.selectedCategory ) // 使用filter篩選newsList，再將符合的物件回傳至filterNewsList以達到渲染篩選後的值
+            if (this.selectedCategory) { // 判斷selectedCategory是否為true，請記得空值也是false
+                this.filterNewsList = this.newsList.filter(news => news.filter == this.selectedCategory) // 使用filter篩選newsList，再將符合的物件回傳至filterNewsList以達到渲染篩選後的值
             } else { // 為false就執行以下
-                this.filterNewsList = this.newsList.map(news=> news) // 將newsList放進filterNewsList
+                this.filterNewsList = this.newsList.map(news => news) // 將newsList放進filterNewsList
             }
             // console.log(this.filterNewsList);
             this.currentPage = 1; // 回到第一頁
         },
     },
     mounted() {
-        fetch('../../public/json/newslist.json') // 你原本的路徑寫錯
+        fetch('json/newslist.json') // 你原本的路徑寫錯
             .then(res => res.json())
             .then(json => {
                 this.newsList = json
