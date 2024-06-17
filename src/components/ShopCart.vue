@@ -83,6 +83,7 @@ export default {
         }
     },
     methods: {
+
         // 點擊購物車Icon
         toggleCartBox() {
             // 收折list列表
