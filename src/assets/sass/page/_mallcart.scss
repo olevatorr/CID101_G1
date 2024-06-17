@@ -332,18 +332,17 @@
     padding: 0;
     .container{
         background-color: white;
+        .cart-checkout{
+        padding-bottom: 40px;
+        text-align: center;
+        }
+        .pay{
+            margin: 0 30px;
+        }
     }
     .cart-confirm{
         padding: 40px 0 40px 0;
         font-size: 16px;
         text-align: center;
     }
-}
-
-.section-confirm{
-    .cart-checkout{
-        padding-bottom: 40px;
-        text-align: center;
-    }
-
 }
