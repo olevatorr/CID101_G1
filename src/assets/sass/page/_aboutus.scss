@@ -43,6 +43,7 @@
 .section-purpose {
   background-color: $color-subprimary;
   color: $color-white;
+  overflow: hidden;
   .container {
     overflow: hidden;
   }
@@ -90,6 +91,7 @@
 // 捐款
 .section-donation-intro {
   background-color: $color-white;
+  overflow: hidden;
   .donation-intro {
     text-align: center;
     margin-bottom: 2rem;
