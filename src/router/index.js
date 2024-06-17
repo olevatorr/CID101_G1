@@ -1,7 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
-import DonateView from '../views/DonateView.vue'; // 捐款表單頁面
-import DonatePage from '../views/DonatePage.vue'; // 捐款確認頁面
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

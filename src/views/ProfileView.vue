@@ -1,6 +1,5 @@
 <template>
   <section class="section section-profile">
-    <!-- {{member}} -->
     <div class="container container-profile">
       <div class="row">
         <div class="profile-box col-12 col-sm-4 col-md-3">
@@ -40,87 +39,27 @@
           <ul>
             <li>
               <label for="">會員姓名</label>
-              <input type="text" name="" id="" maxlength="20" v-model="member.U_NAME" readonly>
+              <input type="text" name="" id="" maxlength="20" v-model="member.U_NAME" >
             </li>
             <li>
               <label for="">會員帳號</label>
-              <input type="text" name="" id="" maxlength="20" v-model="member.U_ACCOUNT" readonly>
+              <input type="text" name="" id="" maxlength="20" v-model="member.U_ACCOUNT" >
             </li>
             <li>
               <label for="">會員信箱</label>
-              <input type="text" name="" id="" v-model="member.U_EMAIL" readonly>
+              <input type="text" name="" id="" v-model="member.U_EMAIL" >
             </li>
             <li>
               <label for="">會員電話</label>
-              <input type="tel" name="" id="" maxlength="10" v-model="member.U_PHONE" readonly>
+              <input type="tel" name="" id="" maxlength="10" v-model="member.U_PHONE" >
             </li>
             <li>
               <label for="">會員地址</label>
-              <input type="text" name="" id="" v-model="member.U_ADDRESS" readonly>
+              <input type="text" name="" id="" v-model="member.U_ADDRESS" >
             </li>
           </ul>
           <div class="store"><button>儲存變更</button><button>取消變更</button></div>
         </div>
-        <!-- 商品資訊最後要放進div做成toggle -->
-        <!-- <div class="registration col-12 col-sm-8 col-md-8">
-      <table class="shop">
-        <caption>商品資訊</caption>
-        <tr>
-          <th>商品編號</th>
-          <th>商品名稱</th>
-          <th>商品數量</th>
-          <th>單價</th>
-          <th>商品類別</th>
-          <th>總價</th>
-        </tr>
-        <tr>
-          <td>01</td>
-          <td>側背包經典款-海星</td>
-          <td>1</td>
-          <td>NT$30,00</td>
-          <td>上衣類</td>
-          <td>NT$30,000</td>
-        </tr>
-        <tr>
-          <td>02</td>
-          <td>側背包經典款-企鵝</td>
-          <td>2</td>
-          <td>NT$35,00</td>
-          <td>環保杯套袋</td>
-          <td>NT$30,000</td>
-        </tr>
-        <tr>
-          <td>03</td>
-          <td>側背包經典款-北極熊</td>
-          <td>1</td>
-          <td>NT$7,00</td>
-          <td>杯具類</td>
-          <td>NT$30,000</td>
-        </tr>
-        <tr>
-          <td>04</td>
-          <td>側背包經典款-海龜</td>
-          <td>2</td>
-          <td>NT$15,00</td>
-          <td>配件類</td>
-          <td>NT$30,000</td>
-        </tr>
-        <tr>
-          <td>05</td>
-          <td>側背包經典款-鯨魚</td>
-          <td>5</td>
-          <td>NT$40,00</td>
-          <td>杯具類</td>
-          <td>NT$30,000</td>
-        </tr>
-      </table>
-      <div class="button">
-        <a href="">1</a>
-        <a href="">2</a>
-        <a href="">3</a>
-        <a href="">4</a>
-      </div>
-    </div> -->
 
         <!-- 訂單資訊 -->
         <div class="registration col-12 col-sm-8 col-md-8" v-else-if="currentSection === 'orders'">
@@ -133,63 +72,44 @@
               <th>訂單日期</th>
               <th>總金額</th>
               <th>付款方式</th>
-              <th colspan=2>功能</th>
+              <th colspan="2">功能</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td data-label="訂單編號">1001</td>
-              <td data-label="訂單狀況">已出貨</td>
-              <td data-label="訂單日期">2024-05-15</td>
-              <td data-label="總金額">NT$30,000 </td>
-              <td data-label="付款方式">信用卡</td>
-              <td><button class="view">檢視</button></td>
-              <td data-label="功能"><button>取消訂單</button></td>
-            </tr>
-            <tr>
-              <td data-label="訂單編號">1002</td>
-              <td data-label="訂單狀況">已出貨</td>
-              <td data-label="訂單日期">2024-05-16</td>
-              <td data-label="總金額">NT$35,000</td>
-              <td data-label="付款方式">銀行轉帳</td>
-              <td><button class="view">檢視</button></td>
-              <td data-label="功能"><button >取消訂單</button></td>
-            </tr>
-            <tr>
-              <td data-label="訂單編號">1003</td>
-              <td data-label="訂單狀況">未出貨</td>
-              <td data-label="訂單日期">2024-05-17</td>
-              <td data-label="總金額">NT$7,000</td>
-              <td data-label="付款方式">行動支付</td>
-              <td><button class="view">檢視</button></td>
-              <td data-label="功能"><button class="cancel">完成訂單</button></td>
-            </tr>
-            <tr>
-              <td data-label="訂單編號">1004</td>
-              <td data-label="訂單狀況">未出貨</td>
-              <td data-label="訂單日期">2024-05-18</td>
-              <td  data-label="總金額">NT$15,000</td>
-              <td data-label="付款方式">信用卡</td>
-              <td><button class="view">檢視</button></td>
-              <td data-label="功能"><button class="cancel">完成訂單</button></td>
-            </tr>
-            <tr>
-              <td data-label="訂單編號">1005</td>
-              <td data-label="訂單狀況">未出貨</td>
-              <td data-label="訂單日期">2024-05-19</td>
-              <td data-label="總金額">NT$40,000</td>
-              <td data-label="付款方式">銀行轉帳</td>
-              <td><button class="view">檢視</button></td>
-              <td data-label="功能"><button class="cancel">完成訂單</button></td>
+            <tr v-for="list in paginatedData" :key="list.PO_ID">
+              <td data-label="訂單編號">{{list.PO_ID}}</td>
+              <td data-label="訂單狀況">{{list.S_STATUS}}</td>
+              <td data-label="訂單日期">{{list.PO_DATE}}</td>
+              <td data-label="總金額">{{list.PO_AMOUNT}} </td>
+              <td data-label="付款方式">{{list.PO_ORDER}}</td>
+              <td><button class="view" @click="toggleShopTable(list.PO_ID)">{{list.VIEW}}</button></td>
+              <td data-label="功能"><button>{{list.ORDER_BUTTON}}</button></td>
             </tr>
           </tbody>
           </table>
           <div class="button">
-            <a href="">1</a>
-            <a href="">2</a>
-            <a href="">3</a>
-            <a href="">4</a>
-          </div>
+      <a href="#" v-for="pageNum in totalPages" :key="pageNum" @click.prevent="goToPage(pageNum)" :class="{ active: pageNum === currentPage }">{{ pageNum }}</a>
+    </div>
+            <!-- 商品資訊最後要放進div做成toggle -->
+    <div class="registration col-12 col-sm-8 col-md-8"
+        v-if="showShopTable">
+      <table class="shop">
+        <caption>訂單明細</caption>
+        <tr>
+          <th>商品編號</th>
+          <th>商品名稱</th>
+          <th>商品數量</th>
+          <th>單價</th>
+        </tr>
+        <tr v-for="shops in shoplists" :key="shops.PO_ID">
+          <td>{{shops.PO_ID}}</td>
+          <td>{{shops.P_NAME}}</td>
+          <td>{{shops.PO_QTY}}</td>
+          <td>{{shops.PO_PRICE}}</td>
+        </tr>
+      </table>
+      <button @click="toggleShopTable()">關閉</button>
+    </div>
         </div>
         <!-- 活動查詢 -->
         <div class="registration col-12 col-sm-8  col-md-8" v-else-if="currentSection === 'activity'">
@@ -207,50 +127,21 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td data-label="活動訂單">1001</td>
-              <td data-label="活動名稱">淡水淨灘日</td>
-              <td data-label="活動日期">2024-06-08</td>
-              <td data-label="截止日期">2024-06-01</td>
-              <td data-label="地點">台北市淡水海灘</td>
-              <td data-label="活動狀態">已報名</td>
-              <td data-label="功能"><button>取消報名</button></td>
-            </tr>
-            <tr>
-              <td data-label="活動訂單">1002</td>
-              <td data-label="活動名稱">高雄市夏季淨灘活動</td>
-              <td data-label="活動日期">2024-07-15</td>
-              <td data-label="截止日期">2024-07-10</td>
-              <td data-label="地點">高雄市旗津海灘</td>
-              <td data-label="活動狀態">已報名</td>
-              <td data-label="功能"><button>取消報名</button></td>
-            </tr>
-            <tr>
-              <td data-label="活動訂單">1003</td>
-              <td data-label="活動名稱">宜蘭綠色環保行動</td>
-              <td data-label="活動日期">2024-08-20</td>
-              <td data-label="截止日期">2024-08-10</td>
-              <td data-label="地點">宜蘭縣頭城鎮烏石港海灘</td>
-              <td data-label="活動狀態">已結束</td>
-              <td><button data-label="功能">活動分享</button></td>
-            </tr>
-            <tr>
-              <td data-label="活動訂單">1004</td>
-              <td data-label="活動名稱">台南市親子淨灘活動</td>
-              <td data-label="活動日期">2024-09-05</td>
-              <td data-label="截止日期">2024-08-20</td>
-              <td data-label="地點">台南市安平區漁光島</td>
-              <td data-label="活動狀態">已留言</td>
-              <td><button data-label="功能">編輯留言</button></td>
+            <tr v-for=" act in paginatedData" :key="act.E_ID">
+              <td data-label="活動訂單">{{act.E_ID}}</td>
+              <td data-label="活動名稱">{{act.E_TITLE}}</td>
+              <td data-label="活動日期">{{act.E_DATE}}</td>
+              <td data-label="截止日期">{{act.E_DEADLINE}}</td>
+              <td data-label="地點">{{act.E_ADDRESS}}</td>
+              <td data-label="活動狀態">{{act.E_STATUS}}</td>
+              <td data-label="功能"><button>{{act.EO_status}}
+                {{ act.F_ID }}</button></td>
             </tr>
           </tbody>
           </table>
           <div class="button">
-            <a href="">1</a>
-            <a href="">2</a>
-            <a href="">3</a>
-            <a href="">4</a>
-          </div>
+      <a href="#" v-for="pageNum in totalPages" :key="pageNum" @click.prevent="goToPage(pageNum)" :class="{ active: pageNum === currentPage }">{{ pageNum }}</a>
+    </div>
         </div>
         <!-- 收藏商品 -->
         <div class="registration col-12 col-sm-8  col-md-8" v-else-if="currentSection === 'favorites'">
@@ -266,42 +157,18 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td data-label="商品編號">01</td>
-              <td data-label="商品名稱">側背包經典款-海星</td>
-              <td data-label="商品類別">上衣類</td>
-              <td data-label="單價">NT$30,00</td>
-              <td data-label="功能"><button>取消收藏</button></td>
-            </tr>
-            <tr>
-              <td data-label="商品名稱">02</td>
-              <td data-label="商品編號">側背包經典款-企鵝</td>
-              <td data-label="商品類別">環保杯套(袋)</td>
-              <td data-label="單價">NT$30,00</td>
-              <td data-label="功能"><button>取消收藏</button></td>
-            </tr>
-            <tr>
-              <td data-label="商品名稱">03</td>
-              <td data-label="商品編號">側背包經典款-北極熊</td>
-              <td data-label="商品類別">杯具類</td>
-              <td data-label="單價">NT$30,00</td>
-              <td data-label="功能"><button>取消收藏</button></td>
-            </tr>
-            <tr>
-              <td data-label="商品名稱">04</td>
-              <td data-label="商品編號">側背包經典款-海龜</td>
-              <td data-label="商品類別">配件類</td>
-              <td data-label="單價">NT$30,00</td>
-              <td data-label="功能"><button>取消收藏</button></td>
+            <tr v-for=" love in paginatedData" :key="love.P_ID">
+              <td data-label="商品編號">{{love.P_ID}}</td>
+              <td data-label="商品名稱">{{love.P_NAME}}</td>
+              <td data-label="商品類別">{{love.PS_ID}}</td>
+              <td data-label="單價">{{love.P_PRICE}}</td>
+              <td data-label="功能"><button>{{love.collect}}</button></td>
             </tr>
           </tbody>
           </table>
           <div class="button">
-            <a href="">1</a>
-            <a href="">2</a>
-            <a href="">3</a>
-            <a href="">4</a>
-          </div>
+      <a href="#" v-for="pageNum in totalPages" :key="pageNum" @click.prevent="goToPage(pageNum)" :class="{ active: pageNum === currentPage }">{{ pageNum }}</a>
+    </div>
         </div>
         <!-- 捐款查詢 -->
         <div class="registration col-12 col-sm-8  col-md-8" v-else-if="currentSection === 'donations'">
@@ -309,44 +176,23 @@
             <caption>捐款查詢</caption>
             <thead>
             <tr>
-              <th>捐款人</th>
+              <th>捐款訂單</th>
               <th>捐款日期</th>
               <th>捐款金額</th>
               <th>捐款方式</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-        <td data-label="捐款人">張三</td>
-        <td data-label="捐款日期">2024年5月1日</td>
-        <td data-label="捐款金額">500元</td>
-        <td data-label="捐款方式">信用卡</td>
+      <tr v-for=" donate in paginatedData" :key="donate.DO_ID">
+        <td data-label="捐款訂單">{{donate.DO_ID}}</td>
+        <td data-label="捐款日期">{{donate.DO_DATE}}</td>
+        <td data-label="捐款金額">{{donate.DO_AMOUNT}}</td>
+        <td data-label="捐款方式">{{donate.PM_NAME}}</td>
       </tr>
-      <tr>
-        <td data-label="捐款人">張三</td>
-        <td data-label="捐款日期">2024年5月3日</td>
-        <td data-label="捐款金額">1000元</td>
-        <td data-label="捐款方式">銀行轉帳</td>
-      </tr>
-      <tr>
-        <td data-label="捐款人">張三</td>
-        <td data-label="捐款日期">2024年5月5日</td>
-        <td data-label="捐款金額">200元</td>
-        <td data-label="捐款方式">超商繳費</td>
-      </tr>
-      <tr>
-        <td data-label="捐款人">張三</td>
-        <td data-label="捐款日期">2024年5月10日</td>
-        <td data-label="捐款金額">750元</td>
-        <td data-label="捐款方式">信用卡</td>
-      </tr>
-</tbody>
+        </tbody>
           </table>
           <div class="button">
-            <a href="">1</a>
-            <a href="">2</a>
-            <a href="">3</a>
-            <a href="">4</a>
+            <a href="#" v-for="pageNum in totalPages" :key="pageNum" @click.prevent="goToPage(pageNum)" :class="{ active: pageNum === currentPage }">{{ pageNum }}</a>
           </div>
         </div>
         <div class="profile-revise col-12 col-sm-8  col-md-8" v-else-if="currentSection === 'password'">
@@ -370,8 +216,9 @@
 
 <script>
 import { store, fetchProfile, logout as logoutStore } from '@/store.js';
-import { ref, computed} from 'vue'
+  import { ref, computed, onMounted} from 'vue'
 fetchProfile()
+
 export default {
   setup() {
     const member = computed(() => store.member);
@@ -379,6 +226,18 @@ export default {
     const fileInput = ref(null);
     const currentSection = ref('profile');
     const selectedOption = ref('')
+  
+    const donates = ref([]);
+    const currentPage = ref(1);
+    const perPage = 10;
+    const activities = ref([]);
+    const favorites = ref([]);
+    const order = ref([]);
+    const shoplists = ref([]);
+
+    const shopSection = ref('orders');
+    const showShopTable = ref(false);
+    const showShopTableId = ref(null);
 
     const fileChange = (event) => {
       const file = event.target.files[0];
@@ -401,8 +260,80 @@ export default {
     const selectOption = () => {
       changeSection(selectedOption.value)
     }
-    
+    onMounted(async () => {
+      try {
+        // 使用 Promise.all 来并行获取多个 JSON 数据
+        const responses  = await Promise.all([
+          fetch('/json/donatemoney.json'),
+          fetch('/json/activities.json'),
+          fetch('/json/favorite.json'),
+          fetch('/json/orders.json'),
+          fetch('/json/shoplist.json'),
 
+        ]);
+        // 检查每个响应的状态
+        const jsonDatas = await Promise.all(responses.map(async (response) => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    }));
+
+    // 将每个 JSON 数据整合到一个数组中，或者根据需要进行其他处理
+    donates.value = jsonDatas[0];
+    activities.value = jsonDatas[1];
+    favorites.value = jsonDatas[2];
+    order.value = jsonDatas[3];
+    shoplists.value = jsonDatas[4];
+    } catch (error) {
+    console.error('Failed to fetch donation data:', error);
+    }
+      });
+
+      const totalPages = computed(() => {
+      let dataLength = 0;
+      if (currentSection.value === 'donations') {
+        dataLength = donates.value.length;
+      } else if (currentSection.value === 'activity') {
+        dataLength = activities.value.length;
+      } else if (currentSection.value === 'favorites') {
+        dataLength = favorites.value.length;
+      } else if (currentSection.value === 'order') {
+        dataLength = order.value.length;
+      }
+      return Math.ceil(dataLength / perPage);
+    });
+
+    const paginatedData = computed(() => {
+      let data = [];
+      if (currentSection.value === 'donations') {
+        data = donates.value;
+      } else if (currentSection.value === 'activity') {
+        data = activities.value;
+      } else if (currentSection.value === 'favorites') {
+        data = favorites.value;
+      } else if (currentSection.value === 'orders') {
+        data = order.value;
+      }
+      const startIndex = (currentPage.value - 1) * perPage;
+      const endIndex = startIndex + perPage;
+      return data.slice(startIndex, endIndex);
+    });
+
+    const goToPage = (page) => {
+      if (page >= 1 && page <= totalPages.value) {
+        currentPage.value = page;
+      }
+    };
+
+    const toggleShopTable = (poId) => {
+      // If poId matches with showShopTableId, toggle the shop table for that order
+      if (showShopTableId.value === poId) {
+        showShopTableId.value = null; // Close the shop table
+      } else {
+        showShopTableId.value = poId; // Show the shop table for this order
+      }
+    };
     return {
       fileInput,
       imageSrc,
@@ -413,7 +344,20 @@ export default {
       selectedOption,
       selectOption,
       logout,
-      member
+      member,
+      donates,
+      activities,
+      favorites,
+      order,
+      shoplists,
+      currentPage,
+      totalPages,
+      paginatedData,
+      goToPage,
+      shopSection,
+      showShopTable,
+      showShopTableId,
+      toggleShopTable
     }
   }
 }

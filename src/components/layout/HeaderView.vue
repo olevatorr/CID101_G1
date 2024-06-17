@@ -70,7 +70,7 @@ const logout = () => {
                     </RouterLink>
                     <RouterLink v-else to="/Member" @click="toggleMenu">會員登入</RouterLink>
                 </li>
-                <li v-if="store.isLoging" class="logoutbutton"><button @click="logout">登出</button></li>
+                <li v-if="store.isLoging" class="logoutbutton"><RouterLink to="/Member"><button @click="logout">登出</button></RouterLink></li>
             </ul>
         </nav>
     </header>
