@@ -162,11 +162,7 @@
         <div class="card">
           <div class="row">
             <div class="card-content col-12 col-md-3">
-<<<<<<< HEAD
               <img src="../../public/img/mbti/1.png" width="250px" height="250px">
-=======
-              <img src="/public/img/mbti/1.png" width="250px" height="250px">
->>>>>>> 42-功能海廢小遊戲-按鈕下一頁
             </div>
             <div class="card-content col-12 col-md-6">
               <h3>海廢Q&A</h3>

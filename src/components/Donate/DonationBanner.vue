@@ -110,7 +110,7 @@ export default {
                             </div>
                             <button @click="submitDonation">
                                 <!-- 點擊按鈕提交捐款金額並跳轉至捐款頁面 -->
-                                <RouterLink to="/DonatePage">捐款去</RouterLink>
+                                捐款去
                             </button>
                         </div>
                         <div class="spanpay">
