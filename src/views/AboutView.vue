@@ -1,6 +1,5 @@
 <script setup>
 import { onMounted, ref, computed } from 'vue';
-import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -10,8 +9,9 @@ import Swal from 'sweetalert2'
 gsap.registerPlugin(ScrollTrigger);
 
 onMounted(() => {
-  AOS.init()
-  initGsapAnimation()
+  teamAnimation()
+  purposeAnimation()
+  donationAnimation()
 })
 
 
@@ -19,8 +19,15 @@ const director = ref(null)
 const techManager = ref(null)
 const marketingManager = ref(null)
 const educationManager = ref(null)
+const purposeLine1 = ref(null)
+const purposeLine2 = ref(null)
+const purposeLine3 = ref(null)
+const donationCard1 = ref(null)
+const donationCard2 = ref(null)
+const donationCard3 = ref(null)
 
-function initGsapAnimation() {
+
+function teamAnimation() {
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: '.section-team',
@@ -30,12 +37,45 @@ function initGsapAnimation() {
     },
   });
 
-
-  tl.from(director.value, { x: -100, y: 200, opacity: 0, duration: 3 }, 0)
+  tl
+    .from(director.value, { x: -100, y: 200, opacity: 0, duration: 3 }, 0)
     .from(techManager.value, { x: 200, y: 200, opacity: 0, duration: 3 }, 1)
     .from(marketingManager.value, { x: 100, y: 200, opacity: 0, duration: 3 }, 2)
     .from(educationManager.value, { y: -100, opacity: 0, duration: 3 }, 3)
 }
+
+function purposeAnimation() {
+  const t2 = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.section-purpose',
+      start: 'top 90%',
+      end: 'bottom 70%',
+      scrub: true,
+    },
+  });
+
+  t2
+    .from(purposeLine1.value, { x: 300, y: 200, opacity: 0, duration: 4 }, 0)
+    .from(purposeLine2.value, { x: 300, y: 200, opacity: 0, duration: 4 }, 1)
+    .from(purposeLine3.value, { x: 300, y: 200, opacity: 0, duration: 4 }, 2)
+}
+
+function donationAnimation() {
+  const t3 = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.section-donation-intro',
+      start: 'top 90%',
+      end: 'bottom 70%',
+      scrub: true,
+    },
+  });
+
+  t3
+    .from(donationCard1.value, { x: 300, y: 200, opacity: 0, duration: 4 }, 0)
+    .from(donationCard2.value, { x: 300, y: 200, opacity: 0, duration: 4 }, 1)
+    .from(donationCard3.value, { x: 300, y: 200, opacity: 0, duration: 4 }, 2)
+}
+
 
 
 //驗證碼
@@ -128,14 +168,7 @@ const formData = ref({
   captcha: ''
 });
 
-// 模擬提交表單的數據（用於測試）
-// formData.value = {
-//   name: '測試用戶',
-//   phone: '1234567890',
-//   email: 'test@example.com',
-//   message: '測試',
-//   captcha: '1234'
-// };
+
 
 const showConfirmModal = () => {
   Swal.fire({
@@ -239,7 +272,7 @@ submitForm();
         </div>
         <div class="col-12 col-lg-9">
           <!-- 第一條 -->
-          <div class="row purpose-line" data-aos="fade-left" data-aos-duration="2000">
+          <div class="row purpose-line" ref="purposeLine1">
             <div class="col-12 col-lg-3 purpose-circle">
               <span class="material-symbols-outlined"> cognition </span>
               <span>01</span>
@@ -252,7 +285,7 @@ submitForm();
             </div>
           </div>
           <!-- 第二條 -->
-          <div class="row purpose-line" data-aos="fade-left" data-aos-duration="2000">
+          <div class="row purpose-line" ref="purposeLine2">
             <div class="col-12 col-lg-3 purpose-circle">
               <span class="material-symbols-outlined"> keyboard_command_key </span>
               <span>02</span>
@@ -265,7 +298,7 @@ submitForm();
             </div>
           </div>
           <!-- 第三條 -->
-          <div class="row purpose-line" data-aos="fade-left" data-aos-duration="2000">
+          <div class="row purpose-line" ref="purposeLine3">
             <div class="col-12 col-lg-3 purpose-circle">
               <span class="material-symbols-outlined"> moving </span>
               <span>03</span>
@@ -294,7 +327,7 @@ submitForm();
       <div class="row">
         <div class="col-12  col-lg-4 group">
           <!-- 第一張卡片 -->
-          <div class="donation-card" data-aos="fade-up" data-aos-duration="1000">
+          <div class="donation-card" ref="donationCard1">
             <div class="donation-line">
               <span class="material-symbols-outlined"> event </span>
               <div class="donation-txt">
@@ -327,7 +360,7 @@ submitForm();
         </div>
         <div class="col-12  col-lg-4 group">
           <!-- 第二張卡片 -->
-          <div class="donation-card tp" data-aos="fade-up" data-aos-duration="2000">
+          <div class="donation-card tp" ref="donationCard2">
             <div class="donation-line">
               <span class="material-symbols-outlined"> contactless </span>
               <div class="donation-txt">
@@ -353,7 +386,7 @@ submitForm();
         </div>
         <div class="col-12  col-lg-4 group">
           <!-- 第三張卡片 -->
-          <div class="donation-card top up" data-aos="fade-up" data-aos-duration="3000">
+          <div class="donation-card top up" ref="donationCard3">
             <div class="donation-line">
               <span class="material-symbols-outlined"> workspace_premium </span>
               <div class="donation-txt">
@@ -375,7 +408,7 @@ submitForm();
           </div>
         </div>
       </div>
-      <button>立即捐款</button>
+      <button><router-link to="/donate">立即捐款</router-link></button>
     </div>
   </section>
   <!-- 成員介紹 -->
