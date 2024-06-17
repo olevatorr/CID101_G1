@@ -229,12 +229,13 @@
 </template>
 
 <script>
-import { defineComponent, ref, onMounted, computed,useRouter } from 'vue'
+import { defineComponent, ref, onMounted, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import Swal from 'sweetalert2'
-import EventCard from '../components/EventCard.vue'
-import ShareCard from '../components/ShareCard.vue'
+import EventCard from '@/components/EventCard.vue'
+import ShareCard from '@/components/ShareCard.vue'
 import calendar from '@/components/even/calendarFilter.vue'
 
 export default defineComponent({
