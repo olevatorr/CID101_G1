@@ -114,10 +114,3 @@ const login = async () => {
         </div>
     </section>
 </template>
-<style scoped>
-.error {
-    color: red;
-    font-size: 1.5rem;
-    margin-top: 0.5em;
-}
-</style>
