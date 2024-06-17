@@ -2,6 +2,8 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ref, onMounted, } from 'vue';
+import HomeLoading from '@/components/Home/HomeLoading.vue'
+
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -35,6 +37,7 @@ onMounted(() => {
 })
 </script>
 <template>
+    <HomeLoading/>
     <section ref="banner" class="section section-index-banner">
         <div class="container">
             <div class="img" ref="indexLogo">

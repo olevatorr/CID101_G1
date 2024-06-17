@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 
 const showStart = ref(true)
 const showRules = ref(false)
@@ -124,6 +124,23 @@ const restartGame = () => {
     correctAnswers.value = 0
 }
 
+const isMobile = ref(window.innerWidth <= 768)
+
+const checkMobile = () => {
+    isMobile.value = window.innerWidth <= 768
+}
+
+onMounted(()=>{
+    window.addEventListener('resize', checkMobile)
+})
+
+onUnmounted(()=>{
+    window.removeEventListener('resize', checkMobile)
+})
+
+
+
+
 </script>
 
 
@@ -188,7 +205,7 @@ const restartGame = () => {
                         <h5 v-html="mbti.description"></h5>
                     </div>
                 </div>
-                <p>( 長按圖片即可儲存為照片 )</p>
+                <p v-if="isMobile">( 長按圖片即可儲存為照片 )</p>
                 <button class="restart" @click="restartGame">重新開始</button>
                 <RouterLink to="/">回首頁</RouterLink>
             </div>
