@@ -24,11 +24,7 @@
       <div class="menu">
         <select name="" v-model="selectedRegion" @change="handleRegionChange">
           <option value="">全台灣(地區)</option>
-          <option value="0">北部</option>
-          <option value="1">中部</option>
-          <option value="2">南部</option>
-          <option value="3">東部</option>
-          <option value="4">離島</option>
+          <option :value="index" v-for="(regions, index) in regions" :key="index">{{ regions }}</option>
         </select>
       </div>
       <div class="row">
@@ -43,7 +39,9 @@
     <h2>活動分享</h2>
     <div class="container">
       <div class="row">
-        <ShareCard :shareContent="shareContent" :even="true" @card-click="handleShareCardClick" />
+        <ShareCard :shareContent="shareContent" @card-click="handleShareCardClick"
+        @report-click="showReportModal = true"
+         />
       </div>
       <div class="pagenumber">
         <a href="#" v-for="pageNumber in 4" :key="pageNumber">{{ pageNumber }}</a>
@@ -92,55 +90,47 @@
       </div>
     </div>
   </section>
-    <div v-if="selectedEventCard">
-      <div class="light-box-bgc">
-        <div class="light-box" @click.self="closeEventModal">
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-lg-6">
-                <div class="pic">
-                  <img :src="selectedEventCard.E_IMG" />
-                  <div class="text">
-                    <h3>活動敘述</h3>
-                    <p>
-                      {{ selectedEventCard.E_CONTENT }}
-                    </p>
-                  </div>
-                </div>
+  <div v-if="selectedEventCard">
+    <div class="light-box-bgc">
+      <div class="light-box" @click.self="closeEventModal">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-lg-6">
+              <div class="pic">
+                <img :src="selectedEventCard.E_IMG" />
               </div>
-              <div class="col-12 col-lg-6">
-                <div class="content">
+              <div class="description">
+                <h3>活動敘述</h3>
+                <p>
+                  {{ selectedEventCard.E_CONTENT }}
+                </p>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6">
+              <div class="content">
+                <div class="close">
                   <i class="fa-regular fa-circle-xmark" @click="closeEventModal"></i>
-                  <div class="activity-area">
-                    <div class="text">
-                      <h3>{{ selectedEventCard.E_TITLE }}</h3>
-                      <span>活動地點： {{ selectedEventCard.E_ADDRESS }}</span>
-                      <span>活動日期：2024年6月15日</span>
-                      <span>截止日期：2024年6月10日</span>
-                      <span>報名人數：100/150</span>
-                      <div class="join">
-                        <span class="people">參加人數:</span>
-                        <select name="">
-                          <option value="">1</option>
-                          <option value="">2</option>
-                          <option value="">3</option>
-                          <option value="">4</option>
-                          <option value="">5</option>
-                          <option value="">6</option>
-                          <option value="">7</option>
-                          <option value="">8</option>
-                          <option value="">9</option>
-                          <option value="">10</option>
-                        </select>
-                      </div>
+                </div>
+                <div class="activity-area">
+                  <div class="text">
+                    <h3>{{ selectedEventCard.E_TITLE }}</h3>
+                    <p>活動地點：{{ selectedEventCard.E_ADDRESS }}</p>
+                    <p>活動日期：{{ selectedEventCard.E_DATE }}</p>
+                    <p>截止日期：{{ selectedEventCard.E_DEADLINE }}</p>
+                    <p>報名人數：{{ selectedEventCard.E_SIGN_UP }}/{{ selectedEventCard.E_MAX_ATTEND }}</p>
+                    <div class="join">
+                      <p class="people">參加人數:</p>
+                      <select v-model="peopleNum">
+                        <option :value="peoNum" v-for="peoNum in 10" :key="peoNum">{{ peoNum }}</option>
+                      </select>
                     </div>
                   </div>
-                  <div class="state">
-                    <button v-if="eventEnded">活動結束</button>
-                    <button v-else-if="registrationClosed">報名截止</button>
-                    <button v-else-if="registrationFull">報名已滿</button>
-                    <button v-else>立即報名</button>
-                  </div>
+                </div>
+                <div class="state">
+                  <button v-if="eventEnded">活動結束</button>
+                  <button v-else-if="registrationClosed">報名截止</button>
+                  <button v-else-if="registrationFull">報名已滿</button>
+                  <button v-else @click="showConfirmModal()">立即報名</button>
                 </div>
               </div>
             </div>
@@ -148,27 +138,28 @@
         </div>
       </div>
     </div>
-  <section class="section section-confirm">
+  </div>
+  <div class="section section-confirm" v-if="openConfirm">
     <div class="container">
       <div class="apply-wrap">
-        <div class="close">
+        <div class="close" @click.stop="closeConfirm">
           <i class="fa-regular fa-circle-xmark"></i>
         </div>
         <div class="text">
-          <h3>北海岸環保淨灘行動</h3>
-          <p>活動地點：淡水漁人碼頭Subheading</p>
-          <p>活動日期：2024年6月15日</p>
-          <p>截止日期：2024年6月10日</p>
-          <p>報名人數：100/150</p>
+          <h3>{{ selectedEventCard.E_TITLE }}</h3>
+          <p>活動地點：{{ selectedEventCard.E_ADDRESS }}</p>
+          <p>活動日期：{{ selectedEventCard.E_DATE }}</p>
+          <p>截止日期：{{ selectedEventCard.E_DEADLINE }}</p>
+          <p>報名人數：{{ selectedEventCard.E_SIGN_UP }}/{{ selectedEventCard.E_MAX_ATTEND }}</p>
           <p>會員名稱:林小美</p>
-          <p>報名人數:5人</p>
+          <p>報名人數:{{ peopleNum }}人</p>
         </div>
       </div>
       <div class="sent-btn">
-        <button class="sent">送出</button>
+        <button class="sent" @click="SubmitEvent">送出</button>
       </div>
     </div>
-  </section>
+  </div>
   <section class="section-upload">
     <div class="container">
       <div class="upload">
@@ -215,65 +206,37 @@
       </div>
     </div>
   </section>
-  <section class="section section-examine">
+  <div class="section section-examine" v-if="showReportModal">
     <div class="container">
-      <div class="CancelBtn">
-        <span>取消</span>
-      </div>
-      <h2>您檢舉此文章的理由是?</h2>
       <form>
-        <div class="box">
-          <label for="no1">仇恨言論或歧視</label>
-          <input type="radio" name="reason" id="no1" />
+        <div class="CancelBtn">
+          <span @click="closeExamine">取消</span>
         </div>
-        <div class="box">
-          <label for="no2">侵犯隱私</label>
-          <input type="radio" name="reason" id="no2" />
-        </div>
-        <div class="box">
-          <label for="no3">暴力或威脅</label>
-          <input type="radio" name="reason" id="no3" />
-        </div>
-        <div class="box">
-          <label for="no4">騷擾或霸凌</label>
-          <input type="radio" name="reason" id="no4" />
-        </div>
-        <div class="box">
-          <label for="no5">虛假信息或誤導信息</label>
-          <input type="radio" name="reason" id="no5" />
-        </div>
-        <div class="box">
-          <label for="no6">色情或不當內容</label>
-          <input type="radio" name="reason" id="no6" />
-        </div>
-        <div class="box">
-          <label for="no7">非法活動</label>
-          <input type="radio" name="reason" id="no7" />
-        </div>
-        <div class="box">
-          <label for="no8">垃圾信息或廣告</label>
-          <input type="radio" name="reason" id="no8" />
+        <h2>您檢舉此文章的理由是?</h2>
+        <div class="box" v-for="(reason, index) in reasons" :key="index" >
+          <label :for="'no' + (index + 1)">{{ reason.label }}</label>
+          <input type="radio" :name="reason" :id="'no' + (index + 1)" />
         </div>
         <button>送出</button>
       </form>
     </div>
-  </section>
-  <section class="section section-detailed" v-if="selectedShareCard">
-    <div class="overlay" @click="closeShareModal"></div>
-    <div class="container">
-      <ShareCard :shareContent="[selectedShareCard]" :even="false" @close-click="closeShareModal" />
-    </div>
-  </section>
+  </div>
+  <div class="section section-detailed" v-if="selectedShareCard">
+    <ShareCard :shareContent="selectedShareCard ? [selectedShareCard] : []" @close-click="closeShareModal" 
+    @report-click="showReportModal = true"
+    />
+  </div>
 </template>
 
 <script>
-import { defineComponent, ref, onMounted, watch, computed } from 'vue'
+import { defineComponent, ref, onMounted, computed } from 'vue'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import Swal from 'sweetalert2'
 import EventCard from '../components/EventCard.vue'
 import ShareCard from '../components/ShareCard.vue'
 import calendar from '@/components/even/calendar.vue'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   components: {
@@ -282,6 +245,9 @@ export default defineComponent({
     calendar
   },
   setup() {
+    //獲取路由
+    const router = useRouter();
+
     const areas = ref([
       { id: 0, name: '北部' },
       { id: 1, name: '中部' },
@@ -356,9 +322,11 @@ export default defineComponent({
       },
       plugins: [dayGridPlugin, timeGridPlugin]
     })
-    //定義跳窗預設是隱藏狀態
-    const selectedEventCard = ref(null)
-    const selectedShareCard = ref(null)
+    //定義跳窗預設隱藏
+    const selectedEventCard = ref(null);
+    const selectedShareCard = ref(null);
+    const openConfirm = ref(false);
+    const showReportModal = ref(false);
     //跳窗卡片抓取點擊卡片時的卡片資訊
     const handleEventCardClick = (card) => {
       selectedEventCard.value = card
@@ -366,20 +334,49 @@ export default defineComponent({
     const handleShareCardClick = (card) => {
       selectedShareCard.value = card
     }
+    const showConfirmModal = () => {
+      openConfirm.value = true;
+    };
+    //報名完成提示後跳轉回首頁
+    const SubmitEvent = () => {
+      Swal.fire({
+        icon: 'success',
+        title: '報名成功',
+        html: `${selectedEventCard.value.E_TITLE}</div>
+        <div>活動日期:${selectedEventCard.value.E_DATE}</div>`,
+        showConfirmButton: true,
+        confirmButtonText: "確認",
+        cancelButtonText: "<h1>Close</h1>",
+        timer: 5000,
+        timerProgressBar: true
+      }).then(() => {
+        router.push({ name: 'home' });
+      })
+      closeConfirm();
+      closeEventModal();
+    };
 
+    //活動結束邏輯判斷
     const eventEnded = computed(() => {
       return selectedEventCard.value && selectedEventCard.value.E_DATE > date();
     });
-
+    //報名截止邏輯判斷
     const registrationClosed = computed(() => {
       return selectedEventCard.value && selectedEventCard.value.E_DEADLINE > date();
     });
-
+    //定義選單列表
+    const regions = ref(["北部", "中部", "南部", "東部", "離島"]);
+    //定義選單初始值為1
+    const peopleNum = ref(1);
+    //下拉式選單(篩選功能)
     const registrationFull = computed(() => {
-      return selectedEventCard.value && selectedEventCard.value.E_MAX_ATTEND === selectedEventCard.value.E_SIGN_UP;
+      if (selectedEventCard.value) {
+        return selectedEventCard.value.E_MAX_ATTEND === selectedEventCard.value.E_SIGN_UP;
+      }
+      return false;
     });
     const date = () => {
-      // 实现 date() 函数来获取当前日期
+      // 實現 date() 函數來獲取當前日期
       return new Date();
     };
 
@@ -390,16 +387,25 @@ export default defineComponent({
     const closeShareModal = () => {
       selectedShareCard.value = null
     }
+    const closeConfirm = () => {
+      openConfirm.value = false;
+    };
+    const closeExamine=()=>{
+      showReportModal.value=false;
+    }
 
     //定義shareContent、eventContent是一個物件
-    const shareContent = ref({})
-    const eventContent = ref({})
+    const shareContent = ref([])
+    const eventContent = ref([])
 
     const eventList = ref(null)
     const calendarList = ref(null)
     const calendarFilteredEvents = ref([])
+
     //定義下拉式選單域設為空
-    const selectedRegion = ref(null)
+    const selectedRegion = ref('')
+
+    //依資料庫area邏輯判斷出篩選結果
     const filteredEvents = computed(() => {
       if (!selectedRegion.value) {
         return eventContent.value
@@ -409,11 +415,21 @@ export default defineComponent({
         )
       }
     })
-
+    //抓取卡片值渲染至彈窗內容
     function handleRegionChange(event) {
       selectedRegion.value = event.target.value
     }
-    // const eventList = ref(null);
+    //定義檢舉原因
+    const reasons = ref([
+      { label: '仇恨言論或歧視' },
+      { label: '侵犯隱私' },
+      { label: '暴力或威脅' },
+      { label: '騷擾或霸凌' },
+      { label: '虛假信息或誤導信息' },
+      { label: '色情或不當內容' },
+      { label: '非法活動' },
+      { label: '垃圾信息或廣告' }
+    ]);
     // 在組件掛載後加載 JSON 文件
     onMounted(async () => {
       try {
@@ -452,19 +468,19 @@ export default defineComponent({
       return calendarFilteredEvents.value.filter((event) => event.E_AREA === areaId)
     }
 
-    watch(calendarList, (newValue) => {
-      calendarOptions.value.events = newValue
-    })
+    // watch(calendarList, (newValue) => {
+    //   calendarOptions.value.events = newValue
+    // })
     return {
       calendarOptions,
       shareContent,
       eventContent,
       selectedEventCard,
+      selectedShareCard,
       handleEventCardClick,
       handleShareCardClick,
       closeEventModal,
       closeShareModal,
-      eventList,
       calendarList,
       areas,
       getAreaEvents,
@@ -475,6 +491,17 @@ export default defineComponent({
       registrationClosed,
       registrationFull,
       date,
+      selectedRegion,
+      regions,
+      showConfirmModal,
+      SubmitEvent,
+      closeConfirm,
+      openConfirm,
+      peopleNum,
+      showReportModal,
+      closeExamine,
+      reasons
+
     }
   }
 })

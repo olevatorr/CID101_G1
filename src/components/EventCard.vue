@@ -1,5 +1,5 @@
 <template>
-    <div class="col-6 col-sm-4 col-md-4 col-lg-3" v-for="card in filteredEvents" :key="card.E_ID" @click="cardClicked(card)">
+    <div class="col-6 col-sm-4 col-md-4 col-lg-3" v-for="card in filteredEvents" :key="card.E_ID" @click="cardClicked(card)">   
         <div class="event-card">
             <div class="text">
                 <div class="theme">
@@ -25,6 +25,10 @@
 <script>
 export default {
     props: ['filteredEvents'],
+    emits: {
+      'card-click': [],
+      'close-click': [],
+    },
     methods: {
     cardClicked(card) {
         this.$emit('card-click', card);

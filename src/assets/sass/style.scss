@@ -18,7 +18,10 @@ section {
 @import 'mixin/fixedSize.scss';
 
 // component 元件
-@import 'component/eventcard.scss';
+@import 'component/evenCard.scss';
+@import 'component/shareCard.scss';
+@import 'component/lightBox-share.scss';
+@import 'component/lightBox-even.scss';
 // layout 共用nav / footer
 @import 'layout/nav';
 @import 'layout/footer';
