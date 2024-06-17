@@ -67,7 +67,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <!-- 角色確定 -->
                 <div class="col character-check-lightbox"
@@ -97,7 +96,7 @@
                 </div>
                 <!-- 選擇工具 -->
                 <!-- 垃圾點選後的彈窗 -->
-                <div v-if="selectedTrash" class="trash-lightbox">
+                <div v-if="selectedTrash" class="trash-lightbox" :class="{ '-viewClose': trashLightbox }">
                     <h2 class="trash-title ">{{ selectedTrash.name }}</h2>
                     <div class="trash-pic">
                         <img :src="selectedTrash.image" :alt="selectedTrash.name">
@@ -110,18 +109,38 @@
                     <!-- 滑入頁面 -->
                     <!-- v-if是否顯示，條件為 true 或 false 時才渲染 -->
                     <!-- <transition> 组件可實現滑入動畫 -->
-                    <div class="slidepage-up">
+                    <div class="slidepage-up" :class="{ '-viewClose': slidePage }">
                         <transition name="slide-up">
                             <div v-if="slidePage" class="slide-tool-page">
                                 <h3>挑選工具</h3>
                                 <div class="row tool-list">
-                                    <div class="col-4" v-for="tool in tools" :key="tool.name">
+                                    <div class="col-4">
                                         <div class="tool-item">
-                                            <div class="tool-pic">
-                                                <img :src="tool.image" alt="tool.name">
+                                            <div class="tool-pic" @click="choseClamp">
+                                                <img src="../../public/img/beachgame/clamp.jpg" alt="">
                                             </div>
                                             <div class="tool-name">
-                                                <h3>{{ tool.name }}</h3>
+                                                <h3>鐵夾子</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="tool-item">
+                                            <div class="tool-pic" @click="choseGloves">
+                                                <img src="../../public/img/beachgame/gloves.jpg" alt="">
+                                            </div>
+                                            <div class="tool-name">
+                                                <h3>手套</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="tool-item">
+                                            <div class="tool-pic" @click="choseHat">
+                                                <img src="../../public/img/beachgame/hat.jpg" alt="">
+                                            </div>
+                                            <div class="tool-name">
+                                                <h3>防曬帽</h3>
                                             </div>
                                         </div>
                                     </div>
@@ -146,7 +165,7 @@
                     <button>繼續淨灘</button>
                 </div> -->
                 <!-- 撿取失敗 -->
-                <!-- <div class="col fail-lightbox">
+                <div class="col fail-lightbox" :class="{ '-viewShow': failLightbox, '-viewClose': returnPageSet }">
                     <h2 class="ori">撿取垃圾失敗</h2>
                     <div class="fail-content">
                         <div class="fail-pic">
@@ -160,10 +179,10 @@
                             </p>
                         </div>
                     </div>
-                    <button>重新挑戰</button>
-                </div> -->
+                    <button @click="returnPage" :class="{ '-viewClose': returnPageSet }">重新挑戰</button>
+                </div>
                 <!-- 淨灘成功 -->
-                <!-- <div class="col finish-lightbox">
+                <div class="col finish-lightbox" :class="{ '-viewShow': successLightbox }">
                     <h2 class="ori">淨灘成功</h2>
                     <div class="finish-content">
                         <div class="finish-pic">
@@ -177,27 +196,26 @@
                         </div>
                     </div>
                     <div class="beachgame-button-wrap">
-                        <button>
-                            <RouterLink to="/Beachgame">重新挑戰</RouterLink>
-                        </button>
                         <RouterLink to="/Mbti">
                             <button>
                                 海廢小知識
                             </button>
                         </RouterLink>
-                        <button>
-                            <RouterLink to="/">回首頁</RouterLink>
-                        </button>
+                        <RouterLink to="/">
+                            <button>
+                                回首頁
+                            </button>
+                        </RouterLink>
                     </div>
-                </div> -->
+                </div>
             </div>
             <!-- 隨機垃圾分佈 -->
             <!-- selectedTrash為null時，顯示視窗，被設置時隱藏視窗 -->
             <!-- v-for綁唯一值，有刪除絕對不能用會影響索引值 -->
-            <div v-if="!selectedTrash" class="trash-container" :class="{ '-viewShow': showTrashContainer }">
+            <div class="trash-container" :class="{ '-viewShow': showTrashContainer }">
                 <div class="trash-pic" v-for="(image, index) in trashItem" :key="index"
                     :style="{ 'position': 'absolute', left: `${image.x}%`, top: `${image.y}%`, width: '80px', }"
-                    @click="handleTrashClick(index)">
+                    @click=" handleTrashClick(index)">
                     <img :src="image.url" alt="">
                 </div>
             </div>
@@ -303,36 +321,34 @@ export default {
                 }
             ],
             // 顯示工具選擇頁面
+            // 滑入工具
             slidePage: false,
-            tools: [
-                {
-                    id: 1,
-                    name: '鐵夾子',
-                    image: '../../public/img/beachgame/clamp.jpg',
-                },
-                {
-                    id: 2,
-                    name: '手套',
-                    image: '../../public/img/beachgame/gloves.jpg',
-                },
-                {
-                    id: 3,
-                    name: '防曬帽',
-                    image: '../../public/img/beachgame/hat.jpg'
-                }
-            ],
-            // 鐵夾的圖片
-            checkAns: null,
+            // 選擇工具
+            selectedTool: null,
+            //得到選取垃圾的id
+            getTrashId: null,
 
-            // successLightbox: false,
-            // failLightbox: false,
-            // finishLightbox: false,
+            successLightbox: false,
+            failLightbox: false,
+            finishLightbox: false,
+            returnPageSet: false,
         }
     },
-    // 隨機垃圾渲染
-    mounted() {
-    },
+    // 手機轉向掛載時就檢查
+    // mounted() {
+    //     // 頁面加載後立即檢查螢幕方向
+    //     this.checkOrientation();
+    //     //監聽視窗改變即會跳出提醒
+    //     window.addEventListener('resize', this.checkOrientation);
+
+    // },
     methods: {
+        // 螢幕手機限制橫向
+        // checkOrientation() {
+        //     if (window.matchMedia("(orientation: portrait)").matches) {
+        //         alert("請將螢幕轉向橫向以顯示內容！");
+        //     }
+        // },
         showRules() {
             this.beachgameText = true;
             this.rulesLightbox = true;
@@ -348,7 +364,6 @@ export default {
                 this.showBirdimage = true;
                 this.characterCheck = true;
             }
-
         },
         choseTurtle() {
             // console.log(34);
@@ -358,7 +373,6 @@ export default {
                 this.showTurtleimage = true;
                 this.characterCheck = true;
             }
-
         },
         choseShark() {
             this.characterChoosed = 3;
@@ -383,6 +397,8 @@ export default {
             this.selectedTrash = this.choseTrash[index];
             //顯示沒有變成false
             this.showTrashContainer = false;
+            // 取出陣列裡的垃圾id值，要用在對應工具上
+            this.getTrashId = this.choseTrash[index].id;
         },
         // 滑入工具列可選取
         showSlidePage() {
@@ -390,11 +406,53 @@ export default {
             // this.selectedTrash = ;
         },
         // 選擇鐵夾子
-        choseclamp() {
-            this.choseTrash == 1;
-
+        choseClamp() {
+            this.selectedTool = 1;
+            this.trashLightbox = true;
+            this.returnPageSet = false;
+            console.log('getTrashId:', this.getTrashId);
+            if (this.getTrashId == 1 || this.getTrashId == 3 || this.getTrashId == 4) {
+                this.successLightbox = true; // 顯示挑戰成功
+                console.log('Success lightbox should be shown'); // 檢查是否進入成功的條件
+            } else if (this.getTrashId == 2 || this.getTrashId == 5) {
+                this.failLightbox = true; // 顯示挑戰失敗彈窗
+                console.log('Fail lightbox should be shown'); // 檢查是否進入失敗的條件
+            }
+        },
+        choseGloves() {
+            this.selectedTool = 2;
+            this.trashLightbox = true;
+            this.returnPageSet = false;
+            console.log('getTrashId:', this.getTrashId);
+            if (this.getTrashId == 2 || this.getTrashId == 5) {
+                this.successLightbox = true; // 顯示挑戰成功
+                console.log('Success lightbox should be shown'); // 檢查是否進入成功的條件
+            } else if (this.getTrashId == 1 || this.getTrashId == 3 || this.getTrashId == 4) {
+                this.failLightbox = true; // 顯示挑戰失敗彈窗
+                console.log('Fail lightbox should be shown'); // 檢查是否進入失敗的條件
+            }
+        },
+        choseHat() {
+            this.selectedTool = 3;
+            this.trashLightbox = true;
+            console.log('getTrashId:', this.getTrashId);
+            this.failLightbox = true; // 顯示挑戰失敗彈窗
+            this.returnPageSet = false;
+        },
+        returnPage() {
+            this.returnPageSet = true;
+            this.slidePage = false;
+            this.characterChoosed = null;
+            this.selectedTrash = null;
+            this.failLightbox = false;
+            this.getTrashId = null;
+            this.trashLightbox = false;
+            this.showTrashContainer = true;
         }
-
     },
+    // beforeUnmount() {
+    //     // console.log(4444);
+    //     window.removeEventListener('resize', this.checkOrientation);
+    // }
 }
 </script>
