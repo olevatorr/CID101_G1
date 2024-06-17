@@ -19,9 +19,11 @@ const director = ref(null)
 const techManager = ref(null)
 const marketingManager = ref(null)
 const educationManager = ref(null)
+
 const purposeLine1 = ref(null)
 const purposeLine2 = ref(null)
 const purposeLine3 = ref(null)
+
 const donationCard1 = ref(null)
 const donationCard2 = ref(null)
 const donationCard3 = ref(null)
