@@ -17,10 +17,98 @@
                 <button @click="filterNews('淨灘活動')">淨灘活動</button>
             </div>
             <div class="row">
-                <!-- <NewsCard :newsitem="displayData" /> -->
+                <newsCard 
+                :filterNewsList="filterNewsList"/>
+                <div class="news-pagination">
+                    <ul class="pagination">
+                        <li v-for="page in totalPages" :key="page" @click="goToPage(page)"
+                            :class="{ active: page === currentPage }">
+                            {{ page }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+</template>
+
+<script>
+import newsCard from '@/components/NewsCard.vue' // import 組件
+
+export default {
+    components: {
+        newsCard
+    },
+    data() {
+        return {
+            newsList: [], // 所有news資料fetch用
+            filterNewsList: [], //渲染用資料，因裡面資料會根據篩選不同要從newsList重新filter
+            currentPage: 1, // 當前頁碼
+            pageSize: 16, // 每頁顯示的新聞數量
+            selectedCategory: '', // 篩選值
+        }
+    },
+    methods: {
+        nextPage() { // 沒改
+            if (this.currentPage < this.totalPages) {
+                this.currentPage++;
+            }
+        },
+        prevPage() { // 沒改
+            if (this.currentPage > 1) {
+                this.currentPage--;
+            }
+        },
+        goToPage(page) { // 沒改
+            this.currentPage = page;
+        },
+        filterNews(category) {
+            this.selectedCategory = category; // 將篩選值丟進去
+            if(this.selectedCategory){ // 判斷selectedCategory是否為true，請記得空值也是false
+                this.filterNewsList = this.newsList.filter(news=> news.filter == this.selectedCategory ) // 使用filter篩選newsList，再將符合的物件回傳至filterNewsList以達到渲染篩選後的值
+            } else { // 為false就執行以下
+                this.filterNewsList = this.newsList.map(news=> news) // 將newsList放進filterNewsList
+            }
+            // console.log(this.filterNewsList);
+            this.currentPage = 1; // 回到第一頁
+        },
+    },
+    mounted() {
+        fetch('../../public/json/newslist.json') // 你原本的路徑寫錯
+            .then(res => res.json())
+            .then(json => {
+                this.newsList = json
+                // console.log(this.newsList); // 確認是否有fetch到
+                this.filterNewsList = json
+            })
+    },
+}
+</script>
+
+
+
+
+<!-- <template>
+    <section class="section section-news-banner">
+        <div class="container">
+            <div class="news-banner_title">
+                <p>最新消息</p>
+                <h1>NEWS</h1>
+            </div>
+        </div>
+    </section>
+    <section class="section section-news-content">
+        <div class="container">
+            <h4 class="news-info">最新消息</h4>
+            <div class="news-filter">
+                <button @click="filterNews('')">全部</button>
+                <button @click="filterNews('環保商品')">環保商品</button>
+                <button @click="filterNews('環保議題')">環保議題</button>
+                <button @click="filterNews('淨灘活動')">淨灘活動</button>
+            </div>
+            <div class="row">
                 <div class="col-6 col-md-4 col-lg-3" v-for="news in filteredNews" :key="news.id">
                     <RouterLink v-if="news" :to="`/Newsinner/${news.id}`">
-                        <!-- 放入app -->
                         <div class="news-card">
                             <div class="news-card-pic">
                                 <img :src="news.imgUrl" alt="">
@@ -46,9 +134,10 @@
             </div>
         </div>
     </section>
-</template>
+</template> -->
 
-<script>
+
+<!-- <script>
 // import NewsCard from '@/components/NewsCard.vue'; // 引入 NewsCard 組件
 export default {
     components: {
@@ -118,4 +207,4 @@ export default {
             })
     },
 }
-</script>
+</script> -->

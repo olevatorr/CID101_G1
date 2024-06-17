@@ -34,7 +34,7 @@
                         <div class="amount">
                             <span>數量 : </span>
                             <button @click="decreaseQuantity" :disabled="quantity <= 1">-</button>
-                            <span>{{ quantity }}</span>
+                            <span>{{ productdetail.amount }}</span>
                             <button @click="increaseQuantity" :disabled="quantity >= 10">+</button>
                         </div>
                         <div class="price">
@@ -44,7 +44,7 @@
                             <RouterLink to="/mallcart">
                                 <input type="button" value="立即購買">
                             </RouterLink>
-                            <input type="button" value="加入購物車">
+                            <button class="add-to-cart" @click="addToCart(productdetail)">加入購物車</button>
                         </div>
                     </div>
                 </div>
@@ -88,12 +88,12 @@ export default {
             largeSrc: "",
             quantity: 1,
             //商品細節資訊
-            productdetail:[],
+            productdetail:{},
         };
     },
     computed: {
         totalPrice() {
-        return this.quantity * this.productdetail.price;
+        return this.productdetail.amount * this.productdetail.price;
         }
     },
         methods: {
@@ -101,22 +101,75 @@ export default {
             this.largeSrc = src;
         },
         decreaseQuantity() {
-            if (this.quantity > 1) {
-            this.quantity--;
+            if (this.productdetail.amount > 1) {
+            this.productdetail.amount-- ;
             }
         },
         increaseQuantity() {
-            if (this.quantity < 10) {
-            this.quantity++;
+            if (this.productdetail.amount < 10) {
+            this.productdetail.amount++ ;
             }
+        },
+        addToCart(item) {
+        // 檢查localStorage裡有無資料
+        console.log(localStorage.getItem('cartItems'));
+        console.log(item)
+        
+        // localStorage.getItem是取得localStorage資料
+        if (!localStorage.getItem('cartItems')) { 
+            console.log(localStorage.getItem('cartItems'));
+            let arr = [];
+            let obj = { ...item }
+            obj.amount = obj.amount ? obj.amount : 1;
+            arr.push(obj);
+            // 把資料存在localStorage
+            localStorage.setItem('cartItems', JSON.stringify(arr));
+        } else{
+            // 找到已存在購物車裡的商品列表,透過localsrortage方式取得
+            let productList = JSON.parse(localStorage.getItem('cartItems'));
+            console.log(productList)
+
+            // 檢查商品列表裡有無資料
+            if(!productList || !productList.length){
+                let arr = [];
+                let obj = { ...item }
+                obj.amount = obj.amount ? obj.amount : 1;
+                arr.push(obj);
+                // 把資料存在localStorage
+                localStorage.setItem('cartItems', JSON.stringify(arr));
+            } else{
+                let isReduce = false;
+
+                productList.forEach(element => {
+                    if(item.id == element.id){
+                        if(!element.amount){
+                            element.amount = 1;
+                        }
+                        element.amount = element.amount + 1 ;
+                        isReduce = true;
+                    }
+                });
+
+                
+                // 判斷isReduce有沒有在購物車裡面,沒有商品要push
+                if(!isReduce){
+                    let obj = { ...item }
+                    obj.amount = obj.amount ? obj.amount : 1;
+                    productList.push(obj);
+                    // 把資料存在localStorage
+                }
+                localStorage.setItem('cartItems', JSON.stringify(productList));
+            } 
         }
+    }
     },
         mounted() {
         console.log( this.$route.query.id)
         fetch("/public/productdata.json")
         .then(data => data.json())
         .then(res => {
-            this.productdetail = res.find(item=>item.id==this.$route.query.id)
+            this.productdetail = res.find(item=>item.id==this.$route.query.id);
+            this.productdetail.amount = 1 ;
             this.largeSrc = this.productdetail.imgUrl[0];
         })
     },

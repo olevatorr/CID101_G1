@@ -72,7 +72,7 @@
             transition: .3s;
         }
         &:hover i {
-            color: $color-highlight-dark
+            color: $color-subprimary
         }
     }
     .fc .fc-daygrid-day.fc-day-today {
@@ -85,14 +85,26 @@
         overflow-y: auto;
         height: 475px;
 
-        &>div {
+        .show-list {
             height: 100%;
             display: grid;
             grid-template-rows: 20%;
+            ul {
+                width: 100%;
+                li {
+                    width: 100%;
+                    display: grid;
+                    grid-template-columns: 50% 20% 30%;
+                    align-items: center;
+                }
+            }
             span {
                 color: #fff;
-                padding: 3px 10px;
+                padding: 0px 10px;
                 border-radius: 5px;
+                display: block;
+                margin: auto;
+                line-height: 1.6;
             }
             span.end, span.deadline {
                 background-color: grey;
@@ -101,9 +113,27 @@
                 background-color: black;
             }
             span.ongoing {
-                background-color: $color-highlight;
+                background-color: #e60000;
             }
-        }
+            button {
+                border-radius: 5px;
+                padding: 3px 0px;
+                width: 60%;
+                margin: auto;
+                display: block;
+            }
+            }
+            .show-intro{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+            }
+            .intro {
+                font-size: 2.4rem;
+                letter-spacing: .3rem;
+                line-height: 1.5;
+            }
 
         @media screen and (max-width: 992px) {
             margin-top: 20px;
@@ -117,9 +147,9 @@
 
             h3 {
                 color: #fff;
-                padding: 10px 20px;
+                padding: 5px 10px;
                 background-color: $color-subprimary;
-                border-radius: 10PX;
+                border-radius: 5PX;
                 margin-right: 10px;
             }
 

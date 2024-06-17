@@ -31,52 +31,15 @@
         <section class="section section-product-list">
             <div class="container">
                 <div class="row">
-                    <ProductItem @add-to-cart="addToCart(item)" 
-                    v-for=" item in paginatedProdList" 
-                    :key="item.id"
-                    :item="item"
+                    <!-- 每一個商品卡 -->
+                    <ProductItem 
+                        v-for=" paginatedProdItem in paginatedProdList" 
+                        :key="paginatedProdItem.id"
+                        :productInfo="paginatedProdItem"
+                        @add-to-cart="addToCart(paginatedProdItem)" 
                     />
                 </div> 
             </div> 
-        </section>
-        
-        <section class="section section-shoppingcart">
-            <div class="container">
-                <div class="carticon" :class="{ show: showCartIcon }" @click="toggleCartBox">
-                    <div class="pic">
-                        <img src="../../public/img/shop/cart.png" alt="">
-                    </div>
-                    <div class="icon">
-                        <span>{{ cartCount }}</span>
-                    </div>
-                </div>    
-                <div class="cartbox" :class="{ show: showCartBox }">
-                    <div class="carttitle">
-                            <p>購物車</p>
-                            <i class="fa-regular fa-circle-xmark" @click="toggleCartBox"></i>
-                    </div>
-                    <div class="cartinfo">
-                        <div class="info" v-for="(item, index) in cartItems" :key="item.id">
-                            <span>{{ index + 1 }}.</span>
-                            <span>{{ item.title }}</span>
-                            <span>數量 :</span>
-                            <button @click="decreaseQuantity(item)" :disabled="item.quantity <= 1">-</button>
-                            <span>{{ item.quantity }}</span>
-                            <button @click="increaseQuantity(item)" :disabled="item.quantity >= 10">+</button>
-                            <span class="price">NT$ {{ item.price * item.quantity }}</span>
-                            <div class="delete">
-                                <img src="../../public/img/shop/delete2.png" alt="" @click="removeFromCart(item)">
-                            </div>
-                        </div>
-                    </div>  
-                    <div class="carttotal">
-                        <RouterLink :to="'/mallcart'">
-                            <button>立即購買</button>
-                        </RouterLink>
-                        <span>NT$ {{ addPrice }}</span>
-                    </div>
-                </div>
-            </div>
         </section>
 
         <section class="section section-pagination">
