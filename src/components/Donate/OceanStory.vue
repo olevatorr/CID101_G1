@@ -1,7 +1,3 @@
-<script setup>
-import AOS from 'aos';
-</script>
-
 <template>
     <section class="section section-story">
         <div class="container container-story ">

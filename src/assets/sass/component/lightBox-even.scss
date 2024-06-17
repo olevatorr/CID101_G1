@@ -1,0 +1,75 @@
+.light-box {
+    background-color: #fff;
+
+    .col-lg-6 {
+        width: 50%;
+        position: relative;
+        padding: 20px;
+
+        //左區塊
+        .pic {
+            @include fixed-size-image(100%,250px);
+            flex-direction: column;
+            background-color: #ffa;
+        }
+
+        .text {
+            margin-top: 10px;
+        }
+
+        //右區塊
+        .content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            .close {
+                color: $color-border;
+                position: absolute;
+                top: 0;
+                right: 0;
+                font-size: 2.5rem;
+                &:hover{
+                    color: $color-highlight;
+                    transition:  .3s ease;
+                }
+            }
+
+            .activity-area {
+                display: flex;
+
+                .text {
+
+                    h3,
+                    p {
+                        margin-bottom: 10px;
+                    }
+
+                    h3 {
+                        color: $color-subprimary;
+                    }
+
+                    .join {
+                        display: flex;
+                        align-items: center;
+
+                        p {
+                            margin: 0;
+                        }
+
+                        select {
+                            padding: 3px 5px;
+                        }
+                    }
+                }
+            }
+
+            .state {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
+}

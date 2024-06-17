@@ -2,15 +2,7 @@
 import DonateCart from '../components/Donate/DonateCart.vue'
 import MemberInfo from '../components/Donate/MemberInfo.vue'
 import PaymentMethod from '../components/Donate/PaymentMethod.vue'
-import ConfirmationCheckbox from '../components/Donate/ConfirmationCheckbox.vue'
 import CheckoutButton from '../components/Donate/CheckoutButton.vue'
-import { onMounted, ref, computed } from 'vue';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-
-onMounted(() => {
-    AOS.init()
-})
 
 </script>
 
@@ -22,8 +14,6 @@ onMounted(() => {
         <MemberInfo />
         <!-- -------------------------------------------------------------------付款方式 -->
         <PaymentMethod />
-        <!-- -------------------------------------------------------------------確認權益 -->
-        <ConfirmationCheckbox />
         <!-- -------------------------------------------------------------------送出捐款表單 -->
         <CheckoutButton />
     </main>

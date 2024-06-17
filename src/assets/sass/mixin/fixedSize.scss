@@ -1,6 +1,6 @@
 //固定圖片大小不爆版
-@mixin fixed-size-image($height) {
-    width: 100%;
+@mixin fixed-size-image($width,$height) {
+    width: $width;
     height: $height;
     display: flex;
     justify-content: center;

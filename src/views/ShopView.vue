@@ -53,17 +53,19 @@
                 <img src="../../public/img/shop/sea.png" alt="">
             </div>
         </section>
-
         <ProductInfoView @add-to-cart="handleAddToCart" :sharedCart="sharedCart" />
+        <ShopCart v-if="$route.path === '/shop' || $route.path === '/productinfo'"/>
     </div>
 </template>
 
 <script>
 import ProductItem from '../components/ProductItem.vue';
+import ShopCart from '@/components/ShopCart.vue';
 
 export default{
     components: {
         ProductItem,
+        ShopCart,
     },
     data() {
         return {

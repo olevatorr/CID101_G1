@@ -42,7 +42,8 @@ export default {
                     title: '未登入',
                     text: '請先登入會員才能進行捐款'
                 }).then(() => {
-                    router.push('/Member'); // 未登入跳轉至會員登入頁面
+                    router.push('/Member');
+                     // 未登入跳轉至會員登入頁面
                 });
                 return;
             }
@@ -53,7 +54,7 @@ export default {
                     title: '無效金額',
                     text: '請輸入有效的捐款金額，單筆交易最低100元'
                 }).then(() => {
-                    // location.reload(); // 重新整理頁面
+                    location.reload(); // 重新整理頁面
                 });
                 return;
             }
@@ -109,7 +110,7 @@ export default {
                             </div>
                             <button @click="submitDonation">
                                 <!-- 點擊按鈕提交捐款金額並跳轉至捐款頁面 -->
-                                <RouterLink to="/DonatePage">捐款去</RouterLink>
+                                捐款去
                             </button>
                         </div>
                         <div class="spanpay">
@@ -123,3 +124,144 @@ export default {
 </template>
 
 
+<!-- <script>
+// 引入必要的模塊
+import Cookies from 'js-cookie';
+import { ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
+import { store } from '@/store.js'; // 引入store
+import Swal from 'sweetalert2'; // 引入sweetalert2
+
+export default {
+    name: 'DonationBanner', // 組件名稱
+    setup() {
+        const donationAmounts = [100, 500, 1000, 2000];
+        const selectedAmount = ref(null); // 被選中的捐款金額
+        const customAmount = ref(null); // 自訂捐款金額
+        const router = useRouter();
+
+        const selectAmount = (amount) => { 
+            selectedAmount.value = amount;
+            customAmount.value = null; // 清空自定義金額
+        };
+
+        const checkMaxAmount = (event) => {
+            if (event.target.value > 100000) { 
+                customAmount.value = 100000; 
+            }
+        };
+
+        watch(customAmount, (newVal) => {
+            if (newVal !== null && newVal !== "") {
+                selectedAmount.value = null; // 取消預設金額選中狀態
+            }
+        });
+
+        const submitDonation = () => {
+            try {
+                if (!store.isLoging) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '未登入',
+                        text: '請先登入會員才能進行捐款'
+                    }).then(() => {
+                        router.push('/Member'); // 未登入跳轉至會員登入頁面
+                    });
+                    return;
+                }
+                const amountToDonate = selectedAmount.value || customAmount.value; // 確定捐款金額
+                if (!amountToDonate || amountToDonate < 100) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '無效金額',
+                        text: '請輸入有效的捐款金額，單筆交易最低100元'
+                    }).then(() => {
+                        location.reload(); // 重新整理頁面
+                    });
+                    return;
+                }
+                const expires = new Date(new Date().getTime() + 10 * 1000);
+                Cookies.set('donationAmount', amountToDonate, { expires }); // 將捐款金額儲存到 Cookie 中，有效期為10秒
+                router.push('/DonatePage'); // 跳轉至捐款頁面
+            } catch (error) {
+                console.error('Error during donation submission:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: '提交失敗',
+                    text: '捐款提交過程中發生錯誤，請稍後再試。'
+                });
+            }
+        };
+
+        return {
+            donationAmounts,
+            selectedAmount,
+            customAmount,
+            selectAmount,
+            submitDonation,
+            checkMaxAmount,
+            store
+        };
+    },
+    mounted() {
+        try {
+            console.log('DonationBanner mounted');
+        } catch (error) {
+            console.error('Error during mounted lifecycle hook:', error);
+        }
+    },
+    unmounted() {
+        try {
+            console.log('DonationBanner unmounted');
+        } catch (error) {
+            console.error('Error during unmounted lifecycle hook:', error);
+        }
+    },
+    created() {
+        try {
+            console.log('DonationBanner created');
+        } catch (error) {
+            console.error('Error during created lifecycle hook:', error);
+        }
+    }
+};
+</script> -->
+
+<!-- <template>
+    <section class="section section-banner">
+        <div class="container">
+            <div class="container-left">
+                <h1>熱心捐款</h1>
+                <span>用愛灌溉<br>讓海洋生生不息</span>
+            </div>
+            <div class="container-donate">
+                <div class="row">
+                    <div data-aos="fade-left" data-aos-duration="2000" class="col-12 col-md-5">
+                        <p>每一份捐助,都是一份守護<br>為海洋的永續盡一份心力</p>
+                    </div>
+                    <div class="col-12 col-md-7 unit-table">
+                        <div v-for="amount in donationAmounts" :key="amount"
+                            :class="{ 'selected': selectedAmount === amount }" @click="selectAmount(amount)">
+                            <label>
+                                <input type="radio" name="unit">
+                                ${{ amount }}
+                            </label>
+                        </div>
+                        <div class="donate-submit">
+                            <div class="unit-input">
+                                <i class="fa-solid fa-dollar-sign"></i>
+                                <input type="number" v-model="customAmount" min="0" @input="checkMaxAmount" />
+                            </div>
+                            <button @click="submitDonation">
+                                <RouterLink to="/DonatePage">捐款去</RouterLink>
+                            </button>
+                        </div>
+                        <div class="spanpay">
+                            <span>單筆最高上限10萬元，最低100元</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</template> -->
