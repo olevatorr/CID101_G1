@@ -327,13 +327,13 @@
     }
 }
 
-.section-confirm{
+.section-makesure{
     background-color: white;
     padding: 0;
     .container{
         background-color: white;
         .cart-checkout{
-        padding-bottom: 40px;
+        padding: 20px 0 30px 0;
         text-align: center;
         }
         .pay{
@@ -345,4 +345,8 @@
         font-size: 16px;
         text-align: center;
     }
+}
+
+.section-confirm{
+    display: none;
 }

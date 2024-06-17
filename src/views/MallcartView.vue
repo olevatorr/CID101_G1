@@ -194,7 +194,7 @@
         </div>
     </section>
 
-    <section class="section section-confirm">
+    <section class="section section-makesure">
         <div class="container">
             <div class="cart-checkout">
                 <router-link to="/shop" tag="div" event="click" class="button">
