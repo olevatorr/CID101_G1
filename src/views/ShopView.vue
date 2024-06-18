@@ -97,11 +97,7 @@ export default{
         },
     },
     mounted() {
-<<<<<<< HEAD
         fetch(`${import.meta.env.BASE_URL}json/shop.json`)
-=======
-        fetch(`${import.meta.env.BASE_URL}public/shop.json`)
->>>>>>> dev
         .then(data => data.json())
         .then(res => {
             //備份用
