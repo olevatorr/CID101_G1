@@ -63,7 +63,7 @@ methods: {
                 <div class="register-box-img col-12 col-md-5 col-lg-6">
                     <div class="register-logo-box">
                         <div class="img">
-                            <img src="../../public/img/member/logo.png" alt="logo">
+                            <img src="/img/member/logo.png" alt="logo">
                         </div>
                         <span>潔淨海洋&emsp;綠色明天</span>
                     </div>
