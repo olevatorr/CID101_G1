@@ -8,52 +8,52 @@ const showQuiz = ref(false)
 const questions = [
     {
         question: '01. 網購用的紙箱',
-        image: '../../public/img/mbti/1.png',
+        image: '/img/mbti/1.png',
         answer: true
     },
     {
         question: '02. 玩偶',
-        image: '../../public/img/mbti/2.png',
+        image: '/img/mbti/2.png',
         answer: false
     },
     {
         question: '03. 玻璃瓶',
-        image: '../../public/img/mbti/3.png',
+        image: '/img/mbti/3.png',
         answer: true
     },
     {
         question: '04. 旅行箱',
-        image: '../../public/img/mbti/4.png',
+        image: '/img/mbti/4.png',
         answer: false
     },
     {
         question: '05. 飲料杯',
-        image: '../../public/img/mbti/5.png',
+        image: '/img/mbti/5.png',
         answer: true
     },
     {
         question: '06. 牛奶盒',
-        image: '../../public/img/mbti/6.png',
+        image: '/img/mbti/6.png',
         answer: false
     },
     {
         question: '07. 花盆',
-        image: '../../public/img/mbti/7.png',
+        image: '/img/mbti/7.png',
         answer: true
     },
     {
         question: '08. 電池',
-        image: '../../public/img/mbti/8.png',
+        image: '/img/mbti/8.png',
         answer: true
     },
     {
         question: '09. 牙刷',
-        image: '../../public/img/mbti/9.png',
+        image: '/img/mbti/9.png',
         answer: false
     },
     {
         question: '10. 夾腳拖',
-        image: '../../public/img/mbti/10.png',
+        image: '/img/mbti/10.png',
         answer: true
     }
 ]
@@ -62,17 +62,17 @@ const mbtiResults = [
     {
         name: '鯨魚型',
         description: '非常聰明！可以信賴！<br />是個絕佳的好夥伴！',
-        image: '../../public/img/mbti/bigfish.png'
+        image: '/img/mbti/bigfish.png'
     },
     {
         name: '海龜型',
         description: '溫和有耐心，但有時候太過被動。<br />需要多一些積極性。',
-        image: '../../public/img/mbti/turtle.png'
+        image: '/img/mbti/turtle.png'
     },
     {
         name: '企鵝型',
         description: '活潑開朗，很受歡迎！<br />但是有時候做事太衝動了。',
-        image: '../../public/img/mbti/pingu.png'
+        image: '/img/mbti/pingu.png'
     }
 ]
 

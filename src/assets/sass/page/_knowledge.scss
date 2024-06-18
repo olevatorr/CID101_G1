@@ -1,7 +1,7 @@
 // ------------------------------------banner
 .section-knowledge-banner {
     height: 100vh;
-    background: url(../public/img/knowledge/banner1.png)no-repeat 50% 50% / cover;
+    background: url(/img/knowledge/banner1.png)no-repeat 50% 50% / cover;
     color: #fff;
 
     .container {
@@ -41,23 +41,18 @@
 }
 // ------------------------------------全台灣沿海廢棄數據
 .section-data {
-    background: #B2D9D9;
+    // background: #b7c6e5;
     padding: 100px 0;
     .container{
-
         .row{
             .bgTwMap{
                 .datah2{
-                    h3{ 
-                        margin-left: 30px;
-                        margin-bottom: 20px;
-                    }
                 }
                 button{
                     margin-bottom: 10px;
                 }
                 .map-container{
-                    background-color: #6686d2;
+                    // background-color: #DBE4EE ;
                     border-radius: 10px;
                 }
                 p{
@@ -65,26 +60,22 @@
                     span{
                         color: red;
                     }
-                    margin-bottom: 50px;
-                }
-                .map-container{
-                    margin-bottom: 30px;
+                    margin-bottom: 100px;
                 }
             }
             .row{
                 .box-chart{
-                    margin-top: 100px;
+                    margin-top: 90px;
+                }
+                .Charttxt{
+                    padding-bottom: 30px;
                 }
             }
             .indicatorsea{
-                .news-filter{
-                    margin: 50px 0 50px 0;
-                }
                 .myChartbg {
                     width: 100%;
+                    height: 300px;
                 }
-                
-                
             }
             .tableChart{
                 background: #E7A600;
@@ -127,7 +118,7 @@
         text-align: center;
         color: #fff;
     }
-    background: url(../../../../public/img/knowledge/banner3.jpg) no-repeat;
+    background: url(/img/knowledge/banner3.jpg) no-repeat;
     background-size: cover;
 
 h4 {
@@ -180,7 +171,7 @@ p {
 	position: absolute;
 	top: 0;
 	right: 0;   
-	background-image: url("../../../../public/img/knowledge/2.png");
+	background-image: url("/img/knowledge/2.png");
 	background-size: cover;
 	transition: 0.3s ease-in-out;
 }

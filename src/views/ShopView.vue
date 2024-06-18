@@ -97,7 +97,7 @@ export default{
         },
     },
     mounted() {
-        fetch("/public/shop.json")
+        fetch(`${import.meta.env.BASE_URL}public/shop.json`)
         .then(data => data.json())
         .then(res => {
             //備份用

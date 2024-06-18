@@ -1,5 +1,5 @@
 .section.section-member {
-    background-image: url(../../../../public/img/member/member1.jpg);
+    background-image: url(/img/member/member1.jpg);
     background-size: cover;
     .member-box {
         display: flex;
@@ -9,7 +9,7 @@
     }
     .member-box-img {
         position: relative;
-        background-image: url(../../../../public/img/member/member1.jpg);
+        background-image: url(/img/member/member1.jpg);
         background-position: 15% 50%;
         background-repeat: no-repeat;
         background-size: cover;
@@ -51,18 +51,33 @@
         margin-right: auto;
         text-align: left;
         padding: 0 10%;
+        position: relative;
+        .errorspan{
+            position: relative;
+            margin-top: .5rem;
+        }
+        .errorspan2{
+            position: relative;
+            margin-top: .5rem;
+        }
         .error {
             color: red;
             font-size: 1.5rem;
-            margin-top: 0.5em;
         }
-    
+        .membererror{
+            position: absolute;
+            left: 0;
+        }
+        .membererror2{
+            position: absolute;
+            left: 0;
+        }
         label {
             display: block;
             font-size: 2rem;
             margin-bottom: 2rem;
             margin-top: 2rem;
-    
+
             &:nth-of-type(2) {
                 margin-top: 5rem;
             }

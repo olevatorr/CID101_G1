@@ -455,14 +455,22 @@ export default defineComponent({
     onMounted(async () => {
       try {
         // 加載 Share.json
+<<<<<<< HEAD
         const shareResponse = await fetch(`${import.meta.env.BASE_URL}json/Share.json`)
+=======
+        const shareResponse = await fetch(`${import.meta.env.BASE_URL}public/Share.json`)
+>>>>>>> 176e37d60c953081f321166601b133660adcb0f2
         if (!shareResponse.ok) {
           throw new Error('錯誤')
         }
         shareContent.value = await shareResponse.json()
 
         // 加載 event.json
+<<<<<<< HEAD
         const eventResponse = await fetch(`${import.meta.env.BASE_URL}json/event.json`)
+=======
+        const eventResponse = await fetch(`${import.meta.env.BASE_URL}public/json/event.json`)
+>>>>>>> 176e37d60c953081f321166601b133660adcb0f2
         if (!eventResponse.ok) {
           throw new Error('錯誤')
         }
