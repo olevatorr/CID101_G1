@@ -434,14 +434,14 @@ export default defineComponent({
     onMounted(async () => {
       try {
         // 加載 Share.json
-        const shareResponse = await fetch('../../public/Share.json')
+        const shareResponse = await fetch(`${import.meta.env.BASE_URL}public/Share.json`)
         if (!shareResponse.ok) {
           throw new Error('錯誤')
         }
         shareContent.value = await shareResponse.json()
 
         // 加載 event.json
-        const eventResponse = await fetch('../../public/json/event.json')
+        const eventResponse = await fetch(`${import.meta.env.BASE_URL}public/json/event.json`)
         if (!eventResponse.ok) {
           throw new Error('錯誤')
         }

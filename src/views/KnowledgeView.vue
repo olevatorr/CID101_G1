@@ -594,7 +594,7 @@ const hebrissource = [
 
 // 組件掛載時加載垃圾數據
 onMounted(() => {
-  fetch('../../public/json/海洋委員會公務統計報表-海洋廢棄物清理-113.01.json')
+  fetch(`${import.meta.env.BASE_URL}public/json/海洋委員會公務統計報表-海洋廢棄物清理-113.01.json`)
     .then(res => res.json())
     .then(jsonData => {
       hebrisData.value = jsonData;

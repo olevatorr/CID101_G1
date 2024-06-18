@@ -264,11 +264,11 @@ export default {
       try {
         // 使用 Promise.all 来并行获取多个 JSON 数据
         const responses  = await Promise.all([
-          fetch('/json/donatemoney.json'),
-          fetch('/json/activities.json'),
-          fetch('/json/favorite.json'),
-          fetch('/json/orders.json'),
-          fetch('/json/shoplist.json'),
+          fetch(`${import.meta.env.BASE_URL}json/donatemoney.json`),
+          fetch(`${import.meta.env.BASE_URL}json/activities.json`),
+          fetch(`${import.meta.env.BASE_URL}json/favorite.json`),
+          fetch(`${import.meta.env.BASE_URL}json/orders.json`),
+          fetch(`${import.meta.env.BASE_URL}json/shoplist.json`),
 
         ]);
         // 检查每个响应的状态

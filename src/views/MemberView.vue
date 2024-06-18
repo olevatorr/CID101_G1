@@ -41,7 +41,7 @@ const login = async () => {
     }
 
     try {
-        const response = await fetch('/json/membertext.json');
+        const response = await fetch(`${import.meta.env.BASE_URL}json/membertext.json`);
         if (!response.ok) {
             throw new Error('網路回應不好');
         }

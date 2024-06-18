@@ -73,7 +73,7 @@ export default {
         },
     },
     mounted() {
-        fetch('json/newslist.json') // 你原本的路徑寫錯
+        fetch(`${import.meta.env.BASE_URL}json/newslist.json`) // 你原本的路徑寫錯
             .then(res => res.json())
             .then(json => {
                 this.newsList = json

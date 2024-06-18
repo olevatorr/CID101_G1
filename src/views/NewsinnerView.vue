@@ -57,7 +57,7 @@ export default {
     methods: {
         fetchInfo() {
             // 抓API
-            fetch("/data/product.json")
+            fetch(`${import.meta.env.BASE_URL}data/product.json`)
                 .then(res => res.json())
                 .then(json => {
                     this.productInfo = json.find(item => {
