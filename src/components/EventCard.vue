@@ -13,10 +13,10 @@
             </div>
             <div class="pic">
                 <img :src="card.E_IMG" />
+                <div class="add">報名活動</div>
             </div>
             <div class="people">
                 <span>報名人數{{ card.E_SIGN_UP }}/{{ card.E_MAX_ATTEND }}</span>
-                <i class="fa-solid fa-user-plus"></i>
             </div>
         </div>
     </div>

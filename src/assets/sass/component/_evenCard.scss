@@ -35,15 +35,23 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 10px;
   height: 100%;
   background-color: $color-white;
   text-align: left;
   box-shadow: 2px 2px 10px $color-border;
   box-sizing: border-box;
+  padding: 15px 20px;
   cursor: pointer;
-  @include hover-effect(true);
-
+  &:hover {
+    img {
+      scale: 1.1;
+    }
+    .pic {
+      .add {
+        transform: translateY(0%);
+      }
+    }
+  }
   .text {
     display: flex;
     flex-direction: column;
@@ -70,18 +78,40 @@
 
   .pic {
     @include fixed-size-image(100%,200px);
+    position: relative;
+    overflow: hidden;
+    img {
+      transition: .5s;
+    }
+    .add {
+      width: 100%;
+      height: 30px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      transform: translateY(100%);
+      background-color: $color-subprimary;
+      color: #fff;
+      font-size: 1.6rem;
+      letter-spacing: .2rem;
+      line-height: 2;
+      transition: .5s;
+      z-index: 10;
+      text-align: center;
+    }
   }
 
   .people {
+    margin-top: 10px;
     width: 100%;
     line-height: 2;
+    letter-spacing: .2rem;
     font-size: 1.3rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    span,
-    i {
+    span {
       display: inline-block;
       font-size: 1.3rem;
     }

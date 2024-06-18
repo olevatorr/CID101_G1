@@ -31,9 +31,9 @@
     <!-- 只渲染一張卡片 -->
     <div v-else-if="shareContent.length" class="col-12">
         <div class="share-card">
-            <div class="close">
+            <!-- <div class="close">
                 <i class="fa-regular fa-circle-xmark" @click="closeCard"></i>
-            </div>
+            </div> -->
             <div class="pic">
                 <img :src="shareContent[0].F_IMG" />
             </div>
@@ -87,6 +87,7 @@ export default {
     methods: {
         cardClicked(card) {
             this.$emit('card-click', card);
+            // console.log(card);
         },
         closeCard() {
             this.$emit('close-click');
