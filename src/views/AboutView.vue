@@ -19,9 +19,11 @@ const director = ref(null)
 const techManager = ref(null)
 const marketingManager = ref(null)
 const educationManager = ref(null)
+
 const purposeLine1 = ref(null)
 const purposeLine2 = ref(null)
 const purposeLine3 = ref(null)
+
 const donationCard1 = ref(null)
 const donationCard2 = ref(null)
 const donationCard3 = ref(null)
@@ -84,7 +86,9 @@ const enteredCaptcha = ref('');
 const captchaText = ref('');
 const captchaCanvas = ref(null);
 
-onMounted(() => {drawCaptcha();});
+onMounted(() => {
+  drawCaptcha();
+});
 
 const isCaptchaValid = computed(() => {
   return enteredCaptcha.value.toLowerCase() === captchaText.value.toLowerCase();
@@ -560,7 +564,7 @@ submitForm();
                 </div>
               </div>
             </div>
-            <button type="button">送出</button>
+            <button type="submit">送出</button>
           </form>
         </div>
       </div>

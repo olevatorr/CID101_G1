@@ -55,6 +55,7 @@ export default {
                     text: '請輸入有效的捐款金額，單筆交易最低100元'
                 }).then(() => {
                     customAmount.value = "";
+                    //location.reload(); // 重新整理頁面
                 });
                 return;
             }
