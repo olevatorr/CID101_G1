@@ -6,7 +6,7 @@ const eventList = ref([])
 
 
 onMounted(()=>{
-    fetch('../../../public/json/event.json')
+    fetch('/json/event.json')
         .then((res) => res.json())
         .then(jsonData => {
             eventList.value = jsonData.slice(0,4)

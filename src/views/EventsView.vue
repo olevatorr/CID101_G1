@@ -40,8 +40,7 @@
     <div class="container">
       <div class="row">
         <ShareCard :shareContent="shareContent" @card-click="handleShareCardClick"
-        @report-click="showReportModal = true"
-         />
+          @report-click="showReportModal = true" />
       </div>
       <div class="pagenumber">
         <a href="#" v-for="pageNumber in 4" :key="pageNumber">{{ pageNumber }}</a>
@@ -130,7 +129,7 @@
                   <button v-if="eventEnded">活動結束</button>
                   <button v-else-if="registrationClosed">報名截止</button>
                   <button v-else-if="registrationFull">報名已滿</button>
-                  <button v-else @click="showConfirmModal()">立即報名</button>
+                  <button v-else @click="showConfirmModal">立即報名</button>
                 </div>
               </div>
             </div>
@@ -206,30 +205,31 @@
       </div>
     </div>
   </section>
-  <div class="section section-examine" v-if="showReportModal">
+  <div class="section section-examine" v-if="showReportModal
+  ">
     <div class="container">
-      <form>
+      <form @submit.prevent="submitForm">
         <div class="CancelBtn">
           <span @click="closeExamine">取消</span>
         </div>
         <h2>您檢舉此文章的理由是?</h2>
-        <div class="box" v-for="(reason, index) in reasons" :key="index" >
+        <div class="box" v-for="(reason, index) in reasons" :key="index">
           <label :for="'no' + (index + 1)">{{ reason.label }}</label>
-          <input type="radio" :name="reason" :id="'no' + (index + 1)" />
+          <input type="radio" :name="reason" :id="'no' + (index + 1)" v-model="selectedReason" :value="reason.label" />
         </div>
-        <button>送出</button>
+        <div v-if="showWarning" class="warning">請至少勾選一個選項!</div>
+        <button type="submit">送出</button>
       </form>
     </div>
   </div>
   <div class="section section-detailed" v-if="selectedShareCard">
-    <ShareCard :shareContent="selectedShareCard ? [selectedShareCard] : []" @close-click="closeShareModal" 
-    @report-click="showReportModal = true"
-    />
+    <ShareCard :shareContent="selectedShareCard ? [selectedShareCard] : []" @close-click="closeShareModal"
+      @report-click="showReportModal = true" />
   </div>
 </template>
 
 <script>
-import { defineComponent, ref, onMounted, computed } from 'vue'
+import { defineComponent, ref, onMounted, computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
@@ -333,11 +333,12 @@ export default defineComponent({
     }
     const handleShareCardClick = (card) => {
       selectedShareCard.value = card
+      // console.log(selectedShareCard.value);
     }
     const showConfirmModal = () => {
-      console.log(openConfirm.value);
+      // console.log(openConfirm.value);
       openConfirm.value = true;
-      console.log(openConfirm.value);
+      // console.log(openConfirm.value);
     };
     //報名完成提示後跳轉回首頁
     const SubmitEvent = () => {
@@ -392,8 +393,10 @@ export default defineComponent({
     const closeConfirm = () => {
       openConfirm.value = false;
     };
-    const closeExamine=()=>{
-      showReportModal.value=false;
+    const closeExamine = () => {
+      showReportModal.value = false;
+      selectedReason.value = '';
+      showWarning.value = true;
     }
 
     //定義shareContent、eventContent是一個物件
@@ -432,18 +435,34 @@ export default defineComponent({
       { label: '非法活動' },
       { label: '垃圾信息或廣告' }
     ]);
+    //存儲選擇的理由
+    const selectedReason = ref('');
+    //控制是否顯示警告提示
+    const showWarning = ref(false);
+    ////監聽 selectedReason 的變化，如果為空且表單送出，則顯示警告
+    watch(selectedReason, (newValue) => {
+      showWarning.value = newValue === '';
+    });
+    // 顯示警告
+    const submitForm = () => {
+      if (selectedReason.value === '') {
+        showWarning.value = true;
+      }
+    }
+    // 清除選擇的理由和警告狀態
+    selectedReason.value = '';
     // 在組件掛載後加載 JSON 文件
     onMounted(async () => {
       try {
         // 加載 Share.json
-        const shareResponse = await fetch('../../public/Share.json')
+        const shareResponse = await fetch(`${import.meta.env.BASE_URL}json/Share.json`)
         if (!shareResponse.ok) {
           throw new Error('錯誤')
         }
         shareContent.value = await shareResponse.json()
 
         // 加載 event.json
-        const eventResponse = await fetch('../../public/json/event.json')
+        const eventResponse = await fetch(`${import.meta.env.BASE_URL}json/event.json`)
         if (!eventResponse.ok) {
           throw new Error('錯誤')
         }
@@ -502,8 +521,10 @@ export default defineComponent({
       peopleNum,
       showReportModal,
       closeExamine,
-      reasons
-
+      reasons,
+      selectedReason,
+      showWarning,
+      submitForm,
     }
   }
 })

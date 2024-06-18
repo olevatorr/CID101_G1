@@ -5,7 +5,21 @@
     .row {
         gap: 30px 0;
 
-        .event-card {
+        }
+        
+        .pagenumber {
+            margin: 30px 0;
+            
+            a {
+            display: inline-block;
+            border: 1px solid #000;
+            padding: 7px 14px;
+            margin: 10px;
+            text-decoration: none;
+            }
+    }
+    }
+        .share-card {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -81,17 +95,3 @@
                 }
             }
         }
-    }
-
-    .pagenumber {
-        margin: 30px 0;
-
-        a {
-            display: inline-block;
-            border: 1px solid #000;
-            padding: 7px 14px;
-            margin: 10px;
-            text-decoration: none;
-        }
-    }
-}

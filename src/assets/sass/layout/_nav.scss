@@ -83,7 +83,10 @@ nav .navbar .subnav li a {
 nav .navbar li a {
     color: #fff;
 }
-
+nav .navbar > li {
+    display: flex;
+    align-items: center;
+}
 nav .navbar .nav-member {
     margin-left: 5px;
     position: relative;
