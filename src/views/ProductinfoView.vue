@@ -92,6 +92,7 @@ export default {
             quantity: 1,
             //商品細節資訊
             productdetail: {},
+            isProduction: import.meta.env.PROD,
         };
     },
     components: {
@@ -177,6 +178,13 @@ export default {
             this.productdetail = res.find(item=>item.id==this.$route.query.id);
             this.productdetail.amount = 1;
             this.largeSrc = this.productdetail.imgUrl[0];
+
+            this.productdetail = data.map(productdetail => ({
+                ...productdetail,
+                imgUrl: `${this.basePath}/img/productdata/${productdetail.imgUrl}`,
+                imgUrl2: `${this.basePath}/img/productdata/${productdetail.imgUrl2}`,
+                imgUrl3: `${this.basePath}/img/productdata/${productdetail.imgUrl3}`
+            }));
         })
     },
 }
