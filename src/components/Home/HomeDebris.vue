@@ -115,7 +115,7 @@ async function initMap() {
 
     path = d3.geoPath().projection(projection)
 
-    const topoData = await d3.json('/json/localjson/map/COUNTY_tw.topo.json')
+    const topoData = await d3.json(`${import.meta.env.BASE_URL}localjson/map/COUNTY_tw.topo.json`)
     const geoData = topojson.feature(topoData, topoData.objects.COUNTY_MOI_1090820)
 
     svg.selectAll('path')
