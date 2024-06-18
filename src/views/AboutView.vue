@@ -4,6 +4,7 @@ import 'aos/dist/aos.css';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Swal from 'sweetalert2'
+import { useRouter } from 'vue-router'; 
 
 //team member animation
 gsap.registerPlugin(ScrollTrigger);
@@ -159,11 +160,9 @@ const isCaptchaValid = computed(() => {
 });
 
 
-
-
-
 //表單
-const formData = ref({
+
+const formData = reactive({
   name: '',
   phone: '',
   email: '',
@@ -178,90 +177,83 @@ const isPhoneValid = computed(() => {
   return phoneRegex.test(formData.phone)
 })
 
+//信箱驗證
+const isEmailValid = computed(() => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  return emailRegex.test(formData.email)
+})
 
-
-
-const showConfirmModal = () => {
-  Swal.fire({
-    title: '確認提交表單?',
-    text: '請檢查您的表單數據是否正確。',
-    icon: 'question',
-    showCancelButton: true,
-    confirmButtonText: '確認',
-    cancelButtonText: '取消'
-  }).then(async (result) => {
-    if (result.isConfirmed) {
-      submitForm()
-    }
-  })
-}
-
-const submitForm = async (e) => {
-  e.preventDefault()
-
-
-  // 表單驗證
-  const isValid = validateForm()
-  if (!isValid) {
+//表單提交
+const router = useRouter();
+const submitForm = () => {
+  if (isFormValid()) {
     Swal.fire({
-      title: '表單錯誤',
-      text: '請填寫所有欄位並輸入正確的驗證碼。',
-      icon: 'error'
-    })
-    return
-  }
+      title: '表單已提交',
+      text: '感謝您的回饋，將跳轉至首頁...',
+      icon: 'success',
+      timer: 5000, 
+      timerProgressBar: true, 
+    });
+    console.log('表單已提交:', formData);
 
-  try {
-    const response = await fetch('/submit-form.php', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData.value)
-    })
-    if (response.ok) {
-      const data = await response.json()
-      Swal.fire({
-        title: '表單提交成功!',
-        text: data.message,
-        icon: 'success'
-      })
-      // 跳轉到首頁
-      window.location.href = '/'
-    } else {
-      Swal.fire({
-        title: '表單提交失敗',
-        text: '請稍後再試',
-        icon: 'error'
-      })
-    }
-  } catch (error) {
+    setTimeout(()=>{
+      router.push('/');
+    },5000)
+  }
+};
+
+const isFormValid = () => {
+  let isValid = true;
+
+  if (!formData.name) {
+    isValid = false;
     Swal.fire({
-      title: '發生錯誤',
-      text: error.message,
-      icon: 'error'
-    })
+      title: '錯誤',
+      text: '請輸入姓名',
+      icon: 'error',
+    });
   }
-}
 
-
-
-
-
-
-// 表單驗證函數
-const validateForm = () => {
-  const { name, phone, email, message } = formData.value
-  if (!name || !phone || !email || !message || !isCaptchaValid.value) {
-    return false
+  if (!isPhoneValid.value) {
+    isValid = false;
+    Swal.fire({
+      title: '錯誤',
+      text: '請輸入正確的手機號碼',
+      icon: 'error',
+    });
   }
-  return true
-}
+
+  if (!isEmailValid.value) {
+    isValid = false;
+    Swal.fire({
+      title: '錯誤',
+      text: '請輸入正確的電子郵件地址',
+      icon: 'error',
+    });
+  }
+
+  if (!formData.message) {
+    isValid = false;
+    Swal.fire({
+      title: '錯誤',
+      text: '請輸入訊息內容',
+      icon: 'error',
+    });
+  }
+
+  if (!isCaptchaValid.value) {
+    isValid = false;
+    Swal.fire({
+      title: '錯誤',
+      text: '請輸入正確的驗證碼',
+      icon: 'error',
+    });
+  }
+
+  return isValid;
+};
 
 
-console.log(formData.value);
-
-submitForm();
 
 
 
@@ -533,7 +525,7 @@ submitForm();
                 referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
           </div>
-          <form action="" method="post" class="col-12" @submit.prevent="showConfirmModal">
+          <form action="" method="post" class="col-12" @submit.prevent="submitForm">
             <h3>傳送訊息給我們</h3>
             <div class="row">
               <div class="col-12 col-md-6">
@@ -546,12 +538,11 @@ submitForm();
               <div class="col-12 col-md-6">
                 <div class="form-item">
                   <label for="">手機</label>
-                  <input type="tel" name="phone" required v-model="formData.phone" pattern="[0][9][0-9]{8}"
-                    placeholder="請輸入手機以09開頭" v-if="!isPhoneValid" />
-                  <span class="material-symbols-outlined" v-else style="color:red">
+                  <input type="tel" name="phone" required v-model="formData.phone" placeholder="請輸入手機以09開頭" />
+                  <span v-if="!isPhoneValid" class="material-symbols-outlined" style="color:red">
                     error
                   </span>
-                  <span class="material-symbols-outlined" style="color:green">
+                  <span v-else class="material-symbols-outlined" style="color:green">
                     check_circle
                   </span>
                 </div>
@@ -561,11 +552,11 @@ submitForm();
               <div class="col-12 col-md-6">
                 <div class="form-item">
                   <label for="">信箱</label>
-                  <input type="email" name="email" required v-model="formData.email" placeholder="請輸入電子信箱含@" />
-                  <span class="material-symbols-outlined" style="color:red">
+                  <input type="email" name="email" required v-model="formData.email" placeholder="請輸入電子信箱包含@" />
+                  <span v-if="!isEmailValid" class="material-symbols-outlined" style="color:red">
                     error
                   </span>
-                  <span class="material-symbols-outlined" style="color:green">
+                  <span v-else class="material-symbols-outlined" style="color:green">
                     check_circle
                   </span>
                 </div>
@@ -582,12 +573,12 @@ submitForm();
                 <div class="auth-out">
                   <label for="">驗證碼</label>
                   <input type="text" class="auth-input" v-model="enteredCaptcha" placeholder="請輸入驗證碼" />
-                  <span v-if="isCaptchaValid" style="color:green;"><span class="material-symbols-outlined">
-                      check_circle
-                    </span></span>
-                  <span v-else style="color:red;"><span class="material-symbols-outlined">
-                      error
-                    </span></span>
+                  <span v-if="isCaptchaValid" style="color:green;" class="material-symbols-outlined">
+                    check_circle
+                  </span>
+                  <span v-else class="material-symbols-outlined" style="color:red;">
+                    error
+                  </span>
                 </div>
               </div>
               <div id="app" class="col-12 col-lg-6 ">
