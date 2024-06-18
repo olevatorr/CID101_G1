@@ -91,18 +91,17 @@
       <a href="#" v-for="pageNum in totalPages" :key="pageNum" @click.prevent="goToPage(pageNum)" :class="{ active: pageNum === currentPage }">{{ pageNum }}</a>
     </div>
             <!-- 商品資訊最後要放進div做成toggle -->
-    <div class="registration col-12 col-sm-8 col-md-8"
-        v-if="showShopTable">
+    <div v-if="isShopTableVisible" class="registration col-12 col-sm-8 col-md-8">
       <table class="shop">
         <caption>訂單明細</caption>
         <tr>
           <th>商品編號</th>
           <th>商品名稱</th>
-          <th>商品數量</th>
+          <th>商品數量</th> 
           <th>單價</th>
         </tr>
         <tr v-for="shops in shoplists" :key="shops.PO_ID">
-          <td>{{shops.PO_ID}}</td>
+          <td>{{shops.P_ID}}</td>
           <td>{{shops.P_NAME}}</td>
           <td>{{shops.PO_QTY}}</td>
           <td>{{shops.PO_PRICE}}</td>
@@ -200,11 +199,15 @@
           <ul>
             <li>
               <label for="">會員密碼</label>
-              <input type="text" name="" id="" maxlength="10" value="1234" readonly>
+              <input type="text" name="" id="" maxlength="10" v-model="member.U_PSW" readonly>
             </li>
             <li>
               <label>修改密碼</label>
               <input type="password" name="" id="" maxlength="10" placeholder="請輸入密碼">
+            </li>
+            <li>
+              <label>再輸入一次密碼</label>
+              <input class="inputs" type="password" name="" id="" maxlength="10" placeholder="請輸入密碼">
             </li>
           </ul>
           <button>送出</button>
@@ -234,10 +237,7 @@ export default {
     const favorites = ref([]);
     const order = ref([]);
     const shoplists = ref([]);
-
-    const shopSection = ref('orders');
-    const showShopTable = ref(false);
-    const showShopTableId = ref(null);
+    const isShopTableVisible = ref(false);
 
     const fileChange = (event) => {
       const file = event.target.files[0];
@@ -260,15 +260,24 @@ export default {
     const selectOption = () => {
       changeSection(selectedOption.value)
     }
+
     onMounted(async () => {
       try {
         // 使用 Promise.all 来并行获取多个 JSON 数据
         const responses  = await Promise.all([
-          fetch('/json/donatemoney.json'),
-          fetch('/json/activities.json'),
-          fetch('/json/favorite.json'),
-          fetch('/json/orders.json'),
-          fetch('/json/shoplist.json'),
+<<<<<<< HEAD
+        fetch(`${import.meta.env.BASE_URL}json/donatemoney.json`),
+        fetch(`${import.meta.env.BASE_URL}json/activities.json`),
+        fetch(`${import.meta.env.BASE_URL}json/favorite.json`),
+        fetch(`${import.meta.env.BASE_URL}json/orders.json`),
+        fetch(`${import.meta.env.BASE_URL}json/shoplist.json`),
+=======
+          fetch(`${import.meta.env.BASE_URL}json/donatemoney.json`),
+          fetch(`${import.meta.env.BASE_URL}json/activities.json`),
+          fetch(`${import.meta.env.BASE_URL}json/favorite.json`),
+          fetch(`${import.meta.env.BASE_URL}json/orders.json`),
+          fetch(`${import.meta.env.BASE_URL}json/shoplist.json`),
+>>>>>>> 86ccb2ca8636a9739fa0fbc39a83b2d69bdec433
 
         ]);
         // 检查每个响应的状态
@@ -325,13 +334,18 @@ export default {
         currentPage.value = page;
       }
     };
+    //顯示清單明細 
+    const filteredShoplists = computed(() => {
+      if (!order.value) return [];
+      return shoplists.value.filter(shop => shop.PO_ID === order.value.PO_ID);
+    });
 
     const toggleShopTable = (poId) => {
-      // If poId matches with showShopTableId, toggle the shop table for that order
-      if (showShopTableId.value === poId) {
-        showShopTableId.value = null; // Close the shop table
+      if (order.value.PO_ID === poId) {
+        isShopTableVisible.value = !isShopTableVisible.value;
       } else {
-        showShopTableId.value = poId; // Show the shop table for this order
+        order.value.PO_ID = poId;
+        isShopTableVisible.value = true;
       }
     };
     return {
@@ -354,10 +368,9 @@ export default {
       totalPages,
       paginatedData,
       goToPage,
-      shopSection,
-      showShopTable,
-      showShopTableId,
-      toggleShopTable
+      isShopTableVisible,
+      toggleShopTable,
+      filteredShoplists,
     }
   }
 }

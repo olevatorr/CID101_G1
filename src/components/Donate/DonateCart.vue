@@ -18,9 +18,9 @@
                 </div>
                 <div class="content">
                     <div class="pic">
-                        <img src="../../../public/img/donate/Mask group.png" alt="">
+                        <img src="/img/donate/Mask group.png" alt="">
                     </div>
-                    <div class="pic">
+                    <div class="donatetxt">
                         <p>【為海洋生態出一份力】</p>
                     </div>
                 </div>
