@@ -103,7 +103,7 @@ export default {
             .then(data => data.json())
             .then(data => {
                 // 備份原始數據
-                this.products = data.map(product => ({
+                this.product = data.map(product => ({
                     ...product,
                     imgUrl: `${this.basePath}/img/shop/${product.imgUrl}`
                 }));
