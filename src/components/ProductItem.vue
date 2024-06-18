@@ -4,7 +4,7 @@
             <div class="shop-card" @mouseenter="showCart" @mouseleave="hideCart"> 
                 <RouterLink :to="'/productinfo?id=' + productInfo.id">
                     <div class="img"> 
-                        <img :src="`/img/shop/${productInfo.imgUrl}`" alt="">
+                        <img :src="parseImg(productInfo.imgUrl)" alt="">
                     </div>
                 </RouterLink>    
                     <div class="cart-wrapper">
@@ -95,6 +95,9 @@ export default {
                 localStorage.setItem('cartItems', JSON.stringify(productList));
             } 
         }
+    },
+    parseImg(img){
+        return `/img/shop/${img}`
     }
 }
 }
