@@ -4,7 +4,7 @@
             <div class="shop-card" @mouseenter="showCart" @mouseleave="hideCart"> 
                 <RouterLink :to="'/productinfo?id=' + productInfo.id">
                     <div class="img"> 
-                        <img :src="productInfo.imgUrl" alt="">
+                        <img :src="`/img/shop/${productInfo.imgUrl}`" alt="">
                     </div>
                 </RouterLink>    
                     <div class="cart-wrapper">

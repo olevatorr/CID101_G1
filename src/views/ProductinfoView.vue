@@ -11,12 +11,12 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="big-pic">
-                                <img :src="largeSrc" alt="" />
+                                <img :src="`/img/productioninfo/${largeSrc}`" alt="" />
                             </div>
                         </div>
                         <div class="col-4" v-for="(src, index) in productdetail.imgUrl" :key="index">
                             <div class="pic-s">
-                                <img :src="src" alt="" @click="showLarge(src)" />
+                                <img :src="`/img/productioninfo/${src}`" alt="" @click="showLarge(src)" />
                             </div>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                 <h3>產品介紹</h3>
                 <p>{{ productdetail.introduce }}</p>
                 <div class="pic">
-                    <img :src="productdetail.imgUrl2" alt="">
+                    <img :src=" `/img/productioninfo/${productdetail.imgUrl2}`" alt="">
                 </div>
                 <h3>規格說明</h3>
                 <div class="directions">
@@ -67,7 +67,7 @@
                         <p>顏色 : {{ productdetail.color }}</p>
                     </div>
                     <div class="pic">
-                        <img :src="productdetail.imgUrl3" alt="">
+                        <img :src=" `/img/productioninfo/${productdetail.imgUrl3}`" alt="">
                     </div>
                     <div class="text2">
                         <p>手工測量有1-3公分誤差，由於顯示器及拍照光線等<br>不可抗拒因素，色差不可避免。</p>
