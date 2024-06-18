@@ -257,6 +257,7 @@ function changeIndicator(event) {
 }
 // -----------------------------------------------------------------------------------------------------------------地圖
 let svg;
+const mapColor ='#7FB285';
 
 // 組件卸載前移除事件監聽器
 onBeforeUnmount(() => {
@@ -266,7 +267,6 @@ onBeforeUnmount(() => {
 // 初始化地圖
 async function initMap() {
     const container = myMap.value;
-    const mapColor ='#3E7CB1'
     const width = container.clientWidth;  // 獲取容器寬度 父層的content+padding
     const height = container.clientHeight;  // 獲取容器高度
 
@@ -320,7 +320,7 @@ async function initMap() {
             });
 
             // 改變選中路徑的顏色
-            d3.select(this).attr('fill', '#48BFE3');
+            d3.select(this).attr('fill', '#386150');
 
             // 根據選中地區更新圖表數據
             const regionName = d.properties.COUNTYNAME;
@@ -349,7 +349,7 @@ async function initMap() {
             d3.select(this)
                 .transition()
                 .duration(200)
-                .attr('transform', 'translate(0, 0)');  // 复位
+                .attr('transform', 'translate(0, 0)');  // 復位
         });
 }
 
@@ -374,7 +374,7 @@ const ShowAll = function () {
         if (d.properties.COUNTYNAME === '嘉義市' || d.properties.COUNTYNAME === '臺北市' || d.properties.COUNTYNAME === '南投縣') {
             return 'gray';
         }
-        return '#E7A600';
+        return mapColor;
     });
 
 
@@ -480,12 +480,10 @@ function updateChartForRegion(regionName) {
 
     const displayData = hebrisSortLabels.map(key => filteredData[key]);
 
-    if (twChart) {
-        twChart.destroy();
-    }
+    if (twChart) {twChart.destroy();}
 
     const ctx = document.getElementById('twChart');
-    const isMobile = window.innerWidth <= 768; // 检测是否是移动设备
+    const isMobile = window.innerWidth <= 768; // 檢測平板裝置
 
     twChart = new Chart(ctx, {
         type: 'doughnut',  // 設置圖表類型為甜甜圈圖
@@ -562,9 +560,7 @@ function updateChartForRegion(regionName) {
         return value;
     });
 
-    if (attendChart) {
-        attendChart.destroy();
-    }
+    if (attendChart) {attendChart.destroy();}
 
     const ctx1 = document.getElementById('attendChart');
     attendChart = new Chart(ctx1, {
