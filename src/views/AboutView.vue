@@ -86,7 +86,9 @@ const enteredCaptcha = ref('');
 const captchaText = ref('');
 const captchaCanvas = ref(null);
 
-onMounted(() => {drawCaptcha();});
+onMounted(() => {
+  drawCaptcha();
+});
 
 const isCaptchaValid = computed(() => {
   return enteredCaptcha.value.toLowerCase() === captchaText.value.toLowerCase();
@@ -562,7 +564,7 @@ submitForm();
                 </div>
               </div>
             </div>
-            <button type="button">送出</button>
+            <button type="submit">送出</button>
           </form>
         </div>
       </div>
