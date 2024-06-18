@@ -51,10 +51,10 @@ onMounted(() => {
         <div ref="comparationArea" class="comparation-area">
             <div ref="control" class="control"></div>
             <div ref="dirty" class="dirty">
-                <img src="../../../public/img/index/compare-dirty.png" alt="垃圾海洋" @dragstart.prevent>
+                <img src="/img/index/compare-dirty.png" alt="垃圾海洋" @dragstart.prevent>
             </div>
             <div class="clean">
-                <img src="../../../public/img/index/compare-clean.png" alt="乾淨海洋" @dragstart.prevent>
+                <img src="/img/index/compare-clean.png" alt="乾淨海洋" @dragstart.prevent>
             </div>
         </div>
     </section>

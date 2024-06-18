@@ -327,11 +327,18 @@
     }
 }
 
-.section-confirm{
+.section-makesure{
     background-color: white;
     padding: 0;
     .container{
         background-color: white;
+        .cart-checkout{
+        padding: 20px 0 30px 0;
+        text-align: center;
+        }
+        .pay{
+            margin: 0 30px;
+        }
     }
     .cart-confirm{
         padding: 40px 0 40px 0;
@@ -341,9 +348,5 @@
 }
 
 .section-confirm{
-    .cart-checkout{
-        padding-bottom: 40px;
-        text-align: center;
-    }
-
+    display: none;
 }

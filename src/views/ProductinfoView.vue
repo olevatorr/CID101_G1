@@ -77,11 +77,14 @@
                     <p>下訂購買表示已詳閱賣場購物須知，且100%同意依賣場製作流程、規則出貨！</p>
                 </div>
             </div>
+            <ShopCart v-if="$route.path === '/shop' || $route.path === '/productinfo'"/>
         </div>
     </section>
 </template>
 
 <script>
+import ShopCart from '@/components/ShopCart.vue';
+
 export default {
     data() {
         return {
@@ -90,6 +93,9 @@ export default {
             //商品細節資訊
             productdetail:{},
         };
+    },
+    components: {
+        ShopCart,
     },
     computed: {
         totalPrice() {
@@ -165,7 +171,7 @@ export default {
     },
         mounted() {
         console.log( this.$route.query.id)
-        fetch("/public/productdata.json")
+        fetch(`${import.meta.env.BASE_URL}public/productdata.json`)
         .then(data => data.json())
         .then(res => {
             this.productdetail = res.find(item=>item.id==this.$route.query.id);

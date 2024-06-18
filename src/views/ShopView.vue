@@ -19,11 +19,11 @@
                 <div class="category">
                     <ul>
                         <li>商品分類</li>
-                        <li @click="clear()">全部商品</li>
-                        <li @click="filter('杯套')">杯套類</li>
-                        <li @click="filter('上衣')">上衣類</li>
-                        <li @click="filter('包包')">包包類</li>
-                        <li @click="filter('馬克杯')">馬克杯</li>
+                        <li @click="handleClick('all')" :class="{ active: activeIndex === 'all' }">全部商品</li>
+                        <li @click="handleClick('杯套')" :class="{ active: activeIndex === '杯套' }">杯套類</li>
+                        <li @click="handleClick('上衣')" :class="{ active: activeIndex === '上衣' }">上衣類</li>
+                        <li @click="handleClick('包包')" :class="{ active: activeIndex === '包包' }">包包類</li>
+                        <li @click="handleClick('馬克杯')" :class="{ active: activeIndex === '馬克杯' }">馬克杯</li>
                     </ul>
                 </div>
             </div>
@@ -53,17 +53,19 @@
                 <img src="../../public/img/shop/sea.png" alt="">
             </div>
         </section>
-
         <ProductInfoView @add-to-cart="handleAddToCart" :sharedCart="sharedCart" />
+        <ShopCart v-if="$route.path === '/shop' || $route.path === '/productinfo'"/>
     </div>
 </template>
 
 <script>
 import ProductItem from '../components/ProductItem.vue';
+import ShopCart from '@/components/ShopCart.vue';
 
 export default{
     components: {
         ProductItem,
+        ShopCart,
     },
     data() {
         return {
@@ -75,7 +77,8 @@ export default{
             cartItems: [],
             showCartIcon: false,
             showCartBox: false,
-            sharedCart: []
+            sharedCart: [],
+            activeIndex: null
         }
     },
     computed: {
@@ -94,7 +97,7 @@ export default{
         },
     },
     mounted() {
-        fetch("/public/shop.json")
+        fetch(`${import.meta.env.BASE_URL}public/shop.json`)
         .then(data => data.json())
         .then(res => {
             //備份用
@@ -160,7 +163,15 @@ export default{
         },
         handleAddToCart(localCart) {
             this.sharedCart = [...this.sharedCart, ...localCart]
-        }
+        },
+        handleClick(category) {
+            this.activeIndex = category;
+            if (category === 'all') {
+            this.clear();
+            } else {
+            this.filter(category);
+            }
+        },
     }
 }
 </script>

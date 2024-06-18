@@ -194,10 +194,13 @@
         </div>
     </section>
 
-    <section class="section section-confirm">
+    <section class="section section-makesure">
         <div class="container">
             <div class="cart-checkout">
-                <button>我要結帳</button>
+                <router-link to="/shop" tag="div" event="click" class="button">
+                <button>返回商品頁面</button>
+                </router-link>
+                <button class="pay">我要結帳</button>
             </div>
         </div>
     </section>

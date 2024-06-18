@@ -45,15 +45,16 @@
         padding: 2px 64px;
         margin-right: 3px;
         color: #000000;
+        cursor: pointer;
     }
-    .category ul li:hover{
+    .category ul li.active{
         color: #fff;
         cursor: pointer;
         background-color: #005FA1;
     }
     .category ul li:nth-child(1) {
-        background-color: #005FA1;
-        color: #fff;
+        background-color: #003154;
+        color: #ffffff;
         font-size: 16px;
     }
 }
@@ -95,6 +96,12 @@
         height: 0; 
         width: 88%;
         margin: 0 auto;
+    }
+    .text{
+        background-color: #fff;
+        overflow: hidden;
+        z-index: 3;
+        position: relative; 
     }
     .cart {
         position: relative; 
@@ -182,7 +189,7 @@
     cursor: pointer;
     .container{
         .carticon {
-            z-index: 2;
+            z-index: 5;
             position: fixed; 
             bottom: 20px; 
             right: 20px;
@@ -216,7 +223,7 @@
             
         }
         .cartbox{
-            z-index: 2;
+            z-index: 8;
             width: 600px;
             background-color: #005FA1;
             color: white;

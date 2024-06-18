@@ -42,7 +42,8 @@ export default {
                     title: '未登入',
                     text: '請先登入會員才能進行捐款'
                 }).then(() => {
-                    router.push('/Member'); // 未登入跳轉至會員登入頁面
+                    router.push('/Member');
+                     // 未登入跳轉至會員登入頁面
                 });
                 return;
             }
@@ -53,7 +54,8 @@ export default {
                     title: '無效金額',
                     text: '請輸入有效的捐款金額，單筆交易最低100元'
                 }).then(() => {
-                    // location.reload(); // 重新整理頁面
+                    customAmount.value = "";
+                    //location.reload(); // 重新整理頁面
                 });
                 return;
             }
@@ -75,8 +77,6 @@ export default {
     },
 };
 </script>
-
-
 
 <template>
     <section class="section section-banner">
@@ -109,7 +109,7 @@ export default {
                             </div>
                             <button @click="submitDonation">
                                 <!-- 點擊按鈕提交捐款金額並跳轉至捐款頁面 -->
-                                <RouterLink to="/DonatePage">捐款去</RouterLink>
+                                捐款去
                             </button>
                         </div>
                         <div class="spanpay">
@@ -121,5 +121,3 @@ export default {
         </div>
     </section>
 </template>
-
-

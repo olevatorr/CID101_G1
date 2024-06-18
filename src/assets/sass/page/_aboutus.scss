@@ -26,9 +26,6 @@
         display: inline-block;
         margin-bottom: 3rem;
       }
-      h3 {
-        // margin-bottom: 2rem;
-      }
       @media (max-width: 576px) {
         span {
           font-size: 3rem;
@@ -43,6 +40,7 @@
 .section-purpose {
   background-color: $color-subprimary;
   color: $color-white;
+  overflow: hidden;
   .container {
     overflow: hidden;
   }
@@ -90,9 +88,7 @@
 // 捐款
 .section-donation-intro {
   background-color: $color-white;
-  .container {
-    
-  }
+  overflow: hidden;
   .donation-intro {
     text-align: center;
     margin-bottom: 2rem;
@@ -151,13 +147,16 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-
+    a{
+      color: $color-white;
+    }
   }
 }
 // 成員介紹
 .section-team {
   background-color: $color-subprimary;
   color: $color-white;
+  overflow: hidden;
   .row {
     text-align: center;
     img {
@@ -256,6 +255,9 @@
       justify-content: center;
       button {
         margin: 0;
+        @media (max-width:375px) {
+          margin-top: 0.5rem;
+        }
       }
       .form-auth {
         .auth-input {
@@ -267,20 +269,34 @@
         padding: 10px 10px;
         display: flex;
         align-items: center;
+        @media (max-width:376px) {
+          display: inline-block;
+          span{
+            display: block;
+            
+          }
+        }
       }
     }
     .captcha {
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-wrap: wrap;
+      @media (max-width:576px) {
+        margin-top: 1rem;
+      }
       button{
         margin-left: 2rem;
+        @media (max-width:576px) {
+          margin-left: 0;
+          margin-top: 1rem;
+        }
       }
       canvas{
         border: 1px solid black;
       }
     }
   }
-
 }
 

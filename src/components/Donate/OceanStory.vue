@@ -1,21 +1,17 @@
-<script setup>
-import AOS from 'aos';
-</script>
-
 <template>
     <section class="section section-story">
         <div class="container container-story ">
             <div class="flex">
                 <div class="row">
                     <div class="row pic-1 col-6 col-md-3" data-aos="fade-right">
-                        <img src="/public/img/donate/donate-pic2.png" />
+                        <img src="/img/donate/donate-pic2.png" />
                         <div class="pic2" data-aos="fade-up-right">
-                            <img src="/public/img/donate/donate-pic3.png" />
+                            <img src="/img/donate/donate-pic3.png" />
                         </div>
                     </div>
 
                     <div class="pic3 col-6 col-md-3" data-aos="fade-up">
-                        <img src="/public/img/donate/donate-pic4.png" />
+                        <img src="/img/donate/donate-pic4.png" />
                     </div>
 
                     <div class="story-text col-12 col-sm-6" data-aos="fade-left">

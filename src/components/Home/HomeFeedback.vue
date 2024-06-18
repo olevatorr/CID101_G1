@@ -3,10 +3,10 @@ import shareCard from '@/components/ShareCard.vue';
 import { onMounted, ref } from 'vue';
 const homeFeedback = ref([])
 onMounted(()=>{
-    fetch('../../../public/Share.json')
+    fetch('/Share.json')
         .then(res => res.json())
         .then(jsonData=>{
-            homeFeedback.value = jsonData.slice(0,12)
+            homeFeedback.value = jsonData.slice(0,4)
         })
 })
 </script>
@@ -18,7 +18,7 @@ onMounted(()=>{
                 活動分享
             </h3>
             <div class="row">
-                <shareCard />
+                <shareCard :shareContent="homeFeedback"/>
             </div>
         </div>
     </section>
