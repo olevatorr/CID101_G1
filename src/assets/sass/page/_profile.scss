@@ -1,5 +1,5 @@
 .section-profile {
-    background-image: url(../../../../public/img/member/member12.png);
+    background-image: url(/img/member/member12.png);
     background-size: cover;
     .row{
         padding: 10rem 1rem;
@@ -342,12 +342,13 @@
             li {
                 padding-bottom: 2rem;
         
-        label:first{
-            padding-left: 2.5rem;
-        }
+
         label {
             padding-right: 2rem;
             font-size: 1.4rem;
+        }
+        .inputs{
+            margin-right: 4.5rem;
         }
 
         input {

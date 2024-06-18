@@ -171,7 +171,11 @@ export default {
     },
         mounted() {
         console.log( this.$route.query.id)
+<<<<<<< HEAD
         fetch(`${import.meta.env.BASE_URL}json/productdata.json`)
+=======
+        fetch(`${import.meta.env.BASE_URL}public/productdata.json`)
+>>>>>>> dev
         .then(data => data.json())
         .then(res => {
             this.productdetail = res.find(item=>item.id==this.$route.query.id);

@@ -5,7 +5,7 @@
             <p>感謝您對海洋資源的保護，為未來世代留下了寶貴的襲產。您的智慧和付出，讓我們能夠更好地理解和利用海洋資源，同時保護海洋生命的多樣性和穩定性，為後人留下了寶貴的遺產。</p>
 
             <div class="donation-certificate">
-                <img src="../../../public/img/LOGO-white.png" alt="BLUE ALERT Logo" class="logo">
+                <img src="/img/LOGO-white.png" alt="BLUE ALERT Logo" class="logo">
                 <h3>捐款證書</h3>
                 <table>
                     <tr>
@@ -35,7 +35,7 @@
                 </table>
 
                 <div class="seal">
-                    <img src="../../../public/img/LOGO-white.png" alt="Official Seal">
+                    <img src="/img/LOGO-white.png" alt="Official Seal">
                 </div>
 
                 <p>財團法人：{{ donationInfo.organization }}</p>

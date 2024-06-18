@@ -41,7 +41,7 @@ const login = async () => {
     }
 
     try {
-        const response = await fetch('/json/membertext.json');
+        const response = await fetch(`${import.meta.env.BASE_URL}json/membertext.json`);
         if (!response.ok) {
             throw new Error('網路回應不好');
         }
@@ -81,7 +81,7 @@ const login = async () => {
                     <div class="member-box-img col-12 col-md-6">
                         <div class="member-logo-box">
                             <div class="img">
-                                <img src="../../public/img/member/logo.png" alt="logo">
+                                <img src="/img/member/logo.png" alt="logo">
                             </div>
                             <span>潔淨海洋&emsp;綠色明天</span>
                             <RouterLink to="/RegisterView"><button>加入會員</button></RouterLink>
@@ -91,10 +91,10 @@ const login = async () => {
                         <div class="member-login">
                             <label>帳號</label>
                             <input v-model="username" type="text" maxlength="10" placeholder="請輸入帳號" @blur="validateUsername">
-                            <span v-if="usernameError" class="error">{{ usernameError }}</span>
+                            <div class="errorspan"><span v-if="usernameError" class="membererror error">{{ usernameError }}</span></div>
                             <label>密碼</label>
                             <input v-model="password" type="password" maxlength="10" placeholder="請輸入密碼" @blur="validatePassword">
-                            <span v-if="passwordError" class="error">{{ passwordError }}</span>
+                            <div class="errorspan2"><span v-if="passwordError" class="membererror2 error">{{ passwordError }}</span></div>
                         </div>
                         <span class="forgot">
                             <RouterLink to="/ForgetPasswordView">忘記密碼?</RouterLink>

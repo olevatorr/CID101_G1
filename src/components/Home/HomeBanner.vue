@@ -41,7 +41,7 @@ onMounted(() => {
     <section ref="banner" class="section section-index-banner">
         <div class="container">
             <div class="img" ref="indexLogo">
-                <img src="../../../public/img/LOGO-short.png" alt="">
+                <img src="/img/LOGO-short.png" alt="">
             </div>
             <div class="cover" ref="cover">
                 <h1>潔淨海洋 綠色明天</h1>
@@ -49,16 +49,16 @@ onMounted(() => {
             </div>
         </div>
         <div ref="smokeLeft" class="smoke-left">
-            <img src="../../../public/img/index/smoke-left.png" alt="">
+            <img src="/img/index/smoke-left.png" alt="">
         </div>
         <div ref="smokeRight" class="smoke-right">
-            <img src="../../../public/img/index/smoke-right.png" alt="">
+            <img src="/img/index/smoke-right.png" alt="">
         </div>
         <div ref="trashLeft" class="trash-left">
-            <img src="../../../public/img/index/trash-left.png" alt="">
+            <img src="/img/index/trash-left.png" alt="">
         </div>
         <div ref="trashRight" class="trash-right">
-            <img src="../../../public/img/index/trash-right.png" alt="">
+            <img src="/img/index/trash-right.png" alt="">
         </div>
     </section>
 

@@ -4,7 +4,7 @@ import { onMounted, ref } from 'vue';
 const homeNews = ref([])
 
 onMounted(()=>{
-  fetch('../../public/json/newslist.json')
+  fetch('/json/newslist.json')
     .then((res)=> res.json())
     .then(jsonData => {
       homeNews.value = jsonData.slice(0,4)
