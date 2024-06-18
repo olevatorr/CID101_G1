@@ -75,13 +75,15 @@ export default {
             showCartIcon: false,
             showCartBox: false,
             sharedCart: [],
-            activeIndex: null
+            activeIndex: null,
+            isProduction: import.meta.env.PROD,
         }
     },
     computed: {
         paginatedProdList() {
             const startIndex = (this.currentPage - 1) * 16;
             const endIndex = startIndex + 16;
+            console.log(this.prodList.slice(startIndex, endIndex));
             return this.prodList.slice(startIndex, endIndex);
         },
         totalPrice() {
@@ -92,17 +94,31 @@ export default {
                 return total + item.price * item.quantity;
             }, 0);
         },
+        basePath() {
+            return this.isProduction ? '/cid101/g1/front' : '';
+        },
     },
     mounted() {
         fetch(`${import.meta.env.BASE_URL}json/shop.json`)
-        .then(data => data.json())
-        .then(res => {
-            //備份用
-            this.product = res
-            //顯示用
-            this.prodList = res
-            console.log(res)
-        })
+            .then(data => data.json())
+            .then(data => {
+                // 備份原始數據
+                this.products = data.map(product => ({
+                    ...product,
+                    imgUrl: `${this.basePath}/img/shop/${product.imgUrl}`
+                }));
+
+                // 處理圖片路徑並更新 productList
+                this.prodList = data.map(product => ({
+                    ...product,
+                    imgUrl: `${this.basePath}/img/shop/${product.imgUrl}`
+                }));
+
+                // console.log(this.productList);
+            })
+            .catch(error => {
+                console.error('Error fetching products:', error);
+            });
     },
     methods: {
         clear() {
@@ -110,7 +126,7 @@ export default {
             this.currentPage = 1;
         },
         filter(dog) {
-            console.log(dog);
+            // console.log(dog);
             this.prodList = this.product.filter(item => item.class === dog);
             this.currentPage = 1;
         },
