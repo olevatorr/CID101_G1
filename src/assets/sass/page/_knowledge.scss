@@ -43,71 +43,123 @@
 
 // ------------------------------------全台灣沿海廢棄數據
 .section-data {
-    // background: #b7c6e5;
+    background: url(/img/knowledge/banner4.jpg) no-repeat top;
+    background-size: cover;
     padding: 100px 0;
 
     .container {
+        h2 {
+            color: #fff;
+        }
+        .select-all {
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
         .row {
             .bgTwMap {
-                button {
-                    margin-bottom: 10px;
-                }
-
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
                 .map-container {
-                    // background-color: #DBE4EE ;
+                    /* From https://css.glass */
+                    background: rgba(255, 255, 255, 0.16);
+                    border-radius: 16px;
+                    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+                    backdrop-filter: blur(11.6px);
+                    -webkit-backdrop-filter: blur(11.6px);
                     border-radius: 10px;
                 }
-
-                p {
-                    text-align: start;
-                    span {
-                        color: red;
-                    }
-
-                    margin-bottom: 100px;
+                @keyframes wave {
+                    0% { background-position: 0 0; }
+                    100% {  background-position: 100% 0;}
+                }
+                .map-guide {
+                    position: absolute;
+                    top: 5%;
+                    left: 10%;
+                    color: #fff;
                 }
             }
-
+            .flg {
+                flex-grow: 2;
+                margin-top: 10px;
+            }
+            .chart-outside {
+                background: rgba(255, 255, 255, 0.16);
+                border-radius: 16px;
+                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+                backdrop-filter: blur(11.6px);
+                -webkit-backdrop-filter: blur(11.6px);
+                padding-bottom: 10px;
+                border-radius: 10px;
+            }
             .row {
-                .box-chart {
-                    margin-top: 90px;
+                .col-12:nth-child(2) > .box-chart {
+                    margin-top: 10px;
                 }
-
-                .Charttxt {
-                    padding-bottom: 30px;
+                .col-12:nth-child(3) > .box-chart {
+                    margin-top: 10px;
                 }
             }
-
+            .chart-txt-box {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+                color: #fff;
+                .Charttxt {
+                    text-align: center;
+                    h3 {
+                        margin-bottom: 20px;
+                    }
+                }
+            }
             .indicatorsea {
                 .myChartbg {
                     width: 100%;
                     height: 300px;
                 }
             }
-
+            .mt {
+                margin-top: 10px;
+            }
             .tableChart {
-                background: #E7A600;
-                border: 1px solid black;
-                font-size: 12px;
+                background: rgba(255, 255, 255, 0.16);
+                border-radius: 16px;
+                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+                backdrop-filter: blur(11.6px);
+                -webkit-backdrop-filter: blur(11.6px);
+                border-radius: 10px;
+                font-size: 2rem;
+                width: 80%;
                 margin: auto;
-                color: rgb(0, 30, 59);
+                color: rgb(93, 112, 129);
+                color: #fff;
 
                 tr {
-                    border: 1px solid black;
+                    border: 1px solid white;
 
                     th {
-                        border: 1px solid black;
-                        padding: 5px;
+                        border: 1px solid white;
+                        padding: 10px;
                     }
                 }
 
                 td {
-                    border: 1px solid black;
+                    border: 1px solid white;
                     padding: 10px;
+                    text-align: center;
+                    color: #fff;
                 }
             }
         }
     }
+}
+
+.news-filter {
+    margin-left: 10px;
 }
 
 .news-filter select {

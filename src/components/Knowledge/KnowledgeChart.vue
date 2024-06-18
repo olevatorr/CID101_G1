@@ -159,7 +159,7 @@ const labelstxt = [
 // }
 
 function setupData() {
-    fetch('/json/海域水質.json')// 使用 fetch 抓 JSON 文件
+    fetch(`${import.meta.env.BASE_URL}json/海域水質.json`)// 使用 fetch 抓 JSON 文件
         .then(response => response.json())
         .then(data => {
             const sortedData = data.sort((a, b) => new Date(b.UPDATE_TIME) - new Date(a.UPDATE_TIME));// 將數據按時間排序
@@ -452,7 +452,7 @@ const hebrissource = [
 
 // 組件掛載時加載垃圾數據
 onMounted(() => {
-    fetch('/json/海洋委員會公務統計報表-海洋廢棄物清理-113.01.json')
+    fetch(`${import.meta.env.BASE_URL}json/海洋委員會公務統計報表-海洋廢棄物清理-113.01.json`)
         .then(res => res.json())
         .then(jsonData => {
             hebrisData.value = jsonData;
@@ -498,12 +498,13 @@ function updateChartForRegion(regionName) {
                     '#5390D9', '#1B4332', '#081C15', '#00AFB9'
                 ],
                 borderColor: 'white',
-                borderWidth: 2
+                borderWidth: 2,
+                
             }]
         },
         options: {
             maintainAspectRatio: false, // 關閉自動調整長寬比
-            aspectRatio: 1.4, // 設定長寬比
+            aspectRatio: isMobile ? 1.3 : 1.4, // 設定長寬比
             responsive: true,             // 啟用響應式佈局
             scales: {
                 y: {
@@ -519,32 +520,35 @@ function updateChartForRegion(regionName) {
                         size: 20  // 設置標題字體大小
                     },
                     padding: {
-                        top: isMobile ? 20 : 0,
+                        top: isMobile ? 20 : 10,
                         bottom: isMobile ? 10 : 0,
-                    }
+                    },
+                    color: '#fff'
                 },
                 legend: {
-                    position: isMobile ? 'bottom' : 'right',  // 移动设备上将图例放在底部，桌面设备上放在右侧
+                    display: isMobile ? false : true,
+                    position: 'right',  // 移动设备上将图例放在底部，桌面设备上放在右侧
                     labels: {
                         PointStyle: 'rect',
                         boxWidth: 10,
                         font: {
                             size: 12 // 设置图例文字的字体大小
-                        }
+                        },
+                        color: '#fff'
                     },
-                    padding: isMobile ? 30 : 0 // 移动设备上增加图例的顶部填充
+                    padding: isMobile ? 2 : 0 // 移动设备上增加图例的顶部填充
                 },
                 animation: {
                     animateRotate: true,
                     duration: 2000
                 },
             },
-            layout: {
-                padding: {
-                    top: isMobile ? 30 : 0, // 手機設備增加上面填充
-                    bottom: isMobile ? 30 : 0, // 手機設備增加下面填充
-                }
-            }
+            // layout: {
+            //     padding: {
+            //         top: isMobile ? 30 : 0, // 手機設備增加上面填充
+            //         bottom: isMobile ? 30 : 0, // 手機設備增加下面填充
+            //     }
+            // }
         }
     });
 
@@ -593,6 +597,7 @@ function updateChartForRegion(regionName) {
                     }
                 },
                 legend: {
+                    display: isMobile ? false : true,
                     position: 'right',  // 設置圖例位置
                     labels: {
                         PointStyle: 'rect',
@@ -657,6 +662,7 @@ function updateChartForRegion(regionName) {
                     }
                 },
                 legend: {
+                    display: isMobile ? false : true,
                     position: 'right',  // 設置圖例位置
                     labels: {
                         PointStyle: 'rect',
@@ -732,8 +738,6 @@ function updateChartForRegion(regionName) {
             duration: 2000
         },
     });
-
-
 }
 </script>
 
@@ -741,17 +745,17 @@ function updateChartForRegion(regionName) {
     <div id="app">
         <section class="section section-data">
             <div class="container">
+                <div class="datah2">
+                    <h2>各縣市海洋廢棄物清理數據</h2>
+                </div>
+                <button class="select-all" @click="ShowAll">全台灣總計</button>
                 <div class="row">
                     <!-- 台灣地圖 -->
                     <div class="col-12 col-md-6 bgTwMap">
-                        <div class="datah2">
-                            <h2>各縣市海洋廢棄物清理數據</h2>
-                        </div>
-                        <button @click="ShowAll">全台灣總計</button>
-                        <div id="map" ref="myMap" class="map-container" style="width: 100%; height: 500px"></div>
-                        <p>請<span>點擊</span><i class="fa-regular fa-hand-point-up"></i>地圖進行操作</p>
+                        <div id="map" ref="myMap" class="map-container" style="width: 100%; height: 474px"></div>
+                        <p class="map-guide">點擊縣市看詳細</p>
                         <!-- 海廢來源 -->
-                        <div class="col-12 col-md-12">
+                        <div class="col-12 col-md-12 chart-outside flg">
                             <div class="box boxSource">
                                 <canvas id="source"></canvas>
                             </div>
@@ -759,62 +763,60 @@ function updateChartForRegion(regionName) {
                     </div>
                     <!-- 圓餅圖區 -->
                     <div class="col-12 col-md-6 chart-allbox">
-                        <div class="row" style="width: 100%;">
+                        <div class="row">
                             <!-- 垃圾種類 -->
                             <div class="col-12">
-                                <div class="box-chart">
+                                <div class="box-chart chart-outside">
                                     <canvas id="twChart"></canvas>
                                 </div>
                             </div>
                             <!-- 淨灘人數與次數 -->
-                            <div class="col-12 ">
-                                <div class="box-chart">
+                            <div class="col-12">
+                                <div class="box-chart chart-outside">
                                     <canvas id="attendChart"></canvas>
                                 </div>
                             </div>
                             <!-- 垃圾處理分類 -->
-                            <div class="col-12 ">
-                                <div class="box-chart">
+                            <div class="col-12">
+                                <div class="box-chart chart-outside">
                                     <canvas id="trash"></canvas>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- 海水汙染指標 -->
-                    <section class="wchart">
-                        <div class="container">
-                            <div class="row">
-                    <div class="col-12 col-md-6 indicatorsea">
-                        <div class="news-filter">
-                            <select name="name" id="" @change="changeIndicator">
-                                <option v-for="indicator in indicators" :key="indicator.value" :value="indicator.value">{{indicator.label }}</option>
-                            </select>
-                        </div>
-                        <div class="myChartbg">
-                            <canvas id="myChart" ></canvas>
+                    <div class="col-12 col-md-6 indicatorsea mt">
+                        <div class="chart-outside">
+                            <div class="news-filter">
+                                <select name="name" id="" @change="changeIndicator">
+                                    <option v-for="indicator in indicators" :key="indicator.value" :value="indicator.value">{{indicator.label }}</option>
+                                </select>
+                            </div>
+                            <div class="myChartbg">
+                                <canvas id="myChart"></canvas>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-6">
-                        <div class="col-12 Charttxt" >
-                            <h3>{{ indicators.find(item => item.value === selectedIndicator).label }}</h3>
-                            <p>{{ indicatorDescriptions[selectedIndicator].description }}</p>
+                    <div class="col-12 col-md-6 mt">
+                        <div class="chart-txt-box">
+                            <div class="Charttxt">
+                                <h3>{{ indicators.find(item => item.value === selectedIndicator).label }}</h3>
+                                <p>{{ indicatorDescriptions[selectedIndicator].description }}</p>
+                            </div>
+                            <table class="tableChart">
+                                <tr>
+                                    <th>污染程度</th>
+                                    <th>範圍</th>
+                                </tr>
+                                <tr v-for="range in indicatorDescriptions[selectedIndicator].ranges" :key="range.level">
+                                    <td>{{ range.level }}</td>
+                                    <td>{{ range.value }}</td>
+                                </tr>
+                            </table>
                         </div>
-                        <table class="tableChart">
-                            <tr>
-                                <th>污染程度</th>
-                                <th>範圍</th>
-                            </tr>
-                            <tr v-for="range in indicatorDescriptions[selectedIndicator].ranges" :key="range.level">
-                                <td>{{ range.level }}</td>
-                                <td>{{ range.value }}</td>
-                            </tr>
-                        </table>
                     </div>
 
-                    </div>
-                        </div>
-                    </section>
 
 
                 </div>
