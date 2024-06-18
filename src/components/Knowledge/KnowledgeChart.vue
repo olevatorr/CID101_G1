@@ -1,81 +1,3 @@
-
-
-
-<template>
-    <div id="app">
-        <section class="section section-data">
-            <div class="container">
-                <div class="row">
-                    <!-- 台灣地圖 -->
-                    <div class="col-12 col-md-6 bgTwMap">
-                        <div class="datah2">
-                            <h2>各縣市海洋廢棄物清理數據</h2>
-                            <h3>全台灣沿海廢棄數據</h3>
-                        </div>
-                        <button @click="ShowAll">全台灣總計</button>
-                        <div id="map" ref="myMap" class="map-container" style="width: 100%; height: 500px"></div>
-                        <p>請<span>點擊</span><i class="fa-regular fa-hand-point-up"></i>地圖進行操作</p>
-                        <!-- 海廢來源 -->
-                        <div class="col-12 col-md-12">
-                            <div class="box chart-allbox" style="width: 100%;">
-                                <canvas id="source"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 垃圾種類 -->
-                    <div class="col-12 col-md-6 chart-allbox">
-                        <div class="row" style="width: 100%;">
-                            <div class="col-12">
-                                <div class="box-chart" style="width: 100%;">
-                                    <canvas id="twChart"></canvas>
-                                </div>
-                            </div>
-                            <!-- 淨灘人數與次數 -->
-                            <div class="col-12">
-                                <div class="box-chart">
-                                    <canvas id="attendChart"></canvas>
-                                </div>
-                            </div>
-                            <!-- 垃圾處理分類 -->
-                            <div class="col-12">
-                                <div class="box-chart">
-                                    <canvas id="trash"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 海水汙染指標 -->
-                    <div class="col-12 col-md-12 indicatorsea">
-                        <div class="news-filter">
-                            <select name="name" id="" @change="changeIndicator">
-                                <option v-for="indicator in indicators" :key="indicator.value" :value="indicator.value">
-                                    {{
-                                    indicator.label }}</option>
-                            </select>
-                            <canvas id="myChart" class="myChartbg"></canvas>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-9">
-                        <h3>{{ indicators.find(item => item.value === selectedIndicator).label }}</h3>
-                        <p>{{ indicatorDescriptions[selectedIndicator].description }}</p>
-                    </div>
-                    <div class="col-12 col-md-3">
-                        <table class="tableChart">
-                            <tr>
-                                <th>污染程度</th>
-                                <th>範圍</th>
-                            </tr>
-                            <tr v-for="range in indicatorDescriptions[selectedIndicator].ranges" :key="range.level">
-                                <td>{{ range.level }}</td>
-                                <td>{{ range.value }}</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-</template>
 <script setup>
 import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
 import { Chart, registerables } from 'chart.js';
@@ -394,11 +316,22 @@ async function initMap() {
         .on('mouseover', function (event, d) {
             if (d.properties.COUNTYNAME !== '嘉義市' && d.properties.COUNTYNAME !== '臺北市' && d.properties.COUNTYNAME !== '南投縣') {
                 d3.select(this)
-                    .transition()
-                    .duration(200)
-                    .attr('transform', 'translate(0, -5) ');  // 向上移动 5px
+                .transition()
+                .duration(200)
+                .attr('transform', function () {
+            // 根據縣市名稱判斷移動方向
+            if (d.properties.COUNTYNAME === '宜蘭縣' || d.properties.COUNTYNAME === '臺東縣' ||  d.properties.COUNTYNAME === '花蓮縣') {
+              return 'translate(5, 0)'; // 向右移動 10px
+            }else if(d.properties.COUNTYNAME === '屏東縣'){
+                return 'translate(0, 5)'; // 向下移動 10px
+            } else if(d.properties.COUNTYNAME === '基隆市' || d.properties.COUNTYNAME === '新北市' || d.properties.COUNTYNAME === '澎湖縣' || d.properties.COUNTYNAME === '金門縣'){
+                return 'translate(0, -5)'; // 向上移動 10px
+            } else {
+              return 'translate(-5, 0)'; // 向左移動 10px
             }
-        })
+            });
+        }
+    })
         .on('mouseout', function () {
             d3.select(this)
                 .transition()
@@ -793,3 +726,88 @@ function updateChartForRegion(regionName) {
 
 }
 </script>
+
+
+<template>
+    <div id="app">
+        <section class="section section-data">
+            <div class="container">
+                <div class="row">
+                    <!-- 台灣地圖 -->
+                    <div class="col-12 col-md-6 bgTwMap">
+                        <div class="datah2">
+                            <h2>各縣市海洋廢棄物清理數據</h2>
+                            <h3>全台灣沿海廢棄數據</h3>
+                        </div>
+                        <button @click="ShowAll">全台灣總計</button>
+                        <div id="map" ref="myMap" class="map-container" style="width: 100%; height: 500px"></div>
+                        <p>請<span>點擊</span><i class="fa-regular fa-hand-point-up"></i>地圖進行操作</p>
+                        <!-- 海廢來源 -->
+                        <div class="col-12 col-md-12">
+                            <div class="box chart-allbox" style="width: 100%;">
+                                <canvas id="source"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                            <!-- 垃圾種類 -->
+                    <div class="col-12 col-md-6 chart-allbox">
+                        <div class="row" style="width: 100%;">
+                            <div class="col-12">
+                                <div class="box-chart" style="width: 100%;">
+                                    <canvas id="twChart"></canvas>
+                                </div>
+                            </div>
+                            <!-- 淨灘人數與次數 -->
+                            <div class="col-12">
+                                <div class="box-chart">
+                                    <canvas id="attendChart"></canvas>
+                                </div>
+                            </div>
+                            <!-- 垃圾處理分類 -->
+                            <div class="col-12">
+                                <div class="box-chart">
+                                    <canvas id="trash"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 海水汙染指標 -->
+                    <section class="wchart">
+                        <div class="container">
+                            <div class="row">
+                    <div class="col-12 col-md-6 indicatorsea">
+                        <div class="news-filter">
+                            <select name="name" id="" @change="changeIndicator">
+                                <option v-for="indicator in indicators" :key="indicator.value" :value="indicator.value">{{indicator.label }}</option>
+                            </select>
+                        </div>
+                        <canvas id="myChart" class="myChartbg"></canvas>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <div class="col-12 Charttxt" >
+                            <h3>{{ indicators.find(item => item.value === selectedIndicator).label }}</h3>
+                            <p>{{ indicatorDescriptions[selectedIndicator].description }}</p>
+                        </div>
+                        <table class="tableChart">
+                            <tr>
+                                <th>污染程度</th>
+                                <th>範圍</th>
+                            </tr>
+                            <tr v-for="range in indicatorDescriptions[selectedIndicator].ranges" :key="range.level">
+                                <td>{{ range.level }}</td>
+                                <td>{{ range.value }}</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    </div>
+                        </div>
+                    </section>
+
+
+                </div>
+            </div>
+        </section>
+    </div>
+</template>
