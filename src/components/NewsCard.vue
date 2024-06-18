@@ -1,5 +1,5 @@
 <template>
-    <div class="col-6 col-md-4 col-lg-3" v-for="news in filterNewsList" :key="news.id"> <!--改成filterNewsList-->>
+    <div class="col-6 col-md-4 col-lg-3" v-for="news in filterNewsList" :key="news.id"> <!--改成filterNewsList-->
         <RouterLink v-if="news" :to="`/Newsinner/${news.id}`">
             <!-- 放入app -->
             <div class="news-card">

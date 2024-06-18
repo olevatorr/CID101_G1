@@ -39,7 +39,7 @@
                         <div class="col-4">
                             <div class="character-item" @click="choseBird">
                                 <div class="character-pic">
-                                    <img src="../../public/img/beachgame/sea-bird.png" alt="海鷗鷗">
+                                    <img src="/img/beachgame/sea-bird.png" alt="海鷗鷗">
                                 </div>
                                 <div class="character-name">
                                     <h3>海鷗鷗</h3>
@@ -49,7 +49,7 @@
                         <div class="col-4">
                             <div class="character-item" @click="choseTurtle">
                                 <div class="character-pic">
-                                    <img src="../../public/img/beachgame/sea-turtle.png" alt="龜吉">
+                                    <img src="/img/beachgame/sea-turtle.png" alt="龜吉">
                                 </div>
                                 <div class="character-name">
                                     <h3>龜吉</h3>
@@ -59,7 +59,7 @@
                         <div class="col-4">
                             <div class="character-item" @click="choseShark">
                                 <div class="character-pic">
-                                    <img src="../../public/img/beachgame/shark.png" alt="胖鯊">
+                                    <img src="/img/beachgame/shark.png" alt="胖鯊">
                                 </div>
                                 <div class="character-name">
                                     <h3>胖莎</h3>
@@ -74,13 +74,13 @@
                     <h2 class="ori">淨灘去</h2>
                     <div class="character-oneset">
                         <div v-if="showBirdimage" class="character-oneset-pic">
-                            <img src="../../public/img/beachgame/sea-bird.png" alt="海鷗鷗">
+                            <img src="/img/beachgame/sea-bird.png" alt="海鷗鷗">
                         </div>
                         <div v-if="showTurtleimage" class="character-oneset-pic">
-                            <img src="../../public/img/beachgame/sea-turtle.png" alt="龜吉">
+                            <img src="/img/beachgame/sea-turtle.png" alt="龜吉">
                         </div>
                         <div v-if="showShark" class="character-oneset-pic">
-                            <img src="../../public/img/beachgame/shark.png" alt="胖鯊">
+                            <img src="/img/beachgame/shark.png" alt="胖鯊">
                         </div>
                         <div v-if="showBirdimage" class="character-name">
                             <h3>海鷗鷗</h3>
@@ -117,7 +117,7 @@
                                     <div class="col-4">
                                         <div class="tool-item">
                                             <div class="tool-pic" @click="choseClamp">
-                                                <img src="../../public/img/beachgame/clamp.jpg" alt="">
+                                                <img src="/img/beachgame/clamp.jpg" alt="">
                                             </div>
                                             <div class="tool-name">
                                                 <h3>鐵夾子</h3>
@@ -127,7 +127,7 @@
                                     <div class="col-4">
                                         <div class="tool-item">
                                             <div class="tool-pic" @click="choseGloves">
-                                                <img src="../../public/img/beachgame/gloves.jpg" alt="">
+                                                <img src="/img/beachgame/gloves.jpg" alt="">
                                             </div>
                                             <div class="tool-name">
                                                 <h3>手套</h3>
@@ -137,7 +137,7 @@
                                     <div class="col-4">
                                         <div class="tool-item">
                                             <div class="tool-pic" @click="choseHat">
-                                                <img src="../../public/img/beachgame/hat.jpg" alt="">
+                                                <img src="/img/beachgame/hat.jpg" alt="">
                                             </div>
                                             <div class="tool-name">
                                                 <h3>防曬帽</h3>
@@ -155,7 +155,7 @@
                     <h2 class="ori">撿取垃圾成功</h2>
                     <div class="success-content">
                         <div class="success-pic">
-                            <img src="../../public/img/beachgame/shark.png" alt="胖鯊">
+                            <img src="/img/beachgame/shark.png" alt="胖鯊">
                         </div>
                         <div class="success-text">
                             <p class="b">吃很多的鯊魚小姐</p>
@@ -169,7 +169,7 @@
                     <h2 class="ori">撿取垃圾失敗</h2>
                     <div class="fail-content">
                         <div class="fail-pic">
-                            <img src="../../public/img/beachgame/fail.jpg" alt="失敗">
+                            <img src="/img/beachgame/fail.jpg" alt="失敗">
                         </div>
                         <div class="fail-text">
                             <p>淨灘也存在危險性，記得選擇適合的工具
@@ -186,7 +186,7 @@
                     <h2 class="ori">淨灘成功</h2>
                     <div class="finish-content">
                         <div class="finish-pic">
-                            <img src="../../public/img/beachgame/win.png" alt="">
+                            <img src="/img/beachgame/win.png" alt="">
                         </div>
                         <div class="finish-text">
                             <p>今天救了海洋，學到關於海廢垃圾的知識
@@ -196,6 +196,7 @@
                         </div>
                     </div>
                     <div class="beachgame-button-wrap">
+                        <button @click="gameHome">重新挑戰</button>
                         <RouterLink to="/Mbti">
                             <button>
                                 海廢小知識
@@ -268,11 +269,11 @@ export default {
             // 控制垃圾圖片顯示
             showTrashContainer: false,
             trashImage: [
-                "../../public/img/beachgame/trash01.png",
-                "../../public/img/beachgame/trash02.png",
-                "../../public/img/beachgame/trash03.png",
-                "../../public/img/beachgame/trash04.png",
-                "../../public/img/beachgame/trash05.png"
+                "/img/beachgame/trash01.png",
+                "/img/beachgame/trash02.png",
+                "/img/beachgame/trash03.png",
+                "/img/beachgame/trash04.png",
+                "/img/beachgame/trash05.png"
             ],
             trashItem: Array.from({ length: 5 }, (_, i) => {
                 const x = pos[i].x
@@ -281,7 +282,7 @@ export default {
                     id: i,
                     x,
                     y,
-                    url: `../../public/img/beachgame/trash0${i + 1}.png`
+                    url: `/img/beachgame/trash0${i + 1}.png`
                 }
             }),
 
@@ -292,31 +293,31 @@ export default {
                 {
                     id: 1,
                     name: '橡膠拖鞋',
-                    image: '../../public/img/beachgame/trash01.png',
+                    image: '/img/beachgame/trash01.png',
                     description: '不當棄置 許多人使用後直接將舊的橡膠拖鞋隨意丟棄,它們可能被沖入水流、排水系統,最終流入河川或海洋。',
                 },
                 {
                     id: 2,
                     name: '輪胎',
-                    image: '../../public/img/beachgame/trash02.png',
+                    image: '/img/beachgame/trash02.png',
                     description: '廢棄輪胎會釋放有害化學物質，對海洋生物構成威脅，並且難以分解，移除廢棄輪胎，有助於保護海洋生態。',
                 },
                 {
                     id: 3,
                     name: '吸管',
-                    image: '../../public/img/beachgame/trash03.png',
+                    image: '/img/beachgame/trash03.png',
                     description: '塑膠吸管是海洋垃圾的常見組成部分，會對海洋生物造成窒息危險,撿起塑膠吸管，減少海洋污染。',
                 },
                 {
                     id: 4,
                     name: '塑膠袋',
-                    image: '../../public/img/beachgame/trash04.png',
+                    image: '/img/beachgame/trash04.png',
                     description: '塑膠袋被視為海洋中最危險的污染物之一,它們會被海洋生物誤食,造成消化道阻塞和飢餓，塑膠袋雖然看起來很小,但對海洋生物的危害卻很大,一定要小心清理。',
                 },
                 {
                     id: 5,
                     name: '漁網',
-                    image: '../../public/img/beachgame/trash05.png',
+                    image: '/img/beachgame/trash05.png',
                     description: '遺棄的漁網會繼續捕獲海洋生物，並且對海底環境造成破壞，清理遺棄漁網，有助於保護海洋生物。',
                 }
             ],
@@ -438,6 +439,10 @@ export default {
             console.log('getTrashId:', this.getTrashId);
             this.failLightbox = true; // 顯示挑戰失敗彈窗
             this.returnPageSet = false;
+        },
+        // 重新挑戰刷新頁面
+        gameHome() {
+            location.reload();
         },
         returnPage() {
             this.returnPageSet = true;
