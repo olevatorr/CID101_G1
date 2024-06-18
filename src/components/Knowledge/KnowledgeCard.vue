@@ -29,7 +29,7 @@ const closeLightbox = () => {
         <div class="container">
             <h2>海廢知識庫</h2>
             <div class="row">
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 image-container" v-for="(card, index) in cards":key="card.imgSrc" @click="showLightbox(index)">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 image-container" v-for="(card, index) in cards" :key="card.imgSrc" @click="showLightbox(index)">
                     <div class="wrap animate pop">
                         <div class="overlay">
                             <div class="overlay-content animate slide-left delay-2">
@@ -38,7 +38,7 @@ const closeLightbox = () => {
                             </div>
                         </div>
                         <div class="text">
-                            <img class="inset" src="../../public/img/knowledge/1.png">
+                            <img class="inset" src="/img/knowledge/1.png">
                         <p></p>
                         </div>
                     </div>

@@ -13,7 +13,7 @@
                         </p>
                     </div>
                     <div class=" tr-pic col-12 col-lg-6 col-md-12">
-                        <img src="../../../public/img/knowledge/banner2.png">
+                        <img src="/img/knowledge/banner2.png">
                     </div>
                 </div>
             </div>
