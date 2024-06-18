@@ -61,8 +61,8 @@ export default {
     <div class="container">
         <div class="row">
             <div class="cart-checkout">
-                <button @click="confirmDonation" class="">確認捐款</button>
                 <RouterLink to="/Donate"><button class="DonateBackBtn">返回捐款頁面</button></RouterLink>
+                <button @click="confirmDonation" class="">確認捐款</button>
             </div>
         </div>
     </div>
