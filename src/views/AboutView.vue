@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, computed } from 'vue';
+import { onMounted, ref, computed, reactive } from 'vue';
 import 'aos/dist/aos.css';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -90,9 +90,6 @@ onMounted(() => {
   drawCaptcha();
 });
 
-const isCaptchaValid = computed(() => {
-  return enteredCaptcha.value.toLowerCase() === captchaText.value.toLowerCase();
-});
 
 function drawCaptcha() {
   const canvas = captchaCanvas.value;
@@ -139,9 +136,6 @@ function refreshCaptcha() {
   enteredCaptcha.value = '';
 }
 
-function checkCaptcha() {
-  return isCaptchaValid.value;
-}
 
 //產生隨機驗證碼五個數字
 function generateCaptchaText() {
@@ -160,8 +154,15 @@ function getRandomColor() {
   return `rgb(${r}, ${g}, ${b})`;
 }
 
-//表單
+const isCaptchaValid = computed(() => {
+  return enteredCaptcha.value.toLowerCase() === captchaText.value.toLowerCase();
+});
 
+
+
+
+
+//表單
 const formData = ref({
   name: '',
   phone: '',
@@ -169,6 +170,15 @@ const formData = ref({
   message: '',
   captcha: ''
 });
+
+
+//手機驗證
+const isPhoneValid = computed(() => {
+  const phoneRegex = /^[0][9][0-9]{8}$/
+  return phoneRegex.test(formData.phone)
+})
+
+
 
 
 const showConfirmModal = () => {
@@ -233,6 +243,11 @@ const submitForm = async (e) => {
     })
   }
 }
+
+
+
+
+
 
 // 表單驗證函數
 const validateForm = () => {
@@ -524,13 +539,21 @@ submitForm();
               <div class="col-12 col-md-6">
                 <div class="form-item">
                   <label for="">姓名</label>
-                  <input type="text" name="name" required v-model="formData.name" />
+                  <input type="text" name="name" required v-model="formData.name" placeholder="請輸入姓名" />
+
                 </div>
               </div>
               <div class="col-12 col-md-6">
                 <div class="form-item">
                   <label for="">手機</label>
-                  <input type="text" name="phone" required v-model="formData.phone" />
+                  <input type="tel" name="phone" required v-model="formData.phone" pattern="[0][9][0-9]{8}"
+                    placeholder="請輸入手機以09開頭" v-if="!isPhoneValid" />
+                  <span class="material-symbols-outlined" v-else style="color:red">
+                    error
+                  </span>
+                  <span class="material-symbols-outlined" style="color:green">
+                    check_circle
+                  </span>
                 </div>
               </div>
             </div>
@@ -538,7 +561,13 @@ submitForm();
               <div class="col-12 col-md-6">
                 <div class="form-item">
                   <label for="">信箱</label>
-                  <input type="email" name="email" required v-model="formData.email" />
+                  <input type="email" name="email" required v-model="formData.email" placeholder="請輸入電子信箱含@" />
+                  <span class="material-symbols-outlined" style="color:red">
+                    error
+                  </span>
+                  <span class="material-symbols-outlined" style="color:green">
+                    check_circle
+                  </span>
                 </div>
               </div>
             </div>
@@ -552,9 +581,13 @@ submitForm();
               <div class="form-auth col-12 col-lg-6">
                 <div class="auth-out">
                   <label for="">驗證碼</label>
-                  <input type="text" class="auth-input" v-model="enteredCaptcha" />
-                  <span v-if="isCaptchaValid" style="color:green;">驗證碼正確</span>
-                  <span v-else style="color:red;">驗證碼錯誤</span>
+                  <input type="text" class="auth-input" v-model="enteredCaptcha" placeholder="請輸入驗證碼" />
+                  <span v-if="isCaptchaValid" style="color:green;"><span class="material-symbols-outlined">
+                      check_circle
+                    </span></span>
+                  <span v-else style="color:red;"><span class="material-symbols-outlined">
+                      error
+                    </span></span>
                 </div>
               </div>
               <div id="app" class="col-12 col-lg-6 ">
