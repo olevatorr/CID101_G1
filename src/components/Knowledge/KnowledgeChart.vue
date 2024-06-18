@@ -1,7 +1,6 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
 import { Chart, registerables } from 'chart.js';
-import jsonData from '../../../public/json/海域水質.json';
 import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
 // import { _vertical } from 'gsap/Observer';
@@ -148,12 +147,25 @@ const labelstxt = [
     "桃園市2"
 ]
 
-// 設置數據並初始化圖表
+
+
+
+// // 設置數據並初始化圖表
+// function setupData() {
+//     // 將數據按時間排序
+//     const sortedData = jsonData.sort((a, b) => new Date(b.UPDATE_TIME) - new Date(a.UPDATE_TIME));
+//     apiData.value = sortedData;  // 設置 API 數據
+//     setupChart();  // 初始化圖表
+// }
+
 function setupData() {
-    // 將數據按時間排序
-    const sortedData = jsonData.sort((a, b) => new Date(b.UPDATE_TIME) - new Date(a.UPDATE_TIME));
-    apiData.value = sortedData;  // 設置 API 數據
-    setupChart();  // 初始化圖表
+    fetch('/json/海域水質.json')// 使用 fetch 抓 JSON 文件
+        .then(response => response.json())
+        .then(data => {
+            const sortedData = data.sort((a, b) => new Date(b.UPDATE_TIME) - new Date(a.UPDATE_TIME));// 將數據按時間排序
+            apiData.value = sortedData;  // 設置 API 數據
+            setupChart();  // 初始化圖表
+        })
 }
 
 // Vue 組件掛載時執行
