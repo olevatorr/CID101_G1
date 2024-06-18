@@ -18,7 +18,7 @@ const myMap = ref(null);  // 地圖容器引用
 
 
 
-// 定義指標描述信息
+// 定義海水指標內容
 const indicatorDescriptions = {
     SS: {
         description: '懸浮固體是指水中未溶解的固體顆粒。懸浮固體濃度過高可能來自土壤侵蝕、建築工地的徑流、污水排放等。高濃度的懸浮固體會影響水的透明度,阻礙光線穿透,影響水生植物的光合作用。',
@@ -111,7 +111,6 @@ const indicatorDescriptions = {
         ],
     },
 };
-
 const indicators = [
     { value: 'SS', label: '懸浮固體(mg/L)' },
     { value: 'CHL_a', label: '葉綠素a(μg/L)' },
@@ -125,24 +124,24 @@ const indicators = [
     { value: 'PH', label: '酸鹼值' },
 ];
 
-const labels = [
-    "阿公店溪口",
-    "大林火力發電廠堤外",
-    "曾文溪口",
-    "鹿耳門溪口",
-    "鹽水溪口",
-    "線西水道口",
-    "後龍溪口",
-    "大崛溪口",
-    "老街溪口"
-]
-
+//海水汙染指標
+// const labels = [
+//     "阿公店溪口",
+//     "大林火力發電廠堤外",
+//     "曾文溪口",
+//     "鹿耳門溪口",
+//     "鹽水溪口",
+//     "線西水道口",
+//     "後龍溪口",
+//     "大崛溪口",
+//     "老街溪口"
+// ]
 const labelstxt = [
     "高雄市1",
     "高雄市2",
-    "台南市七股區",
     "台南市1",
     "台南市2",
+    "台南市3",
     "彰化縣",
     "苗栗縣",
     "桃園市1",
@@ -183,58 +182,60 @@ function setupChart() {
     gradient.addColorStop(1, 'rgba(64, 145, 160, 0.5)');  // 淡綠色
 
     myChart = new Chart(ctx, {
-        type: 'line',  // 設置圖表類型為折線圖
-        data: {
-            labels: labelstxt,  // 設置圖表標籤為 oceanlabel
-            datasets: [{
-                label: indicators.find(item => item.value === selectedIndicator.value).label,  // 設置數據集標籤
-                data: indicatorValues,  // 設置數據集數據
-                backgroundColor: gradient,  // 設置漸變背景顏色
-                borderColor: 'white',  // 設置邊框顏色
-                borderWidth: 3,  // 設置邊框寬度
-                pointBackgroundColor: 'rgba(10, 0, 255, 0.6)',  // 設置數據點背景顏色
-                pointBorderColor: '#fff',  // 設置數據點邊框顏色
-                pointHitRadius: 100,
-                pointRadius: 6,
-                overBackgroundColor: '#fff',  // 設置數據點懸停背景顏色
-                cubicInterpolationMode: 'monotone',   // 設置弧度線
-                fill: true  // 設置填充
-            }]
+    type: 'line',  // 設置圖表類型為折線圖
+    data: {
+        labels: labelstxt,  // 設置圖表標籤
+        datasets: [{
+            label: indicators.find(item => item.value === selectedIndicator.value).label,  // 設置數據集標籤
+            data: indicatorValues,  // 設置數據集數據
+            backgroundColor: gradient,  // 設置漸變背景顏色
+            borderColor: 'white',  // 設置邊框顏色
+            borderWidth: 3,  // 設置邊框寬度
+            pointBackgroundColor: 'rgba(10, 0, 255, 0.6)',  // 設置數據點背景顏色
+            pointBorderColor: '#fff',  // 設置數據點邊框顏色
+            pointHitRadius: 100,
+            pointRadius: 6,
+            overBackgroundColor: '#fff',  // 設置數據點懸停背景顏色
+            cubicInterpolationMode: 'monotone',   // 設置弧度線
+            fill: true  // 設置填充
+        }]
+    },
+    options: {
+        responsive: true,  // 啟用自動縮放
+        maintainAspectRatio: false,  // 禁用維持長寬比
+        scales: {
+            y: {
+                beginAtZero: true  // 設置 y 軸從 0 開始
+            }
         },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true  // 設置 y 軸從 0 開始
+        plugins: {
+            title: {
+                display: true,
+                text: '海水污染指標',
+                font: {
+                    size: 20  // 設置標題字體大小
                 }
             },
-            plugins: {
-                title: {
-                    display: true,
-                    text: '海水污染指標',
+            legend: {
+                position: 'top',  // 設置圖例位置
+            },
+            annotation: {
+                annotations: [{
+                    type: 'label',
+                    xValue: labelstxt[labelstxt.length - 1],  // 設置標註 x 軸值
+                    yValue: indicatorValues[indicatorValues.length - 1],  // 設置標註 y 軸值
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',  // 設置標註背景顏色
+                    content: ['採樣時間: ' + sampleDate],  // 設置標註內容
+                    maxwidth: 10,
                     font: {
-                        size: 20  // 設置標題字體大小
+                        style: 'italic',
+                        color: 'white'  // 設置標註字體顏色
                     }
-                },
-                legend: {
-                    position: 'top',  // 設置圖例位置
-                },
-                annotation: {
-                    annotations: [{
-                        type: 'label',
-                        xValue: labels[labels.length - 1],  // 設置標註 x 軸值
-                        yValue: indicatorValues[indicatorValues.length - 1],  // 設置標註 y 軸值
-                        backgroundColor: 'rgba(0, 0, 0, 0.8)',  // 設置標註背景顏色
-                        content: ['採樣時間: ' + sampleDate],  // 設置標註內容
-                        maxwidth: 10,
-                        font: {
-                            style: 'italic',
-                            color: 'white'  // 設置標註字體顏色
-                        }
-                    }]
-                }
+                }]
             }
         }
-    });
+    }
+});
 }
 
 // 切換指標
@@ -253,7 +254,7 @@ onBeforeUnmount(() => {
 // 初始化地圖
 async function initMap() {
     const container = myMap.value;
-
+    const mapColor ='#3E7CB1'
     const width = container.clientWidth;  // 獲取容器寬度 父層的content+padding
     const height = container.clientHeight;  // 獲取容器高度
 
@@ -268,7 +269,7 @@ async function initMap() {
         .translate([width / 2, height / 2]);
 
     const path = d3.geoPath().projection(projection);
-    const topoData = await d3.json('../../public/localjson/map/COUNTY_tw.topo.json');  // 加載地圖數據
+    const topoData = await d3.json('/localjson/map/COUNTY_tw.topo.json');  // 加載地圖數據
     const geoData = topojson.feature(topoData, topoData.objects.COUNTY_MOI_1090820);
 
     // 將地理數據附加到 SVG 元素中並設定屬性
@@ -282,7 +283,7 @@ async function initMap() {
             if (d.properties.COUNTYNAME === '嘉義市' || d.properties.COUNTYNAME === '臺北市' || d.properties.COUNTYNAME === '南投縣') {
                 return 'gray';
             }
-            return '#E7A600';
+            return mapColor;
         })
         .attr('stroke', 'white')
         .style('cursor', function (d) {
@@ -302,8 +303,8 @@ async function initMap() {
             svg.selectAll('path').attr('fill', function (d) {
                 if (d.properties.COUNTYNAME === '嘉義市' || d.properties.COUNTYNAME === '臺北市' || d.properties.COUNTYNAME === '南投縣') {
                     return 'gray';
-                }
-                return '#E7A600';
+                }   
+                return mapColor;
             });
 
             // 改變選中路徑的顏色
@@ -353,7 +354,7 @@ function resizeMap() {
     initMap();  // 重新初始化地圖
 }
 
-//----------------------------------------------------------------------------------------------------------------垃圾數據
+//-----------------------------------------------------------垃圾數據
 // 顯示全台灣總計數據
 const ShowAll = function () {
     // 重置所有路徑的顏色
@@ -439,7 +440,7 @@ const hebrissource = [
 
 // 組件掛載時加載垃圾數據
 onMounted(() => {
-    fetch('../../public/json/海洋委員會公務統計報表-海洋廢棄物清理-113.01.json')
+    fetch('/json/海洋委員會公務統計報表-海洋廢棄物清理-113.01.json')
         .then(res => res.json())
         .then(jsonData => {
             hebrisData.value = jsonData;
@@ -453,6 +454,7 @@ watch(hebrisData, () => {
         ShowAll();
     }
 });
+
 // 更新圖表數據根據選中地區
 // function updateChartForRegion(regionName) {
 //   const filteredData = hebrisData.value.find(item => item["縣市別"] === regionName);
@@ -481,9 +483,9 @@ function updateChartForRegion(regionName) {
                 label: "噸數",
                 data: displayData,  // 設置圖表數據
                 backgroundColor: [
-                    '#00AFB9', '#5390D9', '#48BFE3', '#64DFDF',
-                    '#008F66', '#4D908E', '#B7E4C7', '#74C69D',
-                    '#40916C', '#1B4332', '#081C15', '#00AFB9'
+                    '#d00000', '#AE2012', '#BB3E03', '#CA6702',
+                    '#EE9B00', '#E9D8A6', '#94D2BD', '#0A9396',
+                    '#5390D9', '#1B4332', '#081C15', '#00AFB9'
                 ],
                 borderColor: 'white',
                 borderWidth: 2
@@ -727,7 +729,6 @@ function updateChartForRegion(regionName) {
 }
 </script>
 
-
 <template>
     <div id="app">
         <section class="section section-data">
@@ -737,34 +738,34 @@ function updateChartForRegion(regionName) {
                     <div class="col-12 col-md-6 bgTwMap">
                         <div class="datah2">
                             <h2>各縣市海洋廢棄物清理數據</h2>
-                            <h3>全台灣沿海廢棄數據</h3>
                         </div>
                         <button @click="ShowAll">全台灣總計</button>
                         <div id="map" ref="myMap" class="map-container" style="width: 100%; height: 500px"></div>
                         <p>請<span>點擊</span><i class="fa-regular fa-hand-point-up"></i>地圖進行操作</p>
                         <!-- 海廢來源 -->
                         <div class="col-12 col-md-12">
-                            <div class="box chart-allbox" style="width: 100%;">
+                            <div class="box boxSource">
                                 <canvas id="source"></canvas>
                             </div>
                         </div>
                     </div>
-                            <!-- 垃圾種類 -->
+                    <!-- 圓餅圖區 -->
                     <div class="col-12 col-md-6 chart-allbox">
                         <div class="row" style="width: 100%;">
+                            <!-- 垃圾種類 -->
                             <div class="col-12">
-                                <div class="box-chart" style="width: 100%;">
+                                <div class="box-chart">
                                     <canvas id="twChart"></canvas>
                                 </div>
                             </div>
                             <!-- 淨灘人數與次數 -->
-                            <div class="col-12">
+                            <div class="col-12 ">
                                 <div class="box-chart">
                                     <canvas id="attendChart"></canvas>
                                 </div>
                             </div>
                             <!-- 垃圾處理分類 -->
-                            <div class="col-12">
+                            <div class="col-12 ">
                                 <div class="box-chart">
                                     <canvas id="trash"></canvas>
                                 </div>
@@ -781,7 +782,9 @@ function updateChartForRegion(regionName) {
                                 <option v-for="indicator in indicators" :key="indicator.value" :value="indicator.value">{{indicator.label }}</option>
                             </select>
                         </div>
-                        <canvas id="myChart" class="myChartbg"></canvas>
+                        <div class="myChartbg">
+                            <canvas id="myChart" ></canvas>
+                        </div>
                     </div>
 
                     <div class="col-12 col-md-6">
