@@ -4,223 +4,223 @@
         "class": "包包",
         "title": "【側背包套經典款-鯨魚】",
         "price": 520,
-        "imgUrl": "../../public/img/shop/01.png"
+        "imgUrl": "/img/shop/01.png"
     },
     {
         "id": 2,
         "class": "上衣",
         "title": "【大學衛衣經典款-鯨魚】",
         "price": 990,
-        "imgUrl": "../../public/img/shop/02.png"
+        "imgUrl": "/img/shop/02.png"
     },
     {
         "id": 3,
         "class": "杯套",
         "title": "【飲料杯套經典款-鯨魚】",
         "price": 120,
-        "imgUrl": "../../public/img/shop/03.png"
+        "imgUrl": "/img/shop/03.png"
     },
     {
         "id": 4,
         "class": "馬克杯",
         "title": "【馬克杯套經典款-鯨魚】",
         "price": 660,
-        "imgUrl": "../../public/img/shop/04.png"
+        "imgUrl": "/img/shop/04.png"
     },
     {
         "id": 5,
         "class": "包包",
         "title": "【側背包套經典款-海龜】",
         "price": 520,
-        "imgUrl": "../../public/img/shop/05.png"
+        "imgUrl": "/img/shop/05.png"
     },
     {
         "id": 6,
         "class": "上衣",
         "title": "【大學衛衣經典款-海龜】",
         "price": 990,
-        "imgUrl": "../../public/img/shop/06.png"
+        "imgUrl": "/img/shop/06.png"
     },
     {
         "id": 7,
         "class": "杯套",
         "title": "【飲料杯套經典款-海龜】",
         "price": 120,
-        "imgUrl": "../../public/img/shop/07.png"
+        "imgUrl": "/img/shop/07.png"
     },
     {
         "id": 8,
         "class": "馬克杯",
         "title": "【馬克杯套經典款-海龜】",
         "price": 660,
-        "imgUrl": "../../public/img/shop/08.png"
+        "imgUrl": "/img/shop/08.png"
     },
     {
         "id": 9,
         "class": "包包",
         "title": "【側背包套經典款-企鵝】",
         "price": 520,
-        "imgUrl": "../../public/img/shop/09.png"
+        "imgUrl": "/img/shop/09.png"
     },
     {
         "id": 10,
         "class": "上衣",
         "title": "【大學衛衣經典款-企鵝】",
         "price": 990,
-        "imgUrl": "../../public/img/shop/10.png"
+        "imgUrl": "/img/shop/10.png"
     },
     {
         "id": 11,
         "class": "杯套",
         "title": "【飲料杯套經典款-企鵝】",
         "price": 120,
-        "imgUrl": "../../public/img/shop/11.png"
+        "imgUrl": "/img/shop/11.png"
     },
     {
         "id": 12,
         "class": "馬克杯",
         "title": "【馬克杯套經典款-企鵝】",
         "price": 660,
-        "imgUrl": "../../public/img/shop/12.png"
+        "imgUrl": "/img/shop/12.png"
     },
     {
         "id": 13,
         "class": "包包",
         "title": "【側背包套經典款-海豚】",
         "price": 520,
-        "imgUrl": "../../public/img/shop/13.png"
+        "imgUrl": "/img/shop/13.png"
     },
     {
         "id": 14,
         "class": "上衣",
         "title": "【大學衛衣經典款-海豚】",
         "price": 990,
-        "imgUrl": "../../public/img/shop/14.png"
+        "imgUrl": "/img/shop/14.png"
     },
     {
         "id": 15,
         "class": "杯套",
         "title": "【飲料杯套經典款-海豚】",
         "price": 120,
-        "imgUrl": "../../public/img/shop/15.png"
+        "imgUrl": "/img/shop/15.png"
     },
     {
         "id": 16,
         "class": "馬克杯",
         "title": "【馬克杯套經典款-海豚】",
         "price": 660,
-        "imgUrl": "../../public/img/shop/16.png"
+        "imgUrl": "/img/shop/16.png"
     },
     {
         "id": 17,
         "class": "包包",
         "title": "【側背包套經典款-海龜(藍)】",
         "price": 520,
-        "imgUrl": "../../public/img/shop/17.png"
+        "imgUrl": "/img/shop/17.png"
     },
     {
         "id": 18,
         "class": "上衣",
         "title": "【大學衛衣經典款-海龜(藍)】",
         "price": 990,
-        "imgUrl": "../../public/img/shop/18.png"
+        "imgUrl": "/img/shop/18.png"
     },
     {
         "id": 19,
         "class": "杯套",
         "title": "【飲料杯套經典款-海龜(藍)】",
         "price": 120,
-        "imgUrl": "../../public/img/shop/19.png"
+        "imgUrl": "/img/shop/19.png"
     },
     {
         "id": 20,
         "class": "馬克杯",
         "title": "【馬克杯套經典款-海龜(藍)】",
         "price": 660,
-        "imgUrl": "../../public/img/shop/20.png"
+        "imgUrl": "/img/shop/20.png"
     },
     {
         "id": 21,
         "class": "包包",
         "title": "【側背包套經典款-北極熊】",
         "price": 520,
-        "imgUrl": "../../public/img/shop/21.png"
+        "imgUrl": "/img/shop/21.png"
     },
     {
         "id": 22,
         "class": "上衣",
         "title": "【大學衛衣經典款-北極熊】",
         "price": 990,
-        "imgUrl": "../../public/img/shop/22.png"
+        "imgUrl": "/img/shop/22.png"
     },
     {
         "id": 23,
         "class": "杯套",
         "title": "【飲料杯套經典款-北極熊】",
         "price": 120,
-        "imgUrl": "../../public/img/shop/23.png"
+        "imgUrl": "/img/shop/23.png"
     },
     {
         "id": 24,
         "class": "馬克杯",
         "title": "【馬克杯套經典款-北極熊】",
         "price": 660,
-        "imgUrl": "../../public/img/shop/24.png"
+        "imgUrl": "/img/shop/24.png"
     },
     {
         "id": 25,
         "class": "包包",
         "title": "【側背包套經典款-酷企鵝】",
         "price": 520,
-        "imgUrl": "../../public/img/shop/25.png"
+        "imgUrl": "/img/shop/25.png"
     },
     {
         "id": 26,
         "class": "上衣",
         "title": "【大學衛衣經典款-酷企鵝】",
         "price": 990,
-        "imgUrl": "../../public/img/shop/26.png"
+        "imgUrl": "/img/shop/26.png"
     },
     {
         "id": 27,
         "class": "杯套",
         "title": "【飲料杯套經典款-酷企鵝】",
         "price": 120,
-        "imgUrl": "../../public/img/shop/27.png"
+        "imgUrl": "/img/shop/27.png"
     },
     {
         "id": 28,
         "class": "馬克杯",
         "title": "【馬克杯套經典款-酷企鵝】",
         "price": 660,
-        "imgUrl": "../../public/img/shop/28.png"
+        "imgUrl": "/img/shop/28.png"
     },
     {
         "id": 29,
         "class": "包包",
         "title": "【側背包套經典款-海星】",
         "price": 520,
-        "imgUrl": "../../public/img/shop/29.png"
+        "imgUrl": "/img/shop/29.png"
     },
     {
         "id": 30,
         "class": "上衣",
         "title": "【大學衛衣經典款-海星】",
         "price": 990,
-        "imgUrl": "../../public/img/shop/30.png"
+        "imgUrl": "/img/shop/30.png"
     },
     {
         "id": 31,
         "class": "杯套",
         "title": "【飲料杯套經典款-海星】",
         "price": 120,
-        "imgUrl": "../../public/img/shop/31.png"
+        "imgUrl": "/img/shop/31.png"
     },
     {
         "id": 32,
         "class": "馬克杯",
         "title": "【馬克杯套經典款-海星】",
         "price": 660,
-        "imgUrl": "../../public/img/shop/32.png"
+        "imgUrl": "/img/shop/32.png"
     }
 ]

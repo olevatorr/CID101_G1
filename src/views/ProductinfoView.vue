@@ -171,11 +171,11 @@ export default {
     },
         mounted() {
         console.log( this.$route.query.id)
-        fetch("/public/productdata.json")
+        fetch(`${import.meta.env.BASE_URL}json/productdata.json`)
         .then(data => data.json())
         .then(res => {
             this.productdetail = res.find(item=>item.id==this.$route.query.id);
-            this.productdetail.amount = 1 ;
+            this.productdetail.amount = 1;
             this.largeSrc = this.productdetail.imgUrl[0];
         })
     },

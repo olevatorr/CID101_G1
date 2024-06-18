@@ -20,7 +20,7 @@
                 </div>
                 <div class="content">
                     <div class="pic">
-                        <img :src=" item.imgUrl " alt="">
+                        <img :src=" item.imgUrl" alt="">
                     </div>
                     <div class="title">
                         <p>{{ item.title }}</p>

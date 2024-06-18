@@ -50,7 +50,7 @@
                 </div>
             </div>
             <div class="sea-img">
-                <img src="../../public/img/shop/sea.png" alt="">
+                <img src="/img/shop/sea.png" alt="">
             </div>
         </section>
         <ProductInfoView @add-to-cart="handleAddToCart" :sharedCart="sharedCart" />
@@ -97,7 +97,7 @@ export default{
         },
     },
     mounted() {
-        fetch("/public/shop.json")
+        fetch(`${import.meta.env.BASE_URL}json/shop.json`)
         .then(data => data.json())
         .then(res => {
             //備份用
