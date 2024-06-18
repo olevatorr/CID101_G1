@@ -18,7 +18,7 @@
                             <div class="pic-s">
                                 <img :src="src" alt="" @click="showLarge(src)" />
                             </div>
-                        </div>        
+                        </div>
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
@@ -39,7 +39,7 @@
                         </div>
                         <div class="price">
                             <span>金額總計 ${{ totalPrice }} 元</span>
-                        </div> 
+                        </div>
                         <div class="button">
                             <RouterLink to="/mallcart">
                                 <input type="button" value="立即購買">
@@ -77,7 +77,7 @@
                     <p>下訂購買表示已詳閱賣場購物須知，且100%同意依賣場製作流程、規則出貨！</p>
                 </div>
             </div>
-            <ShopCart v-if="$route.path === '/shop' || $route.path === '/productinfo'"/>
+            <ShopCart v-if="$route.path === '/shop' || $route.path === '/productinfo'" />
         </div>
     </section>
 </template>
@@ -91,7 +91,7 @@ export default {
             largeSrc: "",
             quantity: 1,
             //商品細節資訊
-            productdetail:{},
+            productdetail: {},
         };
     },
     components: {
@@ -99,75 +99,75 @@ export default {
     },
     computed: {
         totalPrice() {
-        return this.productdetail.amount * this.productdetail.price;
+            return this.productdetail.amount * this.productdetail.price;
         }
     },
-        methods: {
+    methods: {
         showLarge(src) {
             this.largeSrc = src;
         },
         decreaseQuantity() {
             if (this.productdetail.amount > 1) {
-            this.productdetail.amount-- ;
+                this.productdetail.amount--;
             }
         },
         increaseQuantity() {
             if (this.productdetail.amount < 10) {
-            this.productdetail.amount++ ;
+                this.productdetail.amount++;
             }
         },
         addToCart(item) {
-        // 檢查localStorage裡有無資料
-        console.log(localStorage.getItem('cartItems'));
-        console.log(item)
-        
-        // localStorage.getItem是取得localStorage資料
-        if (!localStorage.getItem('cartItems')) { 
+            // 檢查localStorage裡有無資料
             console.log(localStorage.getItem('cartItems'));
-            let arr = [];
-            let obj = { ...item }
-            obj.amount = obj.amount ? obj.amount : 1;
-            arr.push(obj);
-            // 把資料存在localStorage
-            localStorage.setItem('cartItems', JSON.stringify(arr));
-        } else{
-            // 找到已存在購物車裡的商品列表,透過localsrortage方式取得
-            let productList = JSON.parse(localStorage.getItem('cartItems'));
-            console.log(productList)
+            console.log(item)
 
-            // 檢查商品列表裡有無資料
-            if(!productList || !productList.length){
+            // localStorage.getItem是取得localStorage資料
+            if (!localStorage.getItem('cartItems')) {
+                console.log(localStorage.getItem('cartItems'));
                 let arr = [];
                 let obj = { ...item }
                 obj.amount = obj.amount ? obj.amount : 1;
                 arr.push(obj);
                 // 把資料存在localStorage
                 localStorage.setItem('cartItems', JSON.stringify(arr));
-            } else{
-                let isReduce = false;
+            } else {
+                // 找到已存在購物車裡的商品列表,透過localsrortage方式取得
+                let productList = JSON.parse(localStorage.getItem('cartItems'));
+                console.log(productList)
 
-                productList.forEach(element => {
-                    if(item.id == element.id){
-                        if(!element.amount){
-                            element.amount = 1;
-                        }
-                        element.amount = element.amount + 1 ;
-                        isReduce = true;
-                    }
-                });
-
-                
-                // 判斷isReduce有沒有在購物車裡面,沒有商品要push
-                if(!isReduce){
+                // 檢查商品列表裡有無資料
+                if (!productList || !productList.length) {
+                    let arr = [];
                     let obj = { ...item }
                     obj.amount = obj.amount ? obj.amount : 1;
-                    productList.push(obj);
+                    arr.push(obj);
                     // 把資料存在localStorage
+                    localStorage.setItem('cartItems', JSON.stringify(arr));
+                } else {
+                    let isReduce = false;
+
+                    productList.forEach(element => {
+                        if (item.id == element.id) {
+                            if (!element.amount) {
+                                element.amount = 1;
+                            }
+                            element.amount = element.amount + 1;
+                            isReduce = true;
+                        }
+                    });
+
+
+                    // 判斷isReduce有沒有在購物車裡面,沒有商品要push
+                    if (!isReduce) {
+                        let obj = { ...item }
+                        obj.amount = obj.amount ? obj.amount : 1;
+                        productList.push(obj);
+                        // 把資料存在localStorage
+                    }
+                    localStorage.setItem('cartItems', JSON.stringify(productList));
                 }
-                localStorage.setItem('cartItems', JSON.stringify(productList));
-            } 
+            }
         }
-    }
     },
         mounted() {
         console.log( this.$route.query.id)

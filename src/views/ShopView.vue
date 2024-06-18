@@ -32,21 +32,18 @@
             <div class="container">
                 <div class="row">
                     <!-- 每一個商品卡 -->
-                    <ProductItem 
-                        v-for=" paginatedProdItem in paginatedProdList" 
-                        :key="paginatedProdItem.id"
-                        :productInfo="paginatedProdItem"
-                        @add-to-cart="addToCart(paginatedProdItem)" 
-                    />
-                </div> 
-            </div> 
+                    <ProductItem v-for=" paginatedProdItem in paginatedProdList" :key="paginatedProdItem.id"
+                        :productInfo="paginatedProdItem" @add-to-cart="addToCart(paginatedProdItem)" />
+                </div>
+            </div>
         </section>
 
         <section class="section section-pagination">
             <div class="container">
                 <div class="button">
                     <a href="#" @click.prevent="changePage(1)">1</a>
-                    <a href="#" @click.prevent="changePage(2)" v-if="prodList.length > 16 && prodList.length === product.length">2</a>
+                    <a href="#" @click.prevent="changePage(2)"
+                        v-if="prodList.length > 16 && prodList.length === product.length">2</a>
                 </div>
             </div>
             <div class="sea-img">
@@ -54,7 +51,7 @@
             </div>
         </section>
         <ProductInfoView @add-to-cart="handleAddToCart" :sharedCart="sharedCart" />
-        <ShopCart v-if="$route.path === '/shop' || $route.path === '/productinfo'"/>
+        <ShopCart v-if="$route.path === '/shop' || $route.path === '/productinfo'" />
     </div>
 </template>
 
@@ -62,7 +59,7 @@
 import ProductItem from '../components/ProductItem.vue';
 import ShopCart from '@/components/ShopCart.vue';
 
-export default{
+export default {
     components: {
         ProductItem,
         ShopCart,
@@ -92,7 +89,7 @@ export default{
         },
         addPrice() {
             return this.cartItems.reduce((total, item) => {
-            return total + item.price * item.quantity;
+                return total + item.price * item.quantity;
             }, 0);
         },
     },
@@ -108,11 +105,11 @@ export default{
         })
     },
     methods: {
-        clear(){
+        clear() {
             this.prodList = this.product;
             this.currentPage = 1;
         },
-        filter(dog){
+        filter(dog) {
             console.log(dog);
             this.prodList = this.product.filter(item => item.class === dog);
             this.currentPage = 1;
@@ -138,7 +135,7 @@ export default{
                 this.cartIndex--;
                 this.cartCount--;
                 if (this.cartItems.length === 0) {
-                    this.showCartIcon = false; 
+                    this.showCartIcon = false;
                     this.showCartBox = false;
                 }
             }
@@ -147,7 +144,7 @@ export default{
             if (item.quantity > 1) {
                 item.quantity--;
             }
-            },
+        },
         increaseQuantity(item) {
             if (item.quantity < 10) {
                 item.quantity++;
@@ -156,9 +153,9 @@ export default{
         toggleCartBox() {
             this.showCartBox = !this.showCartBox;
             if (this.showCartBox) {
-            this.showCartIcon = false; 
+                this.showCartIcon = false;
             } else if (this.cartItems.length > 0) {
-            this.showCartIcon = true; 
+                this.showCartIcon = true;
             }
         },
         handleAddToCart(localCart) {
@@ -167,9 +164,9 @@ export default{
         handleClick(category) {
             this.activeIndex = category;
             if (category === 'all') {
-            this.clear();
+                this.clear();
             } else {
-            this.filter(category);
+                this.filter(category);
             }
         },
     }
