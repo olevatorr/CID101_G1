@@ -9,7 +9,7 @@ const isMenuOpen = ref(false)
 const isSubmenuDropDown = ref(false)
 
 const toggleMenu = () => {
-    isMenuOpen.value = !isMenuOpen.value
+    isMenuOpen.value = !isMenuOpen.value;
 }
 const toggleSubmenuDropDown = () => {
     isSubmenuDropDown.value = !isSubmenuDropDown.value
@@ -29,10 +29,8 @@ const logout = () => {
                     <img src="../../../public/img/LOGO-short.png" alt="BLUE ALER 藍色警戒" />
                 </div>
             </RouterLink>
-            <div class="hb" @click="toggleMenu">
-                <span></span>
-                <span></span>
-                <span></span>
+            <div class="hb" @click="toggleMenu" :class="{ 'sidebar-hidden': !isMenuOpen }">
+                <div class="hb-icon"></div>
             </div>
             <ul class="navbar" :class="{ active: isMenuOpen }">
                 <li>
