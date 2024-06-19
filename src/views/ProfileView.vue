@@ -24,7 +24,7 @@
           </div>
         </div>
         <select name="pfl-pets" id="" class="profile-pets" v-model="selectedOption" @change="selectOption">
-          <option value="profile">會員資料修改</option>
+          <option value="profile" selected>會員資料修改</option>
           <option value="password">密碼修改</option>
           <option value="activity">活動查詢</option>
           <option value="orders">訂單查詢</option>
@@ -108,6 +108,7 @@
             </tbody>
           </table>
           <div class="button">
+            <!-- <p>{{ totalPages }}</p> 顯示總頁數 -->
             <a href="#" v-for="pageNum in totalPages" :key="pageNum" @click.prevent="goToPage(pageNum)"
               :class="{ active: pageNum === currentPage }">{{ pageNum }}</a>
           </div>
@@ -234,7 +235,7 @@ export default {
     const imageSrc = ref(member.value?.U_AVATAR); // Initial image source
     const fileInput = ref(null);
     const currentSection = ref('profile');
-    const selectedOption = ref('')
+    const selectedOption = ref('profile');
 
     const donates = ref([]);
     const currentPage = ref(1);
@@ -307,7 +308,7 @@ export default {
         dataLength = activities.value.length;
       } else if (currentSection.value === 'favorites') {
         dataLength = favorites.value.length;
-      } else if (currentSection.value === 'order') {
+      } else if (currentSection.value === 'orders') {
         dataLength = order.value.length;
       }
       return Math.ceil(dataLength / perPage);

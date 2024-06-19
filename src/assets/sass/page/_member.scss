@@ -140,17 +140,20 @@
             display: flex;
             justify-content: center;
             gap: 20px;
+            @media screen and (max-width: 576px) {
+                gap:10px;
+            }
             i {
                 font-size: 5rem;
             }
             .fa-google {
-                color: #e03f33;
+                width: 5rem;
             }
             .fa-facebook {
                 color: #2d55a8;
             }
             .fa-line {
-                color: #06c755;
+                width: 5rem;;
             }
         }
         .member-button {

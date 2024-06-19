@@ -53,9 +53,9 @@ methods: {
                         <div class="other-login">
                             <p>其他登入方式</p>
                             <div class="third-party">
-                            <a href="#"><i class="fa-brands fa-google"></i></a>
+                            <a href="#"><img src="/img/member/google.png" alt="" class="fa-google"></a>
                             <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                            <a href="#"><i class="fa-brands fa-line"></i></a>
+                            <a href="#"><img src="/img/member/line.ico" alt="" class="fa-line"></a>
                         </div>
                         </div>
                     </div>
