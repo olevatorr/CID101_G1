@@ -23,29 +23,29 @@
                     </p>
                 </div>
                 <div class="more">
-                    <a href="#">閱讀更多</a>
+                    <a href="#" @click.prevent="showConfirmModal(card)">閱讀更多</a>
                 </div>
             </div>
         </div>
     </template>
     <!-- 只渲染一張卡片 -->
     <div v-else-if="shareContent.length" class="col-12">
-        <div class="share-card">
-            <!-- <div class="close">
+        <div class="lightBox-share">
+            <div class="close">
                 <i class="fa-regular fa-circle-xmark" @click="closeCard"></i>
-            </div> -->
-            <div class="pic">
+            </div>
+            <div class="leftBar">
+                <div class="pic">
                 <img :src="shareContent[0].F_IMG" />
             </div>
+            <div class="report">
+                        <span @click.stop="reportClicked"><i class="fa-solid fa-triangle-exclamation"></i>檢舉此貼文</span>
+                    </div>
+            </div>
             <div class="text">
-                <div class="theme">
                     <div class="event-name">
                         <h3>活動名稱：{{ shareContent[0].E_TITLE }}</h3>
                     </div>
-                    <div class="report" @click.stop="reportClicked">
-                        <span><i class="fa-solid fa-triangle-exclamation"></i>檢舉此貼文</span>
-                    </div>
-                </div>
                 <span>活動地點：{{ shareContent[0].E_ADDRESS }}</span>
                 <span>活動日期：{{ shareContent[0].E_DATE }}</span>
                 <span>分享人：{{ shareContent[0].U_NAME }}</span>
