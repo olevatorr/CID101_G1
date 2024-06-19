@@ -3,6 +3,7 @@
 .section-beachgame {
     // box-sizing: border-box;
     width: 100%;
+    // max-width: 500px;
     height: 100vh;
     padding: 0;
     background: url(/img/beachgame/beachgame-background.png);
@@ -215,12 +216,13 @@
                 .tool-list {
                     color: #fff;
                     .tool-item {
-                        &:hover{
-                            background-color:#fff;
-                            border:10px solid $color-highlight;
-                            border-radius:50%;
-                        }
+                       
                         .tool-pic {
+                            &:hover{
+                                background-color:#fff;
+                                border:10px solid $color-highlight;
+                                border-radius:50%;
+                            }
                             background-color: #fff;
                             border-radius: 50%;
                             margin: 5%;
@@ -248,36 +250,39 @@
         //vue過渡期間自動生成類名 enter-active、leave-active
         
         // 撿取成功
-        // .success-lightbox {
-        //     color: #fff;
-        //     box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
-        //     border-radius: 20px;
-        //     text-align: center;
-        //     background-color: $color-subprimary;
-        //     padding: 50px 20px;
-
-        //     .success-content {
-        //         display: flex;
-        //         flex-direction: column;
-        //         justify-content: center;
-        //         align-items: center;
-        //         .success-pic {
-        //             width: 150px;
-        //             height: 150px;
-        //             background-color: #fff;
-        //             border-radius: 50%;
-        //             overflow: hidden;
-        //             margin: 20px 0 10px 0;
-        //             img {
-        //                 width: 100%;
-        //                 vertical-align: top;
-        //             }
-        //         }
-        //         .success-text {
-        //             padding: 10px 0 20px 0;
-        //         }
-        //     }
-        // }
+        .success-lightbox {
+            display:none;
+            color: #fff;
+            box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
+            border-radius: 20px;
+            text-align: center;
+            background-color: $color-subprimary;
+            padding: 50px 20px;
+            &.-viewShow{
+                display:block;
+            }
+            .success-content {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                .success-pic {
+                    width: 150px;
+                    height: 150px;
+                    background-color: #fff;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    margin: 20px 0 10px 0;
+                    img {
+                        width: 100%;
+                        vertical-align: top;
+                    }
+                }
+                .success-text {
+                    padding: 10px 0 20px 0;
+                }
+            }
+        }
         .fail-lightbox {
             display: none;
             color: #fff;
