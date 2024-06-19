@@ -713,3 +713,22 @@
         }
     }
 }
+.section-index-event-feedback {
+    h3 {
+        margin-bottom: 20px;
+    }
+    button {
+        display: block;
+        margin: auto;
+    }
+    .carousel {
+        display: flex;
+      overflow: hidden;
+        .carousel-card {
+            flex: 0 0 auto;
+      width: 250px;
+      margin: 20px;
+      box-sizing: border-box;
+        }
+    }
+}
