@@ -134,17 +134,17 @@ export default {
             this.donationId = 'D' + Date.now(); // 生成簡單的捐款編號
             this.donationDate = new Date().toLocaleString(); // 獲取當前日期和時間
             this.isLightboxVisible = true; // 顯示 Lightbox
-            this.disableBodyScroll(); // 禁用页面滚动
+            this.disableBodyScroll(); //  禁用頁面滾動
         },
         closeLightbox() {
             this.isLightboxVisible = false; // 隱藏 Lightbox
-            this.enableBodyScroll(); // 启用页面滚动
+            this.enableBodyScroll(); // 啟用頁面滾動
         },
         disableBodyScroll() {
-            document.body.style.overflow = 'hidden'; // 禁用页面滚动
+            document.body.style.overflow = 'hidden'; // 禁用頁面滾動
         },
         enableBodyScroll() {
-            document.body.style.overflow = 'auto'; // 启用页面滚动
+            document.body.style.overflow = 'auto'; // 啟用頁面滾動
         }
     }
 };
