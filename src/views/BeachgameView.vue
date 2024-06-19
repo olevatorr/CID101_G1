@@ -417,10 +417,10 @@ export default {
             console.log('getTrashId:', this.getTrashId);
             if (this.getTrashId == 1 || this.getTrashId == 3 || this.getTrashId == 4) {
                 this.successLightbox = true; // 顯示挑戰成功
-                console.log('Success lightbox should be shown'); // 檢查是否進入成功的條件
+                // console.log('Success lightbox should be shown'); // 檢查是否進入成功的條件
             } else if (this.getTrashId == 2 || this.getTrashId == 5) {
                 this.failLightbox = true; // 顯示挑戰失敗彈窗
-                console.log('Fail lightbox should be shown'); // 檢查是否進入失敗的條件
+                // console.log('Fail lightbox should be shown'); // 檢查是否進入失敗的條件
             }
             if (this.hideItem.length >= 5) {
                 alert('')
@@ -433,16 +433,16 @@ export default {
             console.log('getTrashId:', this.getTrashId);
             if (this.getTrashId == 2 || this.getTrashId == 5) {
                 this.successLightbox = true; // 顯示挑戰成功
-                console.log('Success lightbox should be shown'); // 檢查是否進入成功的條件
+                // console.log('Success lightbox should be shown'); // 檢查是否進入成功的條件
             } else if (this.getTrashId == 1 || this.getTrashId == 3 || this.getTrashId == 4) {
                 this.failLightbox = true; // 顯示挑戰失敗彈窗
-                console.log('Fail lightbox should be shown'); // 檢查是否進入失敗的條件
+                // console.log('Fail lightbox should be shown'); // 檢查是否進入失敗的條件
             }
         },
         choseHat() {
             this.selectedTool = 3;
             this.trashLightbox = true;
-            console.log('getTrashId:', this.getTrashId);
+            // console.log('getTrashId:', this.getTrashId);
             this.failLightbox = true; // 顯示挑戰失敗彈窗
             this.returnPageSet = false;
         },
