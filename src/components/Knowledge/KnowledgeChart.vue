@@ -281,7 +281,7 @@ async function initMap() {
         .translate([width / 2, height / 2]);
 
     const path = d3.geoPath().projection(projection);
-    const topoData = await d3.json('/localjson/map/COUNTY_tw.topo.json');  // 加載地圖數據
+    const topoData = await d3.json(`${import.meta.env.BASE_URL}localjson/map/COUNTY_tw.topo.json`);  // 加載地圖數據
     const geoData = topojson.feature(topoData, topoData.objects.COUNTY_MOI_1090820);
 
     // 將地理數據附加到 SVG 元素中並設定屬性

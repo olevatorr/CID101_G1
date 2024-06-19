@@ -20,7 +20,7 @@
                 </div>
                 <div class="content">
                     <div class="pic">
-                        <img :src="Array.isArray(item.imgUrl) ? item.imgUrl[0] : item.imgUrl" alt="">
+                        <img :src="Array.isArray(item.imgUrl) ? getImageUrl(item.imgUrl[0]) : getImageUrl(item.imgUrl)" alt="">
                     </div>
                     <div class="title">
                         <p>{{ item.title }}</p>
@@ -285,6 +285,9 @@ export default {
                 localStorage.setItem('cartItems', JSON.stringify(this.productList));
             }
         },
+        getImageUrl(imgUrl) {
+        return `${import.meta.env.BASE_URL}img/shop/${imgUrl}`;
+        }
     }
 }
 </script>

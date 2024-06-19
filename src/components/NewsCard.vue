@@ -4,7 +4,7 @@
             <!-- 放入app -->
             <div class="news-card">
                 <div class="news-card-pic">
-                    <img :src="news.imgUrl" alt="">
+                    <img :src="getImageUrl(news.imgUrl)" alt="">
                 </div>
                 <div class="news-card-txt">
                     <p class="news-cards-time">{{ news.time }}</p>
@@ -23,6 +23,11 @@ export default {
     props: ["filterNewsList"], // 創建接收父組件容器
     data() {
         return {
+        }
+    },
+    methods: {
+        getImageUrl(imgUrl) {
+            return `${import.meta.env.BASE_URL}img/news/${imgUrl}`;
         }
     },
 }

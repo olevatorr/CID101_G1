@@ -76,7 +76,6 @@ export default {
             showCartBox: false,
             sharedCart: [],
             activeIndex: null,
-            isProduction: import.meta.env.PROD,
         }
     },
     computed: {
@@ -94,25 +93,16 @@ export default {
                 return total + item.price * item.quantity;
             }, 0);
         },
-        basePath() {
-            return this.isProduction ? '/cid101/g1/front' : '';
-        },
     },
     mounted() {
         fetch(`${import.meta.env.BASE_URL}json/shop.json`)
             .then(data => data.json())
             .then(data => {
                 // 備份原始數據
-                this.product = data.map(product => ({
-                    ...product,
-                    imgUrl: `${this.basePath}/img/shop/${product.imgUrl}`
-                }));
+                this.product = data
 
                 // 處理圖片路徑並更新 productList
-                this.prodList = data.map(product => ({
-                    ...product,
-                    imgUrl: `${this.basePath}/img/shop/${product.imgUrl}`
-                }));
+                this.prodList = data
 
                 // console.log(this.productList);
             })
@@ -185,6 +175,9 @@ export default {
                 this.filter(category);
             }
         },
+        getImageUrl(imgUrl) {
+            return `${import.meta.env.BASE_URL}img/shop/${imgUrl}`;
+        }
     }
 }
 </script>

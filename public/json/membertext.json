@@ -7,7 +7,7 @@
         "U_EMAIL": "alice.smith@example.com",
         "U_PHONE": "123-456-7890",
         "U_ADDRESS": "123 Maple Street, Springfield, IL",
-        "U_AVATAR": "../img/member/member3.jpg",
+        "U_AVATAR": "@/../img/member/member3.jpg",
         "U_STATUS": true,
         "U_DATE": "2024-06-11"
     },
@@ -19,7 +19,7 @@
         "U_EMAIL": "bob.johnson@example.com",
         "U_PHONE": "234-567-8901",
         "U_ADDRESS": "456 Oak Avenue, Lincoln, NE",
-        "U_AVATAR": "../img/member/member4.jpg",
+        "U_AVATAR": "@/../img/member/member4.jpg",
         "U_STATUS": true,
         "U_DATE": "2024-06-10"
     },
@@ -31,7 +31,7 @@
         "U_EMAIL": "charlie.brown@example.com",
         "U_PHONE": "345-678-9012",
         "U_ADDRESS": "789 Pine Road, Madison, WI",
-        "U_AVATAR": "../img/member/member6.jpg",
+        "U_AVATAR": "@/../img/member/member6.jpg",
         "U_STATUS": true,
         "U_DATE": "2024-06-09"
     },
@@ -43,7 +43,7 @@
         "U_EMAIL": "diana.prince@example.com",
         "U_PHONE": "456-789-0123",
         "U_ADDRESS": "1010 Elm Street, Metropolis, NY",
-        "U_AVATAR": "../img/member/member13.jpg",
+        "U_AVATAR": "@/../img/member/member13.jpg",
         "U_STATUS": true,
         "U_DATE": "2024-06-08"
     },
@@ -55,7 +55,7 @@
         "U_EMAIL": "eve.adams@example.com",
         "U_PHONE": "567-890-1234",
         "U_ADDRESS": "111 Cedar Boulevard, Gotham, NJ",
-        "U_AVATAR": "../img/member/member14.jpg",
+        "U_AVATAR": "@/../img/member/member14.jpg",
         "U_STATUS": true,
         "U_DATE": "2024-06-07"
     }

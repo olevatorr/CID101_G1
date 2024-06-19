@@ -233,7 +233,7 @@ export default {
                     <!-- 印製 -->
                     <div class="txt-content" ref="contentToConvert">
                         <div>
-                            <img class="logoimgbox" src="/public/img/LOGO-color.png" width="10%">
+                            <img class="logoimgbox" src="/img/LOGO-color.png" width="10%">
                             <div class="h4-line">
                                 <h4>捐款證書</h4>
                             </div>
@@ -249,7 +249,7 @@ export default {
                                 </div>
                                 <div class="stamp">
                                     <p>社福財團法人:Tibame績育海洋服務</p>
-                                    <img src="/public/img/donate/緯育海洋服務辦事處_redmi 1.png" alt="Stamp">
+                                    <img src="/img/donate/緯育海洋服務辦事處_redmi 1.png" alt="Stamp">
                                 </div>
                             </div>
                         </div>

@@ -26,7 +26,7 @@
         </div>
         <div class="container newsinner-container">
             <div class="newsinner-pic">
-                <img :src="newsDetail.imgUrl" alt="最新消息">
+                <img :src="getImageUrl(newsDetail.imgUrl)" alt="最新消息">
             </div>
             <div class="newsinner-txt">
                 <p>{{ newsDetail?.content }}</p>
@@ -64,6 +64,9 @@ export default {
                     // 錯誤例外
                     console.log(`Error: ${error}`);
                 })
+        },
+        getImageUrl(imgUrl) {
+            return `${import.meta.env.BASE_URL}img/news/${imgUrl}`;
         }
     },
 }
