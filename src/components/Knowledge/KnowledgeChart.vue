@@ -816,9 +816,6 @@ function updateChartForRegion(regionName) {
                             </table>
                         </div>
                     </div>
-
-
-
                 </div>
             </div>
         </section>

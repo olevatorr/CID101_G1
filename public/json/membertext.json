@@ -38,8 +38,8 @@
     {
         "U_ID": 4,
         "U_NAME": "Diana",
-        "U_ACCOUNT": "dianap",
-        "U_PSW": "woman",
+        "U_ACCOUNT": "diana",
+        "U_PSW": "woman123",
         "U_EMAIL": "diana.prince@example.com",
         "U_PHONE": "456-789-0123",
         "U_ADDRESS": "1010 Elm Street, Metropolis, NY",
