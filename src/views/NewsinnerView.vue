@@ -54,6 +54,8 @@ export default {
             fetch(`${import.meta.env.BASE_URL}json/newslist.json`)
                 .then(res => res.json())
                 .then(json => {
+                    // 備份原始數據
+                    // this.originalNewsDetail = [...json];
                     this.newsDetail = json.find(item => {
                         return item.id == this.$route.params.id
                     })
