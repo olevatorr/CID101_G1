@@ -21,15 +21,20 @@
                 <!-- 屬性綁定，，將父組件的 filterNewsList 資料傳遞給子組件。 -->
                 <!-- filterNewsList是個變數 -->
                 <!-- 綁定資料的地方: -->
-                <newsCard :filterNewsList="filterNewsList" />
-                <!-- <div class="news-pagination">
+                <newsCard :filterNewsList="currentNewsList" />
+
+                <!-- 分頁 -->
+                <div class="news-pagination">
                     <ul class="pagination">
+                        <!-- 用貼文數量來推測目前頁數 -->
+                        <!-- 用v-for生成頁碼列表，從page1到全部 -->
+                        <!-- 點擊事件出現時會調用到goToPage，切換到對應頁面 -->
                         <li v-for="page in totalPages" :key="page" @click="goToPage(page)"
                             :class="{ active: page === currentPage }">
                             {{ page }}
                         </li>
                     </ul>
-                </div> -->
+                </div>
             </div>
         </div>
     </section>
@@ -51,20 +56,18 @@ export default {
             //空值是false
         }
     },
+
+    computed: {
+        totalPages() {
+            return Math.ceil(this.filterNewsList.length / this.pageSize);
+        },
+        currentNewsList() {
+            const start = (this.currentPage - 1) * this.pageSize;
+            const end = start + this.pageSize;
+            return this.filterNewsList.slice(start, end);
+        }
+    },
     methods: {
-        nextPage() { // 沒改
-            if (this.currentPage < this.totalPages) {
-                this.currentPage++;
-            }
-        },
-        prevPage() { // 沒改
-            if (this.currentPage > 1) {
-                this.currentPage--;
-            }
-        },
-        goToPage(page) { // 沒改
-            this.currentPage = page;
-        },
         filterNews(category) {
             this.selectedCategory = category; // 將篩選值丟進去
             if (this.selectedCategory) { // 判斷selectedCategory是否為true，請記得空值也是false
@@ -75,6 +78,9 @@ export default {
             }
             // console.log(this.filterNewsList);
             this.currentPage = 1; // 回到第一頁
+        },
+        goToPage(page) {
+            this.currentPage = page;
         },
     },
     // 一進畫面就渲染，先接資料

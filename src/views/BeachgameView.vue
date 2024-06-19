@@ -214,10 +214,10 @@
             <!-- selectedTrash為null時，顯示視窗，被設置時隱藏視窗 -->
             <!-- v-for綁唯一值，有刪除絕對不能用會影響索引值 -->
             <div class="trash-container" :class="{ '-viewShow': showTrashContainer }">
-                <div class="trash-pic" v-for="(image, index) in trashItem" :key="index"
-                    :style="{ 'position': 'absolute', left: `${image.x}%`, top: `${image.y}%`, width: '80px', }"
-                    @click=" handleTrashClick(index)">
-                    <img :src="image.url" alt="">
+                <div v-show="!hideItem.includes(item.id)" class="trash-pic" v-for="item in trashItem" :key="item.id"
+                    :style="{ 'position': 'absolute', left: `${item.x}%`, top: `${item.y}%`, width: '150px', }"
+                    @click=" handleTrashClick(item.id)">
+                    <img :src="item.url" alt="">
                 </div>
             </div>
         </section>
@@ -279,7 +279,7 @@ export default {
                 const x = pos[i].x
                 const y = pos[i].y
                 return {
-                    id: i,
+                    id: i + 1,
                     x,
                     y,
                     url: `/img/beachgame/trash0${i + 1}.png`
@@ -333,6 +333,7 @@ export default {
             failLightbox: false,
             finishLightbox: false,
             returnPageSet: false,
+            hideItem: []
         }
     },
     // 手機轉向掛載時就檢查
@@ -394,12 +395,14 @@ export default {
         },
 
         // 點選垃圾圖片
-        handleTrashClick(index) {
-            this.selectedTrash = this.choseTrash[index];
+        handleTrashClick(id) {
+            this.selectedTrash = this.choseTrash.find(v => v.id === id)
             //顯示沒有變成false
             this.showTrashContainer = false;
             // 取出陣列裡的垃圾id值，要用在對應工具上
-            this.getTrashId = this.choseTrash[index].id;
+            this.getTrashId = id
+
+            this.hideItem.push(id)
         },
         // 滑入工具列可選取
         showSlidePage() {
@@ -418,6 +421,9 @@ export default {
             } else if (this.getTrashId == 2 || this.getTrashId == 5) {
                 this.failLightbox = true; // 顯示挑戰失敗彈窗
                 console.log('Fail lightbox should be shown'); // 檢查是否進入失敗的條件
+            }
+            if (this.hideItem.length >= 5) {
+                alert('')
             }
         },
         choseGloves() {
