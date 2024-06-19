@@ -30,21 +30,19 @@
       <div class="row">
         <EventCard :filteredEvents="filteredEvents && paginatedEvents" @card-click="handleEventCardClick" />
       </div>
-      <div class="pagenumber">
-        <a href="#" v-for="pageNumber in totalPages" :key="pageNumber" @click.prevent="changePage(pageNumber)">{{ pageNumber }}</a>
-      </div>
+      <EventPagination :totalItems="filteredEvents.length" :itemsPerPage="8" :currentPage="eventPage"
+        @page-changed="changeEventPage" />
     </div>
   </section>
   <section class="section section-event-share">
     <h2>活動分享</h2>
     <div class="container">
       <div class="row">
-        <ShareCard :shareContent="shareContent" @card-click="handleShareCardClick"
+        <ShareCard :shareContent="paginatedShare" @card-click="handleShareCardClick"
           @report-click="showReportModal = true" />
       </div>
-      <div class="pagenumber">
-        <a href="#" v-for="pageNumber in 4" :key="pageNumber">{{ pageNumber }}</a>
-      </div>
+      <EventPagination :totalItems="shareContent.length" :itemsPerPage="4" :currentPage="sharePage"
+        @page-changed="changeSharePage" />
       <div class="sharebtn">
         <button>活動分享</button>
       </div>
@@ -239,12 +237,14 @@ import Swal from 'sweetalert2'
 import EventCard from '@/components/EventCard.vue'
 import ShareCard from '@/components/ShareCard.vue'
 import calendar from '@/components/even/calendarFilter.vue'
+import EventPagination from '@/components/EventPagination.vue';
 
 export default defineComponent({
   components: {
     EventCard,
     ShareCard,
-    calendar
+    calendar,
+    EventPagination
   },
   setup() {
     //獲取路由
@@ -374,26 +374,19 @@ export default defineComponent({
 
     // 存儲所有事件數據
     const events = ref([]);
-    // 每頁顯示的事件數量
-    const itemsPerPage = 8;
-    // 当前页数
-    const currentPage = ref(1);
-    //計算總頁數
-    const totalPages = computed(() => {
-      return Math.ceil(filteredEvents.value.length / itemsPerPage);
-    });
-    // 根據當前頁數和每頁數量計算當前頁顯示的事件
-    const paginatedEvents = computed(() => {
-      const startIndex = (currentPage.value - 1) * itemsPerPage;
-      return filteredEvents.value.slice(startIndex, startIndex + itemsPerPage);
-    });
+    // 當前頁數
+    const currentPage = ref(1); //下拉選單使用
+    const eventPage  = ref(1);    //活動列表
+    const sharePage  = ref(1);    //活動分享
+
     //處理頁數變化
-    const changePage = (pageNumber) => {
-      if (pageNumber >= 1 && pageNumber <= totalPages.value) {
-        currentPage.value = pageNumber;
-      }
+    const changeEventPage  = (pageNumber) => {
+      eventPage .value = pageNumber;
     };
-    
+    const changeSharePage  = (pageNumber) => {
+      sharePage .value = pageNumber;
+    };
+
 
 
 
@@ -488,13 +481,16 @@ export default defineComponent({
       else {
         showReportModal.value = false;
         Swal.fire({
-                icon: 'success',
-                title: '檢舉成功提交',
-                text: '您的檢舉已成功提交，我們會進行審核。',
-                className: "reportSubmission"
-            })
+          icon: 'success',
+          title: '檢舉成功提交',
+          text: '您的檢舉已成功提交，我們會進行審核。',
+          className: "reportSubmission"
+        });
+        closeShareModal();
       }
     }
+    const isLoading = ref(true); //默認加載狀態為true
+    
     // 在組件掛載後加載 JSON 文件
     onMounted(async () => {
       try {
@@ -521,10 +517,22 @@ export default defineComponent({
           borderColor: 'rgba(255,0,0,0)',
           textColor: '#E7A600'
         }))
+        isLoading.value = false; //數據加載完成後將 isLoading 設置為 false
       } catch (error) {
-        console.error('Error loading JSON:', error)
+        console.error('Error loading JSON:', error);
+        isLoading.value = false;//加載狀態指示器消失
       }
     })
+    // 列表呈現(8張)
+    const paginatedEvents = computed(() => {
+      const startIndex = (eventPage .value - 1) * 8;
+      return filteredEvents.value.slice(startIndex, startIndex + 8);
+    });
+    // 分享呈現(4張)
+    const paginatedShare = computed(() => {
+      const startIndex = (sharePage .value - 1) * 4;
+      return shareContent.value.slice(startIndex, startIndex + 4);
+    });
 
     const hasEvents = (areaId) => {
       return getAreaEvents(areaId).length > 0
@@ -574,12 +582,14 @@ export default defineComponent({
       submitForm,
       scrollToTop,
       events,
-      itemsPerPage,
       currentPage,
-      totalPages,
       paginatedEvents,
-      changePage
-
+      paginatedShare,
+      eventPage ,
+      sharePage,
+      changeEventPage,
+      changeSharePage,
+      isLoading
     }
   }
 })
