@@ -85,7 +85,7 @@
         </li>
       </ul>
       <div class="return">
-        <button>Top</button>
+        <button @click="scrollToTop">Top</button>
       </div>
     </div>
   </section>
@@ -217,7 +217,9 @@
           <label :for="'no' + (index + 1)">{{ reason.label }}</label>
           <input type="radio" :name="reason" :id="'no' + (index + 1)" v-model="selectedReason" :value="reason.label" />
         </div>
-        <div v-if="showWarning" class="warning">請至少勾選一個選項!</div>
+        <transition name="flashing">
+          <div v-if="showWarning" class="warning">*請至少勾選一個選項!</div>
+        </transition>
         <button type="submit">送出</button>
       </form>
     </div>
@@ -329,16 +331,19 @@ export default defineComponent({
     const showReportModal = ref(false);
     //跳窗卡片抓取點擊卡片時的卡片資訊
     const handleEventCardClick = (card) => {
-      selectedEventCard.value = card
+      selectedEventCard.value = card;
+      peopleNum.value = 1;
     }
     const handleShareCardClick = (card) => {
-      selectedShareCard.value = card
+      selectedShareCard.value = card;
+
       // console.log(selectedShareCard.value);
     }
     const showConfirmModal = () => {
       // console.log(openConfirm.value);
       openConfirm.value = true;
       // console.log(openConfirm.value);
+
     };
     //報名完成提示後跳轉回首頁
     const SubmitEvent = () => {
@@ -379,7 +384,7 @@ export default defineComponent({
       return false;
     });
     const date = () => {
-    // 實現 date() 函數來獲取當前日期
+      // 實現 date() 函數來獲取當前日期
       return new Date();
     };
 
@@ -394,9 +399,9 @@ export default defineComponent({
       openConfirm.value = false;
     };
     const closeExamine = () => {
-      showReportModal.value = false;
       selectedReason.value = '';
-      showWarning.value = true;
+      showWarning.value = false;
+      showReportModal.value = false;
     }
 
     //定義shareContent、eventContent是一個物件
@@ -439,6 +444,12 @@ export default defineComponent({
     const selectedReason = ref('');
     //控制是否顯示警告提示
     const showWarning = ref(false);
+    //每次關閉表單將清空紀錄
+    watch(showReportModal, () => {
+      selectedReason.value = '';
+      showWarning.value = false
+    })
+
     ////監聽 selectedReason 的變化，如果為空且表單送出，則顯示警告
     watch(selectedReason, (newValue) => {
       showWarning.value = newValue === '';
@@ -448,9 +459,16 @@ export default defineComponent({
       if (selectedReason.value === '') {
         showWarning.value = true;
       }
+      else {
+        showReportModal.value = false;
+        Swal.fire({
+                icon: 'success',
+                title: '檢舉成功提交',
+                text: '您的檢舉已成功提交，我們會進行審核。',
+                className: "reportSubmission"
+            })
+      }
     }
-    // 清除選擇的理由和警告狀態
-    selectedReason.value = '';
     // 在組件掛載後加載 JSON 文件
     onMounted(async () => {
       try {
@@ -488,6 +506,13 @@ export default defineComponent({
     const getAreaEvents = (areaId) => {
       return calendarFilteredEvents.value.filter((event) => event.E_AREA === areaId)
     }
+    //Top按鈕跳至網頁最上方
+    const scrollToTop = () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    };
 
     // watch(calendarList, (newValue) => {
     //   calendarOptions.value.events = newValue
@@ -525,6 +550,7 @@ export default defineComponent({
       selectedReason,
       showWarning,
       submitForm,
+      scrollToTop
     }
   }
 })
