@@ -84,7 +84,7 @@
 </template>
 
 <script>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue';
 import { gsap } from 'gsap';
 
 export default {
@@ -99,11 +99,11 @@ export default {
         }
     },
     emits: ['card-click', 'close-click', 'report-click'],
-    setup(props) {
+    setup(props, { emit }) {
         const carousel = ref(null);
         const carouselVisible = ref(false);
-        const clonedItems = ref(null);
         let animation = null;
+        let clonedItems = [];
 
         const startCarousel = () => {
             if (props.carouselEnabled && carousel.value) {
@@ -130,6 +130,18 @@ export default {
             }
         };
 
+        const cardClicked = (card) => {
+            emit('card-click', card);
+        };
+
+        const closeCard = () => {
+            emit('close-click');
+        };
+
+        const reportClicked = () => {
+            emit('report-click');
+        };
+
         onMounted(() => {
             if (props.carouselEnabled) {
                 carouselVisible.value = true;
@@ -142,40 +154,31 @@ export default {
             }
         });
 
+        watch(carouselVisible, (newVal) => {
+            if (newVal) {
+                nextTick(() => {
+                    gsap.set(carousel.value.children, {
+                        x: (i) => i * carousel.value.offsetWidth
+                    });
+
+                    // 複製卡片並添加到輪播容器的末尾
+                    clonedItems = Array.from(carousel.value.children).map(item => item.cloneNode(true));
+                    clonedItems.forEach(item => carousel.value.appendChild(item));
+
+                    startCarousel();
+                });
+            }
+        });
+
         return {
             carousel,
             carouselVisible,
             startCarousel,
-            pauseCarousel
+            pauseCarousel,
+            cardClicked,
+            closeCard,
+            reportClicked
         };
-    },
-    methods: {
-        cardClicked(card) {
-            this.$emit('card-click', card);
-        },
-        closeCard() {
-            this.$emit('close-click');
-        },
-        reportClicked() {
-            this.$emit('report-click');
-        }
-    },
-    watch: {
-        carouselVisible(newVal) {
-            if (newVal) {
-                this.$nextTick(() => {
-                    gsap.set(this.carousel.children, {
-                        x: (i) => i * this.carousel.offsetWidth
-                    });
-
-                    // 複製卡片並添加到輪播容器的末尾
-                    clonedItems = Array.from(this.carousel.children).map(item => item.cloneNode(true));
-                    clonedItems.forEach(item => this.carousel.appendChild(item));
-
-                    this.startCarousel();
-                });
-            }
-        }
     }
 };
 </script>

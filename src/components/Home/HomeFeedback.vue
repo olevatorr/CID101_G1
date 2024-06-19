@@ -65,7 +65,7 @@ const submitForm = () => {
         </div>
         <shareCard :shareContent="homeFeedback" :carouselEnabled="carouselEnabled"
             @card-click="handleShareCardClick" @report-click="showReportModal = true" />
-        <button>查看更多分享</button>
+        <router-link to="/events"><button>查看更多分享</button></router-link>
     </section>
     <div class="section section-detailed" v-if="selectedShareCard">
         <shareCard :shareContent="selectedShareCard ? [selectedShareCard] : []" @close-click="closeShareModal"

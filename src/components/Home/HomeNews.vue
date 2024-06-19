@@ -23,7 +23,7 @@ onMounted(()=>{
         <div class="row">
           <newsCard :filterNewsList="homeNews"/>
         </div>
-        <button>查看更多活動</button>
+        <router-link to="/news"><button>查看更多消息</button></router-link>
       </div>
     </section>
 </template>

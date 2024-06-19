@@ -88,7 +88,7 @@ const closeConfirm = () => {
       <div class="row">
         <EventCard :filteredEvents="eventList" @card-click="handleEventCardClick"/>
       </div>
-      <button>查看更多活動</button>
+      <router-link to="/events"><button>查看更多活動</button></router-link>
     </div>
   </section>
   <div class="event-confirm" v-if="openConfirm">

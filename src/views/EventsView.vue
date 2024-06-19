@@ -159,7 +159,7 @@
       </div>
     </div>
   </div>
-  <section class="section-upload">
+  <section class="section-upload" style="display: none">
     <div class="container">
       <div class="upload">
         <h2>活動分享</h2>
