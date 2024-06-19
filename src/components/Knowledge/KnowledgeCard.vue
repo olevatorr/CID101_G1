@@ -1,58 +1,77 @@
 <template>
-    <section class="section section-knowledge">
-        <div class="container">
-            <h2>海洋知識庫</h2>
-            <div class="row wrapper">
-                <div v-if="isLoading" class="loading col-12">Loading...</div>
-                <div v-else v-for="card in cards" :key="card.id" class=" col-6 col-md-3 col-sm-4">
-                    <div class="card">
-                        <h3 class="card-title cardh2">{{ card.title }}</h3>
-                        <img :src="card.imgSrc"  />
-                        <div class="card-body info">
-                            <p class="card-text">{{ card.description }}</p>
-                            <button>Read More</button>
-                            <div class="btnc">
-                                <span class="card-source">來源: {{ card.source }}</span>
+    <div id="app">
+        <section class="section section-knowledge">
+            <div class="container">
+                <h2>海洋知識庫</h2>
+                <div class="row wrapper">
+                    <!-- 顯示加載中的狀態 -->
+                    <div v-if="isLoading" class="loading col-12">Loading...</div>
+                    <!-- 遍歷每個卡片並顯示 -->
+                    <div v-else v-for="card in cards" :key="card.id" class=" col-6 col-md-3 col-sm-4">
+                        <div class="card">
+                            <h3 class="card-title cardh2">{{ card.title }}</h3>
+                            <img :src="card.imgSrc" alt="Card Image"/>
+                            <div class="card-body info">
+                                <p class="card-text">{{ card.description }}</p>
+                                <button @click="openLightbox(card)">Read More</button>
+                                <div class="btnc">
+                                    <span class="card-source">來源: {{ card.source }}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
+        <!-- Lightbox 顯示區域 -->
+        <section v-if="isLightboxOpen" class="section sectionlightbox">
+            <div class="lightbox-content">
+                <i class="fa-regular fa-circle-xmark close"  @click="closeLightbox"></i>
+                <!-- 顯示當前選中卡片的圖片和文字 -->
+                <img :src="selectedCard.imgSrc" alt="Sample Image" class="lightbox-img"/>
+                <h3>{{ selectedCard.title }}</h3>
+                <p>{{ selectedCard.description }}</p>
+                <div class="spanlightbox">
+                    <span class="">來源: {{ selectedCard.source }}</span>
+                </div>
+            </div>
+        </section>
+    </div>
 </template>
 
 <script>
 export default {
     data() {
         return {
-            // 初始化一個空數組,用於存儲獲取到的卡片數據
-            cards: [],
-            // 初始化一個標誌,用於表示數據是否正在加載中
-            isLoading: true
+            cards: [], // 存儲卡片數據的數組
+            isLoading: true, // 加載狀態標誌
+            isLightboxOpen: false, // Lightbox 顯示狀態標誌
+            selectedCard: {} // 當前選中的卡片
         }
     },
-    // 在組件掛載到 DOM 後執行 fetchCardsData 方法
     mounted() {
-        this.fetchCardsData();
+        this.fetchCardsData(); // 組件掛載後獲取卡片數據
     },
     methods: {
         fetchCardsData() {
-            fetch('/json/oceanCard.json')
-                .then(response => response.json()) // JSON 格式
+            fetch('/json/oceanCard.json') // 獲取卡片數據的 API 請求
+                .then(response => response.json())
                 .then(data => {
-                    // 將 card拉出資料 
-                    this.cards = data;
-                    // 設置 isLoading 標誌為 false,表示數據已經加載完成
-                    this.isLoading = false;
+                    this.cards = data; // 將獲取到的數據存儲在 cards 中
+                    this.isLoading = false; // 設置加載狀態為完成
                 })
                 .catch(error => {
-                    // 如果在獲取資料錯誤,console:error
                     console.error('Error fetching cards data:', error);
-                    // 設置 isLoading 標誌為 false,以防止一直顯示加載中狀態
-                    this.isLoading = false;
+                    this.isLoading = false; // 確保即使出錯也不會一直顯示加載狀態
                 });
+        },
+        openLightbox(card) {
+            this.selectedCard = card; // 設置當前選中的卡片
+            this.isLightboxOpen = true; // 顯示 Lightbox
+        },
+        closeLightbox() {
+            this.isLightboxOpen = false; // 關閉 Lightbox
         }
     }
 }

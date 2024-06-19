@@ -67,7 +67,7 @@
                     color: #fff;
                     margin-right: 10px;
                     @media screen and (max-width: 767px) {
-                        margin-right: 5px;
+                        margin-right: 1px;
                     }
                     input {
                         display: none;
@@ -169,10 +169,9 @@
     }
 }
 
-section{
+.sectionThanks{
     .container{
         .sx-txt{
-            margin-top: -100px;
             p{
                 text-align: center;
             }
@@ -208,4 +207,34 @@ section{
 
     }
 }
-
+@media screen and (max-width:768px) {
+    .donation-box{
+        h3{
+            text-align: center;
+        }
+        .universal-access {
+            display: flex;
+            justify-content: center;
+        }
+        .person-chalkboard {
+            display: flex;
+            justify-content: center;
+        }
+        .recycle {
+            display: flex;
+            justify-content: center;
+        }
+        .school {
+            display: flex;
+            justify-content: center;
+        }
+        .flask-vial {
+            display: flex;
+            justify-content: center;
+        }
+        .display {
+            display: flex;
+            justify-content: center;
+        }
+    }
+}
