@@ -28,10 +28,10 @@
         </select>
       </div>
       <div class="row">
-        <EventCard :filteredEvents="filteredEvents" @card-click="handleEventCardClick" />
+        <EventCard :filteredEvents="filteredEvents && paginatedEvents" @card-click="handleEventCardClick" />
       </div>
       <div class="pagenumber">
-        <a href="#" v-for="pageNumber in 4" :key="pageNumber">{{ pageNumber }}</a>
+        <a href="#" v-for="pageNumber in totalPages" :key="pageNumber" @click.prevent="changePage(pageNumber)">{{ pageNumber }}</a>
       </div>
     </div>
   </section>
@@ -363,7 +363,6 @@ export default defineComponent({
       closeConfirm();
       closeEventModal();
     };
-
     //活動結束邏輯判斷
     const eventEnded = computed(() => {
       return selectedEventCard.value && selectedEventCard.value.E_DATE > date();
@@ -372,6 +371,32 @@ export default defineComponent({
     const registrationClosed = computed(() => {
       return selectedEventCard.value && selectedEventCard.value.E_DEADLINE > date();
     });
+
+    // 存儲所有事件數據
+    const events = ref([]);
+    // 每頁顯示的事件數量
+    const itemsPerPage = 8;
+    // 当前页数
+    const currentPage = ref(1);
+    //計算總頁數
+    const totalPages = computed(() => {
+      return Math.ceil(filteredEvents.value.length / itemsPerPage);
+    });
+    // 根據當前頁數和每頁數量計算當前頁顯示的事件
+    const paginatedEvents = computed(() => {
+      const startIndex = (currentPage.value - 1) * itemsPerPage;
+      return filteredEvents.value.slice(startIndex, startIndex + itemsPerPage);
+    });
+    //處理頁數變化
+    const changePage = (pageNumber) => {
+      if (pageNumber >= 1 && pageNumber <= totalPages.value) {
+        currentPage.value = pageNumber;
+      }
+    };
+    
+
+
+
     //定義選單列表
     const regions = ref(["北部", "中部", "南部", "東部", "離島"]);
     //定義選單初始值為1
@@ -427,7 +452,8 @@ export default defineComponent({
     })
     //抓取卡片值渲染至彈窗內容
     function handleRegionChange(event) {
-      selectedRegion.value = event.target.value
+      selectedRegion.value = event.target.value;
+      currentPage.value = 1;
     }
     //定義檢舉原因
     const reasons = ref([
@@ -444,7 +470,7 @@ export default defineComponent({
     const selectedReason = ref('');
     //控制是否顯示警告提示
     const showWarning = ref(false);
-    //每次關閉表單將清空紀錄
+    //每次關閉表單清空紀錄
     watch(showReportModal, () => {
       selectedReason.value = '';
       showWarning.value = false
@@ -513,10 +539,6 @@ export default defineComponent({
         behavior: 'smooth'
       });
     };
-
-    // watch(calendarList, (newValue) => {
-    //   calendarOptions.value.events = newValue
-    // })
     return {
       calendarOptions,
       shareContent,
@@ -550,7 +572,14 @@ export default defineComponent({
       selectedReason,
       showWarning,
       submitForm,
-      scrollToTop
+      scrollToTop,
+      events,
+      itemsPerPage,
+      currentPage,
+      totalPages,
+      paginatedEvents,
+      changePage
+
     }
   }
 })

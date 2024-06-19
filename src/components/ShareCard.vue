@@ -76,14 +76,6 @@ export default {
         'close-click': [],
         'report-click':Boolean
     },
-    // watch: {
-    //     shareContent: {
-    //         handler(nVal, oVal) {
-    //             console.log(nVal, oVal)
-    //         },
-    //         immediate: true
-    //     },
-    // },
     methods: {
         cardClicked(card) {
             this.$emit('card-click', card);
