@@ -32,29 +32,26 @@
             <div class="container">
                 <div class="row">
                     <!-- 每一個商品卡 -->
-                    <ProductItem 
-                        v-for=" paginatedProdItem in paginatedProdList" 
-                        :key="paginatedProdItem.id"
-                        :productInfo="paginatedProdItem"
-                        @add-to-cart="addToCart(paginatedProdItem)" 
-                    />
-                </div> 
-            </div> 
+                    <ProductItem v-for=" paginatedProdItem in paginatedProdList" :key="paginatedProdItem.id"
+                        :productInfo="paginatedProdItem" @add-to-cart="addToCart(paginatedProdItem)" />
+                </div>
+            </div>
         </section>
 
         <section class="section section-pagination">
             <div class="container">
                 <div class="button">
                     <a href="#" @click.prevent="changePage(1)">1</a>
-                    <a href="#" @click.prevent="changePage(2)" v-if="prodList.length > 16 && prodList.length === product.length">2</a>
+                    <a href="#" @click.prevent="changePage(2)"
+                        v-if="prodList.length > 16 && prodList.length === product.length">2</a>
                 </div>
             </div>
             <div class="sea-img">
-                <img src="../../public/img/shop/sea.png" alt="">
+                <img src="/img/shop/sea.png" alt="">
             </div>
         </section>
         <ProductInfoView @add-to-cart="handleAddToCart" :sharedCart="sharedCart" />
-        <ShopCart v-if="$route.path === '/shop' || $route.path === '/productinfo'"/>
+        <ShopCart v-if="$route.path === '/shop' || $route.path === '/productinfo'" />
     </div>
 </template>
 
@@ -62,7 +59,7 @@
 import ProductItem from '../components/ProductItem.vue';
 import ShopCart from '@/components/ShopCart.vue';
 
-export default{
+export default {
     components: {
         ProductItem,
         ShopCart,
@@ -78,13 +75,15 @@ export default{
             showCartIcon: false,
             showCartBox: false,
             sharedCart: [],
-            activeIndex: null
+            activeIndex: null,
+            isProduction: import.meta.env.PROD,
         }
     },
     computed: {
         paginatedProdList() {
             const startIndex = (this.currentPage - 1) * 16;
             const endIndex = startIndex + 16;
+            console.log(this.prodList.slice(startIndex, endIndex));
             return this.prodList.slice(startIndex, endIndex);
         },
         totalPrice() {
@@ -92,28 +91,42 @@ export default{
         },
         addPrice() {
             return this.cartItems.reduce((total, item) => {
-            return total + item.price * item.quantity;
+                return total + item.price * item.quantity;
             }, 0);
+        },
+        basePath() {
+            return this.isProduction ? '/cid101/g1/front' : '';
         },
     },
     mounted() {
-        fetch(`${import.meta.env.BASE_URL}public/shop.json`)
-        .then(data => data.json())
-        .then(res => {
-            //備份用
-            this.product = res
-            //顯示用
-            this.prodList = res
-            console.log(res)
-        })
+        fetch(`${import.meta.env.BASE_URL}json/shop.json`)
+            .then(data => data.json())
+            .then(data => {
+                // 備份原始數據
+                this.product = data.map(product => ({
+                    ...product,
+                    imgUrl: `${this.basePath}/img/shop/${product.imgUrl}`
+                }));
+
+                // 處理圖片路徑並更新 productList
+                this.prodList = data.map(product => ({
+                    ...product,
+                    imgUrl: `${this.basePath}/img/shop/${product.imgUrl}`
+                }));
+
+                // console.log(this.productList);
+            })
+            .catch(error => {
+                console.error('Error fetching products:', error);
+            });
     },
     methods: {
-        clear(){
+        clear() {
             this.prodList = this.product;
             this.currentPage = 1;
         },
-        filter(dog){
-            console.log(dog);
+        filter(dog) {
+            // console.log(dog);
             this.prodList = this.product.filter(item => item.class === dog);
             this.currentPage = 1;
         },
@@ -138,7 +151,7 @@ export default{
                 this.cartIndex--;
                 this.cartCount--;
                 if (this.cartItems.length === 0) {
-                    this.showCartIcon = false; 
+                    this.showCartIcon = false;
                     this.showCartBox = false;
                 }
             }
@@ -147,7 +160,7 @@ export default{
             if (item.quantity > 1) {
                 item.quantity--;
             }
-            },
+        },
         increaseQuantity(item) {
             if (item.quantity < 10) {
                 item.quantity++;
@@ -156,9 +169,9 @@ export default{
         toggleCartBox() {
             this.showCartBox = !this.showCartBox;
             if (this.showCartBox) {
-            this.showCartIcon = false; 
+                this.showCartIcon = false;
             } else if (this.cartItems.length > 0) {
-            this.showCartIcon = true; 
+                this.showCartIcon = true;
             }
         },
         handleAddToCart(localCart) {
@@ -167,9 +180,9 @@ export default{
         handleClick(category) {
             this.activeIndex = category;
             if (category === 'all') {
-            this.clear();
+                this.clear();
             } else {
-            this.filter(category);
+                this.filter(category);
             }
         },
     }

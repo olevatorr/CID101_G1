@@ -11,14 +11,14 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="big-pic">
-                                <img :src="largeSrc" alt="" />
+                                <img :src="`/img/productioninfo/${largeSrc}`" alt="" />
                             </div>
                         </div>
                         <div class="col-4" v-for="(src, index) in productdetail.imgUrl" :key="index">
                             <div class="pic-s">
-                                <img :src="src" alt="" @click="showLarge(src)" />
+                                <img :src="`/img/productioninfo/${src}`" alt="" @click="showLarge(src)" />
                             </div>
-                        </div>        
+                        </div>
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
@@ -39,7 +39,7 @@
                         </div>
                         <div class="price">
                             <span>金額總計 ${{ totalPrice }} 元</span>
-                        </div> 
+                        </div>
                         <div class="button">
                             <RouterLink to="/mallcart">
                                 <input type="button" value="立即購買">
@@ -57,7 +57,7 @@
                 <h3>產品介紹</h3>
                 <p>{{ productdetail.introduce }}</p>
                 <div class="pic">
-                    <img :src="productdetail.imgUrl2" alt="">
+                    <img :src=" `/img/productioninfo/${productdetail.imgUrl2}`" alt="">
                 </div>
                 <h3>規格說明</h3>
                 <div class="directions">
@@ -67,7 +67,7 @@
                         <p>顏色 : {{ productdetail.color }}</p>
                     </div>
                     <div class="pic">
-                        <img :src="productdetail.imgUrl3" alt="">
+                        <img :src=" `/img/productioninfo/${productdetail.imgUrl3}`" alt="">
                     </div>
                     <div class="text2">
                         <p>手工測量有1-3公分誤差，由於顯示器及拍照光線等<br>不可抗拒因素，色差不可避免。</p>
@@ -77,7 +77,7 @@
                     <p>下訂購買表示已詳閱賣場購物須知，且100%同意依賣場製作流程、規則出貨！</p>
                 </div>
             </div>
-            <ShopCart v-if="$route.path === '/shop' || $route.path === '/productinfo'"/>
+            <ShopCart v-if="$route.path === '/shop' || $route.path === '/productinfo'" />
         </div>
     </section>
 </template>
@@ -91,7 +91,8 @@ export default {
             largeSrc: "",
             quantity: 1,
             //商品細節資訊
-            productdetail:{},
+            productdetail: {},
+            isProduction: import.meta.env.PROD,
         };
     },
     components: {
@@ -99,84 +100,91 @@ export default {
     },
     computed: {
         totalPrice() {
-        return this.productdetail.amount * this.productdetail.price;
+            return this.productdetail.amount * this.productdetail.price;
         }
     },
-        methods: {
+    methods: {
         showLarge(src) {
             this.largeSrc = src;
         },
         decreaseQuantity() {
             if (this.productdetail.amount > 1) {
-            this.productdetail.amount-- ;
+                this.productdetail.amount--;
             }
         },
         increaseQuantity() {
             if (this.productdetail.amount < 10) {
-            this.productdetail.amount++ ;
+                this.productdetail.amount++;
             }
         },
         addToCart(item) {
-        // 檢查localStorage裡有無資料
-        console.log(localStorage.getItem('cartItems'));
-        console.log(item)
-        
-        // localStorage.getItem是取得localStorage資料
-        if (!localStorage.getItem('cartItems')) { 
+            // 檢查localStorage裡有無資料
             console.log(localStorage.getItem('cartItems'));
-            let arr = [];
-            let obj = { ...item }
-            obj.amount = obj.amount ? obj.amount : 1;
-            arr.push(obj);
-            // 把資料存在localStorage
-            localStorage.setItem('cartItems', JSON.stringify(arr));
-        } else{
-            // 找到已存在購物車裡的商品列表,透過localsrortage方式取得
-            let productList = JSON.parse(localStorage.getItem('cartItems'));
-            console.log(productList)
+            console.log(item)
 
-            // 檢查商品列表裡有無資料
-            if(!productList || !productList.length){
+            // localStorage.getItem是取得localStorage資料
+            if (!localStorage.getItem('cartItems')) {
+                console.log(localStorage.getItem('cartItems'));
                 let arr = [];
                 let obj = { ...item }
                 obj.amount = obj.amount ? obj.amount : 1;
                 arr.push(obj);
                 // 把資料存在localStorage
                 localStorage.setItem('cartItems', JSON.stringify(arr));
-            } else{
-                let isReduce = false;
+            } else {
+                // 找到已存在購物車裡的商品列表,透過localsrortage方式取得
+                let productList = JSON.parse(localStorage.getItem('cartItems'));
+                console.log(productList)
 
-                productList.forEach(element => {
-                    if(item.id == element.id){
-                        if(!element.amount){
-                            element.amount = 1;
-                        }
-                        element.amount = element.amount + 1 ;
-                        isReduce = true;
-                    }
-                });
-
-                
-                // 判斷isReduce有沒有在購物車裡面,沒有商品要push
-                if(!isReduce){
+                // 檢查商品列表裡有無資料
+                if (!productList || !productList.length) {
+                    let arr = [];
                     let obj = { ...item }
                     obj.amount = obj.amount ? obj.amount : 1;
-                    productList.push(obj);
+                    arr.push(obj);
                     // 把資料存在localStorage
+                    localStorage.setItem('cartItems', JSON.stringify(arr));
+                } else {
+                    let isReduce = false;
+
+                    productList.forEach(element => {
+                        if (item.id == element.id) {
+                            if (!element.amount) {
+                                element.amount = 1;
+                            }
+                            element.amount = element.amount + 1;
+                            isReduce = true;
+                        }
+                    });
+
+
+                    // 判斷isReduce有沒有在購物車裡面,沒有商品要push
+                    if (!isReduce) {
+                        let obj = { ...item }
+                        obj.amount = obj.amount ? obj.amount : 1;
+                        productList.push(obj);
+                        // 把資料存在localStorage
+                    }
+                    localStorage.setItem('cartItems', JSON.stringify(productList));
                 }
-                localStorage.setItem('cartItems', JSON.stringify(productList));
-            } 
+            }
         }
-    }
     },
         mounted() {
         console.log( this.$route.query.id)
-        fetch(`${import.meta.env.BASE_URL}public/productdata.json`)
+        fetch(`${import.meta.env.BASE_URL}json/productdata.json`)
         .then(data => data.json())
         .then(res => {
             this.productdetail = res.find(item=>item.id==this.$route.query.id);
-            this.productdetail.amount = 1 ;
+            this.productdetail.amount = 1;
             this.largeSrc = this.productdetail.imgUrl[0];
+
+            this.productdetail = data.map(productdetail => ({
+                ...productdetail,
+                imgUrl: `${this.basePath}/img/productdata/${productdetail.imgUrl}`,
+                imgUrl2: `${this.basePath}/img/productdata/${productdetail.imgUrl2}`,
+                imgUrl3: `${this.basePath}/img/productdata/${productdetail.imgUrl3}`
+            }));
         })
     },
 }

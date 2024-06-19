@@ -5,7 +5,7 @@
     width: 100%;
     height: 100vh;
     padding: 0;
-    background: url(../public/img/beachgame/beachgame-background.png);
+    background: url(/img/beachgame/beachgame-background.png);
     background-size: cover;
     background-position: 50% 50%;
     z-index: 99999;
@@ -172,47 +172,7 @@
             text-align: center;
             background-color: $color-subprimary;
             padding: 5%;
-           .slidepage-up{
-            margin: 20px auto;
-            .slide-tool-page {
-                transform: translateY(0);
-                color: #fff;
-                box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
-                border-radius: 20px;
-                text-align: center;
-                background-color: $color-primary;
-                padding: 5%;
-                .tool-list {
-                    color: #fff;
-                    .tool-item {
-                        &:hover{
-                            background-color:#fff;
-                            border:10px solid $color-highlight;
-                            border-radius:50%;
-                            // transform: scale(1);
-                        }
-                        .tool-pic {
-                            background-color: #fff;
-                            border-radius: 50%;
-                            margin: 20px;
-                            overflow: hidden;
-                            img {
-                                width: 100%;
-                                vertical-align: top;
-                            }
-                        }
-                    }
-                }
-            }
-            .slide-up-enter-active, .slide-up-leave-active {
-                transition: transform 0.5s ease;
-              }
-              .slide-up-enter-from, .slide-up-leave-to {
-                transform: translateY(100%);
-                opacity: 0;
-              }
-            }
-            .trash-pic {
+               .trash-pic {
                 width: 150px;
                 height: 150px;
                 margin: 0 auto;
@@ -241,9 +201,47 @@
                     display: none;
                 }
             }
-
-
         }
+           .slidepage-up{
+            margin: 20px auto;
+            .slide-tool-page {
+                transform: translateY(0);
+                color: #fff;
+                box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
+                border-radius: 20px;
+                text-align: center;
+                background-color: $color-primary;
+                padding: 5%;
+                .tool-list {
+                    color: #fff;
+                    .tool-item {
+                        &:hover{
+                            background-color:#fff;
+                            border:10px solid $color-highlight;
+                            border-radius:50%;
+                        }
+                        .tool-pic {
+                            background-color: #fff;
+                            border-radius: 50%;
+                            margin: 5%;
+                            overflow: hidden;
+                            img {
+                                width: 100%;
+                                vertical-align: top;
+                            }
+                        }
+                    }
+                }
+            }
+            .slide-up-enter-active, .slide-up-leave-active {
+                transition: transform 0.5s ease;
+              }
+              .slide-up-enter-from, .slide-up-leave-to {
+                transform: translateY(100%);
+                opacity: 0;
+              }
+            }
+         
         // 選取工具滑入頁面
         
 
@@ -377,6 +375,7 @@
         }
         .trash-pic{
             &:hover{
+                width:40%;
                 background-color:#fff;
                 border:4px solid #333;
                 border-radius:50%;

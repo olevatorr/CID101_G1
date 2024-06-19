@@ -1,73 +1,96 @@
 //section-detailed
 .section-detailed {
-    .event-card{
+    .lightBox-share {
         position: fixed;
-        top: 20%;
-        left: 12.5%;
-        width: 75%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 50%;
         background-color: #fff;
         box-shadow: 2px 2px 10px $color-border;
-        padding: 20px;
         box-sizing: border-box;
         display: flex;
-        align-items: center;   
-        .close{
+        padding: 20px;
+        @include hover-effect($apply-hover: false);
+        z-index: 30;
+
+        .close {
             color: #b6b6b6;
             font-size: 2.5rem;
             top: 0;
             right: 0;
-            &:hover{
+
+            &:hover {
                 color: $color-highlight;
                 transition: .3s ease;
             }
-        } 
-        .pic{
-            @include fixed-size-image(100%,250px);
-            margin-right: 20px;
         }
-        .text{
-            margin-top: 10px;
-            .theme{
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                .event-name{
-                    h3{
-                        color: $color-subprimary;
+
+        .leftBar {
+            width: 50%;
+
+            .pic {
+                @include fixed-size-image(100%, 90%);
+                display: block;
+            }
+
+            .report {
+                text-align: center;
+                color: $color-highlight;
+                margin-top: 10px;
+
+                span {
+                    font-size: 1.6rem;
+                    display: inline-block;
+
+                    &:hover {
+                        cursor: pointer;
+                        color: #f00;
+                        animation: shack .1s ease 3;
                     }
                 }
             }
-            .report{
-                color: $color-highlight;
-                &:hover{
-                    cursor: pointer;
-                    color: #f00;
-                    animation: shack .1s ease 3;
+        }
+
+        .text {
+            width: 50%;
+            margin-left: 20px;
+
+            .event-name {
+                h3 {
+                    color: $color-subprimary;
+                    font-size: 1.6rem;
                 }
             }
+
             span {
-                font-size: 1.5rem;
+                font-size: 1.3rem;
                 display: block;
                 margin: 10px 0;
                 line-height: 1.2;
-              }
+            }
+            p{
+                font-size: 1.3rem;
+                line-height: 1.5;
+            }
         }
     }
 }
+
 @keyframes shack {
     0% {
-      transform: translateX(0);
+        transform: translateX(0);
     }
 
     25% {
-      transform: translateX(-10%);
+        transform: translateX(-10%);
     }
 
     50% {
-      transform: translateX(10%);
+        transform: translateX(10%);
     }
 
     100% {
-      transform: translateX(0);
+        transform: translateX(0);
     }
-  }
+}

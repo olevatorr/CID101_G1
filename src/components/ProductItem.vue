@@ -95,6 +95,9 @@ export default {
                 localStorage.setItem('cartItems', JSON.stringify(productList));
             } 
         }
+    },
+    parseImg(img){
+        return `/img/shop/${img}`
     }
 }
 }

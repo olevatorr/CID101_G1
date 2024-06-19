@@ -4,10 +4,16 @@
     padding: 10px;
     background-color: #fff;
     margin-top: 20px;
+    
+    
     .news-card-pic{
+        // 設定同樣圖片比例
+        aspect-ratio: 4/3;
         img {
             width: 100%;
             vertical-align: top;
+            object-fit: cover;
+           
         }
     }
     .news-card-txt{
