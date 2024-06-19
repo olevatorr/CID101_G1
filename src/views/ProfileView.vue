@@ -73,7 +73,6 @@
               </tr>
             </thead>
             <tbody>
-<<<<<<< HEAD
               <template v-for="list in paginatedData" :key="list.PO_ID">
                 <tr>
                   <td data-label="訂單編號">{{ list.PO_ID }}</td>
@@ -106,45 +105,12 @@
                   <button @click="toggleShopTable()">關閉</button>
                 </div>
               </template>
-=======
-              <tr v-for="list in paginatedData" :key="list.PO_ID">
-                <td data-label="訂單編號">{{ list.PO_ID }}</td>
-                <td data-label="訂單狀況">{{ list.S_STATUS }}</td>
-                <td data-label="訂單日期">{{ list.PO_DATE }}</td>
-                <td data-label="總金額">{{ list.PO_AMOUNT }} </td>
-                <td data-label="付款方式">{{ list.PO_ORDER }}</td>
-                <td><button class="view" @click="toggleShopTable(list.PO_ID)">{{ list.VIEW }}</button></td>
-                <td data-label="功能"><button>{{ list.ORDER_BUTTON }}</button></td>
-              </tr>
->>>>>>> a1b9693054d4c556ae222c15b0cce2bca5d51b59
             </tbody>
           </table>
           <div class="button">
             <a href="#" v-for="pageNum in totalPages" :key="pageNum" @click.prevent="goToPage(pageNum)"
               :class="{ active: pageNum === currentPage }">{{ pageNum }}</a>
           </div>
-<<<<<<< HEAD
-=======
-          <!-- 商品資訊最後要放進div做成toggle -->
-          <div v-if="isShopTableVisible" class="registration col-12 col-sm-8 col-md-8">
-            <table class="shop">
-              <caption>訂單明細</caption>
-              <tr>
-                <th>商品編號</th>
-                <th>商品名稱</th>
-                <th>商品數量</th>
-                <th>單價</th>
-              </tr>
-              <tr v-for="shops in shoplists" :key="shops.PO_ID">
-                <td>{{ shops.P_ID }}</td>
-                <td>{{ shops.P_NAME }}</td>
-                <td>{{ shops.PO_QTY }}</td>
-                <td>{{ shops.PO_PRICE }}</td>
-              </tr>
-            </table>
-            <button @click="toggleShopTable()">關閉</button>
-          </div>
->>>>>>> a1b9693054d4c556ae222c15b0cce2bca5d51b59
         </div>
 
         <!-- 活動查詢 -->
@@ -259,11 +225,7 @@
 
 <script>
 import { store, fetchProfile, logout as logoutStore } from '@/store.js';
-<<<<<<< HEAD
 import { ref, computed, onMounted, watch } from 'vue'
-=======
-import { ref, computed, onMounted } from 'vue'
->>>>>>> a1b9693054d4c556ae222c15b0cce2bca5d51b59
 fetchProfile()
 
 export default {
@@ -326,11 +288,7 @@ export default {
           return response.json();
         }));
 
-<<<<<<< HEAD
         // 將每個 JSON 資料整合到一個數組中，或根據需要進行其他處理
-=======
-        // 将每个 JSON 数据整合到一个数组中，或者根据需要进行其他处理
->>>>>>> a1b9693054d4c556ae222c15b0cce2bca5d51b59
         donates.value = jsonDatas[0];
         activities.value = jsonDatas[1];
         favorites.value = jsonDatas[2];
