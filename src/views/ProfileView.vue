@@ -73,41 +73,46 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="list in paginatedData" :key="list.PO_ID">
-                <td data-label="訂單編號">{{ list.PO_ID }}</td>
-                <td data-label="訂單狀況">{{ list.S_STATUS }}</td>
-                <td data-label="訂單日期">{{ list.PO_DATE }}</td>
-                <td data-label="總金額">{{ list.PO_AMOUNT }} </td>
-                <td data-label="付款方式">{{ list.PO_ORDER }}</td>
-                <td><button class="view" @click="toggleShopTable(list.PO_ID)">{{ list.VIEW }}</button></td>
-                <td data-label="功能"><button>{{ list.ORDER_BUTTON }}</button></td>
-              </tr>
+              <template v-for="list in paginatedData" :key="list.PO_ID">
+                <tr>
+                  <td data-label="訂單編號">{{ list.PO_ID }}</td>
+                  <td data-label="訂單狀況">{{ list.S_STATUS }}</td>
+                  <td data-label="訂單日期">{{ list.PO_DATE }}</td>
+                  <td data-label="總金額">{{ list.PO_AMOUNT }} </td>
+                  <td data-label="付款方式">{{ list.PO_ORDER }}</td>
+                  <td><button class="view" @click="toggleShopTable(list.PO_ID)">{{ list.VIEW }}</button></td>
+                  <td data-label="功能"><button>{{ list.ORDER_BUTTON }}</button></td>
+                </tr>
+                <!-- 商品資訊最後要放進div做成toggle -->
+                <!--currentPoId的值等於list.PO_ID 和 isShopTableVisible開啟的狀態 -->
+                <div v-if="currentPoId === `${list.PO_ID}` && isShopTableVisible"
+                  class="shoptable">
+                  <table class="shop">
+                    <caption>訂單明細</caption>
+                    <tr>
+                      <th>商品編號</th>
+                      <th>商品名稱</th>
+                      <th>商品數量</th>
+                      <th>單價</th>
+                    </tr>
+                    <tr v-for="shops in filteredShoplists" :key="shops.PO_ID">
+                      <td data-label="商品編號">{{ shops.P_ID }}</td>
+                      <td data-label="商品名稱">{{ shops.P_NAME }}</td>
+                      <td data-label="商品數量">{{ shops.PO_QTY }}</td>
+                      <td data-label="單價">{{ shops.PO_PRICE }}</td>
+                    </tr>
+                  </table>
+                  <button @click="toggleShopTable()">關閉</button>
+                </div>
+              </template>
             </tbody>
           </table>
           <div class="button">
             <a href="#" v-for="pageNum in totalPages" :key="pageNum" @click.prevent="goToPage(pageNum)"
               :class="{ active: pageNum === currentPage }">{{ pageNum }}</a>
           </div>
-          <!-- 商品資訊最後要放進div做成toggle -->
-          <div v-if="isShopTableVisible" class="registration col-12 col-sm-8 col-md-8">
-            <table class="shop">
-              <caption>訂單明細</caption>
-              <tr>
-                <th>商品編號</th>
-                <th>商品名稱</th>
-                <th>商品數量</th>
-                <th>單價</th>
-              </tr>
-              <tr v-for="shops in shoplists" :key="shops.PO_ID">
-                <td>{{ shops.P_ID }}</td>
-                <td>{{ shops.P_NAME }}</td>
-                <td>{{ shops.PO_QTY }}</td>
-                <td>{{ shops.PO_PRICE }}</td>
-              </tr>
-            </table>
-            <button @click="toggleShopTable()">關閉</button>
-          </div>
         </div>
+
         <!-- 活動查詢 -->
         <div class="registration col-12 col-sm-8  col-md-8" v-else-if="currentSection === 'activity'">
           <table class="apply">
@@ -220,7 +225,7 @@
 
 <script>
 import { store, fetchProfile, logout as logoutStore } from '@/store.js';
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 fetchProfile()
 
 export default {
@@ -238,7 +243,9 @@ export default {
     const favorites = ref([]);
     const order = ref([]);
     const shoplists = ref([]);
+
     const isShopTableVisible = ref(false);
+    const currentPoId = ref('')
 
     const fileChange = (event) => {
       const file = event.target.files[0];
@@ -273,7 +280,7 @@ export default {
           fetch(`${import.meta.env.BASE_URL}json/shoplist.json`),
 
         ]);
-        // 检查每个响应的状态
+        // 檢查每個響應的狀態
         const jsonDatas = await Promise.all(responses.map(async (response) => {
           if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -281,7 +288,7 @@ export default {
           return response.json();
         }));
 
-        // 将每个 JSON 数据整合到一个数组中，或者根据需要进行其他处理
+        // 將每個 JSON 資料整合到一個數組中，或根據需要進行其他處理
         donates.value = jsonDatas[0];
         activities.value = jsonDatas[1];
         favorites.value = jsonDatas[2];
@@ -327,20 +334,35 @@ export default {
         currentPage.value = page;
       }
     };
+    
+
     //顯示清單明細 
     const filteredShoplists = computed(() => {
-      if (!order.value) return [];
-      return shoplists.value.filter(shop => shop.PO_ID === order.value.PO_ID);
+      if (!currentPoId.value) return [];
+      return shoplists.value.filter(shop => shop.PO_ID === currentPoId.value);
     });
 
+
     const toggleShopTable = (poId) => {
-      if (order.value.PO_ID === poId) {
-        isShopTableVisible.value = !isShopTableVisible.value;
+      if (!poId) {
+        isShopTableVisible.value = false
+        return
+      }
+
+      if (currentPoId.value === `${poId}`) {
+        isShopTableVisible.value = false
       } else {
-        order.value.PO_ID = poId;
+        currentPoId.value = `${poId}`;
         isShopTableVisible.value = true;
       }
     };
+
+    watch(isShopTableVisible, (isOpen) => {
+      if (!isOpen) {
+        currentPoId.value = ''
+      }
+    })
+
     return {
       fileInput,
       imageSrc,
@@ -362,6 +384,7 @@ export default {
       paginatedData,
       goToPage,
       isShopTableVisible,
+      currentPoId,
       toggleShopTable,
       filteredShoplists,
     }

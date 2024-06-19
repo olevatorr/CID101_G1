@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <section class="section sectionThanks">
         <div class="container">
             <div class="sx-txt co1-12" data-aos="fade-up">
                 <p>感謝您對「藍色警戒」的慷慨支持！</p>

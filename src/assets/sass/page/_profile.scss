@@ -212,15 +212,12 @@
             text-decoration: none;
         }
         }
-        .shop{
-            tr{
-            th:nth-child(1),th:nth-child(3)
-            {
-                width: 90px;
-            }
-        }
-        }
+        
         .order {
+            tbody{
+                position: relative;
+
+            }
             tr {
                 th:nth-child(1),th:nth-child(3)
                 {
@@ -229,7 +226,9 @@
                 td:nth-child(4){
                     padding-left: 4rem;
                     text-align: left;
-
+                    @media screen and (max-width:576px) {
+                        text-align: right;
+                    }
                 }
                 td:nth-child(5)
                 {
@@ -242,6 +241,9 @@
                 }
                 th {
                     height: 5rem;
+                    @media screen and (max-width:576px) {
+                        display: none;
+                    }
                 }
 
                 td {
@@ -250,6 +252,36 @@
                         background-color: #bbb;
                         cursor: not-allowed;
                     }
+                }
+            }
+            .shoptable{
+                background-color: #4ecabf;
+                position: absolute;
+                
+                width: 100%;
+                z-index: 3;
+                @media screen and (max-width:576px) {
+                    border: 1px solid #000;
+                    background-color: $color-white;
+                }
+                .shop{
+                    caption{
+                        padding-top: 2rem;
+
+                    }
+                    th{
+                        width: auto;
+                        background-color: #A0F3EC; 
+                    }
+                    td{
+                        @media screen and (max-width:576px) {
+                            padding-right: 1rem;
+                        } 
+                    }
+                }
+                button{
+                    margin-top: 1rem;
+                    margin-bottom: 1rem;
                 }
             }
         }
@@ -321,7 +353,6 @@
             }
         
         
-
     }
         //修改密碼
     .profile-revise{
