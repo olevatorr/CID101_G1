@@ -78,7 +78,7 @@ export default {
                 max-height: 70%;
             }
             }
-         </style>
+        </style>
         </head>
         <body>
             ${contentToConvert.value.innerHTML}
@@ -242,13 +242,13 @@ export default {
                                 <p>捐款姓名: {{ store.member.U_NAME }}</p>
                                 <p>捐款金額: NT$ {{ donationAmount }}</p>
                                 <p>捐款日期: {{ donationDate }}</p>
-                                <p>社福財團法人:Tibame績育海洋服務</p>
+                                <p>社福財團法人:Tibame緯育海洋服務</p>
                                 <div class="donatboxtxt">
                                     <p>捐款用途:</p>
                                     <p>捐款可能會用於開展海洋教育項目，促進公眾對海洋生態的認識和理解，提高對海洋保護的關注度。</p>
                                 </div>
                                 <div class="stamp">
-                                    <p>社福財團法人:Tibame績育海洋服務</p>
+                                    <p>社福財團法人:Tibame緯育海洋服務</p>
                                     <img src="/img/donate/緯育海洋服務辦事處_redmi 1.png" alt="Stamp">
                                 </div>
                             </div>
