@@ -91,7 +91,7 @@ const calendarFilteredEvents = ref([]);
 onMounted(async () => {
     try {
         // 加載 event.json
-        const eventResponse = await fetch(`${import.meta.env.BASE_URL}public/json/event.json`);
+        const eventResponse = await fetch(`${import.meta.env.BASE_URL}json/event.json`);
         if (!eventResponse.ok) {
             throw new Error('Network response was not ok');
         }

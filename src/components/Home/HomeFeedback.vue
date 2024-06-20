@@ -1,30 +1,35 @@
 <script setup>
 import shareCard from '@/components/carouselShareCard.vue';
 import { onMounted, ref, watch } from 'vue';
-const homeFeedback = ref([])
+
+const homeFeedback = ref([]);
+const carouselEnabled = ref(true); // 添加這行,控制是否啟用輪播功能
+
 onMounted(() => {
     fetch(`${import.meta.env.BASE_URL}json/Share.json`)
         .then(res => res.json())
         .then(jsonData => {
-            homeFeedback.value = jsonData.slice(0, 16)
-        })
-})
+            homeFeedback.value = jsonData.slice(0, 16);
+        });
+});
+
 const selectedShareCard = ref(null);
 const showReportModal = ref(false);
 
 const handleShareCardClick = (card) => {
-    selectedShareCard.value = card
-    // console.log(selectedShareCard.value);
-}
+    selectedShareCard.value = card;
+};
 
 const closeShareModal = () => {
-    selectedShareCard.value = null
-}
+    selectedShareCard.value = null;
+};
+
 const closeExamine = () => {
     showReportModal.value = false;
     selectedReason.value = '';
     showWarning.value = true;
-}
+};
+
 const reasons = ref([
     { label: '仇恨言論或歧視' },
     { label: '侵犯隱私' },
@@ -35,23 +40,21 @@ const reasons = ref([
     { label: '非法活動' },
     { label: '垃圾信息或廣告' }
 ]);
-//存儲選擇的理由
-const selectedReason = ref('');
 
-//控制是否顯示警告提示
+const selectedReason = ref('');
 const showWarning = ref(false);
-////監聽 selectedReason 的變化，如果為空且表單送出，則顯示警告
+
 watch(selectedReason, (newValue) => {
     showWarning.value = newValue === '';
 });
-// 顯示警告
+
 const submitForm = () => {
     if (selectedReason.value === '') {
         showWarning.value = true;
     }
-}
-
+};
 </script>
+
 <template>
     <section class="section section-index-event-feedback">
         <div class="container">
@@ -59,11 +62,10 @@ const submitForm = () => {
                 FEEDBACK OF EVENT<br>
                 活動分享
             </h3>
-            <div class="row">
-                <shareCard :shareContent="homeFeedback" @card-click="handleShareCardClick"
-                    @report-click="showReportModal = true" />
-            </div>
         </div>
+        <shareCard :shareContent="homeFeedback" :carouselEnabled="carouselEnabled"
+            @card-click="handleShareCardClick" @report-click="showReportModal = true" />
+        <router-link to="/events"><button>查看更多分享</button></router-link>
     </section>
     <div class="section section-detailed" v-if="selectedShareCard">
         <shareCard :shareContent="selectedShareCard ? [selectedShareCard] : []" @close-click="closeShareModal"

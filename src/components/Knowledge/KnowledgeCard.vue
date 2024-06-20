@@ -55,7 +55,7 @@ export default {
     },
     methods: {
         fetchCardsData() {
-            fetch('/json/oceanCard.json') // 獲取卡片數據的 API 請求
+            fetch(`${import.meta.env.BASE_URL}json/oceanCard.json`) // 獲取卡片數據的 API 請求
                 .then(response => response.json())
                 .then(data => {
                     this.cards = data; // 將獲取到的數據存儲在 cards 中

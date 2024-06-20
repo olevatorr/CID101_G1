@@ -134,17 +134,17 @@ export default {
             this.donationId = 'D' + Date.now(); // 生成簡單的捐款編號
             this.donationDate = new Date().toLocaleString(); // 獲取當前日期和時間
             this.isLightboxVisible = true; // 顯示 Lightbox
-            this.disableBodyScroll(); // 禁用页面滚动
+            this.disableBodyScroll(); //  禁用頁面滾動
         },
         closeLightbox() {
             this.isLightboxVisible = false; // 隱藏 Lightbox
-            this.enableBodyScroll(); // 启用页面滚动
+            this.enableBodyScroll(); // 啟用頁面滾動
         },
         disableBodyScroll() {
-            document.body.style.overflow = 'hidden'; // 禁用页面滚动
+            document.body.style.overflow = 'hidden'; // 禁用頁面滾動
         },
         enableBodyScroll() {
-            document.body.style.overflow = 'auto'; // 启用页面滚动
+            document.body.style.overflow = 'auto'; // 啟用頁面滾動
         }
     }
 };
@@ -233,7 +233,7 @@ export default {
                     <!-- 印製 -->
                     <div class="txt-content" ref="contentToConvert">
                         <div>
-                            <img class="logoimgbox" src="/public/img/LOGO-color.png" width="10%">
+                            <img class="logoimgbox" src="/img/LOGO-color.png" width="10%">
                             <div class="h4-line">
                                 <h4>捐款證書</h4>
                             </div>
@@ -249,7 +249,7 @@ export default {
                                 </div>
                                 <div class="stamp">
                                     <p>社福財團法人:Tibame績育海洋服務</p>
-                                    <img src="/public/img/donate/緯育海洋服務辦事處_redmi 1.png" alt="Stamp">
+                                    <img src="/img/donate/緯育海洋服務辦事處_redmi 1.png" alt="Stamp">
                                 </div>
                             </div>
                         </div>

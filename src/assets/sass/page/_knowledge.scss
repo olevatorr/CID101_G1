@@ -168,19 +168,33 @@
 }
 
 .news-filter select {
-    background: #E7A600;
-    color: #ffffff;
+    background: rgba(255, 255, 255, 0.16);
+    border-radius: 10px;
+    color: #111111;
     margin-top: 10px;
-    width: 150px;
-    height: 3em;
+    border: 2px solid #ffffff;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     padding: 10px;
-    border: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
 }
-
+.news-filter option {
+    background: rgba(187, 187, 187, 0.26);
+    color: #3b3939;
+}
+option:hover{
+    color: #fff;
+}
 // ------------------------------------基隆垃圾處理方式
 .trash-card {
     text-align: center;
 }
+select {
+    padding: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
 
 // ------------------------------------海廢知識庫 
 .section-knowledge {

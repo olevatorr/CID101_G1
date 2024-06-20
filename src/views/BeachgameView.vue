@@ -151,7 +151,7 @@
                 </div>
 
                 <!-- 撿取成功 -->
-                <!-- <div class="col success-lightbox">
+                <!-- <div class="col success-lightbox" :class="{ '-viewShow': successLightbox }">
                     <h2 class="ori">撿取垃圾成功</h2>
                     <div class="success-content">
                         <div class="success-pic">
@@ -162,7 +162,7 @@
                             <p>終於可以在乾淨的海水裡生活了， 每次從海邊漂來奇怪的東西，都很容易受傷。</p>
                         </div>
                     </div>
-                    <button>繼續淨灘</button>
+                    <button @click="continueGame">繼續淨灘</button>
                 </div> -->
                 <!-- 撿取失敗 -->
                 <div class="col fail-lightbox" :class="{ '-viewShow': failLightbox, '-viewClose': returnPageSet }">
@@ -213,7 +213,11 @@
             <!-- 隨機垃圾分佈 -->
             <!-- selectedTrash為null時，顯示視窗，被設置時隱藏視窗 -->
             <!-- v-for綁唯一值，有刪除絕對不能用會影響索引值 -->
+            <!-- 確定角色選取後，加上class，會出現散佈的垃圾 -->
+            <!-- 當showTrashContainer 為true值時就把這個class加上去，-viewShow是設定出現 -->
             <div class="trash-container" :class="{ '-viewShow': showTrashContainer }">
+                <!-- 使用v-for去跑迴圈將 trashItem陣列中的項目都顯示出來 -->
+                <!-- 調整元素動態位置時，常用style去設定 -->
                 <div v-show="!hideItem.includes(item.id)" class="trash-pic" v-for="item in trashItem" :key="item.id"
                     :style="{ 'position': 'absolute', left: `${item.x}%`, top: `${item.y}%`, width: '150px', }"
                     @click=" handleTrashClick(item.id)">
@@ -225,24 +229,25 @@
 </template>
 
 <script>
-
+// 全域的寫法
+// 我有container範圍，所以起始點不在(0,0)，左上角
 const pos = [{
-    x: 100,
-    y: 100,
-}, {
-    x: 100,
-    y: 50,
-}, {
-    x: 50,
-    y: 75,
-}, {
     x: 20,
+    y: 30,
+}, {
+    x: 60,
+    y: -30,
+}, {
+    x: 70,
+    y: 10,
+}, {
+    x: 80,
     y: 80,
 }, {
-    x: 50,
+    x: 40,
     y: 69,
 }, {
-    x: 20,
+    x: 70,
     y: 100,
 }
 ]
@@ -275,9 +280,18 @@ export default {
                 "/img/beachgame/trash04.png",
                 "/img/beachgame/trash05.png"
             ],
+            // trashItem的生成，使用 Array from() 方法，創建一個陣列
+            // 使用產生數值序列，因為陣列中的每個位置都會被初始化為 `undefined`，內容暫時為 undefined
+            // 生成一個指定長度的陣列並初始化值，如同下方的形式
+            // 長度後面的回調函數，接受當前元素的值及索引
+            // 但目前以索引做運作，可忽略第一個參數，給一個下底線
+            // 這個 trashItem 是個陣列，有5個值
+            //使用 return 關鍵字返回這個物件，使其成為新陣列中的一個元素。
             trashItem: Array.from({ length: 5 }, (_, i) => {
+                //為了方便定義位置，使用pos陣列，去控制索引的 x 及 y 值
                 const x = pos[i].x
                 const y = pos[i].y
+                // 用id值去控制陣列中的物件，而 id 等於索引+1
                 return {
                     id: i + 1,
                     x,
@@ -328,11 +342,15 @@ export default {
             selectedTool: null,
             //得到選取垃圾的id
             getTrashId: null,
-
+            // 成功撿取出現彈窗
             successLightbox: false,
+            //失敗彈窗
             failLightbox: false,
+            //成功挑戰出現彈窗
             finishLightbox: false,
+            // 失敗挑戰後再挑戰
             returnPageSet: false,
+            // 點選垃圾後將id推入此陣列儲存，代表原本顯示陣列的會消失
             hideItem: []
         }
     },
@@ -388,7 +406,6 @@ export default {
             this.characterOk = true;
             this.shuffleImages();//隨機排列圖片
             this.showTrashContainer = true; // 顯示垃圾圖片容器
-
         },
         shuffleImages() {
             this.trashImage = this.trashImage.sort(() => Math.random() - 0.5);
@@ -401,7 +418,7 @@ export default {
             this.showTrashContainer = false;
             // 取出陣列裡的垃圾id值，要用在對應工具上
             this.getTrashId = id
-
+            // 推進陣列中
             this.hideItem.push(id)
         },
         // 滑入工具列可選取
@@ -423,7 +440,8 @@ export default {
                 // console.log('Fail lightbox should be shown'); // 檢查是否進入失敗的條件
             }
             if (this.hideItem.length >= 5) {
-                alert('')
+
+                this.finishLightbox = true;
             }
         },
         choseGloves() {
@@ -446,6 +464,14 @@ export default {
             this.failLightbox = true; // 顯示挑戰失敗彈窗
             this.returnPageSet = false;
         },
+        // 繼續挑戰，成功撿取畫面消失
+        //垃圾繼續出來
+        // continueGame() {
+        //     this.successLightbox = false;
+        //     this.showTrashContainer = true;
+        //     // 點選垃圾出現的彈窗，前面點過這裡要讓他先回初始值，這樣下次點才會出現
+        //     // this.slidePage = false;
+        // },
         // 重新挑戰刷新頁面
         gameHome() {
             location.reload();

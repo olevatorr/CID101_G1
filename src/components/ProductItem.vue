@@ -4,7 +4,7 @@
             <div class="shop-card" @mouseenter="showCart" @mouseleave="hideCart"> 
                 <RouterLink :to="'/productinfo?id=' + productInfo.id">
                     <div class="img"> 
-                        <img :src="productInfo.imgUrl" alt="">
+                        <img :src="getImageUrl(productInfo.imgUrl)" alt="">
                     </div>
                 </RouterLink>    
                     <div class="cart-wrapper">
@@ -96,8 +96,8 @@ export default {
             } 
         }
     },
-    parseImg(img){
-        return `/img/shop/${img}`
+    getImageUrl(imgUrl) {
+        return `${import.meta.env.BASE_URL}img/shop/${imgUrl}`;
     }
 }
 }

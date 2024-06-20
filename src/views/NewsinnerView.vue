@@ -26,7 +26,7 @@
         </div>
         <div class="container newsinner-container">
             <div class="newsinner-pic">
-                <img :src="newsDetail.imgUrl" alt="最新消息">
+                <img :src="getImageUrl(newsDetail.imgUrl)" alt="最新消息">
             </div>
             <div class="newsinner-txt">
                 <p>{{ newsDetail?.content }}</p>
@@ -54,6 +54,8 @@ export default {
             fetch(`${import.meta.env.BASE_URL}json/newslist.json`)
                 .then(res => res.json())
                 .then(json => {
+                    // 備份原始數據
+                    // this.originalNewsDetail = [...json];
                     this.newsDetail = json.find(item => {
                         return item.id == this.$route.params.id
                     })
@@ -62,6 +64,9 @@ export default {
                     // 錯誤例外
                     console.log(`Error: ${error}`);
                 })
+        },
+        getImageUrl(imgUrl) {
+            return `${import.meta.env.BASE_URL}img/news/${imgUrl}`;
         }
     },
 }
