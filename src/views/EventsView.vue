@@ -28,7 +28,7 @@
         </select>
       </div>
       <div class="row">
-        <EventCard :filteredEvents="filteredEvents && paginatedEvents" @card-click="handleEventCardClick" />
+        <EventCard :filteredEvents="paginatedEvents" @card-click="handleEventCardClick" />
       </div>
       <EventPagination :totalItems="filteredEvents.length" :itemsPerPage="8" :currentPage="eventPage"
         @page-changed="changeEventPage" />
