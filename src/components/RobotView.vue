@@ -67,15 +67,19 @@ const sendMessage = () => {
 const getResponse = (userMessage) => {
     const responses = {
         '你好': '您好,歡迎來到客服中心!有什麼可以幫助您的嗎?',
-        '產品': '我們提供各種愛心產品,包括衣服、配件等。請問您對哪種產品感興趣?您可以瀏覽我們的<a href="/shop" target="_blank">產品目錄</a>。',
-        '商城': '我們提供各種愛心產品,包括衣服、配件等。請問您對哪種產品感興趣?您可以瀏覽我們的<a href="/shop" target="_blank">產品目錄</a>。',
-        '訂單': '請提供您的訂單編號,我們將為您查詢訂單狀態。您也可以前往<a href="/ProfileView" target="_blank">訂單查詢頁面</a>自行查詢。',
-        '捐款': '如果您想為海洋盡一份心力，也歡迎至<a href="/donate" target="_blank">捐款頁面</a>了解詳情',
-        '活動': '我們的淨灘活動都是免費的，想了解哪一天有活動，請至<a href="/events" target="_blank">訂單查詢頁面</a>自行查詢。',
-        '遊戲': '我們提供輕鬆小遊戲，讓您可以用愉快的方式了解更多海廢知識。遊戲一<a href="/beachgame" target="_blank">淨灘大作戰</a>遊戲二<a href="/mallcart" target="_blank">海廢小知識</a>。',
-        'game': '我們提供輕鬆小遊戲，讓您可以用愉快的方式了解更多海廢知識。遊戲一<a href="/beachgame" target="_blank">淨灘大作戰</a>遊戲二<a href="/mallcart" target="_blank">海廢小知識</a>。',
-        '知識': '想了解更多海廢知識嗎?您也可以立即前往<a href="/Knowledge" target="_blank">教育中心</a>使用各種數據來了解海廢知識。',
-        '消息': '想了解更多BlueAlert最新消息嗎?您也可以立即前往<a href="/news" target="_blank">最新消息</a>查看更多。',
+        '產品': '我們提供各種愛心產品,包括衣服、配件等。請問您對哪種產品感興趣?您可以瀏覽我們的<a href="./shop" target="_blank">產品目錄</a>。',
+        '商城': '我們提供各種愛心產品,包括衣服、配件等。請問您對哪種產品感興趣?您可以瀏覽我們的<a href="./shop" target="_blank">產品目錄</a>。',
+        '訂單': '請提供您的訂單編號,我們將為您查詢訂單狀態。您也可以前往<a href="./ProfileView" target="_blank">訂單查詢頁面</a>自行查詢。',
+        '捐款': '如果您想為海洋盡一份心力，也歡迎至<a href="./donate" target="_blank">捐款頁面</a>了解詳情',
+        '活動': '我們的淨灘活動都是免費的，想了解哪一天有活動，請至<a href="./events">活動查詢頁面</a>查詢。',
+        '遊戲': '我們提供輕鬆小遊戲，讓您可以用愉快的方式了解更多海廢知識。遊戲一<a href="./beachgame" target="_blank">淨灘大作戰</a>遊戲二<a href="./mallcart" target="_blank">海廢小知識</a>。',
+        'game': '我們提供輕鬆小遊戲，讓您可以用愉快的方式了解更多海廢知識。遊戲一<a href="./beachgame" target="_blank">淨灘大作戰</a>遊戲二<a href="./mallcart" target="_blank">海廢小知識</a>。',
+        '知識': '想了解更多海廢知識嗎?您也可以立即前往<a href="./Knowledge" target="_blank">教育中心</a>使用各種數據來了解海廢知識。',
+        '消息': '想了解更多BlueAlert最新消息嗎?您也可以立即前往<a href="./news" target="_blank">最新消息</a>查看更多。',
+        '關於': '想了解BlueAlert的經營模式和其他資訊，您也可以立即前往<a href="./about" target="_blank">關於我們</a>查看。',
+        '幹': '小烏龜聽不懂，但覺得有點小生氣唷。',
+        '白癡': '那您問我居心何在?這個問題您應該先問您自己',
+        'fuck': 'Oh~ I don\'t give a fuck~',
     };
 
     const defaultResponse = '很抱歉,我無法理解您的問題。請嘗試以其他方式提問或致電人工客服(03) - 4251108。';

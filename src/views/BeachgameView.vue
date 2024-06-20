@@ -274,11 +274,11 @@ export default {
             // 控制垃圾圖片顯示
             showTrashContainer: false,
             trashImage: [
-                "/img/beachgame/trash01.png",
-                "/img/beachgame/trash02.png",
-                "/img/beachgame/trash03.png",
-                "/img/beachgame/trash04.png",
-                "/img/beachgame/trash05.png"
+                `${import.meta.env.BASE_URL}img/beachgame/trash01.png`,
+                `${import.meta.env.BASE_URL}img/beachgame/trash02.png`,
+                `${import.meta.env.BASE_URL}img/beachgame/trash03.png`,
+                `${import.meta.env.BASE_URL}img/beachgame/trash04.png`,
+                `${import.meta.env.BASE_URL}img/beachgame/trash05.png`
             ],
             // trashItem的生成，使用 Array from() 方法，創建一個陣列
             // 使用產生數值序列，因為陣列中的每個位置都會被初始化為 `undefined`，內容暫時為 undefined
@@ -296,7 +296,7 @@ export default {
                     id: i + 1,
                     x,
                     y,
-                    url: `/img/beachgame/trash0${i + 1}.png`
+                    url: `${import.meta.env.BASE_URL}img/beachgame/trash0${i + 1}.png`
                 }
             }),
 
@@ -307,31 +307,31 @@ export default {
                 {
                     id: 1,
                     name: '橡膠拖鞋',
-                    image: '/img/beachgame/trash01.png',
+                    image: `${import.meta.env.BASE_URL}img/beachgame/trash01.png`,
                     description: '不當棄置 許多人使用後直接將舊的橡膠拖鞋隨意丟棄,它們可能被沖入水流、排水系統,最終流入河川或海洋。',
                 },
                 {
                     id: 2,
                     name: '輪胎',
-                    image: '/img/beachgame/trash02.png',
+                    image: `${import.meta.env.BASE_URL}img/beachgame/trash02.png`,
                     description: '廢棄輪胎會釋放有害化學物質，對海洋生物構成威脅，並且難以分解，移除廢棄輪胎，有助於保護海洋生態。',
                 },
                 {
                     id: 3,
                     name: '吸管',
-                    image: '/img/beachgame/trash03.png',
+                    image: `${import.meta.env.BASE_URL}img/beachgame/trash03.png`,
                     description: '塑膠吸管是海洋垃圾的常見組成部分，會對海洋生物造成窒息危險,撿起塑膠吸管，減少海洋污染。',
                 },
                 {
                     id: 4,
                     name: '塑膠袋',
-                    image: '/img/beachgame/trash04.png',
+                    image: `${import.meta.env.BASE_URL}img/beachgame/trash04.png`,
                     description: '塑膠袋被視為海洋中最危險的污染物之一,它們會被海洋生物誤食,造成消化道阻塞和飢餓，塑膠袋雖然看起來很小,但對海洋生物的危害卻很大,一定要小心清理。',
                 },
                 {
                     id: 5,
                     name: '漁網',
-                    image: '/img/beachgame/trash05.png',
+                    image: `${import.meta.env.BASE_URL}img/beachgame/trash05.png`,
                     description: '遺棄的漁網會繼續捕獲海洋生物，並且對海底環境造成破壞，清理遺棄漁網，有助於保護海洋生物。',
                 }
             ],
@@ -485,7 +485,7 @@ export default {
             this.getTrashId = null;
             this.trashLightbox = false;
             this.showTrashContainer = true;
-        }
+        },
     },
     // beforeUnmount() {
     //     // console.log(4444);
