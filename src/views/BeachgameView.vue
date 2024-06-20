@@ -151,7 +151,7 @@
                 </div>
 
                 <!-- 撿取成功 -->
-                <!-- <div class="col success-lightbox" :class="{ '-viewShow': successLightbox }">
+                <div class="col success-lightbox" :class="{ '-viewShow': successLightbox }">
                     <h2 class="ori">撿取垃圾成功</h2>
                     <div class="success-content">
                         <div class="success-pic">
@@ -163,7 +163,7 @@
                         </div>
                     </div>
                     <button @click="continueGame">繼續淨灘</button>
-                </div> -->
+                </div>
                 <!-- 撿取失敗 -->
                 <div class="col fail-lightbox" :class="{ '-viewShow': failLightbox, '-viewClose': returnPageSet }">
                     <h2 class="ori">撿取垃圾失敗</h2>
@@ -182,7 +182,7 @@
                     <button @click="returnPage" :class="{ '-viewClose': returnPageSet }">重新挑戰</button>
                 </div>
                 <!-- 淨灘成功 -->
-                <div class="col finish-lightbox" :class="{ '-viewShow': successLightbox }">
+                <div class="col finish-lightbox" :class="{ '-viewShow': finishLightbox }">
                     <h2 class="ori">淨灘成功</h2>
                     <div class="finish-content">
                         <div class="finish-pic">
@@ -466,12 +466,12 @@ export default {
         },
         // 繼續挑戰，成功撿取畫面消失
         //垃圾繼續出來
-        // continueGame() {
-        //     this.successLightbox = false;
-        //     this.showTrashContainer = true;
-        //     // 點選垃圾出現的彈窗，前面點過這裡要讓他先回初始值，這樣下次點才會出現
-        //     // this.slidePage = false;
-        // },
+        continueGame() {
+            this.successLightbox = false;
+            this.showTrashContainer = true;
+            // 點選垃圾出現的彈窗，前面點過這裡要讓他先回初始值，這樣下次點才會出現
+            // this.slidePage = false;
+        },
         // 重新挑戰刷新頁面
         gameHome() {
             location.reload();
