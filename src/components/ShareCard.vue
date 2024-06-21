@@ -29,7 +29,7 @@
         </div>
     </template>
     <!-- 只渲染一張卡片 -->
-    <div v-else-if="shareContent.length" class="col-12">
+    <div v-else-if="shareContent.length" class="share-bg">
         <div class="lightBox-share">
             <div class="close">
                 <i class="fa-regular fa-circle-xmark" @click="closeCard"></i>
