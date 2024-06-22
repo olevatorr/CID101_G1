@@ -1,9 +1,11 @@
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, watch, onUnmounted } from 'vue'
 
 const showStart = ref(true)
 const showRules = ref(false)
 const showQuiz = ref(false)
+const isLightboxVisible = ref(false) // 記得改回來false
+const contentToConvert = ref(null)
 
 const questions = [
     {
@@ -76,10 +78,30 @@ const mbtiResults = [
     }
 ]
 
+const mbtiLightbox = [
+    {
+        name: '鯨魚型',
+        description: '鯨魚型的人通常被視為非常聰明且值得信賴的夥伴。他們擁有豐富的知識和洞察力,能夠以寬廣的視野看待問題,提出獨到的見解和解決方案。他們善於傾聽和理解他人的觀點,同時也懂得適時分享自己的想法和建議。<br/>鯨魚型的人通常表現得沈穩內斂,但絕非冷漠與疏離。相反,他們對周遭的人和事物保持高度的興趣和關注。他們樂於與他人分享自己的經驗和知識,並從中獲得滿足感。無論是在工作還是生活中,鯨魚型的人都是絕佳的夥伴,值得您的信賴和尊重。',
+        image: `${import.meta.env.BASE_URL}img/mbti/bigfish.png`
+    },
+    {
+        name: '海龜型',
+        description: '海龜型的人給人一種溫和、有耐心的印象。他們往往不喜歡張揚,而是安份守己,循序漸進地完成自己的目標。他們謹慎行事,做事往往三思而後行,這種穩重的作風往往能夠幫助他們避免許多不必要的麻煩和風險。<br/>然而,有時候海龜型的人過於被動和保守,缺乏一些進取心和魄力。他們需要學會在適當的時候拋開猶豫,大膽地嘗試新事物,勇於面對挑戰。只有這樣,他們才能發掘出自身潛能,不斷成長和蛻變。總的來說,海龜型的人是可靠的夥伴,但也需要適當地突破自我,培養積極進取的精神。',
+        image: `${import.meta.env.BASE_URL}img/mbti/turtle.png`
+    },
+    {
+        name: '企鵝型',
+        description: '企鵝型的人通常活潑開朗、熱情友善,處處散發著陽光般的正能量。他們擅長掌握群眾的興趣,善於扮演話題中心的角色,自然而然就能成為眾人的焦點。他們往往極具親和力,很受周圍人的歡迎和喜愛。<br/>不過,企鵝型的人有時候做事過於衝動、魯莽,缺乏必要的深思熟慮。他們常常被當下的感受所主導,難以對自己的言行作出客觀的評估和權衡。這種性格特質雖然讓他們顯得活潑可愛,但也可能給自己或他人帶來一些棘手的麻煩。因此,企鵝型的人有必要學會遵循規矩、三思而後行,以免因魯莽行事而喪失了原有的人緣和魅力。',
+        image: `${import.meta.env.BASE_URL}img/mbti/pingu.png`
+    }
+]
+
+
+
 const currentQuestionIndex = ref(0)
 const correctAnswers = ref(0)
 const mbti = ref(mbtiResults[0])
-
+const Lightbox = ref(mbtiLightbox[0])
 const currentQuestion = computed(() => questions[currentQuestionIndex.value])
 
 const startGame = () => {
@@ -109,10 +131,13 @@ const submitAnswer = (answer) => {
 const determineMbti = () => {
     if (correctAnswers.value >= 8) {
         mbti.value = mbtiResults[0]
+        Lightbox.value = mbtiLightbox[0]
     } else if (correctAnswers.value >= 5) {
         mbti.value = mbtiResults[1]
+        Lightbox.value = mbtiLightbox[1]
     } else {
         mbti.value = mbtiResults[2]
+        Lightbox.value = mbtiLightbox[2]
     }
 }
 
@@ -124,30 +149,47 @@ const restartGame = () => {
     correctAnswers.value = 0
 }
 
+// lightbox
+onMounted(() => {
+    contentToConvert.value = contentToConvert.value
+})
 
+const printContent = () => {
+    if (contentToConvert.value) {
+        const windowObject = window.open('', 'PrintWindow', 'width=650,height=600,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes')
+        windowObject.document.write(contentToConvert.value.innerHTML)
+        windowObject.document.close()
+        windowObject.focus()
+        windowObject.print()
+        windowObject.close()
+    }
+}
 
+// Lightbox與結果同步
+watch(mbti, () => {
+    determineMbti()
+})
 
-//網頁<p>
-// const isMobile = ref(window.innerWidth <= 768)
+const showLightbox = () => {
+    isLightboxVisible.value = true
+    // Lightbox.value = {
+    //     name: mbti.value.name,
+    //     description: mbti.value.description,
+    //     image: mbti.value.image
+    // }
+}
+const closeLightbox = () => {
+    isLightboxVisible.value = false
+    Lightbox.value = null
+}
 
-// const checkMobile = () => {
-//     isMobile.value = window.innerWidth <= 768
-// }
-
-// onMounted(()=>{
-//     window.addEventListener('resize', checkMobile)
-// })
-
-// onUnmounted(()=>{
-//     window.removeEventListener('resize', checkMobile)
-// })
-
-
+onUnmounted(() => {
+    isLightboxVisible.value = false
+    Lightbox.value = null
+})
 
 
 </script>
-
-
 
 <template>
     <!-- 進入遊戲 -->
@@ -209,10 +251,27 @@ const restartGame = () => {
                         <h5 v-html="mbti.description"></h5>
                     </div>
                 </div>
-                <p>( 點按下載看多人格分析內容 )</p>
+                <p @click="showLightbox">
+                    點按可下載看多分析內容
+                    <span class="material-symbols-outlined">
+                        web_traffic
+                    </span>
+                </p>
                 <button class="restart" @click="restartGame">重新開始</button>
                 <RouterLink to="/">回首頁</RouterLink>
             </div>
         </div>
     </section>
+
+    <!-- Lightbox -->
+    <div v-if="isLightboxVisible" class="lightbox" ref="contentToConvert">
+        <div class="lightbox-txt">
+            <i class="fa-regular fa-circle-xmark close" @click="closeLightbox"></i>
+            <h3>{{ Lightbox.name }}</h3>
+            <p v-html="Lightbox.description"></p>
+            <img :src="Lightbox.image" alt="" />
+        </div>
+        <button @click="printContent" :disabled="!contentToConvert">下載</button>
+    </div>
+
 </template>
