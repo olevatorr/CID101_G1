@@ -1,10 +1,12 @@
+
 <script>
 // 引入必要的模塊
 import Cookies from 'js-cookie';
-import { ref, watch } from 'vue';
+import { ref, watch, onMounted} from 'vue';
 import { useRouter } from 'vue-router';
 import { store } from '@/store.js'; // 引入store
 import Swal from 'sweetalert2'; // 引入sweetalert2
+import 'aos/dist/aos.css';
 
 export default {
     name: 'DonationBanner', // 組件名稱
@@ -14,6 +16,7 @@ export default {
         const selectedAmount = ref(null); // 被選中的捐款金額
         const customAmount = ref(null); // 自訂捐款金額
         const router = useRouter();
+
 
         // 選擇預設捐款金額
         const selectAmount = (amount) => { 
@@ -89,7 +92,7 @@ export default {
             <div class="container-donate">
                 <div class="row">
                     <!-- 左側描述 -->
-                    <div data-aos="fade-left" data-aos-duration="2000" class="col-12 col-md-5">
+                    <div data-aos="fade-right"  data-aos-duration="3000" class="col-12 col-md-5">
                         <p>每一份捐助,都是一份守護<br>為海洋的永續盡一份心力</p>
                     </div>
                     <div class="col-12 col-md-7 unit-table">

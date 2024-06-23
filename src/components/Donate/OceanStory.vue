@@ -1,20 +1,77 @@
+<script setup>
+import { ref, onMounted } from 'vue'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+// 註冊 ScrollTrigger 插件
+gsap.registerPlugin(ScrollTrigger)
+
+// 創建引用以訪問 DOM 元素
+const pic1 = ref(null)
+const pic2 = ref(null)
+const pic3 = ref(null)
+const storyText = ref(null)
+
+onMounted(() => {
+    // 創建一個 GSAP 時間軸
+    const tl = gsap.timeline({
+        scrollTrigger: {
+            trigger: '.section-story',
+            start: 'top 70%',
+            end: 'bottom center',
+            toggleActions: 'play none none reverse'
+        }
+    })
+
+    // 添加gsap動畫
+    tl.from(pic1.value, {
+        x: -100,
+        opacity: 0,
+        duration: 1,
+        ease: 'power2.out'
+    })
+        .from(pic2.value, {
+            y: 100,
+            opacity: 0,
+            duration: 1,
+            ease: 'power2.out'
+        }, '-=0.5')
+        .from(pic3.value, {
+            x: 100,
+            opacity: 0,
+            duration: 1,
+            ease: 'power2.out'
+        }, '-=0.5')
+        .from(storyText.value, {
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            ease: 'power2.out'
+        }, '-=0.5')
+})
+</script>
+
 <template>
     <section class="section section-story">
-        <div class="container container-story ">
+        <div class="container container-story">
             <div class="flex">
                 <div class="row">
-                    <div class="row pic-1 col-6 col-md-3" data-aos="fade-right">
+                    <!-- 第一張圖片 -->
+                    <div ref="pic1" class="row pic-1 col-6 col-md-3">
                         <img src="/img/donate/donate-pic2.png" />
-                        <div class="pic2" data-aos="fade-up-right">
+                        <!-- 第二張圖片 -->
+                        <div ref="pic2" class="pic2">
                             <img src="/img/donate/donate-pic3.png" />
                         </div>
                     </div>
 
-                    <div class="pic3 col-6 col-md-3" data-aos="fade-up">
+                    <!-- 第三張圖片 -->
+                    <div ref="pic3" class="pic3 col-6 col-md-3">
                         <img src="/img/donate/donate-pic4.png" />
                     </div>
 
-                    <div class="story-text col-12 col-sm-6" data-aos="fade-left">
+                    <!-- 文字內容 -->
+                    <div ref="storyText" class="story-text col-12 col-sm-6">
                         <h2>海洋故事</h2>
                         <p>
                             滔滔大海,賦予地球生命的搖籃，孕育著萬物的希望。<br />
@@ -25,7 +82,6 @@
                         </p>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
