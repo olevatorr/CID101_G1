@@ -156,6 +156,7 @@
     
         // 垃圾彈窗
         .trash-lightbox {
+            max-width: 600px;
             color: #fff;
             box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
             border-radius: 20px;
@@ -189,7 +190,7 @@
                 }
             }
         }
-           .slidepage-up{
+        .slidepage-up{
             margin: 20px auto;
             .slide-tool-page {
                 transform: translateY(0);
@@ -216,9 +217,6 @@
                                 color: red;
                                 background-color: red;
                             }
-                            
-                            
-                          
                             background-color: #fff;
                             border-radius: 50%;
                             margin: 5%;
@@ -234,22 +232,17 @@
                 .btn-checkTool{
                     margin-top:5%;
                 }
-
             }
+             //vue過渡期間自動生成類名 enter-active、leave-active
+              // 選取工具滑入頁面
             .slide-up-enter-active, .slide-up-leave-active {
                 transition: transform 0.5s ease;
-              }
-              .slide-up-enter-from, .slide-up-leave-to {
+            }
+            .slide-up-enter-from, .slide-up-leave-to {
                 transform: translateY(100%);
                 opacity: 0;
-              }
             }
-         
-        // 選取工具滑入頁面
-        
-
-        //vue過渡期間自動生成類名 enter-active、leave-active
-        
+        } 
         // 撿取成功
         .success-lightbox {
             // 配合要做的設定
@@ -299,7 +292,6 @@
             &.-viewClose{
                 display:none;
             }
-
             .fail-content {
                 display: flex;
                 flex-direction: column;

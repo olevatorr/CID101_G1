@@ -459,6 +459,8 @@ export default {
                         console.log('successLightbox:', this.successLightbox);
                     } else {
                         this.failLightbox = true;
+                        //失敗頁面出現即出現計算垃圾個數
+                        this.hideItem = [];
                     }
                     // 所有數值都reset
                     this.returnPageSet = false;
@@ -468,6 +470,8 @@ export default {
                         this.successLightbox = true;
                     } else {
                         this.failLightbox = true;
+                        //失敗頁面出現即出現計算垃圾個數
+                        this.hideItem = [];
                     }
                     // 所有數值都reset
                     this.returnPageSet = false;
@@ -476,6 +480,8 @@ export default {
                     // this.selectedTool = 3;
                     // this.trashLightbox = true;
                     this.failLightbox = true; // 防曬帽沒有成功的條件
+                    //失敗頁面出現即出現計算垃圾個數
+                    this.hideItem = [];
                     // 所有數值都reset
                     this.returnPageSet = false;
                     break;
