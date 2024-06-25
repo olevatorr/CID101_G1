@@ -13,22 +13,23 @@
     <div class="container">
       <div class="sloagn">
         <h2 class="ori">為保護大自然盡份心力，美麗的海洋，守護有你有我!</h2>
-        <button class="fast-signup">會員一鍵報名</button>
+        <button class="fast-signup" @click="getLocation">會員一鍵報名</button>
       </div>
     </div>
+    <p>{{ location }}</p>
   </section>
   <calendar @card-click="handleEventCardClick" />
-  <section class="section section-event-list">
+  <section class="section section-event-list" ref="eventListSection">
     <div class="container">
       <h2>活動列表</h2>
       <div class="menu">
         <select name="" v-model="selectedRegion" @change="handleRegionChange">
           <option value="">全台灣(地區)</option>
-          <option :value="index" v-for="(regions, index) in regions" :key="index">{{ regions }}</option>
+          <option :value="index" v-for="(regions, index) in regions" :key="regions">{{ regions }}</option>
         </select>
       </div>
       <div class="row">
-        <EventCard :filteredEvents="filteredEvents && paginatedEvents" @card-click="handleEventCardClick" />
+        <EventCard :filteredEvents="paginatedEvents" @card-click="handleEventCardClick" />
       </div>
       <EventPagination :totalItems="filteredEvents.length" :itemsPerPage="8" :currentPage="eventPage"
         @page-changed="changeEventPage" />
@@ -157,52 +158,7 @@
       </div>
     </div>
   </div>
-  <section class="section-upload" style="display: none">
-    <div class="container">
-      <div class="upload">
-        <h2>活動分享</h2>
-        <div class="close">
-          <i class="fa-regular fa-circle-xmark"></i>
-        </div>
-      </div>
-      <form>
-        <div class="box box-1">
-          <label>活動場次</label>
-          <select>
-            <option value="">北海岸愛地球淨灘活動</option>
-            <option value="">南台灣海岸清潔行動</option>
-            <option value="">東海岸守護者淨灘</option>
-          </select>
-        </div>
-        <div class="box box-2">
-          <label>活動日期</label>
-          <input type="date" name="" id="" />
-        </div>
-        <div class="box box-3">
-          <label>活動地點</label>
-          <span>根據場次自動帶入</span>
-        </div>
-        <div class="box box-4">
-          <label>分享人</label>
-          <span>系統自動帶入</span>
-        </div>
-        <div class="box box-5">
-          <label>活動圖片</label>
-          <input type="file" name="" id="" class="newFile" />
-        </div>
-        <div class="box box-6">
-          <label>活動心得</label>
-          <div class="Experience">
-            <span>限100字</span>
-            <textarea rows="10" placeholder="請輸入文字內容"></textarea>
-          </div>
-        </div>
-      </form>
-      <div class="shareBtn">
-        <button>活動分享</button>
-      </div>
-    </div>
-  </section>
+  <UploadSection style="display: none;"/>
   <div class="section section-examine" v-if="showReportModal
   ">
     <div class="container">
@@ -238,17 +194,64 @@ import EventCard from '@/components/EventCard.vue'
 import ShareCard from '@/components/ShareCard.vue'
 import calendar from '@/components/even/calendarFilter.vue'
 import EventPagination from '@/components/EventPagination.vue';
+import UploadSection from '@/components/even/UploadSection.vue';
 
 export default defineComponent({
   components: {
     EventCard,
     ShareCard,
     calendar,
-    EventPagination
+    EventPagination,
+    UploadSection
   },
   setup() {
     //獲取路由
     const router = useRouter();
+
+    //獲取地區
+    const location = ref('')
+
+    const scrollToEventList = () => {
+      if (eventListSection.value) {
+        eventListSection.value.scrollIntoView({ behavior: 'smooth' });
+      }
+    };
+
+    const getLocation = () => {
+      if (navigator.geolocation) {  //請求當前位置
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+      } else {
+        alert('您的瀏覽器不支援地理位置服務')
+      }
+    }
+
+    //抓取目前定位，並帶入determineRegion函式做判斷
+    const showPosition = (position) => {
+      const latitude = position.coords.latitude
+      const longitude = position.coords.longitude
+      determineRegion(latitude, longitude);
+      // 在這裡根據緯度和經度調用 API 獲取卡片位置信息
+      // 並更新相應的數據
+      scrollToEventList();  // 確保在確定區域後進行滾動
+    }
+
+    //錯誤訊息
+    const showError = (error) => {
+      switch (error.code) {
+        case error.PERMISSION_DENIED:
+          alert('您拒絕了位置請求')
+          break
+        case error.POSITION_UNAVAILABLE:
+          alert('無法獲取位置信息')
+          break
+        case error.TIMEOUT:
+          alert('獲取位置信息超時')
+          break
+        case error.UNKNOWN_ERROR:
+          alert('發生未知錯誤')
+          break
+      }
+    }
 
     const areas = ref([
       { id: 0, name: '北部' },
@@ -375,23 +378,44 @@ export default defineComponent({
     // 存儲所有事件數據
     const events = ref([]);
     // 當前頁數
-    const currentPage = ref(1); //下拉選單使用
-    const eventPage  = ref(1);    //活動列表
-    const sharePage  = ref(1);    //活動分享
+    const currentPage = ref(1);    //地點篩選
+    const eventPage = ref(1);    //活動列表
+    const sharePage = ref(1);    //活動分享
+    const eventListSection = ref(null); //定義列表區塊
 
     //處理頁數變化
-    const changeEventPage  = (pageNumber) => {
-      eventPage .value = pageNumber;
+    const changeEventPage = (pageNumber) => {
+      eventPage.value = pageNumber;
     };
-    const changeSharePage  = (pageNumber) => {
-      sharePage .value = pageNumber;
+    const changeSharePage = (pageNumber) => {
+      sharePage.value = pageNumber;
     };
-
-
-
-
     //定義選單列表
     const regions = ref(["北部", "中部", "南部", "東部", "離島"]);
+    //判斷位置對應地區
+    const determineRegion = (latitude, longitude) => {
+      if (latitude >= 23.5 && latitude <= 25.2 && longitude >= 119.5 && longitude <= 122.5) {
+        handleRegionChangeForLocation('0')
+      } else if (latitude >= 21.8 && latitude <= 23.5 && longitude >= 120 && longitude <= 121.5) {
+        handleRegionChangeForLocation('1')
+      } else if (latitude >= 21.8 && latitude <= 23.5 && longitude >= 121.5 && longitude <= 122.5) {
+        handleRegionChangeForLocation('3')
+
+      } else if (latitude >= 21 && latitude <= 23 && longitude >= 119.5 && longitude <= 121) {
+        handleRegionChangeForLocation('2')
+
+      } else if (
+        (latitude >= 23 && latitude <= 23.5 && longitude >= 119 && longitude <= 119.5) ||
+        (latitude >= 26 && latitude <= 26.5 && longitude >= 119.5 && longitude <= 122)
+      ) {
+        handleRegionChangeForLocation('4')
+
+      } else {
+        alert('error')
+
+      }
+    };
+
     //定義選單初始值為1
     const peopleNum = ref(1);
     //下拉式選單(篩選功能)
@@ -444,6 +468,10 @@ export default defineComponent({
       }
     })
     //抓取卡片值渲染至彈窗內容
+    function handleRegionChangeForLocation(event) {
+      selectedRegion.value = event;
+      currentPage.value = 1;
+    }
     function handleRegionChange(event) {
       selectedRegion.value = event.target.value;
       currentPage.value = 1;
@@ -490,7 +518,7 @@ export default defineComponent({
       }
     }
     const isLoading = ref(true); //默認加載狀態為true
-    
+
     // 在組件掛載後加載 JSON 文件
     onMounted(async () => {
       try {
@@ -525,12 +553,12 @@ export default defineComponent({
     })
     // 列表呈現(8張)
     const paginatedEvents = computed(() => {
-      const startIndex = (eventPage .value - 1) * 8;
+      const startIndex = (eventPage.value - 1) * 8;
       return filteredEvents.value.slice(startIndex, startIndex + 8);
     });
     // 分享呈現(4張)
     const paginatedShare = computed(() => {
-      const startIndex = (sharePage .value - 1) * 4;
+      const startIndex = (sharePage.value - 1) * 4;
       return shareContent.value.slice(startIndex, startIndex + 4);
     });
 
@@ -585,11 +613,15 @@ export default defineComponent({
       currentPage,
       paginatedEvents,
       paginatedShare,
-      eventPage ,
+      eventPage,
       sharePage,
       changeEventPage,
       changeSharePage,
-      isLoading
+      isLoading,
+      location,
+      getLocation,
+      scrollToEventList,
+      eventListSection
     }
   }
 })

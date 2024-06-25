@@ -33,9 +33,9 @@
                         </div>
                         <div class="amount">
                             <span>數量 : </span>
-                            <button @click="decreaseQuantity" :disabled="quantity <= 1">-</button>
-                            <span>{{ productdetail.amount }}</span>
-                            <button @click="increaseQuantity" :disabled="quantity >= 10">+</button>
+                            <button @click="decreaseQuantity" :disabled="!productdetail || productdetail.amount <= 1">-</button>
+                            <span>{{ productdetail ? productdetail.amount : 0 }}</span>
+                            <button @click="increaseQuantity" :disabled="!productdetail || productdetail.amount >= 10">+</button>
                         </div>
                         <div class="price">
                             <span>金額總計 ${{ totalPrice }} 元</span>
@@ -89,7 +89,7 @@ export default {
     data() {
         return {
             largeSrc: "",
-            quantity: 1,
+            amount: 1,
             //商品細節資訊
             productdetail: {},
         };
@@ -172,7 +172,7 @@ export default {
             return `${import.meta.env.BASE_URL}img/shop/${imgUrl}`;
         }
     },
-        mounted() {
+    mounted() {
         console.log( this.$route.query.id)
         fetch(`${import.meta.env.BASE_URL}json/productdata.json`)
         .then(data => data.json())
@@ -180,6 +180,11 @@ export default {
             this.productdetail = data.find(item=>item.id==this.$route.query.id);
             this.productdetail.amount = 1;
             this.largeSrc = this.productdetail.imgUrl[0];
+        }).then(data => {
+            this.productdetail = data.find(item => item.id == this.$route.query.id);
+            if (this.productdetail) {
+                this.productdetail.amount = 1; //確保設置初始數量
+            }
         })
     },
 }

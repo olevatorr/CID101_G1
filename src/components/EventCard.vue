@@ -24,7 +24,7 @@
 
 <script>
 export default {
-    props: ['filteredEvents'],
+    props: ['filteredEvents','region'],
     emits: {
       'card-click': [],
       'close-click': [],
