@@ -42,8 +42,8 @@
     }
     .category ul li {
         background-color: #D9E8F3;
-        padding: 2px 64px;
-        margin-right: 3px;
+        padding: 2px 63px;
+        margin-right: 4px;
         color: #000000;
         cursor: pointer;
     }
@@ -53,9 +53,11 @@
         background-color: #005FA1;
     }
     .category ul li:nth-child(1) {
-        background-color: #003154;
-        color: #ffffff;
+        background-color: #e19c12;
+        color: #fff;
+        border-right: 3px solid #005FA1;
         font-size: 16px;
+        cursor: auto;
     }
 }
 
@@ -326,7 +328,6 @@
             left: 0;
             cursor: pointer;
         }
-
         .hot {
             width: 60px;
             padding: 4px 8px;

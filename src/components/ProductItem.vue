@@ -18,10 +18,9 @@
                         <span>NT$ {{ productInfo.price }}</span> 
                     </div>
                 </RouterLink>
-                <div class="collect" @mouseenter="toggleCollectHover(productInfo, true)"
-                    @mouseleave="toggleCollectHover(productInfo, false)">   
-                    <a href="javascript:void(0)">{{ productInfo.isHovering ? '🩵' : '🤍' }}</a> 
-                </div> 
+                <div class="collect" @click="toggleClicked" @mouseenter="toggleHover(true)" @mouseleave="toggleHover(false)">
+                    <a href="javascript:void(0)">{{ productInfo.isClicked ? '🩵' : '🤍' }}</a>
+                </div>
                 <div class="hot" v-if="productInfo.id < 9">  
                     <span>熱銷商品</span>
                 </div> 
@@ -30,6 +29,9 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie';
+import { store } from '@/store.js'; // 引入store
+import Swal from 'sweetalert2'; // 引入sweetalert2
 
 export default {
     props:['productInfo'],
@@ -42,8 +44,27 @@ export default {
         const cartButton = event.target.closest('.shop-card').querySelector('.cart');
         cartButton.classList.remove('show');
     },
-    toggleCollectHover(item, isHovering) {
-        item.isHovering = isHovering;
+    toggleHover(isHovering) {
+        this.productInfo.isHovered = isHovering;
+    },
+    toggleClicked() {
+        this.productInfo.isClicked = !this.productInfo.isClicked;
+        if (!store.isLoging) {
+                Swal.fire({
+                icon: 'error',
+                title: '未登入',
+                text: '請先登入會員才能進行收藏商品'
+                }).then(() => {
+                this.$router.push('/Member');
+                // 未登入跳轉至會員登入頁面
+                });
+                return;
+            } else{
+                Swal.fire({
+                icon: 'success',
+                title: '已成功加入收藏',
+                });
+            }
     },
     addToCart(item) {
         // 檢查localStorage裡有無資料
