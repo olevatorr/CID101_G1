@@ -41,9 +41,7 @@
                             <span>金額總計 ${{ totalPrice }} 元</span>
                         </div>
                         <div class="button">
-                            <RouterLink to="/mallcart">
-                                <input type="button" value="立即購買">
-                            </RouterLink>
+                                <button @click="submitBuy">立即購買</button>
                             <button class="add-to-cart" @click="addToCart(productdetail)">加入購物車</button>
                         </div>
                     </div>
@@ -84,6 +82,9 @@
 
 <script>
 import ShopCart from '@/components/ShopCart.vue';
+import Cookies from 'js-cookie';
+import { store } from '@/store.js'; // 引入store
+import Swal from 'sweetalert2'; // 引入sweetalert2
 
 export default {
     data() {
@@ -103,6 +104,21 @@ export default {
         }
     },
     methods: {
+        submitBuy() {
+        if (!store.isLoging) {
+            Swal.fire({
+            icon: 'error',
+            title: '未登入',
+            text: '請先登入會員才能進行購買'
+            }).then(() => {
+            this.$router.push('/Member');
+            // 未登入跳轉至會員登入頁面
+            });
+            return;
+        } else{
+            this.$router.push('/mallcart');
+        }
+        },
         showLarge(src) {
             this.largeSrc = src;
         },
