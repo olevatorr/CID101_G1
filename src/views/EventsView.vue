@@ -1,14 +1,5 @@
 <template>
-  <section class="section section-event-title">
-    <div class="container">
-      <div class="title-wrap">
-        <div class="title">
-          <span>活動</span>
-          <h1>EVENTS</h1>
-        </div>
-      </div>
-    </div>
-  </section>
+  <eveBanner />
   <section class="section section-event-banner">
     <div class="container">
       <div class="sloagn">
@@ -16,14 +7,13 @@
         <button class="fast-signup" @click="getLocation">會員一鍵報名</button>
       </div>
     </div>
-    <p>{{ location }}</p>
   </section>
   <calendar @card-click="handleEventCardClick" />
   <section class="section section-event-list" ref="eventListSection">
     <div class="container">
       <h2>活動列表</h2>
       <div class="menu">
-        <select name="" v-model="selectedRegion" @change="handleRegionChange">
+        <select v-model="selectedRegion" @change="handleRegionChange">
           <option value="">全台灣(地區)</option>
           <option :value="index" v-for="(regions, index) in regions" :key="regions">{{ regions }}</option>
         </select>
@@ -31,7 +21,7 @@
       <div class="row">
         <EventCard :filteredEvents="paginatedEvents" @card-click="handleEventCardClick" />
       </div>
-      <EventPagination :totalItems="filteredEvents.length" :itemsPerPage="8" :currentPage="eventPage"
+      <eventPagination :totalItems="filteredEvents.length" :itemsPerPage="8" :currentPage="eventPage"
         @page-changed="changeEventPage" />
     </div>
   </section>
@@ -42,53 +32,15 @@
         <ShareCard :shareContent="paginatedShare" @card-click="handleShareCardClick"
           @report-click="showReportModal = true" />
       </div>
-      <EventPagination :totalItems="shareContent.length" :itemsPerPage="4" :currentPage="sharePage"
+      <eventPagination :totalItems="shareContent.length" :itemsPerPage="4" :currentPage="sharePage"
         @page-changed="changeSharePage" />
       <div class="sharebtn">
         <button>活動分享</button>
       </div>
     </div>
   </section>
-  <section class="section section-event-agree">
-    <div class="container">
-      <h2>活動免責聲明:</h2>
-      <ul>歡迎參加由[活動組織者名稱]（以下簡稱「組織者」）主辦的[活動名稱]（以下簡稱「活動」）。<br>參加本活動前，請您仔細閱讀並同意以下免責聲明條款：
-        <li>1. 自願參加：我自願參加此活動，並了解活動的性質及其潛在風險。</li>
-        <li>
-          2.
-          健康狀況：我確認我的身體狀況適合參加此活動，並保證在參加活動前已經進行必要的健康檢查。如有任何身體不適或健康問題，我將主動告知組織者。
-        </li>
-        <li>
-          3.
-          風險承擔：我理解並接受參加此活動可能存在的風險，包括但不限於身體傷害、財產損失等。我同意自行承擔參加活動的所有風險，並豁免組織者及其工作人員、志願者、贊助商對於任何意外事故、傷害或損失的責任。
-        </li>
-        <li>
-          4.
-          個人責任：我承諾在活動期間遵守活動規則和組織者的指示，對自己的行為負責。如果因我的行為導致自己或他人受傷或財產損失，我將自行承擔相應責任。
-        </li>
-        <li>
-          5.
-          保險：我了解組織者可能不提供任何形式的保險保障，我同意自行購買適當的保險以覆蓋參加活動期間可能發生的任何風險。
-        </li>
-        <li>
-          6.
-          不可抗力：如因天災、政府政策變更或其他不可抗力因素導致活動無法正常舉行，組織者不承擔任何責任。
-        </li>
-        <li>
-          7.
-          肖像權使用：我同意組織者在活動期間拍攝的照片、錄像及其他影像資料可用於宣傳和推廣活動之用，而無需支付任何費用。
-        </li>
-        <li>
-          8.
-          法律適用：本免責聲明受[國家/地區]法律管轄，任何因本免責聲明引起的爭議應提交[地點]的法院解決。
-        </li>
-      </ul>
-      <div class="return">
-        <button @click="scrollToTop">Top</button>
-      </div>
-    </div>
-  </section>
-  <div v-if="selectedEventCard">
+  <eventAgree />
+  <!-- <div v-if="selectedEventCard">
     <div class="light-box-bgc">
       <div class="light-box" @click.self="closeEventModal">
         <div class="container">
@@ -128,7 +80,7 @@
                   <button v-if="eventEnded">活動結束</button>
                   <button v-else-if="registrationClosed">報名截止</button>
                   <button v-else-if="registrationFull">報名已滿</button>
-                  <button v-else @click="showConfirmModal">立即報名</button>
+                  <button v-else @click="handleRegistration">立即報名</button>
                 </div>
               </div>
             </div>
@@ -149,7 +101,7 @@
           <p>活動日期：{{ selectedEventCard.E_DATE }}</p>
           <p>截止日期：{{ selectedEventCard.E_DEADLINE }}</p>
           <p>報名人數：{{ selectedEventCard.E_SIGN_UP }}/{{ selectedEventCard.E_MAX_ATTEND }}</p>
-          <p>會員名稱:林小美</p>
+          <p>會員名稱:{{ store.member.U_NAME }}</p>
           <p>報名人數:{{ peopleNum }}人</p>
         </div>
       </div>
@@ -157,8 +109,9 @@
         <button class="sent" @click="SubmitEvent">送出</button>
       </div>
     </div>
-  </div>
-  <UploadSection style="display: none;"/>
+  </div> -->
+  <eventLightBox />
+  <evenUpload style="display: none;" />
   <div class="section section-examine" v-if="showReportModal
   ">
     <div class="container">
@@ -186,30 +139,35 @@
 
 <script>
 import { defineComponent, ref, onMounted, computed, watch } from 'vue'
-import { useRouter } from 'vue-router'
+// import { useRouter } from 'vue-router'
+import { store } from '@/store.js'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import Swal from 'sweetalert2'
+import eveBanner from '@/components/even/evenBanner.vue'
 import EventCard from '@/components/EventCard.vue'
 import ShareCard from '@/components/ShareCard.vue'
 import calendar from '@/components/even/calendarFilter.vue'
-import EventPagination from '@/components/EventPagination.vue';
-import UploadSection from '@/components/even/UploadSection.vue';
+import eventPagination from '@/components/even/eventPagination.vue';
+import eventAgree from '@/components/even/evenAgree.vue'
+import evenUpload from '@/components/even/evenUpload.vue'
+import eventLightBox from '@/components/even/evenLightBox.vue'
 
 export default defineComponent({
   components: {
     EventCard,
     ShareCard,
     calendar,
-    EventPagination,
-    UploadSection
+    eventPagination,
+    evenUpload,
+    eveBanner,
+    eventAgree,
+    eventLightBox
+    // eventLightBox
   },
   setup() {
     //獲取路由
-    const router = useRouter();
-
-    //獲取地區
-    const location = ref('')
+    // const router = useRouter();
 
     const scrollToEventList = () => {
       if (eventListSection.value) {
@@ -330,42 +288,55 @@ export default defineComponent({
     //定義跳窗預設隱藏
     const selectedEventCard = ref(null);
     const selectedShareCard = ref(null);
-    const openConfirm = ref(false);
+    // const openConfirm = ref(false);
     const showReportModal = ref(false);
     //跳窗卡片抓取點擊卡片時的卡片資訊
-    const handleEventCardClick = (card) => {
-      selectedEventCard.value = card;
-      peopleNum.value = 1;
-    }
+    // const handleEventCardClick = (card) => {
+    //   selectedEventCard.value = card;
+    //   peopleNum.value = 1;
+    // }
     const handleShareCardClick = (card) => {
       selectedShareCard.value = card;
 
       // console.log(selectedShareCard.value);
     }
-    const showConfirmModal = () => {
-      // console.log(openConfirm.value);
-      openConfirm.value = true;
-      // console.log(openConfirm.value);
+    //活動報名判斷及執行
+    // const handleRegistration = () => {
+    //   if (!store.isLoging) {
+    //     Swal.fire({
+    //       icon: 'error',
+    //       title: '未登入',
+    //       text: '還不是會員? 請登入'
+    //     }).then(() => {
+    //       router.push('/Member');  //跳轉登入介面
+    //     });
+    //   } else {
+    //     showConfirmModal();
+    //   }
+    // };
+    //報名確認頁面顯示
+    // const showConfirmModal = () => {
+    //   openConfirm.value = true;
+    // };
 
-    };
     //報名完成提示後跳轉回首頁
-    const SubmitEvent = () => {
-      Swal.fire({
-        icon: 'success',
-        title: '報名成功',
-        html: `${selectedEventCard.value.E_TITLE}</div>
-        <div>活動日期:${selectedEventCard.value.E_DATE}</div>`,
-        showConfirmButton: true,
-        confirmButtonText: "確認",
-        cancelButtonText: "<h1>Close</h1>",
-        timer: 5000,
-        timerProgressBar: true
-      }).then(() => {
-        router.push({ name: 'home' });
-      })
-      closeConfirm();
-      closeEventModal();
-    };
+    // const SubmitEvent = () => {
+    //   Swal.fire({
+    //     icon: 'success',
+    //     title: '報名成功',
+    //     html: `${selectedEventCard.value.E_TITLE}</div>
+    //     <div>活動日期:${selectedEventCard.value.E_DATE}</div>`,
+    //     showConfirmButton: true,
+    //     confirmButtonText: "確認",
+    //     cancelButtonText: "<h1>Close</h1>",
+    //     timer: 5000,
+    //     timerProgressBar: true
+    //   }).then(() => {
+    //     router.push({ name: 'home' });
+    //   })
+    //   closeConfirm();
+    //   closeEventModal();
+    // };
     //活動結束邏輯判斷
     const eventEnded = computed(() => {
       return selectedEventCard.value && selectedEventCard.value.E_DATE > date();
@@ -417,7 +388,7 @@ export default defineComponent({
     };
 
     //定義選單初始值為1
-    const peopleNum = ref(1);
+    // const peopleNum = ref(1);
     //下拉式選單(篩選功能)
     const registrationFull = computed(() => {
       if (selectedEventCard.value) {
@@ -437,9 +408,9 @@ export default defineComponent({
     const closeShareModal = () => {
       selectedShareCard.value = null
     }
-    const closeConfirm = () => {
-      openConfirm.value = false;
-    };
+    // const closeConfirm = () => {
+    //   openConfirm.value = false;
+    // };
     const closeExamine = () => {
       selectedReason.value = '';
       showWarning.value = false;
@@ -468,11 +439,11 @@ export default defineComponent({
       }
     })
     //抓取卡片值渲染至彈窗內容
-    function handleRegionChangeForLocation(event) {
+    const handleRegionChangeForLocation = (event) => {
       selectedRegion.value = event;
       currentPage.value = 1;
     }
-    function handleRegionChange(event) {
+    const handleRegionChange = (event) => {
       selectedRegion.value = event.target.value;
       currentPage.value = 1;
     }
@@ -568,20 +539,13 @@ export default defineComponent({
     const getAreaEvents = (areaId) => {
       return calendarFilteredEvents.value.filter((event) => event.E_AREA === areaId)
     }
-    //Top按鈕跳至網頁最上方
-    const scrollToTop = () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    };
     return {
       calendarOptions,
       shareContent,
       eventContent,
       selectedEventCard,
       selectedShareCard,
-      handleEventCardClick,
+      // handleEventCardClick,
       handleShareCardClick,
       closeEventModal,
       closeShareModal,
@@ -597,18 +561,17 @@ export default defineComponent({
       date,
       selectedRegion,
       regions,
-      showConfirmModal,
+      // handleRegistration,
       SubmitEvent,
-      closeConfirm,
-      openConfirm,
-      peopleNum,
+      // closeConfirm,
+      // openConfirm,
+      // peopleNum,
       showReportModal,
       closeExamine,
       reasons,
       selectedReason,
       showWarning,
       submitForm,
-      scrollToTop,
       events,
       currentPage,
       paginatedEvents,
@@ -621,7 +584,8 @@ export default defineComponent({
       location,
       getLocation,
       scrollToEventList,
-      eventListSection
+      eventListSection,
+      store
     }
   }
 })
