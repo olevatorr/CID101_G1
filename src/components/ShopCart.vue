@@ -1,3 +1,4 @@
+
 <template>
     <div class="section section-shoppingcart">
         <div class="container">
@@ -29,9 +30,7 @@
                     </div>
                 </div>
                 <div class="carttotal">
-                    <RouterLink :to="'/mallcart'">
-                        <button>立即購買</button>
-                    </RouterLink>
+                        <button @click="submitBuy">立即購買</button>
                     <span>NT$ {{ addPrice }}</span>
                 </div>
             </div>
@@ -40,6 +39,10 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie';
+import { store } from '@/store.js'; // 引入store
+import Swal from 'sweetalert2'; // 引入sweetalert2
+
 export default {
     data() {
         return {
@@ -119,6 +122,21 @@ export default {
                 localStorage.setItem('cartItems', JSON.stringify(this.productList));
             }
         },
+        submitBuy() {
+            if (!store.isLoging) {
+                Swal.fire({
+                icon: 'error',
+                title: '未登入',
+                text: '請先登入會員才能進行購買'
+                }).then(() => {
+                this.$router.push('/Member');
+                // 未登入跳轉至會員登入頁面
+                });
+                return;
+            } else{
+                this.$router.push('/mallcart');
+            }
+        }
     }
 }
 </script>

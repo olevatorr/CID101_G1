@@ -36,7 +36,6 @@
         width: 70%;
         text-align: center;
         .beachgame-text {
-            // display: none;
             border: 2px solid #333;
             border-radius: 20px;
             width:100%;
@@ -126,19 +125,12 @@
             }
         }
         .character-check-lightbox {
-            display:none;
             color: #fff;
             box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
             border-radius: 20px;
             text-align: center;
             background-color: $color-subprimary;
             padding: 50px 20px;
-            &.-viewShow{
-                display:block;
-            }
-            &.-viewClose{
-                display:none;
-            }
             .character-oneset {
                 display: flex;
                 flex-direction: column;
@@ -162,11 +154,9 @@
             }
         }
     
-        // 選擇工具
+        // 垃圾彈窗
         .trash-lightbox {
-            &.-viewClose{
-                display:none;
-            }
+            max-width: 600px;
             color: #fff;
             box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
             border-radius: 20px;
@@ -190,9 +180,6 @@
                 }
             }
             .trash-text{
-                &.-viewClose{
-                    display: none;
-                }
             p {
                 margin: 20px 0;
                 }
@@ -203,7 +190,7 @@
                 }
             }
         }
-           .slidepage-up{
+        .slidepage-up{
             margin: 20px auto;
             .slide-tool-page {
                 transform: translateY(0);
@@ -216,17 +203,25 @@
                 .tool-list {
                     color: #fff;
                     .tool-item {
-                       
+                        cursor: pointer;
+                        
                         .tool-pic {
                             &:hover{
                                 background-color:#fff;
                                 border:10px solid $color-highlight;
                                 border-radius:50%;
                             }
+                            // 滑鼠點擊視覺
+                            // 寫在hover後
+                            &:active{
+                                color: red;
+                                background-color: red;
+                            }
                             background-color: #fff;
                             border-radius: 50%;
                             margin: 5%;
                             overflow: hidden;
+                            
                             img {
                                 width: 100%;
                                 vertical-align: top;
@@ -234,23 +229,23 @@
                         }
                     }
                 }
+                .btn-checkTool{
+                    margin-top:5%;
+                }
             }
+             //vue過渡期間自動生成類名 enter-active、leave-active
+              // 選取工具滑入頁面
             .slide-up-enter-active, .slide-up-leave-active {
                 transition: transform 0.5s ease;
-              }
-              .slide-up-enter-from, .slide-up-leave-to {
+            }
+            .slide-up-enter-from, .slide-up-leave-to {
                 transform: translateY(100%);
                 opacity: 0;
-              }
             }
-         
-        // 選取工具滑入頁面
-        
-
-        //vue過渡期間自動生成類名 enter-active、leave-active
-        
+        } 
         // 撿取成功
         .success-lightbox {
+            // 配合要做的設定
             display:none;
             color: #fff;
             box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
@@ -297,7 +292,6 @@
             &.-viewClose{
                 display:none;
             }
-
             .fail-content {
                 display: flex;
                 flex-direction: column;
