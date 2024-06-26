@@ -8,6 +8,9 @@
             </div>
             <div class="show-window-outside">
                 <!-- 進入畫面中間提示 -->
+                <!-- <div class="character-header-shot">
+
+                </div> -->
                 <div class="beachgame-text" :class="{ '-viewClose': beachgameText }">
                     <span class="beachgame-title">
                         淨灘大作戰
@@ -118,9 +121,9 @@
                                     <div class="col-4">
                                         <div class="tool-item" @click="selectTool(1)">
                                             <!-- :class="{ 'selected': selectedTool === 1 }" -->
-                                            <div class="tool-pic">
+                                            <button class="tool-pic btn-tool-pic">
                                                 <img src="/img/beachgame/clamp.jpg" alt="">
-                                            </div>
+                                            </button>
                                             <div class="tool-name">
                                                 <h3>鐵夾子</h3>
                                             </div>
@@ -129,20 +132,20 @@
                                     <div class="col-4">
                                         <div class="tool-item" @click="selectTool(2)">
                                             <!-- :class="{ 'selected': selectedTool === 2 }" -->
-                                            <div class="tool-pic">
+                                            <button class="tool-pic btn-tool-pic">
                                                 <img src="/img/beachgame/gloves.jpg" alt="">
-                                            </div>
+                                            </button>
                                             <div class="tool-name">
                                                 <h3>手套</h3>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-4">
-                                        <div class="tool-item" @click="selectTool(3)">
+                                        <div class="tool-item " @click="selectTool(3)">
                                             <!-- :class="{ 'selected': selectedTool === 3 }" -->
-                                            <div class="tool-pic">
+                                            <button class="tool-pic btn-tool-pic">
                                                 <img src="/img/beachgame/hat.jpg" alt="">
-                                            </div>
+                                            </button>
                                             <div class="tool-name">
                                                 <h3>防曬帽</h3>
                                             </div>
@@ -238,24 +241,20 @@
 </template>
 
 <script>
-// 全域的寫法
-// container範圍，所以起始點不在(0,0)，左上角
-const pos = [
-    { x: 20, y: 30 },
-    { x: 100, y: -10 },
-    { x: 70, y: 10 },
-    { x: 80, y: 80 },
-    { x: 40, y: 69 },
-    { x: 70, y: 100 },
-    { x: 0, y: 80 },
-    { x: 100, y: -20 },
-    { x: -10, y: 70 }
-]
+
+const shuffle = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array
+}
 
 export default {
 
     data() {
         return {
+
             beachgameText: false,
             rulesLightbox: false,
             rulesLightboxcc: false,
@@ -288,19 +287,30 @@ export default {
             // 但目前以索引做運作，可忽略第一個參數，給一個下底線
             // 這個 trashItem 是個陣列，有5個值
             //使用 return 關鍵字返回這個物件，使其成為新陣列中的一個元素。
-            trashItem: Array.from({ length: 5 }, (_, i) => {
-                //為了方便定義位置，使用pos陣列，去控制索引的 x 及 y 值
-                //我們要從 pos 陣列中獲取對應索引的 x 和 y 座標值
-                const x = pos[i].x
-                const y = pos[i].y
-                // 用id值去控制陣列中的物件，而 id 等於索引+1
-                return {
-                    id: i + 1,
-                    x,
-                    y,
-                    url: `${import.meta.env.BASE_URL}img/beachgame/trash0${i + 1}.png`
-                }
-            }),
+            trashItem: (() => {
+                // 全域的寫法
+                // container範圍，所以起始點不在(0,0)，左上角
+                const pos = shuffle([
+                    { x: 20, y: 30 },
+                    { x: 100, y: -10 },
+                    { x: 70, y: 10 },
+                    { x: 80, y: 80 },
+                    { x: 40, y: 69 },
+                ])
+                return Array.from({ length: 5 }, (_, i) => {
+                    //為了方便定義位置，使用pos陣列，去控制索引的 x 及 y 值
+                    //我們要從 pos 陣列中獲取對應索引的 x 和 y 座標值
+                    const x = pos[i].x
+                    const y = pos[i].y
+                    // 用id值去控制陣列中的物件，而 id 等於索引+1
+                    return {
+                        id: i + 1,
+                        x,
+                        y,
+                        url: `${import.meta.env.BASE_URL}img/beachgame/trash0${i + 1}.png`
+                    }
+                })
+            })(),
 
             // 垃圾點選後出現的視窗
             trashLightbox: false,
