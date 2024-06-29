@@ -7,26 +7,26 @@
         <!-- 否則顯示整個頁面內容 -->
         <div v-else>
             <section class="section section-beachgame">
+                <!-- 顯示角色頭貼 -->
+                <div v-show="showImgPosition" class="show-img-position">
+                    <div class="showCharacterImg">
+                        <div v-show="showBirdimage" class="character-oneset-pic">
+                            <img src="/img/beachgame/sea-bird.png" alt="海鷗鷗">
+                        </div>
+                        <div v-show="showTurtleimage" class="character-oneset-pic">
+                            <img src="/img/beachgame/sea-turtle.png" alt="龜吉">
+                        </div>
+                        <div v-show="showShark" class="character-oneset-pic">
+                            <img src="/img/beachgame/shark.png" alt="胖鯊">
+                        </div>
+                    </div>
+                </div>
                 <div class="left-game">
                     <RouterLink to="/">
                         <i class="fa-solid fa-house"></i>
                     </RouterLink>
                 </div>
                 <div class="show-window-outside">
-                    <!-- 出現角色的圖片固定的圖像位置 -->
-                    <!-- <div class="show-img-position">
-                        <div class="showCharacterImg">
-                            <div v-show="showBirdimage" class="character-oneset-pic">
-                                <img src="/img/beachgame/sea-bird.png" alt="海鷗鷗">
-                            </div>
-                            <div v-show="showTurtleimage" class="character-oneset-pic">
-                                <img src="/img/beachgame/sea-turtle.png" alt="龜吉">
-                            </div>
-                            <div v-show="showShark" class="character-oneset-pic">
-                                <img src="/img/beachgame/shark.png" alt="胖鯊">
-                            </div>
-                        </div>
-                    </div> -->
                     <div class="beachgame-text" :class="{ '-viewClose': beachgameText }">
                         <span class="beachgame-title">
                             淨灘大作戰
@@ -272,6 +272,8 @@ export default {
 
     data() {
         return {
+            //角色頭貼
+            showImgPosition: false,
             isPortrait: true, // 初始化為 true，預設顯示警告
             beachgameText: false,
             rulesLightbox: false,
@@ -307,7 +309,7 @@ export default {
                 // container範圍，所以起始點不在(0,0)，左上角
                 const pos = shuffle([
                     { x: 20, y: 30 },
-                    { x: 100, y: -10 },
+                    { x: 5, y: 80 },
                     { x: 70, y: 10 },
                     { x: 80, y: 80 },
                     { x: 40, y: 69 },
@@ -430,6 +432,7 @@ export default {
         finishCharacter() {
             this.characterCheck = false;
             this.showTrashContainer = true; // 顯示垃圾圖片容器
+            this.showImgPosition = true;//顯示選擇角色頭貼
         },
 
         // 點選垃圾圖片
@@ -477,7 +480,6 @@ export default {
                 case 1:
                     if (this.getTrashId == 1 || this.getTrashId == 3 || this.getTrashId == 4) {
                         this.successLightbox = true;
-                        console.log('successLightbox:', this.successLightbox);
                     } else {
                         this.failLightbox = true;
                         //失敗頁面出現即出現計算垃圾個數
@@ -487,13 +489,7 @@ export default {
                     this.returnPageSet = false;
                     break;
                 case 2:
-                    if (this.getTrashId == 2 || this.getTrashId == 5) {
-                        this.successLightbox = true;
-                    } else {
-                        this.failLightbox = true;
-                        //失敗頁面出現即出現計算垃圾個數
-                        this.hideItem = [];
-                    }
+                    this.successLightbox = true;
                     // 所有數值都reset
                     this.returnPageSet = false;
                     break;
@@ -513,7 +509,6 @@ export default {
             if (this.hideItem.length >= 5) {
                 this.successLightbox = false;
                 this.finishLightbox = true;
-
             }
             // 關閉原始視窗
             // 垃圾彈窗
@@ -558,20 +553,10 @@ export default {
         // 當組件創建時立即檢查一次方向
         this.checkOrientation();
     },
-    // 只在這個頁面做
+    // 只在這個頁面做轉向檢查
     beforeUnmount() {
         // 是指向當前組件內定義的 checkOrientation 方法
         window.removeEventListener('resize', this.checkOrientation);
     },
-
 }
-
-
-
-// beforeUnmount() {
-//     // console.log(4444);
-//     window.removeEventListener('resize', this.checkOrientation);
-// }
-
-
 </script>
