@@ -255,6 +255,8 @@
                 </div>
             </section>
         </div>
+        <!-- 出現角色的圖片固定的圖像位置 -->
+
     </main>
 </template>
 
