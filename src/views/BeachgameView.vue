@@ -225,7 +225,7 @@
                         <div class="beachgame-button-wrap">
                             <button @click="gameHome">重新挑戰</button>
                             <RouterLink to="/Mbti">
-                                <button>
+                                <button class="center-button">
                                     海廢小知識
                                 </button>
                             </RouterLink>

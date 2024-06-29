@@ -36,11 +36,15 @@
         .show-img-position{
             position: fixed;
             z-index: 15;
-            top:7%;
-            right:5%;
+            top:2vw;
+            right:10vw;
             .showCharacterImg{
-                width: 100px;
-                height:100px;
+                width: calc(8vw + 40px);
+                height:calc(8vw + 40px);
+                min-width: 60px; // 設置最小尺寸
+                min-height: 60px;
+                max-width: 150px; // 設置最大尺寸
+                max-height: 150px;
                 background-color: $color-white;
                 border-radius:50%;
                 box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
@@ -74,6 +78,8 @@
             }
         }
         .show-window-outside{
+            //壓住頭貼
+            z-index: 20;
             // 依父層的寬度70%
             width: 70%;
             // RWD有設定，阻止寬度隨畫面變大一直擴展
@@ -405,13 +411,14 @@
                     }
                 }
                 .beachgame-button-wrap{
-                    button {
-                        margin: 0 10px;
-                        a {
-                            text-decoration: none;
-                            color:$color-white;
-                        }
-                    } 
+                    a {
+                        text-decoration: none;
+                        color:$color-white;
+                        .center-button {
+                            margin: 0 3%;
+                            
+                        } 
+                    }
                 }
             }
         }
