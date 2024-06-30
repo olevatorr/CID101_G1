@@ -17,7 +17,7 @@ export default {
       knowledgeData: []
     };
   },
-  created() {
+  mounted() {
     this.fetchKnowledgeData();
   },
   methods: {
