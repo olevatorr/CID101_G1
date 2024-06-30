@@ -25,17 +25,19 @@ const validateUsername = () => {
 const validatePassword = () => {
     if (!password.value) {
         passwordError.value = '請輸入密碼';
-    } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,10}$/.test(password.value)) {
-        passwordError.value = '密碼必須是6到10個字母和數字組合';
+    } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,10}$/.test(password.value)) {
+        passwordError.value = '密碼必須是4到10個字母和數字組合';
     } else {
         passwordError.value = '';
     }
 };
 
+
+
 const login = async () => {
     validateUsername();
     validatePassword();
-    
+
     if (usernameError.value || passwordError.value) {
         return;
     }
@@ -70,6 +72,14 @@ const login = async () => {
         });
     }
 };
+
+const handleKeyDown = (event) => {
+    // 檢查是否按下 Enter 鍵（鍵碼 13）
+    if (event.keyCode === 13) {
+        login(); // 當按下 Enter 鍵時呼叫登入函數
+        event.preventDefault() //防止表單默認提交
+    }
+}
 </script>
 
 
@@ -90,10 +100,15 @@ const login = async () => {
                     <div class="member-txt col-12 col-md-6">
                         <div class="member-login">
                             <label>帳號</label>
-                            <input v-model="username" type="text" maxlength="10" placeholder="請輸入帳號" @blur="validateUsername">
+                            <input v-model="username" type="text" maxlength="10" placeholder="請輸入帳號" 
+                            @blur="validateUsername"
+                            @keydown="handleKeyDown"
+                            >
                             <div class="errorspan"><span v-if="usernameError" class="membererror error">{{ usernameError }}</span></div>
                             <label>密碼</label>
-                            <input v-model="password" type="password" maxlength="10" placeholder="請輸入密碼" @blur="validatePassword">
+                            <input v-model="password" type="password" maxlength="10" placeholder="請輸入密碼" @blur="validatePassword"
+                            @keydown="handleKeyDown"
+                            >
                             <div class="errorspan2"><span v-if="passwordError" class="membererror2 error">{{ passwordError }}</span></div>
                         </div>
                         <span class="forgot">
