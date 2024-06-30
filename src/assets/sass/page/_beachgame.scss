@@ -36,17 +36,26 @@
         .show-img-position{
             position: fixed;
             z-index: 15;
-            top:2vw;
-            right:10vw;
+            top:10%;
+            left:85%;
             .showCharacterImg{
-                width: calc(8vw + 40px);
-                height:calc(8vw + 40px);
-                min-width: 60px; // 設置最小尺寸
-                min-height: 60px;
+                width:55%;
+                height:55%;
+                // border-top:10px solid $color-primary;
+                // border-right:10px solid $color-primary;
+                // border-bottom:10px solid $color-primary;
+                // border-left:10px solid $color-primary;
+                border: 10px solid $color-primary;
+                border-radius:50%;
+                // border:3px solid $color-primary;
+                // width: calc(4vw + 40px);// 基礎大小40px，加上視窗寬度的8%
+                // height:calc(4vw + 40px);
+                min-width: 40px; // 設置最小尺寸
+                min-height: 40px;
                 max-width: 150px; // 設置最大尺寸
                 max-height: 150px;
                 background-color: $color-white;
-                border-radius:50%;
+                // border-radius:50%;
                 box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
                 .character-oneset-pic {
                     width: 100%;
@@ -75,6 +84,21 @@
             .fa-house{
                 font-size: 2rem;
                 color: #fff;
+            }
+        }
+        .resetGame{
+            position: absolute;
+            left:85px;
+            top: 50px;
+            width: 20px;
+            height: 20px;
+            background-color: $color-highlight;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            .fa-rotate-right{
+                color:$color-white;
             }
         }
         .show-window-outside{

@@ -26,6 +26,9 @@
                         <i class="fa-solid fa-house"></i>
                     </RouterLink>
                 </div>
+                <div class="resetGame">
+                    <i class="fa-solid fa-rotate-right" @click="gameHome"></i>
+                </div>
                 <div class="show-window-outside">
                     <div class="beachgame-text" :class="{ '-viewClose': beachgameText }">
                         <span class="beachgame-title">
@@ -118,7 +121,6 @@
                         <h2 class="trash-title ori ">{{ selectedTrash?.name }}</h2>
                         <!-- 點擊後隱藏，加上class -->
                         <div class="trash-pic">
-                            <!-- :class="{ '-viewClose': slidePage }" -->
                             <img :src="selectedTrash?.image" :alt="selectedTrash?.name">
                         </div>
                         <!-- 成立後display:none -->
@@ -186,7 +188,7 @@
                             </div>
                             <div class="success-text">
                                 <p class="b">吃很多的鯊魚小姐</p>
-                                <p>終於可以在乾淨的海水裡生活了， 每次從海邊漂來奇怪的東西，都很容易受傷。</p>
+                                <p>終於可以在乾淨的海水裡生活了，每次從海邊漂來奇怪的東西，都很容易受傷。</p>
                             </div>
                         </div>
                         <button @click="continueGame">繼續淨灘</button>
@@ -248,8 +250,11 @@
                     <!-- 不跑元素id時就隱藏 -->
                     <!-- 若是不包含物件id就隱藏 -->
                     <div v-show="!hideItem.includes(item.id)" class="trash-pic" v-for="item in trashItem" :key="item.id"
-                        :style="{ 'position': 'absolute', left: `${item.x}%`, top: `${item.y}%`, width: '150px', }"
-                        @click=" handleTrashClick(item.id)">
+                        :style="{
+                            'position': 'absolute', left: `${item.x}%`, top: `${item.y}%`,
+                            width: '15vw', 'max-width': '150px',
+                            'min-width': '50px'
+                        }" @click=" handleTrashClick(item.id)">
                         <img :src="item.url" alt="">
                     </div>
                 </div>
