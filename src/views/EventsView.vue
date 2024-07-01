@@ -1,15 +1,17 @@
 <template>
   <eveBanner />
-  <section class="section section-event-banner">
+  <evenQuickApply />
+  <!-- <section class="section section-event-banner">
     <div class="container">
       <div class="sloagn">
         <h2 class="ori">為保護大自然盡份心力，美麗的海洋，守護有你有我!</h2>
         <button class="fast-signup" @click="getLocation">會員一鍵報名</button>
       </div>
     </div>
-  </section>
+  </section> -->
   <calendar @card-click="handleEventCardClick" />
-  <section class="section section-event-list" ref="eventListSection">
+  <evenList />
+  <!-- <section class="section section-event-list" ref="eventListSection">
     <div class="container">
       <h2>活動列表</h2>
       <div class="menu">
@@ -24,7 +26,7 @@
       <eventPagination :totalItems="filteredEvents.length" :itemsPerPage="8" :currentPage="eventPage"
         @page-changed="changeEventPage" />
     </div>
-  </section>
+  </section> -->
   <section class="section section-event-share">
     <h2>活動分享</h2>
     <div class="container">
@@ -145,7 +147,9 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import Swal from 'sweetalert2'
 import eveBanner from '@/components/even/evenBanner.vue'
-import EventCard from '@/components/EventCard.vue'
+import evenQuickApply from '@/components/even/evenQuickApply.vue'
+// import EventCard from '@/components/EventCard.vue'
+import evenList from '@/components/even/evenList.vue'
 import ShareCard from '@/components/ShareCard.vue'
 import calendar from '@/components/even/calendarFilter.vue'
 import eventPagination from '@/components/even/eventPagination.vue';
@@ -155,14 +159,16 @@ import eventLightBox from '@/components/even/evenLightBox.vue'
 
 export default defineComponent({
   components: {
-    EventCard,
+    // EventCard,
     ShareCard,
     calendar,
     eventPagination,
     evenUpload,
     eveBanner,
     eventAgree,
-    eventLightBox
+    eventLightBox,
+    evenQuickApply,
+    evenList
     // eventLightBox
   },
   setup() {
