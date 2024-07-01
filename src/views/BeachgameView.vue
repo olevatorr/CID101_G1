@@ -565,11 +565,17 @@ export default {
         window.addEventListener('resize', this.checkOrientation);
         // 當組件創建時立即檢查一次方向
         this.checkOrientation();
+
+        // 移除footer隱藏，在組件掛載後隱藏 footer
+        document.querySelector('footer').classList.add('hidden-footer');
     },
     // 只在這個頁面做轉向檢查
     beforeUnmount() {
         // 是指向當前組件內定義的 checkOrientation 方法
         window.removeEventListener('resize', this.checkOrientation);
+
+        // 移除footer隱藏，在組件卸載前移除隱藏樣式，避免影響其他頁面
+        document.querySelector('footer').classList.remove('hidden-footer');
     },
 }
 </script>
