@@ -18,12 +18,12 @@
                 <div class="cartinfo">
                     <div class="info" v-for="(item, index) in productList" :key="item.id">
                         <span>{{ index + 1 }}.</span>
-                        <span>{{ item.title }}</span>
+                        <span>{{ item.P_NAME }}</span>
                         <span>數量 :</span>
                         <button @click="decreaseQuantity(item)" :disabled="item.quantity <= 1">-</button>
                         <span>{{ item.amount ? item.amount : 1 }}</span>
                         <button @click="increaseQuantity(item)" :disabled="item.amount >= 10">+</button>
-                        <span class="price">NT$ {{ item.price * (item.amount ? item.amount : 1) }}</span>
+                        <span class="price">NT$ {{ item.P_PRICE * (item.amount ? item.amount : 1) }}</span>
                         <div class="delete">
                             <img src="/img/shop/delete2.png" alt="" @click="removeFromCart(item)">
                         </div>
@@ -33,6 +33,7 @@
                         <button @click="submitBuy">立即購買</button>
                     <span>NT$ {{ addPrice }}</span>
                 </div>
+                {{dogs.todos}}
             </div>
         </div>
     </div>
@@ -42,6 +43,7 @@
 import Cookies from 'js-cookie';
 import { store } from '@/store.js'; // 引入store
 import Swal from 'sweetalert2'; // 引入sweetalert2
+import {useProdStore} from '@/stores/product'
 
 export default {
     data() {
@@ -53,6 +55,7 @@ export default {
 
             // 該頁存儲localStorage資料
             productList: [],
+            dogs:useProdStore(),
         }
     },
     mounted() {
@@ -70,7 +73,7 @@ export default {
     computed: {
         addPrice() {
             return this.productList.reduce((total, item) => {
-                return total + item.price * item.amount;
+                return total + item.P_PRICE * item.amount;
             }, 0);
         },
         // 購物車商品數量
@@ -105,7 +108,7 @@ export default {
         decreaseQuantity(item) {
             if (item.amount > 1) {
                 this.productList.forEach(forItem => {
-                    if (forItem.id == item.id) {
+                    if (forItem.P_ID == item.P_ID) {
                         forItem.amount = forItem.amount - 1;
                     };
                 });
@@ -115,7 +118,7 @@ export default {
         increaseQuantity(item) {
             if (item.amount < 10) {
                 this.productList.forEach(forItem => {
-                    if (forItem.id == item.id) {
+                    if (forItem.P_ID == item.P_ID) {
                         forItem.amount = forItem.amount + 1;
                     };
                 });
@@ -136,6 +139,10 @@ export default {
             } else{
                 this.$router.push('/mallcart');
             }
+        },
+        addcatttt(){
+            this.dogs;
+            console.log(this.dogs.todos)
         }
     }
 }

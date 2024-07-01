@@ -32,7 +32,7 @@
             <div class="container">
                 <div class="row">
                     <!-- 每一個商品卡 -->
-                    <ProductItem v-for=" paginatedProdItem in paginatedProdList" :key="paginatedProdItem.id"
+                    <ProductItem v-for=" paginatedProdItem in paginatedProdList" :key="paginatedProdItem.P_ID"
                         :productInfo="paginatedProdItem" @add-to-cart="addToCart(paginatedProdItem)" />
                 </div>
             </div>
@@ -53,9 +53,11 @@
         <ProductInfoView @add-to-cart="handleAddToCart" :sharedCart="sharedCart" />
         <ShopCart v-if="$route.path === '/shop' || $route.path === '/productinfo'" />
     </div>
+    <button @click="addcat()">123456增加貓貓</button>
 </template>
 
 <script>
+import {useProdStore} from '@/stores/product'
 import ProductItem from '../components/ProductItem.vue';
 import ShopCart from '@/components/ShopCart.vue';
 
@@ -76,6 +78,7 @@ export default {
             showCartBox: false,
             sharedCart: [],
             activeIndex: null,
+            dog:useProdStore(),
         }
     },
     computed: {
@@ -86,11 +89,11 @@ export default {
             return this.prodList.slice(startIndex, endIndex);
         },
         totalPrice() {
-            return this.quantity * this.productdetail.price;
+            return this.quantity * this.productdetail.P_PRICE;
         },
         addPrice() {
             return this.cartItems.reduce((total, item) => {
-                return total + item.price * item.quantity;
+                return total + item.P_PRICE * item.quantity;
             }, 0);
         },
     },
@@ -109,7 +112,7 @@ export default {
             .catch(error => {
                 console.error('Error fetching products:', error);
             });
-    },
+        },
     methods: {
         clear() {
             this.prodList = this.product;
@@ -177,6 +180,11 @@ export default {
         },
         getImageUrl(imgUrl) {
             return `${import.meta.env.BASE_URL}img/shop/${imgUrl}`;
+        },
+        addcat(){
+            console.log("fifolijsgiohdrnlsg")
+            console.log(this.dog.todos)
+            this.dog.addTodo()
         }
     }
 }
