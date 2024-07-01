@@ -11,11 +11,36 @@
     <ul>
       <li v-for="item in knowledge" :key="item.id">
         {{ item.K_TITLE }} - {{ item.K_CONTENT }} - {{ item.K_FROM }} - {{ item.K_URL }} - {{ item.K_DATE }}
-        <button @click="deleteItem(item.id)">删除</button>
+        <button @click="deleteItem(item.K_ID  )">删除</button>
       </li>
     </ul>
 
     <div v-if="error">{{ errorMsg }}</div>
+  </div>
+  <div v-if="edit">
+    <div class="lightbox-test">
+      <div>
+        名稱
+        <input type="text">
+      </div>
+      <div>
+        內容
+        <textarea type="text">
+        </textarea>
+      </div>
+      <div>
+        來源
+        <input type="text">
+      </div>
+      <div>
+        URL
+        <input type="text">
+      </div>
+      <div>
+        <input type="date">
+      </div>
+      <input type="button" value="儲存">
+    </div>
   </div>
 </template>
 
@@ -35,6 +60,7 @@ export default {
       },
       error: false,
       errorMsg: '',
+      edit:true,
     };
   },
   mounted() {
@@ -43,9 +69,10 @@ export default {
   methods: {
     async fetchData() {
       try {
-        const response = await axios.get('http://localhost/cid101/g1/php/knowledge.php');
+        const response = await axios.get('http://localhost/cid101/g1/api/knowledge.php');
         if (!response.data.error) {
           this.knowledge = response.data.knowledge;
+          // console.log(this.knowledge);
         } else {
           this.error = true;
           this.errorMsg = response.data.msg;
@@ -57,7 +84,7 @@ export default {
     },
     async addItem() {
       try {
-        const response = await axios.post('http://localhost/cid101/g1/php/knowledgeAdd.php', this.newItem, {
+        const response = await axios.post('http://localhost/cid101/g1/api/knowledgeAdd.php', JSON.stringify(this.newItem), {
           headers: {
             'Content-Type': 'application/json'
           }
@@ -81,23 +108,23 @@ export default {
       }
     },
     async deleteItem(id) {
-      try {
-        const response = await axios.post('http://localhost/cid101/g1/php/knowledgeDelete.php', { id }, {
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
+      console.log(id);
+    try {
+        const response = await axios.get('http://localhost/cid101/g1/api/knowledgeDelete.php', {
+            params: { K_ID: id }
+        });console.log(id);
         if (!response.data.error) {
-          this.fetchData();
+            this.fetchData();
         } else {
-          this.error = true;
-          this.errorMsg = response.data.msg;
+            this.error = true;
+            this.errorMsg = response.data.msg;
         }
-      } catch (error) {
+    } catch (error) {
         this.error = true;
         this.errorMsg = error.message;
-      }
     }
+    },
+
   },
 };
 </script>
@@ -105,5 +132,17 @@ export default {
 <style scoped>
 .text123 {
   margin-top: 100px;
+}
+.lightbox-test {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 500px;
+  background-color: #fff;
 }
 </style>
