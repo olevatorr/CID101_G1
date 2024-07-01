@@ -15,13 +15,13 @@
                 <div v-show="showImgPosition" class="show-img-position">
                     <div class="showCharacterImg">
                         <div v-show="showBirdimage" class="character-oneset-pic">
-                            <img src="/img/beachgame/sea-bird.png" alt="海鷗鷗">
+                            <img src="/img/beachgame/birdImg.png" alt="海鷗鷗">
                         </div>
                         <div v-show="showTurtleimage" class="character-oneset-pic">
-                            <img src="/img/beachgame/sea-turtle.png" alt="龜吉">
+                            <img src="/img/beachgame/turtleImg.png" alt="龜吉">
                         </div>
                         <div v-show="showShark" class="character-oneset-pic">
-                            <img src="/img/beachgame/shark.png" alt="胖鯊">
+                            <img src="/img/beachgame/sharkImg.png" alt="胖鯊">
                         </div>
                     </div>
                 </div>
@@ -30,6 +30,7 @@
                         <i class="fa-solid fa-house"></i>
                     </RouterLink>
                 </div>
+
 
                 <div class="show-window-outside">
                     <div class="beachgame-text" :class="{ '-viewClose': beachgameText }">
