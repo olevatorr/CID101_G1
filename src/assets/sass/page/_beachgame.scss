@@ -1,6 +1,5 @@
 // 遊戲進入頁面
 .checkDirection{
-
     //直向就出現覆蓋層
     .overlay{
         position: fixed;
@@ -20,6 +19,7 @@
     }
     
     .section-beachgame {
+        // overflow-y: hidden; // 添加這行來鎖定 y 軸
         height: 100vh;
         // 最外層100視窗高度顯示在畫面上，子層顯示70%，所以周圍有空間
         padding: 0;
@@ -27,11 +27,27 @@
         background-size: cover;
         background-position: 50% 50%;
         z-index: 99999;
+        // 讓回復固定在上面
         position: relative;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        .resetGame{
+            position: absolute;
+            left:93%;
+            top: 90%;
+            width: 20px;
+            height: 20px;
+            background-color: $color-highlight;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            .fa-rotate-right{
+                color:$color-white;
+            }
+        }
         //角色大頭貼位置
         .show-img-position{
             position: fixed;
@@ -86,21 +102,7 @@
                 color: #fff;
             }
         }
-        .resetGame{
-            position: absolute;
-            left:85px;
-            top: 50px;
-            width: 20px;
-            height: 20px;
-            background-color: $color-highlight;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 50%;
-            .fa-rotate-right{
-                color:$color-white;
-            }
-        }
+        
         .show-window-outside{
             //壓住頭貼
             z-index: 20;
@@ -118,10 +120,13 @@
                     display:none;
                 }
                 .beachgame-title {
-                    font-size: 4vw;
+                    font-size: clamp(2rem, 2.5vw, 4rem);
                     font-weight: 600;
-                    letter-spacing: 2vw;
+                    letter-spacing: 0.3rem;
                     line-height: 6rem;
+                }
+                .beachgame-subtitle{
+                    font-size: clamp(1rem, 2.5vw, 1.2rem);
                 }
             
             }

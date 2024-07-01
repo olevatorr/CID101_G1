@@ -7,6 +7,10 @@
         <!-- 否則顯示整個頁面內容 -->
         <div v-else>
             <section class="section section-beachgame">
+                <!-- 重新遊戲圖示 -->
+                <div class="resetGame" v-show="showResetGame">
+                    <i class="fa-solid fa-rotate-right" @click="gameHome"></i>
+                </div>
                 <!-- 顯示角色頭貼 -->
                 <div v-show="showImgPosition" class="show-img-position">
                     <div class="showCharacterImg">
@@ -26,9 +30,7 @@
                         <i class="fa-solid fa-house"></i>
                     </RouterLink>
                 </div>
-                <div class="resetGame">
-                    <i class="fa-solid fa-rotate-right" @click="gameHome"></i>
-                </div>
+
                 <div class="show-window-outside">
                     <div class="beachgame-text" :class="{ '-viewClose': beachgameText }">
                         <span class="beachgame-title">
@@ -279,6 +281,8 @@ export default {
 
     data() {
         return {
+            // 出現重來遊戲
+            showResetGame: false,
             //角色頭貼
             showImgPosition: false,
             isPortrait: true, // 初始化為 true，預設顯示警告
@@ -406,6 +410,7 @@ export default {
         showRules() {
             this.beachgameText = true;
             this.rulesLightbox = true;
+            this.showResetGame = true;
         },
         enterGame() {
             this.rulesLightboxcc = true;
