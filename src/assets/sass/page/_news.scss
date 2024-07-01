@@ -1,18 +1,23 @@
 .section-news-banner {
-    height: 100vh;
+    // 資訊量少
+    height: 45vh;
     background: url(/img/news/news-banner.png) no-repeat 50% 50% / cover;
     display: flex;
     justify-content: center;
     align-items: center;
-    .news-banner_title p{
-        font-size: 2rem;
-        color:#fff;
+    .news-banner_title{
+        margin:20px 0 15px 0;
+        p{
+            font-size: 2rem;
+            color:#fff;
+        }
+        h1{
+            font-size: 6rem;
+            color:#fff;
+            letter-spacing: 1rem;
+        }
     }
-    .news-banner_title h1{
-        font-size: 6rem;
-        color:#fff;
-        letter-spacing: 1rem;
-    }
+   
 }
 .section-news-content {
     color:#333;
@@ -50,49 +55,4 @@
     
     
     
-}
-.news-card {
-    &:hover{
-        transform: scale(1.05) translateY(-15px); /* 放大1.05倍並向上移動15像素 */
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        
-    }
-    // cubic-bezier 函數來創建彈性效果，四個點設定控制形狀
-    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), box-shadow 0.5s ease;
-    color:#333;
-    position:relative;
-    padding: 10px;
-    background-color: #fff;
-    margin-top: 20px;
-    .news-card-pic{
-        img {
-            width: 100%;
-            vertical-align: top;
-        }
-    }
-    .news-card-txt{
-        .news-card-content {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
-            box-sizing:border-box;
-            margin: 5px 0;
-        }
-        .filter-name {
-            // 定去new-card上
-            box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-            position:absolute;
-            top:3%;
-            left:3%;
-            background-color: $color-subprimary;
-            display: block;
-            width: 70px;
-            display: flex;
-            justify-content: center;
-            color: #fff;
-            padding: 0 10px;
-        }
-    }
 }
