@@ -52,6 +52,13 @@
     
 }
 .news-card {
+    &:hover{
+        transform: scale(1.05) translateY(-15px); /* 放大1.05倍並向上移動15像素 */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        
+    }
+    // cubic-bezier 函數來創建彈性效果，四個點設定控制形狀
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), box-shadow 0.5s ease;
     color:#333;
     position:relative;
     padding: 10px;
