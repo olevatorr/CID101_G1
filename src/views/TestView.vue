@@ -34,6 +34,8 @@
     </ul>
     </div>
   </div>
+  <input type="text"  id="" v-model="again">
+  <button>新增</button>
 </template>
 
 <script>

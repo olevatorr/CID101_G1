@@ -7,17 +7,21 @@
         <!-- 否則顯示整個頁面內容 -->
         <div v-else>
             <section class="section section-beachgame">
+                <!-- 重新遊戲圖示 -->
+                <div class="resetGame" v-show="showResetGame">
+                    <i class="fa-solid fa-rotate-right" @click="gameHome"></i>
+                </div>
                 <!-- 顯示角色頭貼 -->
                 <div v-show="showImgPosition" class="show-img-position">
                     <div class="showCharacterImg">
                         <div v-show="showBirdimage" class="character-oneset-pic">
-                            <img src="/img/beachgame/sea-bird.png" alt="海鷗鷗">
+                            <img src="/img/beachgame/birdImg.png" alt="海鷗鷗">
                         </div>
                         <div v-show="showTurtleimage" class="character-oneset-pic">
-                            <img src="/img/beachgame/sea-turtle.png" alt="龜吉">
+                            <img src="/img/beachgame/turtleImg.png" alt="龜吉">
                         </div>
                         <div v-show="showShark" class="character-oneset-pic">
-                            <img src="/img/beachgame/shark.png" alt="胖鯊">
+                            <img src="/img/beachgame/sharkImg.png" alt="胖鯊">
                         </div>
                     </div>
                 </div>
@@ -26,9 +30,8 @@
                         <i class="fa-solid fa-house"></i>
                     </RouterLink>
                 </div>
-                <div class="resetGame">
-                    <i class="fa-solid fa-rotate-right" @click="gameHome"></i>
-                </div>
+
+
                 <div class="show-window-outside">
                     <div class="beachgame-text" :class="{ '-viewClose': beachgameText }">
                         <span class="beachgame-title">
@@ -279,6 +282,8 @@ export default {
 
     data() {
         return {
+            // 出現重來遊戲
+            showResetGame: false,
             //角色頭貼
             showImgPosition: false,
             isPortrait: true, // 初始化為 true，預設顯示警告
@@ -406,6 +411,7 @@ export default {
         showRules() {
             this.beachgameText = true;
             this.rulesLightbox = true;
+            this.showResetGame = true;
         },
         enterGame() {
             this.rulesLightboxcc = true;
@@ -559,11 +565,17 @@ export default {
         window.addEventListener('resize', this.checkOrientation);
         // 當組件創建時立即檢查一次方向
         this.checkOrientation();
+
+        // 移除footer隱藏，在組件掛載後隱藏 footer
+        document.querySelector('footer').classList.add('hidden-footer');
     },
     // 只在這個頁面做轉向檢查
     beforeUnmount() {
         // 是指向當前組件內定義的 checkOrientation 方法
         window.removeEventListener('resize', this.checkOrientation);
+
+        // 移除footer隱藏，在組件卸載前移除隱藏樣式，避免影響其他頁面
+        document.querySelector('footer').classList.remove('hidden-footer');
     },
 }
 </script>
