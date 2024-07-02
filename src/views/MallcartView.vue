@@ -20,14 +20,14 @@
                 </div>
                 <div class="content">
                     <div class="pic">
-                        <img :src="Array.isArray(item.imgUrl) ? getImageUrl(item.imgUrl[0]) : getImageUrl(item.imgUrl)" alt="">
+                        <img :src="Array.isArray(item.P_IMG1) ? getImageUrl(item.P_IMG1[0]) : getImageUrl(item.P_IMG1)" alt="">
                     </div>
                     <div class="title">
-                        <p>{{ item.title }}</p>
+                        <p>{{ item.P_NAME }}</p>
                     </div>
                 </div>
                 <div class="price">
-                    <p>$NT {{ item.price }}</p>
+                    <p>$NT {{ item.P_PRICE }}</p>
                 </div>
                 <div class="amount">
                     <button @click="decreaseQuantity(item)">-</button>
@@ -35,7 +35,7 @@
                     <button @click="increaseQuantity(item)">+</button>
                 </div>
                 <div class="subtotal">
-                    <p>NT$ {{ item.price * item.amount }}</p>
+                    <p>NT$ {{ item.P_PRICE * item.amount }}</p>
                     <i class="fa-regular fa-circle-xmark" @click="removeFromCart(item)"></i>
                 </div>
             </div>
@@ -200,7 +200,7 @@
                 <router-link to="/shop" tag="div" event="click" class="button">
                 <button>返回商品頁面</button>
                 </router-link>
-                <button class="pay">我要結帳</button>
+                <button class="pay">確定下單</button>
             </div>
         </div>
     </section>
@@ -239,7 +239,7 @@ export default {
     computed: {
         addPrice() {
             return this.productList.reduce((total, item) => {
-                return total + item.price * item.amount;
+                return total + item.P_PRICE * item.amount;
             }, 0);
         },
         // 購物車商品數量
@@ -289,7 +289,7 @@ export default {
         decreaseQuantity(item) {
             if (item.amount > 1) {
                 this.productList.forEach(forItem => {
-                    if (forItem.id == item.id) {
+                    if (forItem.P_ID == item.P_ID) {
                         forItem.amount = forItem.amount - 1;
                     };
                 });
@@ -299,7 +299,7 @@ export default {
         increaseQuantity(item) {
             if (item.amount < 10) {
                 this.productList.forEach(forItem => {
-                    if (forItem.id == item.id) {
+                    if (forItem.P_ID == item.P_ID) {
                         forItem.amount = forItem.amount + 1;
                     };
                 });
