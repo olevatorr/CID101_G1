@@ -1,10 +1,11 @@
 <script setup>
-import { ref } from 'vue'
-import { usePositionStore } from '@/stores/location'
+// import { ref } from 'vue'
+import { useEventsStore } from '@/stores/events'
+import {storeToRefs} from 'pinia'
 
-const selectedRegion = ref('')
-const currentPage = ref(1);
-const positionStore = usePositionStore()
+
+const locationStore = useEventsStore()
+const { handleRegionChangeForLocation } =storeToRefs(locationStore)
 
 const getLocation = () => {
     if (navigator.geolocation) {  //請求當前位置
@@ -13,10 +14,7 @@ const getLocation = () => {
         alert('您的瀏覽器不支援地理位置服務')
     }
 }
-const handleRegionChangeForLocation = (event) => {
-        selectedRegion.value = event;
-        currentPage.value = 1;
-    }
+
 
 const showPosition = (position) => {
     const latitude = position.coords.latitude
@@ -24,7 +22,6 @@ const showPosition = (position) => {
     determineRegion(latitude, longitude);
     // 在這裡根據緯度和經度調用 API 獲取卡片位置信息
     // 並更新相應的數據
-    positionStore.scrollToEventList;  // 確保在確定區域後進行滾動
 }
 const showError = (error) => {
     switch (error.code) {
@@ -72,7 +69,7 @@ const determineRegion = (latitude, longitude) => {
         <div class="container">
             <div class="sloagn">
                 <h2 class="ori">為保護大自然盡份心力，美麗的海洋，守護有你有我!</h2>
-                <button class="fast-signup" @click="getLocation">會員一鍵報名</button>
+                <button class="fast-signup" @click="getLocation()">會員一鍵報名</button>
             </div>
         </div>
     </section>

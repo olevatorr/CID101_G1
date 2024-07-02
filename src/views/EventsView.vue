@@ -1,44 +1,9 @@
 <template>
   <eveBanner />
-  <section class="section section-event-banner">
-    <div class="container">
-      <div class="sloagn">
-        <h2 class="ori">為保護大自然盡份心力，美麗的海洋，守護有你有我!</h2>
-        <button class="fast-signup" @click="getLocation">會員一鍵報名</button>
-      </div>
-    </div>
-  </section>
+  <evenApply />
   <calendar @card-click="handleEventCardClick" />
-  <section class="section section-event-list" ref="eventListSection">
-    <div class="container">
-      <h2>活動列表</h2>
-      <div class="menu">
-        <select v-model="selectedRegion" @change="handleRegionChange">
-          <option value="">全台灣(地區)</option>
-          <option :value="index" v-for="(regions, index) in regions" :key="regions">{{ regions }}</option>
-        </select>
-      </div>
-      <div class="row">
-        <EventCard :filteredEvents="paginatedEvents" @card-click="handleEventCardClick" />
-      </div>
-      <eventPagination :totalItems="filteredEvents.length" :itemsPerPage="8" :currentPage="eventPage"
-        @page-changed="changeEventPage" />
-    </div>
-  </section>
-  <section class="section section-event-share">
-    <h2>活動分享</h2>
-    <div class="container">
-      <div class="row">
-        <ShareCard :shareContent="paginatedShare" @card-click="handleShareCardClick"
-          @report-click="showReportModal = true" />
-      </div>
-      <eventPagination :totalItems="shareContent.length" :itemsPerPage="4" :currentPage="sharePage"
-        @page-changed="changeSharePage" />
-      <div class="sharebtn">
-        <button>活動分享</button>
-      </div>
-    </div>
-  </section>
+  <evenList/>
+  <evenShareList />
   <eventAgree />
   <!-- <div v-if="selectedEventCard">
     <div class="light-box-bgc">
@@ -139,35 +104,37 @@
 
 <script>
 import { defineComponent, ref, onMounted, computed, watch } from 'vue'
+import { storeToRefs } from 'pinia'
 // import { useRouter } from 'vue-router'
 import { store } from '@/store.js'
-import dayGridPlugin from '@fullcalendar/daygrid'
-import timeGridPlugin from '@fullcalendar/timegrid'
 import Swal from 'sweetalert2'
 import eveBanner from '@/components/even/evenBanner.vue'
-import EventCard from '@/components/EventCard.vue'
 import ShareCard from '@/components/ShareCard.vue'
 import calendar from '@/components/even/calendarFilter.vue'
-import eventPagination from '@/components/even/eventPagination.vue';
 import eventAgree from '@/components/even/evenAgree.vue'
 import evenUpload from '@/components/even/evenUpload.vue'
 import eventLightBox from '@/components/even/evenLightBox.vue'
+import evenApply from '@/components/even/evenApply.vue'
+import evenShareList from '@/components/even/evenShareList.vue'
+import evenList from '@/components/even/evenList.vue'
+import { useEventsStore } from '@/stores/events.js'
 
 export default defineComponent({
   components: {
-    EventCard,
     ShareCard,
     calendar,
-    eventPagination,
     evenUpload,
     eveBanner,
     eventAgree,
-    eventLightBox
+    eventLightBox,
+    evenApply,
+    evenShareList,
+    evenList,
     // eventLightBox
   },
   setup() {
-    //獲取路由
-    // const router = useRouter();
+    const eventsStore = useEventsStore()
+    const { selectedRegion } = storeToRefs(eventsStore)
 
     const scrollToEventList = () => {
       if (eventListSection.value) {
@@ -218,73 +185,6 @@ export default defineComponent({
       { id: 3, name: '東部' },
       { id: 4, name: '離島' }
     ])
-    const calendarOptions = ref({
-      initialView: 'dayGridMonth',
-      headerToolbar: {
-        left: '',
-        center: 'title',
-        right: 'prev,next'
-      },
-      events: [],
-      eventDidMount: (info) => {
-        const eventEl = info.el
-        const event = info.event
-        const eventDate = event.start.toISOString().slice(0, 10)
-
-        if (eventEl.style.display === 'none') {
-          return
-        }
-
-        const sameDateEvents = info.view.calendar
-          .getEvents()
-          .filter((e) => e.start.toISOString().slice(0, 10) === eventDate)
-
-        if (sameDateEvents.length > 1) {
-          sameDateEvents.forEach((e, index) => {
-            if (index > 0) {
-              e.setProp('display', 'none')
-            }
-          })
-        }
-      },
-      eventContent: () => {
-        return { html: `<i class="fas fa-circle"></i>` }
-      },
-      eventClick: (arg) => {
-        const date = arg.event.start
-        const events = eventList.value.filter((event) => {
-          const eventDate = new Date(event.E_DATE)
-          const clickedDate = new Date(date)
-          const result = eventDate.toDateString() === clickedDate.toDateString()
-          // console.log('Event Date:', eventDate.toDateString());
-          // console.log('Clicked Date:', clickedDate.toDateString());
-          // console.log('Comparison Result:', result);
-          return result
-        })
-
-        // console.log(date);
-        // console.log(events);
-
-        if (events.length > 0) {
-          Swal.fire({
-            icon: 'info',
-            title: `${date.toLocaleDateString()} 的活動`,
-            html: events
-              .map(
-                (event) => `
-        <div>
-          <h4>${event.E_TITLE}</h4>
-          <p>地點：${event.E_ADDRESS}</p>
-        </div>
-      `
-              )
-              .join(''),
-            confirmButtonText: '確認'
-          })
-        }
-      },
-      plugins: [dayGridPlugin, timeGridPlugin]
-    })
     //定義跳窗預設隱藏
     const selectedEventCard = ref(null);
     const selectedShareCard = ref(null);
@@ -422,11 +322,7 @@ export default defineComponent({
     const eventContent = ref([])
 
     const eventList = ref(null)
-    const calendarList = ref(null)
-    const calendarFilteredEvents = ref([])
 
-    //定義下拉式選單域設為空
-    const selectedRegion = ref('')
 
     //依資料庫area邏輯判斷出篩選結果
     const filteredEvents = computed(() => {
@@ -508,14 +404,7 @@ export default defineComponent({
         const jsonData = await eventResponse.json()
         eventList.value = jsonData
         eventContent.value = jsonData
-        calendarList.value = eventList.value.map((event) => ({
-          title: event.E_TITLE,
-          start: event.E_DATE,
-          allDay: true,
-          backgroundColor: 'rgba(255,0,0,0)',
-          borderColor: 'rgba(255,0,0,0)',
-          textColor: '#E7A600'
-        }))
+        
         isLoading.value = false; //數據加載完成後將 isLoading 設置為 false
       } catch (error) {
         console.error('Error loading JSON:', error);
@@ -533,26 +422,16 @@ export default defineComponent({
       return shareContent.value.slice(startIndex, startIndex + 4);
     });
 
-    const hasEvents = (areaId) => {
-      return getAreaEvents(areaId).length > 0
-    }
-    const getAreaEvents = (areaId) => {
-      return calendarFilteredEvents.value.filter((event) => event.E_AREA === areaId)
-    }
+
     return {
-      calendarOptions,
       shareContent,
       eventContent,
       selectedEventCard,
       selectedShareCard,
-      // handleEventCardClick,
       handleShareCardClick,
       closeEventModal,
       closeShareModal,
-      calendarList,
       areas,
-      getAreaEvents,
-      hasEvents,
       filteredEvents,
       handleRegionChange,
       eventEnded,
@@ -561,11 +440,7 @@ export default defineComponent({
       date,
       selectedRegion,
       regions,
-      // handleRegistration,
       SubmitEvent,
-      // closeConfirm,
-      // openConfirm,
-      // peopleNum,
       showReportModal,
       closeExamine,
       reasons,

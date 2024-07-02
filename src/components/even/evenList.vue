@@ -2,6 +2,15 @@
 import { ref, computed,onMounted } from "vue";
 import EventCard from '@/components/EventCard.vue'
 import EventPagination from '@/components/even/eventPagination.vue'
+import { useEventsStore } from '@/stores/events.js'
+import { storeToRefs } from 'pinia'
+
+
+
+// pinia遷入，因為是compostion寫法所以要用defineStore調用
+const eventsStore = useEventsStore()
+const { selectedRegion, eventList } = storeToRefs(eventsStore)
+
 
 onMounted(async () => {
     try{
@@ -17,10 +26,8 @@ onMounted(async () => {
 })
 
 const eventContent = ref([])
-const eventListSection = ref(null);
 const selectedEventCard = ref(null);
 const peopleNum = ref(1);
-const selectedRegion = ref('');
 const regions = ref(["北部", "中部", "南部", "東部", "離島"]);
 const currentPage = ref(1);
 const eventPage = ref(1);
@@ -54,7 +61,7 @@ const changeEventPage = (pageNumber) => {
 </script>
 
 <template>
-    <section class="section section-event-list" ref="eventListSection">
+    <section class="section section-event-list">
         <div class="container">
             <h2>活動列表</h2>
             <div class="menu">
