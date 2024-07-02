@@ -53,7 +53,7 @@
         <ProductInfoView @add-to-cart="handleAddToCart" :sharedCart="sharedCart" />
         <ShopCart v-if="$route.path === '/shop' || $route.path === '/productinfo'" />
     </div>
-    <button @click="addcat()">123456增加貓貓</button>
+    <!-- <button @click="addcat()">123456增加貓貓</button> -->
 </template>
 
 <script>
@@ -120,7 +120,7 @@ export default {
         },
         filter(dog) {
             // console.log(dog);
-            this.prodList = this.product.filter(item => item.class === dog);
+            this.prodList = this.product.filter(item => item.P_CATEGORY === dog);
             this.currentPage = 1;
         },
         changePage(page) {
@@ -181,11 +181,11 @@ export default {
         getImageUrl(imgUrl) {
             return `${import.meta.env.BASE_URL}img/shop/${imgUrl}`;
         },
-        addcat(){
-            console.log("fifolijsgiohdrnlsg")
-            console.log(this.dog.todos)
-            this.dog.addTodo()
-        }
+        // addcat(){
+        //     console.log("fifolijsgiohdrnlsg")
+        //     console.log(this.dog.todos)
+        //     this.dog.addTodo()
+        // }
     }
 }
 </script>

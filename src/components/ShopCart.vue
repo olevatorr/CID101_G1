@@ -140,10 +140,10 @@ export default {
                 this.$router.push('/mallcart');
             }
         },
-        addcatttt(){
-            this.dogs;
-            console.log(this.dogs.todos)
-        }
+        // addcatttt(){
+        //     this.dogs;
+        //     console.log(this.dogs.todos)
+        // }
     }
 }
 </script>

@@ -65,7 +65,7 @@
                         <p>顏色 : {{ productdetail.P_COLOR }}</p>
                     </div>
                     <div class="pic">
-                        <img :src="getImageUrl(productdetail.P_IMG1)" alt="">
+                        <img :src="getImageUrl(productdetail.P_IMG2)" alt="">
                     </div>
                     <div class="text2">
                         <p>手工測量有1-3公分誤差，由於顯示器及拍照光線等<br>不可抗拒因素，色差不可避免。</p>
@@ -170,7 +170,7 @@ export default {
             }
         },
         getImageUrl(imgUrl) {
-            return `${import.meta.env.BASE_URL}img/shop/${imgUrl}`;
+            return `${import.meta.env.BASE_URL}img/productioninfo/${imgUrl}`;
         },
         submitBuy() {
             if (!store.isLoging) {
