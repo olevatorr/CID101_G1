@@ -238,8 +238,8 @@
                     margin-bottom:2%;
                 }
                 .trash-pic {
-                    width: 150px;
-                    height: 150px;
+                    width: 20vh;
+                    height: 20vh;
                     margin: 0 auto;
                     background-color: #fff;
                     border-radius: 50%;
@@ -265,6 +265,7 @@
                     }
                 }
                 button{
+                    padding:0.5rem 2rem;
                     &.-viewClose{
                         display: none;
                     }
@@ -284,6 +285,7 @@
                     background-color: $color-primary;
                     padding: 5%;
                     .tool-list {
+                        width:65vh;
                         margin:2% auto;
                         color: #fff;
                         .tool-item {

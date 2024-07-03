@@ -11,6 +11,8 @@
         aspect-ratio: 4/3;
         img {
             width: 100%;
+            // 圖片要是高本身不夠大，會撐不滿，所以多設height:100%
+            height:100%;
             vertical-align: top;
             object-fit: cover;
             //過渡的時間函數,ease定義了過渡效果的速度曲線
