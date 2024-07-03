@@ -3,6 +3,14 @@ import { ref, onMounted, watch, computed } from 'vue'
 import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
+import { useEventsStore } from '@/stores/events.js'
+import { storeToRefs } from 'pinia'
+
+
+
+// pinia遷入，因為是compostion寫法所以要用defineStore調用
+const eventsStore = useEventsStore()
+const { selectedEventCard} = storeToRefs(eventsStore)
 
 const areas = ref([
     { id: 0, name: '北部' },
@@ -120,6 +128,9 @@ watch(calendarList, (newValue) => {
 const filteredAreas = computed(() => {
     return areas.value.filter(area => getAreaEvents(area.id).length > 0);
 })
+const showEventDetails = (event) => {
+    selectedEventCard.value = event
+}
 </script>
 <template>
     <section class="section section-event-date">
@@ -143,7 +154,7 @@ const filteredAreas = computed(() => {
                                             <span class="deadline" v-else-if="registrationClosed(event.E_DEADLINE)">報名截止</span>
                                             <span class="fullsign" v-else-if="registrationFull(event.E_SIGN_UP, event.E_MAX_ATTEND)">報名額滿</span>
                                             <span class="ongoing" v-else>報名中</span>
-                                            <button @click="$emit('card-click', event)">活動詳情</button>
+                                            <button @click="showEventDetails(event)">活動詳情</button>
                                         </li>
                                     </ul>
                                 </div>
