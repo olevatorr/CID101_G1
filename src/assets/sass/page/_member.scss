@@ -97,12 +97,25 @@
                 height: 4rem;
             }
         }
+        .password-container {
+            position: relative;
+        }
+        
+        .password-container i {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            cursor: pointer;
+            transform: translateY(-50%);
+            font-size: 20px
+        }
     }
     
     .forgot {
         display: block;
         line-height: 4;
         margin-bottom: 2rem;
+        margin-top: 2rem;
     }
     
 

@@ -11,7 +11,8 @@
     <ul>
       <li v-for="item in knowledge" :key="item.id">
         {{ item.K_TITLE }} - {{ item.K_CONTENT }} - {{ item.K_FROM }} - {{ item.K_URL }} - {{ item.K_DATE }}
-        <button @click="deleteItem(item.K_ID  )">删除</button>
+        <button @click="deleteItem(item.K_ID)">删除</button>
+        <button>修改</button>
       </li>
     </ul>
 
@@ -19,27 +20,18 @@
   </div>
   <div v-if="edit">
     <div class="lightbox-test">
-      <div>
-        名稱
-        <input type="text">
-      </div>
-      <div>
-        內容
-        <textarea type="text">
-        </textarea>
-      </div>
-      <div>
-        來源
-        <input type="text">
-      </div>
-      <div>
-        URL
-        <input type="text">
-      </div>
-      <div>
-        <input type="date">
-      </div>
-      <input type="button" value="儲存">
+      <ul>
+      <li v-for="item in knowledge" :key="item.id">
+        <div>
+          <input v-model="item.K_TITLE">
+          <input v-model="item.K_CONTENT">
+          <input v-model="item.K_FROM">
+          <input v-model="item.K_URL">
+          <input v-model="item.K_DATE" type="date">
+          <button @click="updateItem(item)">保存</button>
+        </div>
+      </li>
+    </ul>
     </div>
   </div>
   <input type="text"  id="" v-model="again">
@@ -126,6 +118,24 @@ export default {
         this.errorMsg = error.message;
     }
     },
+    async updateItem(id){
+      console.log(id);
+    try {
+        const response = await axios.get('http://localhost/cid101/g1/api/knowledgeUpdate.php', {
+            params: { K_ID: id }
+        });console.log(id);
+        if (!response.data.error) {
+            this.fetchData();
+        } else {
+            this.error = true;
+            this.errorMsg = response.data.msg;
+        }
+    } catch (error) {
+        this.error = true;
+        this.errorMsg = error.message;
+    }
+
+    }
 
   },
 };
@@ -134,17 +144,5 @@ export default {
 <style scoped>
 .text123 {
   margin-top: 100px;
-}
-.lightbox-test {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 500px;
-  background-color: #fff;
 }
 </style>

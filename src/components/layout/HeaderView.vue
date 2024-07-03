@@ -1,9 +1,14 @@
 <script setup>
-import { ref } from 'vue'
+import { ref,onMounted  } from 'vue'
 import { RouterLink } from 'vue-router'
-import { store, fetchProfile, logout as logoutStore } from '@/store.js';
-
-fetchProfile()  // 獲取會員資訊
+import { useMemeberStore } from '@/stores/member';
+import {storeToRefs} from 'pinia'
+//從member.js調用useMemeberStore方法
+const store = useMemeberStore();
+//響應式資料 (包括 computed) 要使用的話要用 storeToRefs 來做提取
+const { isLogging ,member } = storeToRefs(store)
+//圖片路徑
+const imageHostUrl = import.meta.env.VITE_IMAGE_URL
 
 const isMenuOpen = ref(false)
 const isSubmenuDropDown = ref(false)
@@ -14,11 +19,13 @@ const toggleMenu = () => {
 const toggleSubmenuDropDown = () => {
     isSubmenuDropDown.value = !isSubmenuDropDown.value
 }
-
-const logout = () => {
-    logoutStore();
-    toggleMenu()
+const navlogout = () => {
+    store.logout()  // Call the logout method from the store
 }
+
+onMounted(() => {
+    store.getCookie()  // Call the getCookie method from the store
+})
 
 </script>
 <template>
@@ -62,13 +69,16 @@ const logout = () => {
                 </li>
                 <li><router-link to="/news" @click="toggleMenu">最新消息</router-link></li>
                 <li class="nav-member">
-                    <RouterLink v-if="store.isLoging" to="/ProfileView" @click="toggleMenu">
-                        <img :src="store.memberAvatar" alt="Member Avatar" class="member-avatar">
-                        <p>{{ store.memberName }}</p>
+                    <RouterLink v-if="isLogging" to="/ProfileView" @click="toggleMenu">
+                        <img v-if="member" :src="`${imageHostUrl}/member/${member.U_AVATAR}`" alt="User Avatar"  class="member-avatar">
+                        <p>{{ member.U_NAME }}</p>
                     </RouterLink>
                     <RouterLink v-else to="/Member" @click="toggleMenu">會員登入</RouterLink>
                 </li>
-                <li v-if="store.isLoging" class="logoutbutton"><RouterLink to="/Member"><button @click="logout">登出</button></RouterLink></li>
+                <li v-if="isLogging" class="logoutbutton">
+                    <RouterLink to="/Member">
+                        <button @click="navlogout">登出</button>
+                    </RouterLink></li>
             </ul>
         </nav>
     </header>
