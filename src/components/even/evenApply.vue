@@ -1,15 +1,14 @@
 <script setup>
 // import { ref } from 'vue'
 import { useEventsStore } from '@/stores/events'
-import {storeToRefs} from 'pinia'
-
+const emit = defineEmits(['scroll-click'])
 
 const locationStore = useEventsStore()
-const { handleRegionChangeForLocation } =storeToRefs(locationStore)
 
 const getLocation = () => {
     if (navigator.geolocation) {  //請求當前位置
         navigator.geolocation.getCurrentPosition(showPosition, showError);
+        emit('scroll-click')
     } else {
         alert('您的瀏覽器不支援地理位置服務')
     }
@@ -41,20 +40,20 @@ const showError = (error) => {
 }
 const determineRegion = (latitude, longitude) => {
     if (latitude >= 23.5 && latitude <= 25.2 && longitude >= 119.5 && longitude <= 122.5) {
-        handleRegionChangeForLocation('0')
+        locationStore.handleRegionChangeForLocation('0')
     } else if (latitude >= 21.8 && latitude <= 23.5 && longitude >= 120 && longitude <= 121.5) {
-        handleRegionChangeForLocation('1')
+        locationStore.handleRegionChangeForLocation('1')
     } else if (latitude >= 21.8 && latitude <= 23.5 && longitude >= 121.5 && longitude <= 122.5) {
-        handleRegionChangeForLocation('3')
+        locationStore.handleRegionChangeForLocation('3')
 
     } else if (latitude >= 21 && latitude <= 23 && longitude >= 119.5 && longitude <= 121) {
-        handleRegionChangeForLocation('2')
+        locationStore.handleRegionChangeForLocation('2')
 
     } else if (
         (latitude >= 23 && latitude <= 23.5 && longitude >= 119 && longitude <= 119.5) ||
         (latitude >= 26 && latitude <= 26.5 && longitude >= 119.5 && longitude <= 122)
     ) {
-        handleRegionChangeForLocation('4')
+        locationStore.handleRegionChangeForLocation('4')
 
     } else {
         alert('error')

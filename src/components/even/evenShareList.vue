@@ -1,17 +1,29 @@
 <script setup>
-import {onMounted, ref} from 'vue'
+import { onMounted, computed, ref } from 'vue'
+import ShareCard from '@/components/ShareCard.vue'
+import EventPagination from '@/components/even/eventPagination.vue'
+import { useSharesStore } from '@/stores/shares'
+import { storeToRefs } from 'pinia'
 
+
+const shares = useSharesStore()
+const { shareContent, selectedShareCard, showReportModal } = storeToRefs(shares)
+const sharePage = ref(1);    //活動分享
 
 onMounted(() => {
-    fetch(`${import.meta.env.BASE_URL}json/Share.json`)
-        .then(res => res.json())
-        .then(jsonData => {
-            
-        })
-}),
+    shares.fetchShare()
+})
+const paginatedShare = computed(() => {
+    const startIndex = (sharePage.value - 1) * 4;
+    return shareContent.value.slice(startIndex, startIndex + 4);
+});
 
-
-
+const changeSharePage = (pageNumber) => {
+    sharePage.value = pageNumber;
+};
+const handleShareCardClick = (card) => {
+    selectedShareCard.value = card;
+}
 </script>
 <template>
     <section class="section section-event-share">

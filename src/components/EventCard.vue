@@ -1,15 +1,24 @@
 <script setup>
 import { useEventsStore } from '@/stores/events';
+import {storeToRefs} from 'pinia'
 const events = useEventsStore()
 
-const cardClicked = (card) => {
-    events.selectedEventCard = card
+
+const {selectedEventCard} = storeToRefs(events)
+
+const props = defineProps({
+    filteredEvents: Array,
+})
+
+const handleEventCard = (event)=>{
+    selectedEventCard.value = event
 }
+
 
 </script>
 
 <template>
-    <div class="col-6 col-sm-4 col-md-4 col-lg-3" v-for="card in filteredEvents" :key="card.E_ID" @click="cardClicked(card)">   
+    <div class="col-6 col-sm-4 col-md-4 col-lg-3" v-for="card in filteredEvents" :key="card.E_ID" @click="handleEventCard(card)">   
         <div class="event-card">
             <div class="text">
                 <div class="theme">
@@ -31,19 +40,3 @@ const cardClicked = (card) => {
         </div>
     </div>
 </template>
-
-<script>
-
-export default {
-    props: ['filteredEvents','region'],
-    emits: {
-      'card-click': [],
-      'close-click': [],
-    },
-    data() {
-        return {
-
-        }
-    },
-}
-</script>

@@ -2,11 +2,10 @@ import { defineStore} from 'pinia'
 
 export const useSharesStore = defineStore('shares', {
     state: ()=>({
-        shareContent:[]
+        shareContent:[],
+        selectedShareCard: '',
+        showReportModal: false
     }),
-    getters: ()=>{
-
-    },
     actions: {
         fetchShare() {
             fetch(`${import.meta.env.BASE_URL}json/Share.json`)

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed,onMounted } from "vue";
+import { ref, computed, onMounted } from "vue";
 import EventCard from '@/components/EventCard.vue'
 import EventPagination from '@/components/even/eventPagination.vue'
 import { useEventsStore } from '@/stores/events.js'
@@ -9,34 +9,15 @@ import { storeToRefs } from 'pinia'
 
 // pinia遷入，因為是compostion寫法所以要用defineStore調用
 const eventsStore = useEventsStore()
-const { selectedRegion, eventList } = storeToRefs(eventsStore)
+const { selectedRegion, eventContent, currentPage, eventPage } = storeToRefs(eventsStore)
 
 
-onMounted(async () => {
-    try{
-        const eventResponse = await fetch(`${import.meta.env.BASE_URL}json/event.json`)
-        if (!eventResponse.ok) {
-          throw new Error('錯誤')
-        }
-        const jsonData = await eventResponse.json()
-        eventContent.value = jsonData
-    }catch (error) {
-        console.error('Error loading JSON:', error);
-      }
+onMounted(() => {
+    eventsStore.fetchEventData()
 })
 
-const eventContent = ref([])
-const selectedEventCard = ref(null);
-const peopleNum = ref(1);
 const regions = ref(["北部", "中部", "南部", "東部", "離島"]);
-const currentPage = ref(1);
-const eventPage = ref(1);
 
-
-const handleEventCardClick = (card) => {
-    selectedEventCard.value = card;
-    peopleNum.value = 1;
-}
 const handleRegionChange = (event) => {
     selectedRegion.value = event.target.value;
     currentPage.value = 1;
@@ -55,8 +36,8 @@ const paginatedEvents = computed(() => {
     return filteredEvents.value.slice(startIndex, startIndex + 8);
 });
 const changeEventPage = (pageNumber) => {
-      eventPage.value = pageNumber;
-    };
+    eventPage.value = pageNumber;
+};
 
 </script>
 
@@ -71,7 +52,7 @@ const changeEventPage = (pageNumber) => {
                 </select>
             </div>
             <div class="row">
-                <EventCard :filteredEvents="paginatedEvents" @card-click="handleEventCardClick" />
+                <EventCard :filteredEvents="paginatedEvents" />
             </div>
             <EventPagination :totalItems="filteredEvents.length" :itemsPerPage="8" :currentPage="eventPage"
                 @page-changed="changeEventPage" />

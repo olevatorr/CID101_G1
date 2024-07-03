@@ -4,16 +4,12 @@ export const useEventsStore = defineStore('events', {
         selectedEventCard: null,
         selectedRegion: '',
         currentPage: 1,
+        eventPage: 1,
         eventList: [],
         eventContent:[],
         isLoading: false,
+        peopleNum: 1,
     }),
-    getters: {
-        paginatedEvents: () => {
-            const startIndex = (eventPage.value - 1) * 8;
-            return filteredEvents.value.slice(startIndex, startIndex + 8);
-        },
-    },
     actions: {
         handleRegionChangeForLocation(event) {
             this.selectedRegion = event;
