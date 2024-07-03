@@ -1,6 +1,5 @@
 <script setup>
 import { ref, computed } from 'vue'
-import { store } from '@/store.js'
 import Swal from 'sweetalert2'
 import { useRouter } from 'vue-router'
 import { useEventsStore } from '@/stores/events'
