@@ -21,6 +21,9 @@
             padding: 20px;
             @include hover-effect($apply-hover: false);
             z-index: 30;
+            @media screen and (max-width:992px) {
+                display: block;
+            }
             .close {
                 color: #b6b6b6;
                 font-size: 2.5rem;
@@ -36,6 +39,9 @@
     
             .leftBar {
                 width: 50%;
+                @media screen and (max-width:992px){
+                    width: 100%;
+                }
     
                 .pic {
                     @include fixed-size-image(100%, 90%);
@@ -46,6 +52,11 @@
                     text-align: center;
                     color: $color-highlight;
                     margin-top: 10px;
+                    @media screen and (max-width:992px){
+                        position: absolute;
+                        right: 4%;
+                        margin: 0;
+                    }
     
                     span {
                         font-size: 1.6rem;
@@ -63,6 +74,10 @@
             .text {
                 width: 50%;
                 margin-left: 20px;
+                @media screen and (max-width:992px){
+                    width: 100%;
+                    margin: 0;
+                }
     
                 .event-name {
                     h3 {

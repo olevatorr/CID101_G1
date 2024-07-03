@@ -2,9 +2,9 @@
     <!-- v-for=" item in prodList" :key="item.id" -->
         <div class="col-6 col-md-4 col-lg-3" >
             <div class="shop-card" @mouseenter="showCart" @mouseleave="hideCart"> 
-                <RouterLink :to="'/productinfo?id=' + productInfo.id">
+                <RouterLink :to="'/productinfo?id=' + productInfo.P_ID">
                     <div class="img"> 
-                        <img :src="getImageUrl(productInfo.imgUrl)" alt="">
+                        <img :src="getImageUrl(productInfo.P_IMG1)" alt="">
                     </div>
                 </RouterLink>    
                     <div class="cart-wrapper">
@@ -12,16 +12,16 @@
                             <button class="add-to-cart" @click="addToCart(productInfo)">加入購物車</button>
                         </div>
                     </div>
-                <RouterLink :to="'/productinfo?id=' + productInfo.id">
+                <RouterLink :to="'/productinfo?id=' + productInfo.P_ID">
                     <div class="text"> 
-                        <span>{{ productInfo.title }}</span> 
-                        <span>NT$ {{ productInfo.price }}</span> 
+                        <span>{{ productInfo.P_NAME }}</span> 
+                        <span>NT$ {{ productInfo.P_PRICE }}</span> 
                     </div>
                 </RouterLink>
                 <div class="collect" @click="toggleClicked" @mouseenter="toggleHover(true)" @mouseleave="toggleHover(false)">
                     <a href="javascript:void(0)">{{ productInfo.isClicked ? '🩵' : '🤍' }}</a>
                 </div>
-                <div class="hot" v-if="productInfo.id < 9">  
+                <div class="hot" v-if="productInfo.P_ID < 9">  
                     <span>熱銷商品</span>
                 </div> 
             </div>
@@ -96,7 +96,7 @@ export default {
                 let isReduce = false;
 
                 productList.forEach(element => {
-                    if(item.id == element.id){
+                    if(item.P_ID == element.id){
                         if(!element.amount){
                             element.amount = 1;
                         }

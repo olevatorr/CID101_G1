@@ -81,3 +81,7 @@ footer .footer-subscribe-wrap .footer-h3 {
     font-family: $font-family-base;
     padding: 0 30px;
 }
+// 小遊戲不要footer
+.hidden-footer {
+    display: none;
+  }

@@ -1,79 +1,157 @@
 .light-box-bgc {
     background-color: rgba(41, 41, 41, 0.2117647059);
     backdrop-filter: blur(2px);
+    width: 100%;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #29292936;
+    position: fixed;
+    z-index: 20;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     .light-box {
         background-color: #fff;
 
-        .col-lg-6 {
-            width: 50%;
+
+
+        .row {
             position: relative;
-            padding: 20px;
-
-            //左區塊
-            .pic {
-                @include fixed-size-image(100%, 250px);
-                flex-direction: column;
-                background-color: #ffa;
+            @media screen and (max-width:576px) {
+                display: block;
+                .col-lg-6:first-child {
+                    width: 100%;
+                    padding: 20px 20px 0;
+                }
+    
+                .col-lg-6:last-child {
+                    width: 100%;
+                    padding: 0 20px 20px;
+                }
             }
+            .col-lg-6 {
+                width: 50%;
+                padding: 20px;
 
-            .text {
-                margin-top: 10px;
-            }
+                //左區塊
+                .pic {
+                    @include fixed-size-image(100%, 250px);
+                    flex-direction: column;
+                    background-color: #ffa;
 
-            //右區塊
-            .content {
-                height: 100%;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-
-                .close {
-                    color: $color-border;
-                    position: absolute;
-                    top: 0;
-                    right: 0;
-                    font-size: 2.5rem;
-                    cursor: pointer;
-
-                    &:hover {
-                        color: $color-highlight;
-                        transition: .3s ease;
+                    @media screen and (max-width:768px) {
+                        @include fixed-size-image(100%, 200px);
                     }
                 }
 
-                .activity-area {
-                    display: flex;
+                .description {
+                    margin-top: 10px;
 
-                    .text {
+                    h3,
+                    p {
+                        font-size: 1.5rem;
+                        @media screen and (max-width:576px) {
+                            font-size: 1.3rem;
+                        }
+                    }
+                }
 
-                        h3,
-                        p {
-                            margin-bottom: 10px;
+                .text {
+                    margin-top: 10px;
+                }
+
+                //右區塊
+                .content {
+                    height: 100%;
+                    // display: flex;
+                    // flex-direction: column;
+                    // justify-content: space-between;
+
+                    .close {
+                        color: $color-border;
+                        position: absolute;
+                        top: 2%;
+                        right: 1%;
+                        font-size: 2.5rem;
+                        cursor: pointer;
+                        @media screen and (max-width:576px) {
+                            top: 2%;
+                            right: 2%;
                         }
 
-                        h3 {
-                            color: $color-subprimary;
+                        &:hover {
+                            color: $color-highlight;
+                            transition: .3s ease;
                         }
+                    }
 
-                        .join {
-                            display: flex;
-                            align-items: center;
+                    .activity-area {
+                        @media screen and (max-width:576px){
+                            display: block;
+                        }
+                        display: flex;
 
+                        .text {
+                            margin: 0;
+
+                            h3,
                             p {
-                                margin: 0;
+                                margin-bottom: 10px;
+                                @media screen and (max-width:576px){
+                                    margin: 0;
+                                    font-size: 1.5rem;
+                                }
                             }
 
-                            select {
-                                padding: 3px 5px;
+                            h3 {
+                                color: $color-subprimary;
+                                @media screen and (max-width:576px){
+                                    margin: 10px 0;
+                                    text-align: center;
+                                }
+                            }
+
+                            .join {
+                                // display: flex;
+                                // align-items: center;
+
+                                p {
+                                    margin: 0;
+                                    display: inline;
+                                }
+
+                                select {
+                                    padding: 3px 5px;
+                                    border: 1px solid #000;
+                                    border-radius: 3px;
+                                    font-size: 1.3rem;
+                                    @media screen and (max-width:576px){
+                                        padding: 0;
+                                    }
+                                }
                             }
                         }
                     }
-                }
 
-                .state {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
+                    .state {
+                        // display: flex;
+                        // justify-content: center;
+                        // align-items: center;
+                        margin-top: 30px;
+                        text-align: center;
+                        @media screen and (max-width:576px){
+                            text-align: center;
+                            margin-top: 10px;
+                        }
+                        button{
+                            @media screen and (max-width:576px){
+                                font-size: 1.5rem;
+                            }
+                        }
+                    }
                 }
             }
         }

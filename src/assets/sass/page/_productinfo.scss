@@ -26,8 +26,12 @@
         }
     }
     .info-group .content{
+        font-size: 60px;
         margin-left: 10px;
-        margin-top: 40px;   
+        margin-top: 30px;
+        @media screen and (max-width: 575px) {
+
+        }
     }
     .info-group .line{
         margin-top: 60px;
@@ -57,10 +61,10 @@
     span {
         font-size: 2rem;
         @media screen and (max-width: 767px) {
-            font-size: 1.6rem;
+            font-size: 2rem;
         }
         @media screen and (max-width: 575px) {
-            font-size: 1.2rem;
+            font-size: 1.8rem;
         }
     }
 }
@@ -76,12 +80,28 @@
     h3 {
         padding-top:80px;
         margin-bottom: 30px;
+        font-size: 1.8rem;
+        @media screen and (max-width: 767px) {
+            font-size: 1.6rem;
+        }
+        @media screen and (max-width: 575px) {
+            font-size: 1.4rem;
+        }
     }
     .container {
         padding: 0 20%;
     }
     .text-group{
         text-align: center;
+    }
+    .text-group p{
+        font-size: 1.8rem;
+        @media screen and (max-width: 767px) {
+            font-size: 1.6rem;
+        }
+        @media screen and (max-width: 575px) {
+            font-size: 1.4rem;
+        }
     }
     .text-group .pic{
         padding-top: 30px;

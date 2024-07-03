@@ -1,226 +1,226 @@
 [
     {
-        "id": 1,
-        "class": "包包",
-        "title": "【側背包套經典款-鯨魚】",
-        "price": 520,
-        "imgUrl": "01.png"
+        "P_ID": 1,
+        "P_CATEGORY": "包包",
+        "P_NAME": "【側背包套經典款-鯨魚】",
+        "P_PRICE": 520,
+        "P_IMG1": "1-1.png"
     },
     {
-        "id": 2,
-        "class": "上衣",
-        "title": "【大學衛衣經典款-鯨魚】",
-        "price": 990,
-        "imgUrl": "02.png"
+        "P_ID": 2,
+        "P_CATEGORY": "上衣",
+        "P_NAME": "【大學衛衣經典款-鯨魚】",
+        "P_PRICE": 990,
+        "P_IMG1": "2-1.png"
     },
     {
-        "id": 3,
-        "class": "杯套",
-        "title": "【飲料杯套經典款-鯨魚】",
-        "price": 120,
-        "imgUrl": "03.png"
+        "P_ID": 3,
+        "P_CATEGORY": "杯套",
+        "P_NAME": "【飲料杯套經典款-鯨魚】",
+        "P_PRICE": 120,
+        "P_IMG1": "3-1.png"
     },
     {
-        "id": 4,
-        "class": "馬克杯",
-        "title": "【馬克杯套經典款-鯨魚】",
-        "price": 660,
-        "imgUrl": "04.png"
+        "P_ID": 4,
+        "P_CATEGORY": "馬克杯",
+        "P_NAME": "【馬克杯套經典款-鯨魚】",
+        "P_PRICE": 660,
+        "P_IMG1": "4-1.png"
     },
     {
-        "id": 5,
-        "class": "包包",
-        "title": "【側背包套經典款-海龜】",
-        "price": 520,
-        "imgUrl": "05.png"
+        "P_ID": 5,
+        "P_CATEGORY": "包包",
+        "P_NAME": "【側背包套經典款-海龜】",
+        "P_PRICE": 520,
+        "P_IMG1": "5-1.png"
     },
     {
-        "id": 6,
-        "class": "上衣",
-        "title": "【大學衛衣經典款-海龜】",
-        "price": 990,
-        "imgUrl": "06.png"
+        "P_ID": 6,
+        "P_CATEGORY": "上衣",
+        "P_NAME": "【大學衛衣經典款-海龜】",
+        "P_PRICE": 990,
+        "P_IMG1": "6-1.png"
     },
     {
-        "id": 7,
-        "class": "杯套",
-        "title": "【飲料杯套經典款-海龜】",
-        "price": 120,
-        "imgUrl": "07.png"
+        "P_ID": 7,
+        "P_CATEGORY": "杯套",
+        "P_NAME": "【飲料杯套經典款-海龜】",
+        "P_PRICE": 120,
+        "P_IMG1": "7-1.png"
     },
     {
-        "id": 8,
-        "class": "馬克杯",
-        "title": "【馬克杯套經典款-海龜】",
-        "price": 660,
-        "imgUrl": "08.png"
+        "P_ID": 8,
+        "P_CATEGORY": "馬克杯",
+        "P_NAME": "【馬克杯套經典款-海龜】",
+        "P_PRICE": 660,
+        "P_IMG1": "8-1.png"
     },
     {
-        "id": 9,
-        "class": "包包",
-        "title": "【側背包套經典款-企鵝】",
-        "price": 520,
-        "imgUrl": "09.png"
+        "P_ID": 9,
+        "P_CATEGORY": "包包",
+        "P_NAME": "【側背包套經典款-企鵝】",
+        "P_PRICE": 520,
+        "P_IMG1": "9-1.png"
     },
     {
-        "id": 10,
-        "class": "上衣",
-        "title": "【大學衛衣經典款-企鵝】",
-        "price": 990,
-        "imgUrl": "10.png"
+        "P_ID": 10,
+        "P_CATEGORY": "上衣",
+        "P_NAME": "【大學衛衣經典款-企鵝】",
+        "P_PRICE": 990,
+        "P_IMG1": "10-1.png"
     },
     {
-        "id": 11,
-        "class": "杯套",
-        "title": "【飲料杯套經典款-企鵝】",
-        "price": 120,
-        "imgUrl": "11.png"
+        "P_ID": 11,
+        "P_CATEGORY": "杯套",
+        "P_NAME": "【飲料杯套經典款-企鵝】",
+        "P_PRICE": 120,
+        "P_IMG1": "11-1.png"
     },
     {
-        "id": 12,
-        "class": "馬克杯",
-        "title": "【馬克杯套經典款-企鵝】",
-        "price": 660,
-        "imgUrl": "12.png"
+        "P_ID": 12,
+        "P_CATEGORY": "馬克杯",
+        "P_NAME": "【馬克杯套經典款-企鵝】",
+        "P_PRICE": 660,
+        "P_IMG1": "12-1.png"
     },
     {
-        "id": 13,
-        "class": "包包",
-        "title": "【側背包套經典款-海豚】",
-        "price": 520,
-        "imgUrl": "13.png"
+        "P_ID": 13,
+        "P_CATEGORY": "包包",
+        "P_NAME": "【側背包套經典款-海豚】",
+        "P_PRICE": 520,
+        "P_IMG1": "13-1.png"
     },
     {
-        "id": 14,
-        "class": "上衣",
-        "title": "【大學衛衣經典款-海豚】",
-        "price": 990,
-        "imgUrl": "14.png"
+        "P_ID": 14,
+        "P_CATEGORY": "上衣",
+        "P_NAME": "【大學衛衣經典款-海豚】",
+        "P_PRICE": 990,
+        "P_IMG1": "14-1.png"
     },
     {
-        "id": 15,
-        "class": "杯套",
-        "title": "【飲料杯套經典款-海豚】",
-        "price": 120,
-        "imgUrl": "15.png"
+        "P_ID": 15,
+        "P_CATEGORY": "杯套",
+        "P_NAME": "【飲料杯套經典款-海豚】",
+        "P_PRICE": 120,
+        "P_IMG1": "15-1.png"
     },
     {
-        "id": 16,
-        "class": "馬克杯",
-        "title": "【馬克杯套經典款-海豚】",
-        "price": 660,
-        "imgUrl": "16.png"
+        "P_ID": 16,
+        "P_CATEGORY": "馬克杯",
+        "P_NAME": "【馬克杯套經典款-海豚】",
+        "P_PRICE": 660,
+        "P_IMG1": "16-1.png"
     },
     {
-        "id": 17,
-        "class": "包包",
-        "title": "【側背包套經典款-海龜(藍)】",
-        "price": 520,
-        "imgUrl": "17.png"
+        "P_ID": 17,
+        "P_CATEGORY": "包包",
+        "P_NAME": "【側背包套經典款-海龜(藍)】",
+        "P_PRICE": 520,
+        "P_IMG1": "17-1.png"
     },
     {
-        "id": 18,
-        "class": "上衣",
-        "title": "【大學衛衣經典款-海龜(藍)】",
-        "price": 990,
-        "imgUrl": "18.png"
+        "P_ID": 18,
+        "P_CATEGORY": "上衣",
+        "P_NAME": "【大學衛衣經典款-海龜(藍)】",
+        "P_PRICE": 990,
+        "P_IMG1": "18-1.png"
     },
     {
-        "id": 19,
-        "class": "杯套",
-        "title": "【飲料杯套經典款-海龜(藍)】",
-        "price": 120,
-        "imgUrl": "19.png"
+        "P_ID": 19,
+        "P_CATEGORY": "杯套",
+        "P_NAME": "【飲料杯套經典款-海龜(藍)】",
+        "P_PRICE": 120,
+        "P_IMG1": "19-1.png"
     },
     {
-        "id": 20,
-        "class": "馬克杯",
-        "title": "【馬克杯套經典款-海龜(藍)】",
-        "price": 660,
-        "imgUrl": "20.png"
+        "P_ID": 20,
+        "P_CATEGORY": "馬克杯",
+        "P_NAME": "【馬克杯套經典款-海龜(藍)】",
+        "P_PRICE": 660,
+        "P_IMG1": "20-1.png"
     },
     {
-        "id": 21,
-        "class": "包包",
-        "title": "【側背包套經典款-北極熊】",
-        "price": 520,
-        "imgUrl": "21.png"
+        "P_ID": 21,
+        "P_CATEGORY": "包包",
+        "P_NAME": "【側背包套經典款-北極熊】",
+        "P_PRICE": 520,
+        "P_IMG1": "21-1.png"
     },
     {
-        "id": 22,
-        "class": "上衣",
-        "title": "【大學衛衣經典款-北極熊】",
-        "price": 990,
-        "imgUrl": "22.png"
+        "P_ID": 22,
+        "P_CATEGORY": "上衣",
+        "P_NAME": "【大學衛衣經典款-北極熊】",
+        "P_PRICE": 990,
+        "P_IMG1": "22-1.png"
     },
     {
-        "id": 23,
-        "class": "杯套",
-        "title": "【飲料杯套經典款-北極熊】",
-        "price": 120,
-        "imgUrl": "23.png"
+        "P_ID": 23,
+        "P_CATEGORY": "杯套",
+        "P_NAME": "【飲料杯套經典款-北極熊】",
+        "P_PRICE": 120,
+        "P_IMG1": "23-1.png"
     },
     {
-        "id": 24,
-        "class": "馬克杯",
-        "title": "【馬克杯套經典款-北極熊】",
-        "price": 660,
-        "imgUrl": "24.png"
+        "P_ID": 24,
+        "P_CATEGORY": "馬克杯",
+        "P_NAME": "【馬克杯套經典款-北極熊】",
+        "P_PRICE": 660,
+        "P_IMG1": "24-1.png"
     },
     {
-        "id": 25,
-        "class": "包包",
-        "title": "【側背包套經典款-酷企鵝】",
-        "price": 520,
-        "imgUrl": "25.png"
+        "P_ID": 25,
+        "P_CATEGORY": "包包",
+        "P_NAME": "【側背包套經典款-酷企鵝】",
+        "P_PRICE": 520,
+        "P_IMG1": "25-1.png"
     },
     {
-        "id": 26,
-        "class": "上衣",
-        "title": "【大學衛衣經典款-酷企鵝】",
-        "price": 990,
-        "imgUrl": "26.png"
+        "P_ID": 26,
+        "P_CATEGORY": "上衣",
+        "P_NAME": "【大學衛衣經典款-酷企鵝】",
+        "P_PRICE": 990,
+        "P_IMG1": "26-1.png"
     },
     {
-        "id": 27,
-        "class": "杯套",
-        "title": "【飲料杯套經典款-酷企鵝】",
-        "price": 120,
-        "imgUrl": "27.png"
+        "P_ID": 27,
+        "P_CATEGORY": "杯套",
+        "P_NAME": "【飲料杯套經典款-酷企鵝】",
+        "P_PRICE": 120,
+        "P_IMG1": "27-1.png"
     },
     {
-        "id": 28,
-        "class": "馬克杯",
-        "title": "【馬克杯套經典款-酷企鵝】",
-        "price": 660,
-        "imgUrl": "28.png"
+        "P_ID": 28,
+        "P_CATEGORY": "馬克杯",
+        "P_NAME": "【馬克杯套經典款-酷企鵝】",
+        "P_PRICE": 660,
+        "P_IMG1": "28-1.png"
     },
     {
-        "id": 29,
-        "class": "包包",
-        "title": "【側背包套經典款-海星】",
-        "price": 520,
-        "imgUrl": "29.png"
+        "P_ID": 29,
+        "P_CATEGORY": "包包",
+        "P_NAME": "【側背包套經典款-海星】",
+        "P_PRICE": 520,
+        "P_IMG1": "29-1.png"
     },
     {
-        "id": 30,
-        "class": "上衣",
-        "title": "【大學衛衣經典款-海星】",
-        "price": 990,
-        "imgUrl": "30.png"
+        "P_ID": 30,
+        "P_CATEGORY": "上衣",
+        "P_NAME": "【大學衛衣經典款-海星】",
+        "P_PRICE": 990,
+        "P_IMG1": "30-1.png"
     },
     {
-        "id": 31,
-        "class": "杯套",
-        "title": "【飲料杯套經典款-海星】",
-        "price": 120,
-        "imgUrl": "31.png"
+        "P_ID": 31,
+        "P_CATEGORY": "杯套",
+        "P_NAME": "【飲料杯套經典款-海星】",
+        "P_PRICE": 120,
+        "P_IMG1": "31-1.png"
     },
     {
-        "id": 32,
-        "class": "馬克杯",
-        "title": "【馬克杯套經典款-海星】",
-        "price": 660,
-        "imgUrl": "32.png"
+        "P_ID": 32,
+        "P_CATEGORY": "馬克杯",
+        "P_NAME": "【馬克杯套經典款-海星】",
+        "P_PRICE": 660,
+        "P_IMG1": "32-1.png"
     }
 ]

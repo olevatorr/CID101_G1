@@ -1,3 +1,13 @@
+<script setup>
+import { useEventsStore } from '@/stores/events';
+const events = useEventsStore()
+
+const cardClicked = (card) => {
+    events.selectedEventCard = card
+}
+
+</script>
+
 <template>
     <div class="col-6 col-sm-4 col-md-4 col-lg-3" v-for="card in filteredEvents" :key="card.E_ID" @click="cardClicked(card)">   
         <div class="event-card">
@@ -23,16 +33,17 @@
 </template>
 
 <script>
+
 export default {
     props: ['filteredEvents','region'],
     emits: {
       'card-click': [],
       'close-click': [],
     },
-    methods: {
-    cardClicked(card) {
-        this.$emit('card-click', card);
-    },
+    data() {
+        return {
+
+        }
     },
 }
 </script>
