@@ -2,9 +2,10 @@
   <section class="section section-profile">
     <div class="container container-profile">
       <div class="row">
+        <!-- 側邊欄 -->
         <div class="profile-box col-12 col-sm-4 col-md-3">
           <div class="avatra">
-            <img :src="imageSrc" alt="User Avatar" id="image" />
+            <img v-if="member" :src="`${imageHostUrl}/member/${member.U_AVATAR}`" alt="User Avatar" id="image" />
             <input type="file" id="theFile" @change="fileChange" ref="fileIn put">
             <button>Upload</button>
             <p>{{ member?.U_NAME }}</p>
@@ -20,7 +21,9 @@
             <button class="btn" @click="changeSection('orders')">訂單查詢</button>
             <button class="btn" @click="changeSection('donations')">捐款查詢</button>
             <button class="btn" @click="changeSection('favorites')">商品收藏</button>
-            <RouterLink to="/Member"><button class="btn" @click="logout">會員登出</button></RouterLink>
+            <RouterLink to="/Member">
+              <button class="btn" @click="logout">會員登出</button>
+            </RouterLink>
           </div>
         </div>
         <select name="pfl-pets" id="" class="profile-pets" v-model="selectedOption" @change="selectOption">
@@ -225,13 +228,15 @@
 </template>
 
 <script>
-import { store, fetchProfile, logout as logoutStore } from '@/store.js';
 import { ref, computed, onMounted, watch } from 'vue'
-fetchProfile()
-
+import { useMemeberStore } from '@/stores/member';
+import {storeToRefs} from 'pinia'
 export default {
   setup() {
-    const member = computed(() => store.member);
+    const imageHostUrl = import.meta.env.VITE_IMAGE_URL
+    const store = useMemeberStore();
+    const { member } = storeToRefs(store)
+    
     const imageSrc = ref(member.value?.U_AVATAR); // Initial image source
     const fileInput = ref(null);
     const currentSection = ref('profile');
@@ -248,6 +253,8 @@ export default {
     const isShopTableVisible = ref(false);
     const currentPoId = ref('')
 
+    
+
     const fileChange = (event) => {
       const file = event.target.files[0];
       if (file) {
@@ -259,7 +266,7 @@ export default {
       }
     };
     const logout = () => {
-      logoutStore();
+      store.logout();
     }
 
 
@@ -365,6 +372,7 @@ export default {
     })
 
     return {
+      imageHostUrl,
       fileInput,
       imageSrc,
       fileChange,
@@ -392,3 +400,90 @@ export default {
   }
 }
 </script>
+<!-- <script>
+import { ref, onMounted } from 'vue'
+import { useMemberStore } from '@/stores/member'
+import { storeToRefs } from 'pinia'
+
+export default {
+  setup() {
+    const store = useMemberStore()
+    const { member } = storeToRefs(store)
+    
+    const imageSrc = ref(member.value?.U_AVATAR)
+    const currentSection = ref('profile')
+    const currentPage = ref(10)
+
+    const sections = [
+      { value: 'profile', label: '會員資料修改' },
+      { value: 'password', label: '密碼修改' },
+      { value: 'activity', label: '活動查詢' },
+      { value: 'orders', label: '訂單查詢' },
+      { value: 'donations', label: '捐款查詢' },
+      { value: 'favorites', label: '商品收藏' }
+    ]
+
+    const fileChange = (event) => {
+      const file = event.target.files[0]
+      if (file) {
+        const reader = new FileReader()
+        reader.onload = (e) => {
+          imageSrc.value = e.target.result
+        }
+        reader.readAsDataURL(file)
+      }
+    }
+
+    const changeSection = (section) => {
+      currentSection.value = section
+      currentPage.value = 1
+    }
+
+    const logout = () => {
+      store.logout()
+    }
+
+    // 數據獲取函數
+    const fetchData = async () => {
+      try {
+        const responses = await Promise.all([
+          fetch(`${import.meta.env.BASE_URL}json/donatemoney.json`),
+          fetch(`${import.meta.env.BASE_URL}json/activities.json`),
+          fetch(`${import.meta.env.BASE_URL}json/favorite.json`),
+          fetch(`${import.meta.env.BASE_URL}json/orders.json`),
+          fetch(`${import.meta.env.BASE_URL}json/shoplist.json`),
+        ])
+
+        const [donates, activities, favorites, orders, shoplists] = await Promise.all(
+          responses.map(response => {
+            if (!response.ok) throw new Error('Network response was not ok')
+            return response.json()
+          })
+        )
+
+        return { donates, activities, favorites, orders, shoplists }
+      } catch (error) {
+        console.error('Failed to fetch data:', error)
+        return {}
+      }
+    }
+
+    // 在組件掛載時獲取數據
+    onMounted(async () => {
+      const data = await fetchData()
+      console.log(data)
+      // 在這裡可以將數據賦值給相應的 ref
+    })
+
+    return {
+      member,
+      imageSrc,
+      currentSection,
+      sections,
+      fileChange,
+      changeSection,
+      logout
+    }
+  }
+}
+</script> -->
