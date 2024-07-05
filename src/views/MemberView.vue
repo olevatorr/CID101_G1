@@ -24,7 +24,7 @@ const validateUsername = () => {
     if (!username.value) {
         usernameError.value = '請輸入帳號';
     } else if (!/^[a-zA-Z0-9]{4,10}$/.test(username.value)) {
-        usernameError.value = '帳號必須是4到10個字母或數字';
+        usernameError.value = '帳號必須是4到10個字母加數字組合';
     } else {
         usernameError.value = '';
     }
@@ -51,7 +51,7 @@ const ProcessingLogin = async () => {
     }
 
     try {
-        const response = await axios.post('http://localhost/cid101/g1/api/login.php', {
+        const response = await axios.post('http://localhost/cid101/g1/api/memberLogin.php', {
             username: username.value,
             password: password.value
         }, {
@@ -60,13 +60,13 @@ const ProcessingLogin = async () => {
             }
         });
         console.log('Response:', response.data);
-        if (response.data.code === 1) {
+        if (!response.data.error) {
             // Login successful
             Swal.fire({
                 icon: "success",
                 title: "登入成功!"
             });
-            store.login(response.data.memInfo); // 使用从后端返回的用户信息
+            store.login(response.data.user); // 使用从后端返回的用户信息
             router.push('/');
         } else {
             // Login failed
@@ -153,8 +153,11 @@ const callback = async (response) => {
                             @blur="validatePassword" @keydown="handleKeyDown">
                             <i :class="passwordVisible ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'" @click="togglePasswordVisibility"></i>
                         </div>
-                        <div class="errorspan2"><span v-if="passwordError" class="membererror2 error">{{ passwordError
-                                }}</span></div>
+                        <div class="errorspan2">
+                            <span v-if="passwordError" class="membererror2 error">
+                            {{ passwordError}}
+                            </span>
+                        </div>
                     </div>
                     <span class="forgot">
                         <RouterLink to="/ForgetPasswordView">忘記密碼?</RouterLink>

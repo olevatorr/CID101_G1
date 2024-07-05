@@ -1,6 +1,7 @@
 <script>
 import Swal from 'sweetalert2'
 import { useRouter } from 'vue-router';
+import axios from 'axios';
 export default {
   data() {
     return {
@@ -43,7 +44,7 @@ export default {
       if (this.account === "") {
         this.errorMessage.account = "*請輸入帳號";
       } else if (!accountRegex.test(this.account)) {
-        this.errorMessage.account = "*帳號格式不正確，應為6-12位字母或數字";
+        this.errorMessage.account = "*帳號格式不正確，應為4-10位字母或數字";
       } else {
         this.errorMessage.account = "";
       }
@@ -92,33 +93,65 @@ export default {
     checkAddress() {
       this.errorMessage.address = this.address === "" ? "*請輸入地址" : "";
     },
-    handleSubmit(event) {
-      event.preventDefault(); // 防止預設表單提交
-
+    async handleSubmit(event) {
+      event.preventDefault();
       if (this.validateForm()) {
-        // 表格有效，繼續提交
-        console.log("Form is valid. Submitting data...");
-        Swal.fire({
-                icon: "success",
-                title: "註冊成功!",
-                titleText: '3秒後跳轉到登入頁面',
-                timer: 3000,
-                timerProgressBar: true,
-                showConfirmButton:false,
+        try {
+          const response = await axios.post('http://localhost/cid101/g1/api/memberRegister.php', 
+            JSON.stringify({
+              account: this.account,
+              name: this.name,
+              password: this.password,
+              phone: this.phone,
+              email: this.email,
+              address: this.address
+            }),
+            {
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            }
+          );
+          
+          if (response.data.message === "註冊成功") {
+            Swal.fire({
+              icon: "success",
+              title: "註冊成功!",
+              titleText: '3秒後跳轉到登入頁面',
+              timer: 3000,
+              timerProgressBar: true,
+              showConfirmButton: false,
             }).then(() => {
               this.router.push('/Member');
             });
+          } else {
+            this.error = true;
+            this.errorMsg = response.data.message;
+            Swal.fire({
+              icon: "error",
+              title: "註冊失敗!",
+              text: this.errorMsg,
+            });
+          }
+        } catch (error) {
+          this.error = true;
+          this.errorMsg = error.response ? error.response.data.message : '請稍後再試';
+          Swal.fire({
+            icon: "error",
+            title: "註冊失敗!",
+            text: this.errorMsg,
+          });
+        }
       } else {
-        console.log("Form is invalid. Please correct the errors.");
-        // 關注第一個有錯誤的輸入
+        console.log("表單無效。請更正錯誤。");
         const firstErrorField = Object.keys(this.errorMessage).find(field => this.errorMessage[field] !== "");
         if (firstErrorField) {
           this.$refs[firstErrorField].$el.focus();
         }
       }
     }
-  }
-};
+}
+}
 </script>
 
 <template>
@@ -127,7 +160,6 @@ export default {
             <div class="register-box row">
                 <div class="register-txt col-12 col-md-7 col-lg-6">
                     <div class="register-login ">
-                        <form @submit="handleSubmit">
                         <div class="from-group">
                             <label>會員姓名</label>
                             <input type="text" maxlength="20" placeholder="請輸入姓名"
@@ -174,8 +206,7 @@ export default {
                             @blur="checkAddress" v-model="address">
                             <div class="registererror"><span>{{ errorMessage.address }}</span></div> 
                         </div>
-                        <button type="submit">立即註冊</button>
-                    </form>
+                        <button type="submit" @click="handleSubmit">立即註冊</button>
                         <div class="other-login">
                             <p>其他登入方式</p>
                             <div class="third-party">

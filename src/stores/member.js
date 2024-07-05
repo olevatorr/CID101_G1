@@ -2,7 +2,6 @@ import { defineStore } from 'pinia'
 import { googleLogout, googleSdkLoaded } from 'vue3-google-login'
 import Cookies from 'js-cookie'
 
-
 export const useMemeberStore = defineStore('member', {
   state: () => ({
     //判斷是否登入
@@ -42,6 +41,16 @@ export const useMemeberStore = defineStore('member', {
           this.isLogging = false
           console.log('No Cookie found for "name"')
         }
+    },
+    updateMember(updates) {
+      if (this.member) {
+        // 更新 member 對象的屬性
+        Object.assign(this.member, updates);
+        // 更新 Cookie
+        const memberdata = JSON.stringify(this.member);
+        Cookies.set('name', memberdata, { expires: 7 });
+        console.log('Member updated and cookie set:', this.member);
+      }
     }
     
   }
