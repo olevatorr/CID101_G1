@@ -41,9 +41,11 @@
 
 <script>
 import Cookies from 'js-cookie';
-import { store } from '@/store.js'; // 引入store
+// import { store } from '@/store.js'; // 引入store
 import Swal from 'sweetalert2'; // 引入sweetalert2
 import {useProdStore} from '@/stores/product'
+import { mapState } from 'pinia';
+import {useMemeberStore} from '@/stores/member'
 
 export default {
     data() {
@@ -71,6 +73,7 @@ export default {
         });
     },
     computed: {
+        ...mapState(useMemeberStore, ['isLogging']),
         addPrice() {
             return this.productList.reduce((total, item) => {
                 return total + item.P_PRICE * item.amount;
@@ -126,7 +129,7 @@ export default {
             }
         },
         submitBuy() {
-            if (!store.isLoging) {
+            if (!this.isLogging) {
                 Swal.fire({
                 icon: 'error',
                 title: '未登入',
