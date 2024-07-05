@@ -1,397 +1,482 @@
 // 遊戲進入頁面
-
-.section-beachgame {
-    // box-sizing: border-box;
-    width: 100%;
-    // max-width: 500px;
-    height: 100vh;
-    padding: 0;
-    background: url(/img/beachgame/beachgame-background.png);
-    background-size: cover;
-    background-position: 50% 50%;
-    z-index: 99999;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    .left-game {
-        position: absolute;
-        left: 30px;
-        top: 30px;
-        width: 40px;
-        height: 40px;
-        background-color: $color-highlight;
+.checkDirection{
+    //直向就出現覆蓋層
+    .overlay{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.8); /* 半透明白色背景 */
         display: flex;
         justify-content: center;
         align-items: center;
-        border-radius: 50%;
-        .fa-house{
+        p{
             font-size: 2rem;
-            color: #fff;
+            font-weight: 600;
         }
+
     }
-    .show-window-outside{
-        width: 70%;
-        text-align: center;
-        .beachgame-text {
-            // display: none;
-            border: 2px solid #333;
-            border-radius: 20px;
-            width:100%;
-            box-sizing: border-box;
-            padding: 5% 5vw;
-            background-color: rgba(255, 255, 255, 0.5);
-            &.-viewClose {
-                display:none;
+    
+    .section-beachgame {
+        // overflow-y: hidden; // 添加這行來鎖定 y 軸
+        height: 100vh;
+        // 最外層100視窗高度顯示在畫面上，子層顯示70%，所以周圍有空間
+        padding: 0;
+        background: url(/img/beachgame/beachgame-background.png);
+        background-size: cover;
+        background-position: 50% 50%;
+        z-index: 99999;
+        // 讓回復固定在上面
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .resetGame{
+            cursor: pointer;
+            position: absolute;
+            left:93%;
+            top: 90%;
+            width: 20px;
+            height: 20px;
+            background-color: $color-highlight;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            .fa-rotate-right{
+                color:$color-white;
             }
-            .beachgame-title {
-                font-size: 4vw;
-                font-weight: 600;
-                letter-spacing: 2vw;
-                line-height: 6rem;
-            }
-          
         }
-       
-        .rules-lightbox {
-            display: none;
-            width: 100%;
-            box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
-            background-color: $color-subprimary;
-            border-radius: 20px;
-            box-sizing: border-box;
-            padding: 20px;
-            &.-viewShow{
-                display:block;
-            }
-            &.-viewClose{
-                display:none;
-            }
-            .rules-content {
-                background-color: $color-white;
-                border-radius: 20px;
-                // box-sizing: border-box;
-                padding: 20px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                ol {
-                    padding: 20px;
-                    list-style-type: decimal;
-                    text-align: start;
+        //角色大頭貼位置
+        .show-img-position{
+            position: absolute;
+            z-index: 15;
+            top: 10px;
+            left:85%;
+            .showCharacterImg{
+                width:55%;
+                height:55%;
+                min-width: 40px; // 設置最小尺寸
+                min-height: 40px;
+                max-width: 150px; // 設置最大尺寸
+                max-height: 150px;
+                .character-oneset-pic {
+                    width: 100%;
+                    height: 100%;
+                    img {
+                      width: 100%;
+                      height: 100%;
+                      transform: scale(1.2); /* 將圖片放大1.2倍 */
+                    }
                 }
             }
         }
-        .character-lightbox {
-            display:none;
-            color: #fff;
-            box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
-            border-radius: 20px;
+        .left-game {
+            cursor: pointer;
+            position: absolute;
+            left: 30px;
+            top: 30px;
+            width: 40px;
+            height: 40px;
+            background-color: $color-highlight;
+            border-radius: 50%;
+            .fa-house{
+                position:absolute;
+                top:48%;
+                left:52%;
+                transform: translate(-48%,-50%);
+                font-size: 2rem;
+                // 設定1等於字體大小，行高定義了文字之間的距離
+                line-height: 1.3;
+                color: #fff;
+            }
+        }
+        
+        .show-window-outside{
+            //壓住頭貼
+            z-index: 20;
+            // 依父層的寬度70%
+            width: 70%;
+            // RWD有設定，阻止寬度隨畫面變大一直擴展
+            max-width: 550px;
             text-align: center;
-            background-color: $color-subprimary;
-            padding: 50px 20px;
-            // 出現整張大圖
-            &.-viewShow{
-                display:block;
+            .beachgame-text {
+                border: 2px solid #333;
+                border-radius: 20px;
+                padding: 5% 5vw;
+                background-color: rgba(255, 255, 255, 0.5);
+                &.-viewClose {
+                    display:none;
+                }
+                .beachgame-title {
+                    font-size: clamp(2rem, 2.5vw, 4rem);
+                    font-weight: 600;
+                    letter-spacing: 0.3rem;
+                    line-height: 6rem;
+                }
+                .beachgame-subtitle{
+                    font-size: clamp(1.5rem, 2vw, 3rem);
+                    
+                }
+            
             }
-            // 選其中圖片後會消失整張大圖
-            &.-viewClose{
+        
+            .rules-lightbox {
                 display: none;
-            }
-            .character-list {
-                margin: 30px 0;
-                .character-item {
-                    &:hover{
-                        background-color: $color-highlight;
-                    }
-                    height: 100%;
+                box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
+                background-color: $color-subprimary;
+                border-radius: 20px;
+                box-sizing: border-box;
+                padding: 20px;
+                &.-viewShow{
+                    display:block;
+                }
+                &.-viewClose{
+                    display:none;
+                }
+                .rules-content {
+                    background-color: $color-white;
+                    border-radius: 20px;
+                    // box-sizing: border-box;
+                    padding: 20px;
                     display: flex;
                     flex-direction: column;
-                    justify-content: space-between;
                     align-items: center;
-                    background-color: #fff;
-                    border-radius: 20px;
-                    margin: 0 10px;
-                    .character-pic img {
-                        width: 80%;
-                        vertical-align: top;
-                    }
-                    .character-name h3 {
-                        color: #333;
-                        margin-bottom: 10px;
+                    ol {
+                        padding: 20px;
+                        list-style-type: decimal;
+                        text-align: start;
                     }
                 }
             }
-        }
-        .character-check-lightbox {
-            display:none;
-            color: #fff;
-            box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
-            border-radius: 20px;
-            text-align: center;
-            background-color: $color-subprimary;
-            padding: 50px 20px;
-            &.-viewShow{
-                display:block;
-            }
-            &.-viewClose{
+            .character-lightbox {
                 display:none;
-            }
-            .character-oneset {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                .character-oneset-pic {
-                    width: 150px;
-                    height: 150px;
-                    background-color: #fff;
-                    border-radius: 50%;
-                    overflow: hidden;
-                    margin: 20px 0 10px 0;
-                    img {
-                        width: 100%;
-                        vertical-align: top;
-                    }
-                }
-                .character-name {
-                    margin-bottom: 30px;
-                }
-            }
-        }
-    
-        // 選擇工具
-        .trash-lightbox {
-            &.-viewClose{
-                display:none;
-            }
-            color: #fff;
-            box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
-            border-radius: 20px;
-            text-align: center;
-            background-color: $color-subprimary;
-            padding: 5%;
-               .trash-pic {
-                width: 150px;
-                height: 150px;
-                margin: 0 auto;
-                background-color: #fff;
-                border-radius: 50%;
-                position: relative;
-                overflow: hidden;
-                img {
-                    width: 100%;
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                }
-            }
-            .trash-text{
-                &.-viewClose{
-                    display: none;
-                }
-            p {
-                margin: 20px 0;
-                }
-            }
-            button{
-                &.-viewClose{
-                    display: none;
-                }
-            }
-        }
-           .slidepage-up{
-            margin: 20px auto;
-            .slide-tool-page {
-                transform: translateY(0);
                 color: #fff;
                 box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
                 border-radius: 20px;
                 text-align: center;
-                background-color: $color-primary;
-                padding: 5%;
-                .tool-list {
-                    color: #fff;
-                    .tool-item {
-                       
-                        .tool-pic {
-                            &:hover{
-                                background-color:#fff;
-                                border:10px solid $color-highlight;
-                                border-radius:50%;
-                            }
-                            background-color: #fff;
-                            border-radius: 50%;
-                            margin: 5%;
-                            overflow: hidden;
-                            img {
-                                width: 100%;
-                                vertical-align: top;
-                            }
+                background-color: $color-subprimary;
+                padding: 50px 20px;
+                // 出現整張大圖
+                &.-viewShow{
+                    display:block;
+                }
+                // 選其中圖片後會消失整張大圖
+                &.-viewClose{
+                    display: none;
+                }
+                .character-list {
+                    margin: 30px 0;
+                    .character-item {
+                        cursor: pointer;
+                        &:hover{
+                            background-color: $color-highlight;
+                            transition: transform 0.5s ease;
+                        }
+                        height: 100%;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+                        align-items: center;
+                        background-color: #fff;
+                        border-radius: 20px;
+                        margin: 0 10px;
+                        .character-pic img {
+                            cursor: pointer;
+                            width: 80%;
+                            vertical-align: top;
+                        }
+                        .character-name h3 {
+                            color: #333;
+                            margin-bottom: 10px;
                         }
                     }
                 }
             }
-            .slide-up-enter-active, .slide-up-leave-active {
-                transition: transform 0.5s ease;
-              }
-              .slide-up-enter-from, .slide-up-leave-to {
-                transform: translateY(100%);
-                opacity: 0;
-              }
-            }
-         
-        // 選取工具滑入頁面
-        
-
-        //vue過渡期間自動生成類名 enter-active、leave-active
-        
-        // 撿取成功
-        .success-lightbox {
-            display:none;
-            color: #fff;
-            box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
-            border-radius: 20px;
-            text-align: center;
-            background-color: $color-subprimary;
-            padding: 50px 20px;
-            &.-viewShow{
-                display:block;
-            }
-            .success-content {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                .success-pic {
-                    width: 150px;
-                    height: 150px;
-                    background-color: #fff;
-                    border-radius: 50%;
-                    overflow: hidden;
-                    margin: 20px 0 10px 0;
-                    img {
-                        width: 100%;
-                        vertical-align: top;
+            .character-check-lightbox {
+                color: #fff;
+                box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
+                border-radius: 20px;
+                text-align: center;
+                background-color: $color-subprimary;
+                padding: 50px 20px;
+                .character-oneset {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    .character-oneset-pic {
+                        cursor: pointer;
+                        width: 150px;
+                        height: 150px;
+                        background-color: #fff;
+                        border-radius: 50%;
+                        overflow: hidden;
+                        margin: 20px 0 10px 0;
+                        img {
+                            width: 100%;
+                            vertical-align: top;
+                        }
+                    }
+                    .character-name {
+                        margin-bottom: 30px;
                     }
                 }
-                .success-text {
-                    padding: 10px 0 20px 0;
+            }
+        
+            // 垃圾彈窗
+            .trash-lightbox {
+                color: #fff;
+                box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
+                border-radius: 20px;
+                text-align: center;
+                background-color: $color-subprimary;
+                padding: 5%;
+                .trash-title{
+                    margin-bottom:2%;
+                }
+                .trash-pic {
+                    width: 20vh;
+                    height: 20vh;
+                    margin: 0 auto;
+                    background-color: #fff;
+                    border-radius: 50%;
+                    position: relative;
+                    overflow: hidden;
+                    &.-viewClose{
+                        display: none;
+                    }
+                    img {
+                        width: 100%;
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                    }
+                }
+                .trash-text{
+                p {
+                    margin: 20px 0;
+                    }
+                    &.-viewClose{
+                        display: none;
+                    }
+                }
+                button{
+                    padding:0.5rem 2rem;
+                    &.-viewClose{
+                        display: none;
+                    }
                 }
             }
-        }
-        .fail-lightbox {
-            display: none;
-            color: #fff;
-            box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
-            border-radius: 20px;
-            text-align: center;
-            background-color: $color-subprimary;
-            padding: 50px 20px;
-            &.-viewShow{
-                display:block;
-            }
-            &.-viewClose{
+            .slidepage-up{
+                margin: 10px auto 0 auto;
+                .slide-tool-page {
+                    // max-height:200px;
+                    width:70%;
+                    margin: 0 auto;
+                    transform: translateY(0);
+                    color: #fff;
+                    box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
+                    border-radius: 20px;
+                    text-align: center;
+                    background-color: $color-primary;
+                    padding: 5%;
+                    .tool-list {
+                        width:65vh;
+                        margin:2% auto;
+                        color: #fff;
+                        .tool-item {
+                            // 使用button包，為了使用active，還有網頁無障礙化
+                            .btn-tool-pic{
+                                // 加上點選的class條件，點到pic要做的(圓)
+                                &.-selected{
+                                    outline:10px solid $color-highlight;
+                                    outline-offset: -10px;
+                                }
+                                // 移除按鈕預設樣式
+                                display: inline-block; // 才可設定寬高
+                                all: unset; 
+                                padding:0;
+                                margin:0;
+                                background-color: #fff;
+                                border-radius: 50%;
+                                margin: 5%;
+                                overflow: hidden;
+                                cursor: pointer;
+                                &:hover{
+                                    outline:10px solid $color-highlight;
+                                    // 往裡面顯示
+                                    outline-offset: -10px;
+                                    border-radius:50%;
+                                }
+                                img {
+                                    width: 100%;
+                                    vertical-align: top;
+                                }
+                            }
+                        }
+                    }
+                }
+                //vue過渡期間自動生成類名 enter-active、leave-active
+                // 選取工具滑入頁面
+                .slide-up-enter-active, .slide-up-leave-active {
+                    transition: transform 0.5s ease;
+                }
+                .slide-up-enter-from, .slide-up-leave-to {
+                    transform: translateY(100%);
+                    opacity: 0;
+                }
+            } 
+            // 撿取成功
+            .success-lightbox {
+                // 配合要做的設定
                 display:none;
-            }
-
-            .fail-content {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                .fail-pic {
-                    width: 150px;
-                    height: 150px;
-                    background-color: #fff;
-                    border-radius: 50%;
-                    overflow: hidden;
-                    margin: 20px 0 10px 0;
-                    img {
-                        width: 100%;
-                        vertical-align: top;
+                color: #fff;
+                box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
+                border-radius: 20px;
+                text-align: center;
+                background-color: $color-subprimary;
+                padding: 50px 20px;
+                &.-viewShow{
+                    display:block;
+                }
+                .success-content {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    .success-pic {
+                        width: 150px;
+                        height: 150px;
+                        background-color: #fff;
+                        border-radius: 50%;
+                        overflow: hidden;
+                        margin: 20px 0 10px 0;
+                        img {
+                            width: 100%;
+                            vertical-align: top;
+                        }
+                    }
+                    .success-text {
+                        padding: 10px 0 20px 0;
                     }
                 }
-                .fail-text {
-                    padding: 10px 0 20px 0;
+            }
+            .fail-lightbox {
+                display: none;
+                color: #fff;
+                box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
+                border-radius: 20px;
+                text-align: center;
+                background-color: $color-subprimary;
+                padding: 50px 20px;
+                &.-viewShow{
+                    display:block;
                 }
-            }
-        }
-        .finish-lightbox {
-            display:none;
-            color: #fff;
-            box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
-            border-radius: 20px;
-            text-align: center;
-            background-color: $color-subprimary;
-            padding: 50px 20px;
-            &.-viewShow{
-                display:block;
-            }
-            .finish-content {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                .finish-pic {
-                    position:relative;
-                    width: 150px;
-                    height: 150px;
-                    background-color: #fff;
-                    border-radius: 50%;
-                    overflow: hidden;
-                    margin: 20px 0 10px 0;
-                    img {
-                        position:absolute;
-                        left:50%;
-                        top:50%;
-                        transform: translate(-50%,-45%);
-                        width: 80%;
+                &.-viewClose{
+                    display:none;
+                }
+                .fail-content {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    .fail-pic {
+                        width: 150px;
+                        height: 150px;
+                        background-color: #fff;
+                        border-radius: 50%;
+                        overflow: hidden;
+                        margin: 20px 0 10px 0;
+                        img {
+                            width: 100%;
+                            vertical-align: top;
+                        }
+                    }
+                    .fail-text {
+                        padding: 10px 0 20px 0;
                     }
                 }
-                .finish-text {
-                    padding: 10px 0 20px 0;
-                }
             }
-            .beachgame-button-wrap{
-                button {
-                    margin: 0 10px;
+            .finish-lightbox {
+                display:none;
+                color: #fff;
+                box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
+                border-radius: 20px;
+                text-align: center;
+                background-color: $color-subprimary;
+                padding: 50px 20px;
+                &.-viewShow{
+                    display:block;
+                }
+                .finish-content {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    .finish-pic {
+                        position:relative;
+                        width: 150px;
+                        height: 150px;
+                        background-color: #fff;
+                        border-radius: 50%;
+                        overflow: hidden;
+                        margin: 20px 0 10px 0;
+                        img {
+                            position:absolute;
+                            left:50%;
+                            top:50%;
+                            transform: translate(-50%,-45%);
+                            width: 80%;
+                        }
+                    }
+                    .finish-text {
+                        padding: 10px 0 20px 0;
+                    }
+                }
+                .beachgame-button-wrap{
                     a {
                         text-decoration: none;
                         color:$color-white;
+                        .center-button {
+                            margin: 0 3%;
+                            
+                        } 
                     }
-                } 
+                }
+            }
+        }
+        .trash-container{
+            position: absolute;
+            left:50%;
+            top: 50%;
+            transform: translate(-50%, -50%,);
+            width: calc(100% - 300px);
+            height: calc(100% - 300px);
+            display:none;
+            &.-viewShow{
+                display: block;
+            }
+            .trash-pic{
+                cursor: pointer;
+                &:hover{
+                    width:40%;
+                    background-color:#fff;
+                    border:2px solid #333;
+                    border-radius:50%;
+                    transition: transform 0.3s ease;
+                    transform: scale(1.5);
+                }
+                img{
+                    width: 100%;
+                    
+                }
             }
         }
     }
-    .trash-container{
-        position: absolute;
-        left:50%;
-        top: 50%;
-        transform: translate(-50%, -50%,);
-        width: calc(100% - 300px);
-        height: calc(100% - 300px);
-        display:none;
-        &.-viewShow{
-            display: block;
-        }
-        .trash-pic{
-            &:hover{
-                width:40%;
-                background-color:#fff;
-                border:4px solid #333;
-                border-radius:50%;
-                transform: scale(1.5);
-            }
-            img{
-                width: 100%;
-                
-            }
-        }
-    }
-}
 
+}
 

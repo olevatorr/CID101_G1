@@ -14,7 +14,7 @@
                                 <img :src="getImageUrl(largeSrc)" alt="" />
                             </div>
                         </div>
-                        <div class="col-4" v-for="(src, index) in productdetail.imgUrl" :key="index">
+                        <div class="col-4" v-for="(src, index) in productdetail.P_MAIN_IMG" :key="index">
                             <div class="pic-s">
                                 <img :src="getImageUrl(src)" alt="" @click="showLarge(src)" />
                             </div>
@@ -24,26 +24,24 @@
                 <div class="col-12 col-md-6">
                     <div class="info-group">
                         <div class="title">
-                            <h3>{{ productdetail.title }}</h3>
+                            <h3>{{ productdetail.P_NAME }}</h3>
                         </div>
                         <div class="content">
-                            <p>{{ productdetail.content }}</p>
+                            <p>{{ productdetail.P_SUBTITLE }}</p>
                         </div>
                         <div class="line">
                         </div>
                         <div class="amount">
                             <span>數量 : </span>
-                            <button @click="decreaseQuantity" :disabled="quantity <= 1">-</button>
+                            <button @click="decreaseQuantity" :disabled="productdetail.amount <= 1">-</button>
                             <span>{{ productdetail.amount }}</span>
-                            <button @click="increaseQuantity" :disabled="quantity >= 10">+</button>
+                            <button @click="increaseQuantity" :disabled="productdetail.amount >= 10">+</button>
                         </div>
                         <div class="price">
                             <span>金額總計 ${{ totalPrice }} 元</span>
                         </div>
                         <div class="button">
-                            <RouterLink to="/mallcart">
-                                <input type="button" value="立即購買">
-                            </RouterLink>
+                            <button @click="submitBuy">立即購買</button>
                             <button class="add-to-cart" @click="addToCart(productdetail)">加入購物車</button>
                         </div>
                     </div>
@@ -55,19 +53,19 @@
         <div class="container">
             <div class="text-group">
                 <h3>產品介紹</h3>
-                <p>{{ productdetail.introduce }}</p>
+                <p>{{ productdetail.P_CONTENT }}</p>
                 <div class="pic">
-                    <img :src="getImageUrl(productdetail.imgUrl2)" alt="">
+                    <img :src="getImageUrl(productdetail.P_IMG1)" alt="">
                 </div>
                 <h3>規格說明</h3>
                 <div class="directions">
                     <div class="text">
-                        <p>材質 : {{ productdetail.material }}</p>
-                        <p>尺寸 : {{ productdetail.size }}</p>
-                        <p>顏色 : {{ productdetail.color }}</p>
+                        <p>材質 : {{ productdetail.P_MATERIAL }}</p>
+                        <p>尺寸 : {{ productdetail.P_SIZE }}</p>
+                        <p>顏色 : {{ productdetail.P_COLOR }}</p>
                     </div>
                     <div class="pic">
-                        <img :src="getImageUrl(productdetail.imgUrl3)" alt="">
+                        <img :src="getImageUrl(productdetail.P_IMG2)" alt="">
                     </div>
                     <div class="text2">
                         <p>手工測量有1-3公分誤差，由於顯示器及拍照光線等<br>不可抗拒因素，色差不可避免。</p>
@@ -84,6 +82,10 @@
 
 <script>
 import ShopCart from '@/components/ShopCart.vue';
+import Cookies from 'js-cookie';
+import { mapState } from 'pinia'; // 引入登入判斷
+import {useMemeberStore} from '@/stores/member'
+import Swal from 'sweetalert2'; // 引入sweetalert2
 
 export default {
     data() {
@@ -98,8 +100,9 @@ export default {
         ShopCart,
     },
     computed: {
+        ...mapState(useMemeberStore,['isLogging']),
         totalPrice() {
-            return this.productdetail.amount * this.productdetail.price;
+            return this.productdetail.amount * this.productdetail.P_PRICE;
         }
     },
     methods: {
@@ -147,7 +150,7 @@ export default {
                     let isReduce = false;
 
                     productList.forEach(element => {
-                        if (item.id == element.id) {
+                        if (item.P_ID == element.P_ID) {
                             if (!element.amount) {
                                 element.amount = 1;
                             }
@@ -169,17 +172,32 @@ export default {
             }
         },
         getImageUrl(imgUrl) {
-            return `${import.meta.env.BASE_URL}img/shop/${imgUrl}`;
+            return `${import.meta.env.BASE_URL}img/productioninfo/${imgUrl}`;
+        },
+        submitBuy() {
+            if (!this.isLogging) {
+                Swal.fire({
+                icon: 'error',
+                title: '未登入',
+                text: '請先登入會員才能進行購買'
+                }).then(() => {
+                this.$router.push('/Member');
+                // 未登入跳轉至會員登入頁面
+                });
+                return;
+            } else{
+                this.$router.push('/mallcart');
+            }
         }
     },
         mounted() {
-        console.log( this.$route.query.id)
+        console.log( this.$route.query.P_ID)
         fetch(`${import.meta.env.BASE_URL}json/productdata.json`)
         .then(data => data.json())
         .then(data => {
-            this.productdetail = data.find(item=>item.id==this.$route.query.id);
+            this.productdetail = data.find(item=>item.P_ID==this.$route.query.id);
             this.productdetail.amount = 1;
-            this.largeSrc = this.productdetail.imgUrl[0];
+            this.largeSrc = this.productdetail.P_MAIN_IMG[0];
         })
     },
 }

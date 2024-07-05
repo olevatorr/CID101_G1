@@ -1,3 +1,4 @@
+
 <template>
     <div class="section section-shoppingcart">
         <div class="container">
@@ -17,29 +18,35 @@
                 <div class="cartinfo">
                     <div class="info" v-for="(item, index) in productList" :key="item.id">
                         <span>{{ index + 1 }}.</span>
-                        <span>{{ item.title }}</span>
+                        <span>{{ item.P_NAME }}</span>
                         <span>數量 :</span>
                         <button @click="decreaseQuantity(item)" :disabled="item.quantity <= 1">-</button>
                         <span>{{ item.amount ? item.amount : 1 }}</span>
                         <button @click="increaseQuantity(item)" :disabled="item.amount >= 10">+</button>
-                        <span class="price">NT$ {{ item.price * (item.amount ? item.amount : 1) }}</span>
+                        <span class="price">NT$ {{ item.P_PRICE * (item.amount ? item.amount : 1) }}</span>
                         <div class="delete">
                             <img src="/img/shop/delete2.png" alt="" @click="removeFromCart(item)">
                         </div>
                     </div>
                 </div>
                 <div class="carttotal">
-                    <RouterLink :to="'/mallcart'">
-                        <button>立即購買</button>
-                    </RouterLink>
+                        <button @click="submitBuy">立即購買</button>
                     <span>NT$ {{ addPrice }}</span>
                 </div>
+                {{dogs.todos}}
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import Cookies from 'js-cookie';
+// import { store } from '@/store.js'; // 引入store
+import Swal from 'sweetalert2'; // 引入sweetalert2
+import {useProdStore} from '@/stores/product'
+import { mapState } from 'pinia';
+import {useMemeberStore} from '@/stores/member'
+
 export default {
     data() {
         return {
@@ -50,6 +57,7 @@ export default {
 
             // 該頁存儲localStorage資料
             productList: [],
+            dogs:useProdStore(),
         }
     },
     mounted() {
@@ -65,9 +73,10 @@ export default {
         });
     },
     computed: {
+        ...mapState(useMemeberStore, ['isLogging']),
         addPrice() {
             return this.productList.reduce((total, item) => {
-                return total + item.price * item.amount;
+                return total + item.P_PRICE * item.amount;
             }, 0);
         },
         // 購物車商品數量
@@ -102,7 +111,7 @@ export default {
         decreaseQuantity(item) {
             if (item.amount > 1) {
                 this.productList.forEach(forItem => {
-                    if (forItem.id == item.id) {
+                    if (forItem.P_ID == item.P_ID) {
                         forItem.amount = forItem.amount - 1;
                     };
                 });
@@ -112,13 +121,32 @@ export default {
         increaseQuantity(item) {
             if (item.amount < 10) {
                 this.productList.forEach(forItem => {
-                    if (forItem.id == item.id) {
+                    if (forItem.P_ID == item.P_ID) {
                         forItem.amount = forItem.amount + 1;
                     };
                 });
                 localStorage.setItem('cartItems', JSON.stringify(this.productList));
             }
         },
+        submitBuy() {
+            if (!this.isLogging) {
+                Swal.fire({
+                icon: 'error',
+                title: '未登入',
+                text: '請先登入會員才能進行購買'
+                }).then(() => {
+                this.$router.push('/Member');
+                // 未登入跳轉至會員登入頁面
+                });
+                return;
+            } else{
+                this.$router.push('/mallcart');
+            }
+        },
+        // addcatttt(){
+        //     this.dogs;
+        //     console.log(this.dogs.todos)
+        // }
     }
 }
 </script>

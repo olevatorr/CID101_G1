@@ -29,3 +29,5 @@ front
 *.sw?
 
 *.tsbuildinfo
+ProfileView copy.vue
+/components/member

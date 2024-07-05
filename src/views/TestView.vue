@@ -1,140 +1,148 @@
 <template>
-  <div>
-    <h2>海洋廢棄物分類統計</h2>
-    <canvas id="wasteTypesChart"></canvas>
-    <h2>清理活動統計</h2>
-    <canvas id="cleaningActivitiesChart"></canvas>
-    <h2>清理後處理方式和無法分類廢棄物統計</h2>
-    <canvas id="disposalChart"></canvas>
+  <div class="text123">
+    <h1>Knowledge List</h1>
+    <input v-model="newItem.K_TITLE" placeholder="名稱" />
+    <input v-model="newItem.K_CONTENT" placeholder="內容" />
+    <input v-model="newItem.K_FROM" placeholder="來源" />
+    <input v-model="newItem.K_URL" placeholder="URL" />
+    <input v-model="newItem.K_DATE" type="date" placeholder="日期" />
+    <button @click="addItem">新增</button>
+
+    <ul>
+      <li v-for="item in knowledge" :key="item.id">
+        {{ item.K_TITLE }} - {{ item.K_CONTENT }} - {{ item.K_FROM }} - {{ item.K_URL }} - {{ item.K_DATE }}
+        <button @click="deleteItem(item.K_ID)">删除</button>
+        <button>修改</button>
+      </li>
+    </ul>
+
+    <div v-if="error">{{ errorMsg }}</div>
   </div>
+  <div v-if="edit">
+    <div class="lightbox-test">
+      <ul>
+      <li v-for="item in knowledge" :key="item.id">
+        <div>
+          <input v-model="item.K_TITLE">
+          <input v-model="item.K_CONTENT">
+          <input v-model="item.K_FROM">
+          <input v-model="item.K_URL">
+          <input v-model="item.K_DATE" type="date">
+          <button @click="updateItem(item)">保存</button>
+        </div>
+      </li>
+    </ul>
+    </div>
+  </div>
+  <input type="text"  id="" v-model="again">
+  <button>新增</button>
 </template>
 
 <script>
-import Chart from 'chart.js/auto'
+import axios from 'axios';
 
 export default {
-  name: 'MyCharts',
   data() {
     return {
-      wasteData: null,
-      cleaningData: null,
-      disposalData: null
-    }
+      knowledge: [],
+      newItem: {
+        K_TITLE: '',
+        K_CONTENT: '',
+        K_FROM: '',
+        K_URL: '',
+        K_DATE: ''
+      },
+      error: false,
+      errorMsg: '',
+      edit:true,
+    };
   },
   mounted() {
-    // 從 JSON 數據中提取所需的數據
-    const wasteTypes = [
-      { label: '寶特瓶', value: 54.612 },
-      { label: '鐵罐', value: 13.013 },
-      { label: '鋁罐', value: 5.844 },
-      { label: '玻璃瓶', value: 16.304 }
-    ]
-
-    const cleaningActivities = [
-      { label: '清理次數', value: 3201 },
-      { label: '參與人數', value: 16789 }
-    ]
-
-    const disposalData = [
-      { label: '掩埋', value: 68.024 },
-      { label: '回收再利用', value: 273.908 },
-      { label: '焚化', value: 689.401 },
-      { label: '無法分類廢棄物', value: 763.846 }
-    ]
-
-    this.wasteData = {
-      labels: wasteTypes.map(type => type.label),
-      datasets: [
-        {
-          data: wasteTypes.map(type => type.value),
-          backgroundColor: [
-            '#FF6384',
-            '#36A2EB',
-            '#FFCE56',
-            '#8C489F'
-          ]
-        }
-      ]
-    }
-
-    this.cleaningData = {
-      labels: cleaningActivities.map(activity => activity.label),
-      datasets: [
-        {
-          data: cleaningActivities.map(activity => activity.value),
-          backgroundColor: [
-            '#FF6384',
-            '#36A2EB'
-          ]
-        }
-      ]
-    }
-
-    this.disposalData = {
-      labels: disposalData.map(item => item.label),
-      datasets: [
-        {
-          data: disposalData.map(item => item.value),
-          backgroundColor: [
-            '#FF6384',
-            '#36A2EB',
-            '#FFCE56',
-            '#8C489F'
-          ]
-        }
-      ]
-    }
-
-    this.createCharts()
+    this.fetchData();
   },
   methods: {
-    createCharts() {
-      const wasteTypesCtx = document.getElementById('wasteTypesChart').getContext('2d')
-      const cleaningActivitiesCtx = document.getElementById('cleaningActivitiesChart').getContext('2d')
-      const disposalCtx = document.getElementById('disposalChart').getContext('2d')
-
-      new Chart(wasteTypesCtx, {
-        type: 'pie',
-        data: this.wasteData,
-        options: {
-          responsive: true,
-          plugins: {
-            title: {
-              display: true,
-              text: '海洋廢棄物分類統計'
-            }
-          }
+    async fetchData() {
+      try {
+        const response = await axios.get('http://localhost/cid101/g1/api/knowledge.php');
+        if (!response.data.error) {
+          this.knowledge = response.data.knowledge;
+          // console.log(this.knowledge);
+        } else {
+          this.error = true;
+          this.errorMsg = response.data.msg;
         }
-      })
-
-      new Chart(cleaningActivitiesCtx, {
-        type: 'pie',
-        data: this.cleaningData,
-        options: {
-          responsive: true,
-          plugins: {
-            title: {
-              display: true,
-              text: '清理活動統計'
-            }
+      } catch (error) {
+        this.error = true;
+        this.errorMsg = error.message;
+      }
+    },
+    async addItem() {
+      try {
+        const response = await axios.post('http://localhost/cid101/g1/api/knowledgeAdd.php', JSON.stringify(this.newItem), {
+          headers: {
+            'Content-Type': 'application/json'
           }
+        });
+        if (!response.data.error) {
+          this.fetchData();
+          this.newItem = {
+            K_TITLE: '',
+            K_CONTENT: '',
+            K_FROM: '',
+            K_URL: '',
+            K_DATE: ''
+          };
+        } else {
+          this.error = true;
+          this.errorMsg = response.data.msg;
         }
-      })
-
-      new Chart(disposalCtx, {
-        type: 'pie',
-        data: this.disposalData,
-        options: {
-          responsive: true,
-          plugins: {
-            title: {
-              display: true,
-              text: '清理後處理方式和無法分類廢棄物統計'
-            }
-          }
+      } catch (error) {
+        this.error = true;
+        this.errorMsg = error.message;
+      }
+    },
+    async deleteItem(id) {
+      console.log(id);
+    try {
+        const response = await axios.get('http://localhost/cid101/g1/api/knowledgeDelete.php', {
+            params: { K_ID: id }
+        });console.log(id);
+        if (!response.data.error) {
+            this.fetchData();
+        } else {
+            this.error = true;
+            this.errorMsg = response.data.msg;
         }
-      })
+    } catch (error) {
+        this.error = true;
+        this.errorMsg = error.message;
     }
-  }
-}
+    },
+    async updateItem(id){
+      console.log(id);
+    try {
+        const response = await axios.get('http://localhost/cid101/g1/api/knowledgeUpdate.php', {
+            params: { K_ID: id }
+        });console.log(id);
+        if (!response.data.error) {
+            this.fetchData();
+        } else {
+            this.error = true;
+            this.errorMsg = response.data.msg;
+        }
+    } catch (error) {
+        this.error = true;
+        this.errorMsg = error.message;
+    }
+
+    }
+
+  },
+};
 </script>
+
+<style scoped>
+.text123 {
+  margin-top: 100px;
+}
+</style>

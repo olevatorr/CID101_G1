@@ -20,14 +20,14 @@
                 </div>
                 <div class="content">
                     <div class="pic">
-                        <img :src="Array.isArray(item.imgUrl) ? getImageUrl(item.imgUrl[0]) : getImageUrl(item.imgUrl)" alt="">
+                        <img :src="Array.isArray(item.P_IMG1) ? getImageUrl(item.P_IMG1[0]) : getImageUrl(item.P_IMG1)" alt="">
                     </div>
                     <div class="title">
-                        <p>{{ item.title }}</p>
+                        <p>{{ item.P_NAME }}</p>
                     </div>
                 </div>
                 <div class="price">
-                    <p>$NT {{ item.price }}</p>
+                    <p>$NT {{ item.P_PRICE }}</p>
                 </div>
                 <div class="amount">
                     <button @click="decreaseQuantity(item)">-</button>
@@ -35,7 +35,7 @@
                     <button @click="increaseQuantity(item)">+</button>
                 </div>
                 <div class="subtotal">
-                    <p>NT$ {{ item.price * item.amount }}</p>
+                    <p>NT$ {{ item.P_PRICE * item.amount }}</p>
                     <i class="fa-regular fa-circle-xmark" @click="removeFromCart(item)"></i>
                 </div>
             </div>
@@ -64,19 +64,19 @@
             <div class="cart-form">
                 <div class="name">
                     <h4>會員名稱</h4>
-                    <span>自動帶入會員資料</span>
+                    <span>{{ store.member.U_NAME }}</span>
                 </div>
                 <div class="phone">
                     <h4>會員電話</h4>
-                    <span>自動帶入會員資料</span>
+                    <span>{{ store.member.U_PHONE }}</span>
                 </div>
                 <div class="email">
                     <h4>會員信箱</h4>
-                    <span>自動帶入會員資料</span>
+                    <span>{{ store.member.U_EMAIL }}</span>
                 </div>
                 <div class="add">
                     <h4>會員地址</h4>
-                    <span>自動帶入會員資料</span>
+                    <span>{{ store.member.U_ADDRESS }}</span>
                 </div>
             </div>
         </div>
@@ -124,21 +124,21 @@
             <div class="cart-receive">
                 <div class="title">
                     <h3>04</h3>
-                    <h3>收件人資料 <input type="checkbox" name="" id="">同會員資料</h3>
+                    <h3>收件人資料 <input  type="checkbox" v-model="input.checkbox">同會員資料</h3>
                 </div>
             </div>
             <div class="cart-receiveinfo">
                 <div class="name">
                     <h4>收件人姓名</h4>
-                    <input type="text" id="name" name="name" />
+                    <input type="text" v-model="name" id="name" name="name" :readonly="input.checkbox"/>
                 </div>
                 <div class="phone">
                     <h4>收件人聯絡電話</h4>
-                    <input type="text" id="name" name="name" />
+                    <input type="text" v-model="phone" id="phone" name="phone" :readonly="input.checkbox"/>
                 </div>
                 <div class="add">
                     <h4>收件人地址</h4>
-                    <input type="text" id="name" name="name">
+                    <input type="text" v-model="add" id="add" name="add" :readonly="input.checkbox"/>
                 </div>
             </div>
         </div>
@@ -200,16 +200,21 @@
                 <router-link to="/shop" tag="div" event="click" class="button">
                 <button>返回商品頁面</button>
                 </router-link>
-                <button class="pay">我要結帳</button>
+                <button class="pay">確定下單</button>
             </div>
         </div>
     </section>
 </template>
 
 <script>
+import { store } from '@/store.js'
+
 export default {
     data() {
         return {
+            input: {
+                checkbox: false
+            },
             cartItems: [],
             showCartIcon: false,
             showCartBox: false,
@@ -234,7 +239,7 @@ export default {
     computed: {
         addPrice() {
             return this.productList.reduce((total, item) => {
-                return total + item.price * item.amount;
+                return total + item.P_PRICE * item.amount;
             }, 0);
         },
         // 購物車商品數量
@@ -247,8 +252,24 @@ export default {
             }); 
             console.log(count)
             return count
+        },
+        store() {
+            return store;
         }
     },
+    watch: {
+        'input.checkbox'(newVal) {
+            if (newVal) {
+                this.name = store.member.U_NAME;
+                this.phone = store.member.U_PHONE;
+                this.add = store.member.U_ADDRESS;
+            } else {
+                this.name = '';
+                this.phone = '';
+                this.add = '';
+            }
+            }
+        },
     methods: {
         // 點擊購物車Icon
         toggleCartBox() {
@@ -268,7 +289,7 @@ export default {
         decreaseQuantity(item) {
             if (item.amount > 1) {
                 this.productList.forEach(forItem => {
-                    if (forItem.id == item.id) {
+                    if (forItem.P_ID == item.P_ID) {
                         forItem.amount = forItem.amount - 1;
                     };
                 });
@@ -278,7 +299,7 @@ export default {
         increaseQuantity(item) {
             if (item.amount < 10) {
                 this.productList.forEach(forItem => {
-                    if (forItem.id == item.id) {
+                    if (forItem.P_ID == item.P_ID) {
                         forItem.amount = forItem.amount + 1;
                     };
                 });
