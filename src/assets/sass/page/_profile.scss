@@ -106,7 +106,14 @@
 
                 li {
                     padding-bottom: 2rem;
-
+                    position: relative;
+                    span{
+                        position:absolute;
+                        color: red;
+                        font-size: 1.3rem;
+                        bottom: 0;
+                        left: 21%;
+                    }
 
                     @media screen and (max-width: 575px) {
                         text-align: left;
@@ -115,7 +122,8 @@
 
                 label {
                     padding-right: 2rem;
-                    font-size: 1.4rem;
+                    font-size: 1.6rem;
+                    
 
                 }
 
@@ -439,6 +447,7 @@
                 .store{
                     margin-bottom: 2rem;
                 }
+
             }
         }
 
