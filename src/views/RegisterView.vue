@@ -56,7 +56,7 @@ export default {
       const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).{4,}$/;
 
       if (!passwordRegex.test(this.password)) {
-        this.errorMessage.password = "*請輸入至少英文加數字4碼";
+        this.errorMessage.password = "*請輸入至少4碼英文加數字";
       } else {
         this.errorMessage.password = "";
       }
