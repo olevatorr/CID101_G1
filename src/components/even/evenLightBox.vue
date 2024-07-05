@@ -1,11 +1,12 @@
 <script setup>
 import { ref, computed } from 'vue'
-import { store } from '@/store.js'
 import Swal from 'sweetalert2'
 import { useRouter } from 'vue-router'
 import { useEventsStore } from '@/stores/events'
+import {storeToRefs} from 'pinia'
 
 const events = useEventsStore()
+const {selectedEventCard} = storeToRefs(events)
 const peopleNum = ref(1);
 const router = useRouter();
 const openConfirm = ref(null)
@@ -16,17 +17,17 @@ const date = () => {
     return new Date();
 };
 const closeEventModal = () => {
-    events.selectedEventCard = null
+    selectedEventCard.value = null
 }
 const eventEnded = computed(() => {
-    return events.selectedEventCard && events.selectedEventCard.E_DATE > date();
+    return selectedEventCard.value && selectedEventCard.value.E_DATE > date();
 });
 const registrationClosed = computed(() => {
-    return events.selectedEventCard && events.selectedEventCard.E_DEADLINE > date();
+    return selectedEventCard.value && selectedEventCard.value.E_DEADLINE > date();
 });
 const registrationFull = computed(() => {
-    if (events.selectedEventCard) {
-        return events.selectedEventCard.E_MAX_ATTEND === events.selectedEventCard.E_SIGN_UP;
+    if (selectedEventCard.value) {
+        return selectedEventCard.value.E_MAX_ATTEND === selectedEventCard.value.E_SIGN_UP;
     }
     return false;
 });
@@ -45,12 +46,12 @@ const handleRegistration = () => {
 };
 
 const showConfirmModal = () => {
-    openConfirm.value = events.selectedEventCard;
-    events.selectedEventCard = null;
+    openConfirm.value = selectedEventCard.value;
+    selectedEventCard.value = null;
 };
 const closeConfirm = () => {
-    openConfirm.value = events.selectedEventCard;
-    events.selectedEventCard = null;
+    openConfirm.value = selectedEventCard.value;
+    selectedEventCard.value = null;
 };
 const SubmitEvent = () => {
     Swal.fire({
@@ -74,19 +75,19 @@ const SubmitEvent = () => {
 
 <template>
     
-    <div v-if="events.selectedEventCard">
+    <div v-if="selectedEventCard">
         <div class="light-box-bgc">
             <div class="light-box" @click.self="closeEventModal">
                 <div class="container">
                     <div class="row">
                         <div class="col-12 col-lg-6">
                             <div class="pic">
-                                <img :src="events.selectedEventCard.E_IMG" />
+                                <img :src="selectedEventCard.E_IMG" />
                             </div>
                             <div class="description">
                                 <h3>活動敘述</h3>
                                 <p>
-                                    {{ events.selectedEventCard.E_CONTENT }}
+                                    {{ selectedEventCard.E_CONTENT }}
                                 </p>
                             </div>
                         </div>
@@ -97,12 +98,12 @@ const SubmitEvent = () => {
                                 </div>
                                 <div class="activity-area">
                                     <div class="text">
-                                        <h3>{{ events.selectedEventCard.E_TITLE }}</h3>
-                                        <p>活動地點：{{ events.selectedEventCard.E_ADDRESS }}</p>
-                                        <p>活動日期：{{ events.selectedEventCard.E_DATE }}</p>
-                                        <p>截止日期：{{ events.selectedEventCard.E_DEADLINE }}</p>
-                                        <p>報名人數：{{ events.selectedEventCard.E_SIGN_UP }}/{{
-                                            events.selectedEventCard.E_MAX_ATTEND }}
+                                        <h3>{{ selectedEventCard.E_TITLE }}</h3>
+                                        <p>活動地點：{{ selectedEventCard.E_ADDRESS }}</p>
+                                        <p>活動日期：{{ selectedEventCard.E_DATE }}</p>
+                                        <p>截止日期：{{ selectedEventCard.E_DEADLINE }}</p>
+                                        <p>報名人數：{{ selectedEventCard.E_SIGN_UP }}/{{
+                                            selectedEventCard.E_MAX_ATTEND }}
                                         </p>
                                         <div class="join">
                                             <p class="people">參加人數:</p>
