@@ -375,6 +375,7 @@
 
             li {
                 padding-bottom: 2rem;
+                position: relative;
         
 
         label {
@@ -395,6 +396,13 @@
             outline: none;
             height: 4rem;
 
+            }
+            span{
+                color: red;
+                font-size: 1.3rem;
+                position: absolute;
+                bottom: -5%;
+                left: 40%;
             }
         }
     }

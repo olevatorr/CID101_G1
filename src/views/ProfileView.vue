@@ -39,26 +39,44 @@
           <ul>
             <li>
               <label for="">會員姓名</label>
-              <input type="text" name="" id="" maxlength="20" v-model="member.U_NAME">
+              <input type="text" maxlength="20" v-model="member.U_NAME"
+              @blur="validate('name')"
+              readonly>
+              <span v-if="errors.name">{{ errors.name }}</span>
             </li>
             <li>
               <label for="">會員帳號</label>
-              <input type="text" name="" id="" maxlength="20" v-model="member.U_ACCOUNT">
+              <input type="text" maxlength="20" v-model="member.U_ACCOUNT" 
+              @blur="validate('account')"
+              readonly>
+              <span v-if="errors.account">{{ errors.account }}</span>
             </li>
             <li>
               <label for="">會員信箱</label>
-              <input type="text" name="" id="" v-model="member.U_EMAIL">
+              <input type="text"  v-model="member.U_EMAIL" 
+              @blur="validate('email')"
+              readonly>
+              <span v-if="errors.email">{{ errors.email }}</span>
             </li>
             <li>
               <label for="">會員電話</label>
-              <input type="tel" name="" id="" maxlength="10" v-model="member.U_PHONE">
+              <input type="tel"  maxlength="10" v-model="member.U_PHONE" 
+              @blur="validate('phone')"
+              readonly>
+              <span v-if="errors.phone">{{ errors.phone }}</span>
             </li>
             <li>
               <label for="">會員地址</label>
-              <input type="text" name="" id="" v-model="member.U_ADDRESS">
+              <input type="text"  v-model="member.U_ADDRESS" 
+              @blur="validate('address')"
+              readonly>
+              <span v-if="errors.address">{{ errors.address }}</span>
             </li>
           </ul>
-          <div class="store"><button>儲存變更</button><button>取消變更</button></div>
+          <div class="store">
+            <button @click="editData">編輯資料</button>
+            <button @click="saveData">儲存變更</button>
+          </div>
         </div>
 
         <!-- 訂單資訊 -->
@@ -209,18 +227,24 @@
           <ul>
             <li>
               <label for="">會員密碼</label>
-              <input type="text" name="" id="" maxlength="10" v-model="member.U_PSW" readonly>
+              <input type="text" maxlength="10" v-model="member.U_PSW" readonly>
             </li>
             <li>
               <label>修改密碼</label>
-              <input type="password" name="" id="" maxlength="10" placeholder="請輸入密碼">
+              <input type="text" v-model="newPassword" maxlength="10" 
+              placeholder="請輸入密碼" 
+              @blur="validate('newPassword')">
+              <span v-if="errors.newPassword">{{ errors.newPassword }}</span>
             </li>
             <li>
               <label>再輸入一次密碼</label>
-              <input class="inputs" type="password" name="" id="" maxlength="10" placeholder="請輸入密碼">
+              <input class="inputs" v-model="confirmPassword" type="text" maxlength="10" 
+              placeholder="請輸入密碼"
+              @blur="validate('confirmPassword')">
+              <span v-if="errors.confirmPassword">{{ errors.confirmPassword }}</span>
             </li>
           </ul>
-          <button>送出</button>
+          <button type="button" @click="submitForm">送出</button>
         </div>
       </div>
     </div>
@@ -231,6 +255,9 @@
 import { ref, computed, onMounted, watch } from 'vue'
 import { useMemeberStore } from '@/stores/member';
 import {storeToRefs} from 'pinia'
+import { useValidationStore } from '@/stores/validation'
+import axios from 'axios';
+import Swal from 'sweetalert2';
 export default {
   setup() {
     const imageHostUrl = import.meta.env.VITE_IMAGE_URL
@@ -252,8 +279,113 @@ export default {
 
     const isShopTableVisible = ref(false);
     const currentPoId = ref('')
+    //修改密碼驗證
+    const validationStore  = useValidationStore();
+    const { errors, validateField, clearErrors } = validationStore;
+    const newPassword = ref('');
+    const confirmPassword = ref('');
+    //會員資料修改
+    const validAll = () => {
+      validateField('name', { name: member.value.U_NAME });
+      validateField('account', { account: member.value.U_ACCOUNT });
+      validateField('email', { email: member.value.U_EMAIL });
+      validateField('phone', { phone: member.value.U_PHONE });
+      validateField('address', { address: member.value.U_ADDRESS });
+    };
+    //會員資料表單修改
+    const saveData = async () => {
+      validAll();
+      if (Object.keys(errors).length > 0) {
+        try {
+      const response = await axios.post('http://localhost/cid101/g1/api/memberUpdate.php', member.value, {
+        headers: {
+          'Content-Type': 'application/json' 
+        }
+      });
+          if (response.data.status === 'success') {
+            //如果請求成功，調用 store.updateMember 方法來更新前端的會員資料
+            store.updateMember(member.value);
+            //將所有表單中的 input 元素設置為只讀，防止用戶在成功更新後修改資料。
+            document.querySelectorAll('input').forEach(input => input.setAttribute('readonly', true));
+            Swal.fire({
+              icon: 'success',
+              title: '成功',
+              text: '會員資料已更新',
+              confirmButtonText: '確認'
+            });
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: '錯誤',
+              text: response.data.message,
+              confirmButtonText: '確認'
+            });
+          }
+        } catch (error) {
+          Swal.fire({
+            icon: 'error',
+            title: '錯誤',
+            text: '發生錯誤，請稍後再試',
+            confirmButtonText: '確認'
+          });
+        }
+      }
+    };
+    //顯示修改密碼錯誤資訊
+    const validate = () => {
+      validateField('newPassword', { newPassword: newPassword.value });
+      validateField('confirmPassword', { newPassword: newPassword.value, confirmPassword: confirmPassword.value });
 
-    
+    };
+    const submitForm = async () => {
+      validate(); // 執行驗證
+
+      // 檢查是否有錯誤
+      if (Object.keys(errors).length > 0) {
+        console.log('Validation errors:', errors);
+        return; // 如果有錯誤，阻止提交
+      }
+
+      try {
+        // 提交表單數據到 PHP 後端
+        const response = await axios.post('http://localhost/cid101/g1/api/memberChange.php', {
+          newPassword: newPassword.value,
+          confirmPassword: confirmPassword.value,
+          account: member.value.U_ACCOUNT
+        }, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+
+        console.log('Form submitted successfully:', response.data);
+        // 在這裡處理成功後的邏輯，比如重置表單、顯示成功消息等
+        store.updateMember({
+          U_PSW: newPassword.value, // 更新密碼
+          // 可以添加更多需要更新的屬性
+        });
+        newPassword.value = '';
+        confirmPassword.value = '';
+        
+        Swal.fire({
+          icon: 'success',
+          title: '成功',
+          text: response.data.message
+        });
+      } catch (error) {
+        console.error('Form submission error:', error);
+
+        Swal.fire({
+          icon: 'error',
+          title: '系統錯誤',
+          text: '系統錯誤，請稍後再試'
+        });
+      }
+    };
+    const editData = () => {
+      // 移除所有 會員資料readonly 屬性
+      document.querySelectorAll('input').forEach(input => input.removeAttribute('readonly'));
+    };
 
     const fileChange = (event) => {
       const file = event.target.files[0];
@@ -276,7 +408,6 @@ export default {
     const selectOption = () => {
       changeSection(selectedOption.value)
     }
-
     onMounted(async () => {
       try {
         // 使用 Promise.all 来并行获取多个 JSON 数据
@@ -396,94 +527,15 @@ export default {
       currentPoId,
       toggleShopTable,
       filteredShoplists,
+      newPassword,//新密碼
+      confirmPassword,//再輸入一次密碼
+      errors,//pinia錯誤訊息
+      validate,//修改密碼錯誤訊息
+      clearErrors,//清理錯誤訊息
+      submitForm,//送出密碼變更
+      editData,//移除所有 readonly 屬性
+      saveData//送出會員資料變更
     }
   }
 }
 </script>
-<!-- <script>
-import { ref, onMounted } from 'vue'
-import { useMemberStore } from '@/stores/member'
-import { storeToRefs } from 'pinia'
-
-export default {
-  setup() {
-    const store = useMemberStore()
-    const { member } = storeToRefs(store)
-    
-    const imageSrc = ref(member.value?.U_AVATAR)
-    const currentSection = ref('profile')
-    const currentPage = ref(10)
-
-    const sections = [
-      { value: 'profile', label: '會員資料修改' },
-      { value: 'password', label: '密碼修改' },
-      { value: 'activity', label: '活動查詢' },
-      { value: 'orders', label: '訂單查詢' },
-      { value: 'donations', label: '捐款查詢' },
-      { value: 'favorites', label: '商品收藏' }
-    ]
-
-    const fileChange = (event) => {
-      const file = event.target.files[0]
-      if (file) {
-        const reader = new FileReader()
-        reader.onload = (e) => {
-          imageSrc.value = e.target.result
-        }
-        reader.readAsDataURL(file)
-      }
-    }
-
-    const changeSection = (section) => {
-      currentSection.value = section
-      currentPage.value = 1
-    }
-
-    const logout = () => {
-      store.logout()
-    }
-
-    // 數據獲取函數
-    const fetchData = async () => {
-      try {
-        const responses = await Promise.all([
-          fetch(`${import.meta.env.BASE_URL}json/donatemoney.json`),
-          fetch(`${import.meta.env.BASE_URL}json/activities.json`),
-          fetch(`${import.meta.env.BASE_URL}json/favorite.json`),
-          fetch(`${import.meta.env.BASE_URL}json/orders.json`),
-          fetch(`${import.meta.env.BASE_URL}json/shoplist.json`),
-        ])
-
-        const [donates, activities, favorites, orders, shoplists] = await Promise.all(
-          responses.map(response => {
-            if (!response.ok) throw new Error('Network response was not ok')
-            return response.json()
-          })
-        )
-
-        return { donates, activities, favorites, orders, shoplists }
-      } catch (error) {
-        console.error('Failed to fetch data:', error)
-        return {}
-      }
-    }
-
-    // 在組件掛載時獲取數據
-    onMounted(async () => {
-      const data = await fetchData()
-      console.log(data)
-      // 在這裡可以將數據賦值給相應的 ref
-    })
-
-    return {
-      member,
-      imageSrc,
-      currentSection,
-      sections,
-      fileChange,
-      changeSection,
-      logout
-    }
-  }
-}
-</script> -->

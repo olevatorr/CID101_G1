@@ -13,6 +13,7 @@
 
         .form-group {
             margin: 1rem 0;
+            position: relative;
         }
         
 
@@ -52,10 +53,6 @@
             }
             
         }
-        input[type="number"]::-webkit-outer-spin-button,
-        input[type="number"]::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-        }
 
         .input-ch1 label{
             margin-left: 4rem;
@@ -81,6 +78,13 @@
                 margin-left: 0;
                 margin-right: 9rem;
             }
+        }
+        .error-message {
+            color: red;
+            font-size: 1.3rem;
+            position: absolute;
+            bottom: -40%;
+            left: 47%;
         }
         button {
             padding: 1rem 4rem;
