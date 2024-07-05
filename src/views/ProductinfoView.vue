@@ -83,7 +83,8 @@
 <script>
 import ShopCart from '@/components/ShopCart.vue';
 import Cookies from 'js-cookie';
-import { store } from '@/store.js'; // 引入store
+import { mapState } from 'pinia'; // 引入登入判斷
+import {useMemeberStore} from '@/stores/member'
 import Swal from 'sweetalert2'; // 引入sweetalert2
 
 export default {
@@ -99,6 +100,7 @@ export default {
         ShopCart,
     },
     computed: {
+        ...mapState(useMemeberStore,['isLogging']),
         totalPrice() {
             return this.productdetail.amount * this.productdetail.P_PRICE;
         }
@@ -173,7 +175,7 @@ export default {
             return `${import.meta.env.BASE_URL}img/productioninfo/${imgUrl}`;
         },
         submitBuy() {
-            if (!store.isLoging) {
+            if (!this.isLogging) {
                 Swal.fire({
                 icon: 'error',
                 title: '未登入',
