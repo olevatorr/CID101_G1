@@ -1,10 +1,9 @@
-
 <script>
 // 引入必要的模塊
 import Cookies from 'js-cookie';
-import { ref, watch, onMounted} from 'vue';
+import { ref, watch,} from 'vue';
 import { useRouter } from 'vue-router';
-import { store } from '@/store.js'; // 引入store
+import { store } from '@/stores/member.js'; // 引入store
 import Swal from 'sweetalert2'; // 引入sweetalert2
 import 'aos/dist/aos.css';
 
