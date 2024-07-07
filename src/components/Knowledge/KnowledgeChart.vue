@@ -3,7 +3,8 @@ import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
 import { Chart, registerables } from 'chart.js';
 import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
-// import { _vertical } from 'gsap/Observer';
+import axios from 'axios';
+
 
 // 使用 ref 定義響應式數據變量
 const apiData = ref(null);  // 儲存水質數據
@@ -135,6 +136,7 @@ const indicators = [
 //     "大崛溪口",
 //     "老街溪口"
 // ]
+
 const labelstxt = [
     "高雄市1",
     "高雄市2",
@@ -146,17 +148,6 @@ const labelstxt = [
     "桃園市1",
     "桃園市2"
 ]
-
-
-
-
-// // 設置數據並初始化圖表
-// function setupData() {
-//     // 將數據按時間排序
-//     const sortedData = jsonData.sort((a, b) => new Date(b.UPDATE_TIME) - new Date(a.UPDATE_TIME));
-//     apiData.value = sortedData;  // 設置 API 數據
-//     setupChart();  // 初始化圖表
-// }
 
 function setupData() {
     fetch(`${import.meta.env.BASE_URL}json/海域水質.json`)// 使用 fetch 抓 JSON 文件
@@ -194,60 +185,60 @@ function setupChart() {
     gradient.addColorStop(1, 'rgba(64, 145, 160, 0.5)');  // 淡綠色
 
     myChart = new Chart(ctx, {
-    type: 'line',  // 設置圖表類型為折線圖
-    data: {
-        labels: labelstxt,  // 設置圖表標籤
-        datasets: [{
-            label: indicators.find(item => item.value === selectedIndicator.value).label,  // 設置數據集標籤
-            data: indicatorValues,  // 設置數據集數據
-            backgroundColor: gradient,  // 設置漸變背景顏色
-            borderColor: 'white',  // 設置邊框顏色
-            borderWidth: 3,  // 設置邊框寬度
-            pointBackgroundColor: 'rgba(10, 0, 255, 0.6)',  // 設置數據點背景顏色
-            pointBorderColor: '#fff',  // 設置數據點邊框顏色
-            pointHitRadius: 100,
-            pointRadius: 6,
-            overBackgroundColor: '#fff',  // 設置數據點懸停背景顏色
-            cubicInterpolationMode: 'monotone',   // 設置弧度線
-            fill: true  // 設置填充
-        }]
-    },
-    options: {
-        responsive: true,  // 啟用自動縮放
-        maintainAspectRatio: false,  // 禁用維持長寬比
-        scales: {
-            y: {
-                beginAtZero: true  // 設置 y 軸從 0 開始
-            }
+        type: 'line',  // 設置圖表類型為折線圖
+        data: {
+            labels: labelstxt,  // 設置圖表標籤
+            datasets: [{
+                label: indicators.find(item => item.value === selectedIndicator.value).label,  // 設置數據集標籤
+                data: indicatorValues,  // 設置數據集數據
+                backgroundColor: gradient,  // 設置漸變背景顏色
+                borderColor: 'white',  // 設置邊框顏色
+                borderWidth: 3,  // 設置邊框寬度
+                pointBackgroundColor: 'rgba(10, 0, 255, 0.6)',  // 設置數據點背景顏色
+                pointBorderColor: '#fff',  // 設置數據點邊框顏色
+                pointHitRadius: 100,
+                pointRadius: 6,
+                overBackgroundColor: '#fff',  // 設置數據點懸停背景顏色
+                cubicInterpolationMode: 'monotone',   // 設置弧度線
+                fill: true  // 設置填充
+            }]
         },
-        plugins: {
-            title: {
-                display: true,
-                text: '海水污染指標',
-                font: {
-                    size: 20  // 設置標題字體大小
+        options: {
+            responsive: true,  // 啟用自動縮放
+            maintainAspectRatio: false,  // 禁用維持長寬比
+            scales: {
+                y: {
+                    beginAtZero: true  // 設置 y 軸從 0 開始
                 }
             },
-            legend: {
-                position: 'top',  // 設置圖例位置
-            },
-            annotation: {
-                annotations: [{
-                    type: 'label',
-                    xValue: labelstxt[labelstxt.length - 1],  // 設置標註 x 軸值
-                    yValue: indicatorValues[indicatorValues.length - 1],  // 設置標註 y 軸值
-                    backgroundColor: 'rgba(0, 0, 0, 0.8)',  // 設置標註背景顏色
-                    content: ['採樣時間: ' + sampleDate],  // 設置標註內容
-                    maxwidth: 10,
+            plugins: {
+                title: {
+                    display: true,
+                    text: '海水污染指標',
                     font: {
-                        style: 'italic',
-                        color: 'white'  // 設置標註字體顏色
+                        size: 20  // 設置標題字體大小
                     }
-                }]
+                },
+                legend: {
+                    position: 'top',  // 設置圖例位置
+                },
+                annotation: {
+                    annotations: [{
+                        type: 'label',
+                        xValue: labelstxt[labelstxt.length - 1],  // 設置標註 x 軸值
+                        yValue: indicatorValues[indicatorValues.length - 1],  // 設置標註 y 軸值
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',  // 設置標註背景顏色
+                        content: ['採樣時間: ' + sampleDate],  // 設置標註內容
+                        maxwidth: 10,
+                        font: {
+                            style: 'italic',
+                            color: 'white'  // 設置標註字體顏色
+                        }
+                    }]
+                }
             }
         }
-    }
-});
+    });
 }
 
 // 切換指標
@@ -255,9 +246,9 @@ function changeIndicator(event) {
     selectedIndicator.value = event.target.value;  // 更新選中指標
     setupChart();  // 重新設置圖表
 }
-// -----------------------------------------------------------------------------------------------------------------地圖
+// -------------------------------------------------------------------------------------------------地圖
 let svg;
-const mapColor ='#7FB285';
+const mapColor = '#7FB285';
 
 // 組件卸載前移除事件監聽器
 onBeforeUnmount(() => {
@@ -315,7 +306,7 @@ async function initMap() {
             svg.selectAll('path').attr('fill', function (d) {
                 if (d.properties.COUNTYNAME === '嘉義市' || d.properties.COUNTYNAME === '臺北市' || d.properties.COUNTYNAME === '南投縣') {
                     return 'gray';
-                }   
+                }
                 return mapColor;
             });
 
@@ -329,22 +320,22 @@ async function initMap() {
         .on('mouseover', function (event, d) {
             if (d.properties.COUNTYNAME !== '嘉義市' && d.properties.COUNTYNAME !== '臺北市' && d.properties.COUNTYNAME !== '南投縣') {
                 d3.select(this)
-                .transition()
-                .duration(200)
-                .attr('transform', function () {
-            // 根據縣市名稱判斷移動方向
-            if (d.properties.COUNTYNAME === '宜蘭縣' || d.properties.COUNTYNAME === '臺東縣' ||  d.properties.COUNTYNAME === '花蓮縣') {
-              return 'translate(5, 0)'; // 向右移動 10px
-            }else if(d.properties.COUNTYNAME === '屏東縣'){
-                return 'translate(0, 5)'; // 向下移動 10px
-            } else if(d.properties.COUNTYNAME === '基隆市' || d.properties.COUNTYNAME === '新北市' || d.properties.COUNTYNAME === '澎湖縣' || d.properties.COUNTYNAME === '金門縣'){
-                return 'translate(0, -5)'; // 向上移動 10px
-            } else {
-              return 'translate(-5, 0)'; // 向左移動 10px
+                    .transition()
+                    .duration(200)
+                    .attr('transform', function () {
+                        // 根據縣市名稱判斷移動方向
+                        if (d.properties.COUNTYNAME === '宜蘭縣' || d.properties.COUNTYNAME === '臺東縣' || d.properties.COUNTYNAME === '花蓮縣') {
+                            return 'translate(5, 0)'; // 向右移動 10px
+                        } else if (d.properties.COUNTYNAME === '屏東縣') {
+                            return 'translate(0, 5)'; // 向下移動 10px
+                        } else if (d.properties.COUNTYNAME === '基隆市' || d.properties.COUNTYNAME === '新北市' || d.properties.COUNTYNAME === '澎湖縣' || d.properties.COUNTYNAME === '金門縣') {
+                            return 'translate(0, -5)'; // 向上移動 10px
+                        } else {
+                            return 'translate(-5, 0)'; // 向左移動 10px
+                        }
+                    });
             }
-            });
-        }
-    })
+        })
         .on('mouseout', function () {
             d3.select(this)
                 .transition()
@@ -366,8 +357,6 @@ function resizeMap() {
     initMap();  // 重新初始化地圖
 }
 
-//-----------------------------------------------------------垃圾數據
-// 顯示全台灣總計數據
 const ShowAll = function () {
     // 重置所有路徑的顏色
     svg.selectAll('path').attr('fill', function (d) {
@@ -376,25 +365,37 @@ const ShowAll = function () {
         }
         return mapColor;
     });
-
-
     const regionName = '總計';
     updateChartForRegion(regionName);
 }
+//-----------------------------------------------------------垃圾數據
+// 顯示全台灣總計數據
 
-const hebrisData = ref(null);  // 儲存垃圾數據
-
+const hebrisData = ref([]);
+const DD_AREA = ref(null);
 // 定義垃圾分類標籤
+// const hebrisSortLabels = [
+//     "清理數量分類(噸)_寶特瓶",
+//     "清理數量分類(噸)_鐵罐",
+//     "清理數量分類(噸)_鋁罐",
+//     "清理數量分類(噸)_玻璃瓶",
+//     "清理數量分類(噸)_廢紙",
+//     "清理數量分類(噸)_竹木",
+//     "清理數量分類(噸)_保麗龍",
+//     "清理數量分類(噸)_廢漁具漁網",
+//     "清理數量分類(噸)_無法分類廢棄物",
+// ];
+//定義垃圾分類標籤
 const hebrisSortLabels = [
-    "清理數量分類(噸)_寶特瓶",
-    "清理數量分類(噸)_鐵罐",
-    "清理數量分類(噸)_鋁罐",
-    "清理數量分類(噸)_玻璃瓶",
-    "清理數量分類(噸)_廢紙",
-    "清理數量分類(噸)_竹木",
-    "清理數量分類(噸)_保麗龍",
-    "清理數量分類(噸)_廢漁具漁網",
-    "清理數量分類(噸)_無法分類廢棄物",
+    "DD_BOTTLE",
+    "DD_IRON_CAN",
+    "DD_ALUMINUM_CAN",
+    "DD_GLASS",
+    "DD_PAPER",
+    "DD_WOOD",
+    "DD_POLYSTYRENE",
+    "DD_FISHING_GEAR",
+    "DD_UNCLASSIFIED_WASTE",
 ];
 
 // 定義垃圾分類名稱
@@ -411,16 +412,29 @@ const hebrisLabels = [
 ];
 
 // 定義垃圾分類標籤
+// const hebrisAttendLabels = [
+//     "清理次數(次)",
+//     "參與人數(人次)",
+// ];
+const hebrisAttend = [
+    "DD_CLEANING_TIMES",
+    "DD_ATTENDANCE_TOTAL",
+];
 const hebrisAttendLabels = [
     "清理次數(次)",
     "參與人數(人次)",
 ];
 
 // 定義垃圾處理方式標籤
+// const hebristrashLabels = [
+//     "清理後處理方式(噸)_焚化",
+//     "清理後處理方式(噸)_掩埋",
+//     "清理後處理方式(噸)_回收再利用",
+// ];
 const hebristrashLabels = [
-    "清理後處理方式(噸)_焚化",
-    "清理後處理方式(噸)_掩埋",
-    "清理後處理方式(噸)_回收再利用",
+    "DD_INCINERATION",
+    "DD_LANDFILL",
+    "DD_RECYCLE",
 ];
 
 // 定義垃圾處理名稱
@@ -431,56 +445,88 @@ const hebristrash = [
 ];
 
 // 定義垃圾來源標籤
-const hebrissourceLabels = [
-    "海洋廢棄物來源(噸)_海漂",
-    // "海洋廢棄物來源(噸)_海底",
-    "海洋廢棄物來源(噸)_淨灘",
-    "海洋廢棄物來源(噸)_船舶人員產出",
-    "海洋廢棄物來源(噸)_岸上定點設置垃圾桶",
-];
+// const hebrissourceLabels = [
+//     "海洋廢棄物來源(噸)_海漂",
+//     "海洋廢棄物來源(噸)_淨灘",
+//     "海洋廢棄物來源(噸)_船舶人員產出",
+//     "海洋廢棄物來源(噸)_岸上定點設置垃圾桶",
+// ];
+// const hebrissourceLabels = [
+//     "DD_SEA_DRIFT",
+//     "DD_BEACH_CLEANING",
+//     "DD_SHIP_CREW",
+//     "DD_SHORE_TRASH_CANS",
+// ];
 
 
 // 定義垃圾來源標籤
 const hebrissource = [
     "海洋漂流物",
-    // "深海底",
     "沙灘",
     "船舶人員產出",
     "海邊垃圾桶",
 ];
 
+// -----引用json檔案
+// onMounted(() => {
+//     fetch(`${import.meta.env.BASE_URL}json/海洋委員會公務統計報表-海洋廢棄物清理-113.01.json`)
+//         .then(res => res.json())
+//         .then(jsonData => {
+//             hebrisData.value = jsonData;
+//             // console.log(hebrisData.value);
+//         });
+// });
 
-// 組件掛載時加載垃圾數據
-onMounted(() => {
-    fetch(`${import.meta.env.BASE_URL}json/海洋委員會公務統計報表-海洋廢棄物清理-113.01.json`)
-        .then(res => res.json())
-        .then(jsonData => {
-            hebrisData.value = jsonData;
-            // console.log(hebrisData.value);
-        });
+
+
+// ------使用 Axios 从 PHP API 得到
+onMounted(async () => {
+    try {
+        const response = await axios.post('http://localhost/cid101/g1/api/DebrisData.php');
+        console.log(response.data);
+        if (response.data && response.data.DEBRIS_DATA) {
+            hebrisData.value = response.data.DEBRIS_DATA;
+            DD_AREA.value = response.data.DD_AREA;
+            updateChartForRegion(DD_AREA.value);
+        }
+    } catch (error) {
+        console.error(error);
+    }
 });
 
 // 監視垃圾數據變化
 watch(hebrisData, () => {
     if (hebrisData.value) {
-        ShowAll();
+        updateChartForRegion("總計");
     }
 });
 
-// 更新圖表數據根據選中地區
+
 // function updateChartForRegion(regionName) {
-//   const filteredData = hebrisData.value.find(item => item["縣市別"] === regionName);
-//   const displayData = hebrisSortLabels.map(key => filteredData[key]);
+//     const filteredData = hebrisData.value.find(item => {
+//         const region = item["縣市別"];
+//         return region === regionName;
+//     });
 
 function updateChartForRegion(regionName) {
-    const filteredData = hebrisData.value.find(item => {
-        const region = item["縣市別"];
-        return region === regionName;
-    });
+    if (!hebrisData.value || !Array.isArray(hebrisData.value)) {
+        console.error('hebrisData is not loaded or is not an array');
+        return;
+    }
 
-    const displayData = hebrisSortLabels.map(key => filteredData[key]);
+    const filteredData = hebrisData.value.find(item => item["DD_AREA"] === regionName);
 
-    if (twChart) {twChart.destroy();}
+    // if (!filteredData) {
+    //     console.error(`No data found for region: ${regionName}`);
+    //     return;
+    // }
+
+    const displayData = hebrisSortLabels.map(key => filteredData[key] !== undefined ? filteredData[key] : 0);
+
+
+    if (twChart) {
+        twChart.destroy();
+    }
 
     const ctx = document.getElementById('twChart');
     const isMobile = window.innerWidth <= 768; // 檢測平板裝置
@@ -499,7 +545,7 @@ function updateChartForRegion(regionName) {
                 ],
                 borderColor: 'white',
                 borderWidth: 2,
-                
+
             }]
         },
         options: {
@@ -543,34 +589,28 @@ function updateChartForRegion(regionName) {
                     duration: 2000
                 },
             },
-            // layout: {
-            //     padding: {
-            //         top: isMobile ? 30 : 0, // 手機設備增加上面填充
-            //         bottom: isMobile ? 30 : 0, // 手機設備增加下面填充
-            //     }
-            // }
         }
     });
 
 
     // -------------------------------------------------------------------------------------------------------淨灘人數與次數
 
-    const displayAttendData = hebrisAttendLabels.map(key => {
+    const displayAttendData = hebrisAttend.map(key => {
         const value = filteredData[key];
         if (typeof value === 'string') {
             // 移除逗號並轉換為數值
             return Number(value.replace(/,/g, ''));
         }
-        return value;
+        return value !== undefined ? value : 0;
     });
 
-    if (attendChart) {attendChart.destroy();}
+    if (attendChart) { attendChart.destroy(); }
 
     const ctx1 = document.getElementById('attendChart');
     attendChart = new Chart(ctx1, {
         type: 'doughnut',  // 設置圖表類型為甜甜圈圖
         data: {
-            labels: hebrisAttendLabels,  // 設置圖表標籤
+            labels: hebrisAttendLabels ,  // 設置圖表標籤
             datasets: [{
                 data: displayAttendData,  // 設置圖表數據
                 backgroundColor: [
@@ -684,14 +724,14 @@ function updateChartForRegion(regionName) {
 
 
     //------------------------------------------------------------------------------------------------------垃圾來源數據
-    const displaysourceData = hebrissourceLabels.map(key => {
-        const value = filteredData[key];
-        if (typeof value === 'string') {
-            // 移除逗號並轉換為數值
-            return Number(value.replace(/,/g, ''));
-        }
-        return value;
-    });
+
+    // const displaysourceData = hebrissourceLabels.map(key => {
+    //     const value = filteredData[key];
+    //     if (typeof value === 'string') {
+    //         return Number(value.replace(/,/g, ''));
+    //     }
+    //     return value !== undefined ? value : 0;
+    // });
 
     if (source) {
         source.destroy();
@@ -703,7 +743,7 @@ function updateChartForRegion(regionName) {
         data: {
             labels: hebrissource,
             datasets: [{
-                data: displaysourceData,
+                data: displayData,
                 backgroundColor: [
                     '#00AFB9', '#5390D9', '#48BFE3', '#64DFDF',
                     '#008F66',
@@ -789,7 +829,8 @@ function updateChartForRegion(regionName) {
                         <div class="chart-outside">
                             <div class="news-filter">
                                 <select name="name" id="" @change="changeIndicator">
-                                    <option v-for="indicator in indicators" :key="indicator.value" :value="indicator.value">{{indicator.label }}</option>
+                                    <option v-for="indicator in indicators" :key="indicator.value"
+                                        :value="indicator.value">{{ indicator.label }}</option>
                                 </select>
                             </div>
                             <div class="myChartbg">
