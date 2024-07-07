@@ -12,6 +12,9 @@
     .breadcrumb a + a::before {
         content: '/';
     }
+    .breadcrumb a{
+        color: black;
+    }
     .big-pic{
         width: 100%;
         overflow: hidden;
