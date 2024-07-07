@@ -1,10 +1,11 @@
-<script setup>
+<!-- <script setup>
 import { onMounted, ref, computed, reactive } from 'vue';
 import 'aos/dist/aos.css';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Swal from 'sweetalert2'
-import { useRouter } from 'vue-router'; 
+import { useRouter } from 'vue-router';
+//import axios from 'axios';
 
 //team member animation
 gsap.registerPlugin(ScrollTrigger);
@@ -15,7 +16,7 @@ onMounted(() => {
   donationAnimation()
 })
 
-
+//定義GSAP動畫
 const director = ref(null)
 const techManager = ref(null)
 const marketingManager = ref(null)
@@ -82,11 +83,9 @@ function donationAnimation() {
 
 
 //驗證碼
-
 const enteredCaptcha = ref('');
 const captchaText = ref('');
 const captchaCanvas = ref(null);
-
 onMounted(() => {
   drawCaptcha();
 });
@@ -99,30 +98,30 @@ function drawCaptcha() {
   const ctx = canvas.getContext('2d');
   captchaText.value = generateCaptchaText();
 
-  // 清除 canvas 内容
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+//清除 canvas 内容
+ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // 添加背景噪點
-  for (let i = 0; i < 100; i++) {
-    const x = Math.random() * canvas.width;
-    const y = Math.random() * canvas.height;
-    ctx.fillStyle = getRandomColor();
-    ctx.fillRect(x, y, 1, 1);
-  }
-
-  // 對驗證碼文本應用隨機的字體大小、顏色和旋轉角度
-  const fontSize = 30;
-  ctx.font = `${fontSize}px serif`;
+//添加背景噪點
+for (let i = 0; i < 100; i++) {
+  const x = Math.random() * canvas.width;
+  const y = Math.random() * canvas.height;
   ctx.fillStyle = getRandomColor();
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.translate(canvas.width / 2, canvas.height / 2);
-  ctx.rotate((Math.random() - 0.5) * Math.PI / 12); // 減小旋轉角度
-  ctx.fillText(captchaText.value, 0, 0);
-  ctx.rotate(-(Math.random() - 0.5) * Math.PI / 12); // 減小旋轉角度
-  ctx.translate(-canvas.width / 2, -canvas.height / 2);
+  ctx.fillRect(x, y, 1, 1);
+}
 
-  // 添加干擾線
+//對驗證碼文本應用隨機的字體大小、顏色和旋轉角度
+const fontSize = 30;
+ctx.font = `${fontSize}px serif`;
+ctx.fillStyle = getRandomColor();
+ctx.textAlign = 'center';
+ctx.textBaseline = 'middle';
+ctx.translate(canvas.width / 2, canvas.height / 2);
+ctx.rotate((Math.random() - 0.5) * Math.PI / 12); // 減小旋轉角度
+ctx.fillText(captchaText.value, 0, 0);
+ctx.rotate(-(Math.random() - 0.5) * Math.PI / 12); // 減小旋轉角度
+ctx.translate(-canvas.width / 2, -canvas.height / 2);
+
+//添加干擾線
   for (let i = 0; i < 4; i++) {
     ctx.strokeStyle = getRandomColor();
     ctx.beginPath();
@@ -131,13 +130,11 @@ function drawCaptcha() {
     ctx.stroke();
   }
 }
-// 重新產生驗證碼
+//重新產生驗證碼
 function refreshCaptcha() {
   drawCaptcha();
   enteredCaptcha.value = '';
 }
-
-
 //產生隨機驗證碼五個數字
 function generateCaptchaText() {
   const chars = '0123456789';
@@ -154,14 +151,12 @@ function getRandomColor() {
   const b = Math.floor(Math.random() * 256);
   return `rgb(${r}, ${g}, ${b})`;
 }
-
 const isCaptchaValid = computed(() => {
   return enteredCaptcha.value.toLowerCase() === captchaText.value.toLowerCase();
 });
 
 
 //表單
-
 const formData = reactive({
   name: '',
   phone: '',
@@ -257,8 +252,7 @@ const isFormValid = () => {
 
 
 
-</script>
-
+</script> -->
 
 <template>
 
@@ -595,3 +589,229 @@ const isFormValid = () => {
     </div>
   </section>
 </template>
+
+<script>
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Swal from 'sweetalert2';
+
+gsap.registerPlugin(ScrollTrigger);
+
+export default {
+  data() {
+    return {
+      enteredCaptcha: '',
+      captchaText: '',
+      captchaCanvas: null,
+      formData: {
+        name: '',
+        phone: '',
+        email: '',
+        message: '',
+        captcha: ''
+      }
+    };
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.initAnimations();
+      this.drawCaptcha();
+    });
+  },
+  methods: {
+    initAnimations() {
+      this.teamAnimation();
+      this.purposeAnimation();
+      this.donationAnimation();
+    },
+    teamAnimation() {
+      const teamCards = gsap.utils.toArray('.team-card');
+      
+      teamCards.forEach((card, index) => {
+        gsap.from(card, {
+          y: 100,
+          opacity: 0,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 80%',
+            end: 'bottom 20%',
+            toggleActions: 'play reverse play reverse'
+          }
+        });
+      });
+    },
+    purposeAnimation() {
+      const purposeLines = gsap.utils.toArray('.purpose-line');
+      purposeLines.forEach((line, index) => {
+        gsap.from(line, {
+          x: 300,
+          opacity: 0,
+          duration: 1,
+          scrollTrigger: {
+            trigger: line,
+            start: 'top 80%',
+            end: 'bottom 20%',
+            toggleActions: 'play reverse play reverse'
+          }
+        });
+      });
+    },
+    donationAnimation() {
+      const donationCards = gsap.utils.toArray('.donation-card');
+      donationCards.forEach((card, index) => {
+        gsap.from(card, {
+          x: 300,
+          opacity: 0,
+          duration: 1,
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 80%',
+            end: 'bottom 20%',
+            toggleActions: 'play reverse play reverse'
+          }
+        });
+      });
+    },
+    drawCaptcha() {
+      const canvas = this.$refs.captchaCanvas;
+      if (!canvas) {
+        console.error('Captcha canvas not found');
+        return;
+      }
+
+      const ctx = canvas.getContext('2d');
+      this.captchaText = this.generateCaptchaText();
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // 繪製背景噪點
+      for (let i = 0; i < 100; i++) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        ctx.fillStyle = this.getRandomColor();
+        ctx.fillRect(x, y, 1, 1);
+      }
+
+      // 繪製驗證碼文字
+      const fontSize = 30;
+      ctx.font = `${fontSize}px serif`;
+      ctx.fillStyle = this.getRandomColor();
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.translate(canvas.width / 2, canvas.height / 2);
+      ctx.rotate((Math.random() - 0.5) * Math.PI / 12);
+      ctx.fillText(this.captchaText, 0, 0);
+      ctx.rotate(-(Math.random() - 0.5) * Math.PI / 12);
+      ctx.translate(-canvas.width / 2, -canvas.height / 2);
+
+      // 繪製干擾線
+      for (let i = 0; i < 4; i++) {
+        ctx.strokeStyle = this.getRandomColor();
+        ctx.beginPath();
+        ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
+        ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
+        ctx.stroke();
+      }
+    },
+    refreshCaptcha() {
+      this.drawCaptcha();
+      this.enteredCaptcha = '';
+    },
+    generateCaptchaText() {
+      const chars = '0123456789';
+      let text = '';
+      for (let i = 0; i < 5; i++) {
+        text += chars[Math.floor(Math.random() * chars.length)];
+      }
+      return text;
+    },
+    getRandomColor() {
+      const r = Math.floor(Math.random() * 256);
+      const g = Math.floor(Math.random() * 256);
+      const b = Math.floor(Math.random() * 256);
+      return `rgb(${r}, ${g}, ${b})`;
+    },
+    submitForm() {
+      if (this.isFormValid()) {
+        Swal.fire({
+          title: '表單已提交',
+          text: '感謝您的回饋，將跳轉至首頁...',
+          icon: 'success',
+          timer: 3000,
+          timerProgressBar: true,
+        });
+        console.log('表單已提交:', this.formData);
+
+        setTimeout(() => {
+          this.$router.push('/');
+        }, 5000);
+      }
+    },
+    isFormValid() {
+      let isValid = true;
+
+      if (!this.formData.name) {
+        isValid = false;
+        Swal.fire({
+          title: '錯誤',
+          text: '請輸入姓名',
+          icon: 'error',
+        });
+      }
+
+      if (!this.isPhoneValid) {
+        isValid = false;
+        Swal.fire({
+          title: '錯誤',
+          text: '請輸入正確的手機號碼',
+          icon: 'error',
+        });
+      }
+
+      if (!this.isEmailValid) {
+        isValid = false;
+        Swal.fire({
+          title: '錯誤',
+          text: '請輸入正確的電子郵件地址',
+          icon: 'error',
+        });
+      }
+
+      if (!this.formData.message) {
+        isValid = false;
+        Swal.fire({
+          title: '錯誤',
+          text: '請輸入訊息內容',
+          icon: 'error',
+        });
+      }
+
+      if (!this.isCaptchaValid) {
+        isValid = false;
+        Swal.fire({
+          title: '錯誤',
+          text: '請輸入正確的驗證碼',
+          icon: 'error',
+        });
+      }
+
+      return isValid;
+    }
+  },
+  computed: {
+    isCaptchaValid() {
+      return this.enteredCaptcha.toLowerCase() === this.captchaText.toLowerCase();
+    },
+    isPhoneValid() {
+      const phoneRegex = /^[0][9][0-9]{8}$/;
+      return phoneRegex.test(this.formData.phone);
+    },
+    isEmailValid() {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(this.formData.email);
+    }
+  }
+};
+</script>

@@ -64,7 +64,7 @@ export default {
                 },
                 newPassword: () => {
                     const passwordRegex =  /^(?=.*[A-Za-z])(?=.*\d).{4,}$/;
-                    return (!this.newPassword || !passwordRegex.test(this.newPassword)) && '新密碼至少4碼必須包含英文加數字';
+                    return (!this.newPassword || !passwordRegex.test(this.newPassword)) && '新密碼至少4碼含英文';
                 },
                 confirmPassword: () => this.newPassword !== this.confirmPassword && '新密碼與確認密碼不一致'
             };
