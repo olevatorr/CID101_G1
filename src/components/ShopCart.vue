@@ -43,12 +43,14 @@ import { useCartStore } from '@/stores/cart';
 import { useMemeberStore } from '@/stores/member';
 import { storeToRefs } from 'pinia';
 import Swal from 'sweetalert2';
+import { useRouter} from 'vue-router';
 
 export default {
     setup() {
         const cartStore = useCartStore();
         const memberStore = useMemeberStore();
         const { isLogging } = storeToRefs(memberStore);
+        const router = useRouter();
 
         const showCartBox = ref(false);
 
@@ -81,6 +83,7 @@ export default {
                 }).then(() => {
                     router.push('/Member');
                 });
+                return;
             } else {
                 router.push('/mallcart');
             }
