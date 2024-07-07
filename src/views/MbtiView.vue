@@ -162,31 +162,31 @@ export default {
                 const printWindow = window.open('', '_blank');
                 const content = `
         <html>
-          <head>
-            <title>${this.Lightbox.name} 分析</title>
-            <style>
-              body {
+            <head>
+                <title>${this.Lightbox.name} 分析</title>
+                <style>
+                body {
                 font-family: Arial, sans-serif;
                 line-height: 1.6;
                 color: #333;
                 padding: 20px;
-              }
-              h1 {
-                color: #2c3e50;
-              }
-              img {
-                max-width: 100%;
-                height: auto;
-              }
+                }
+                h1 {
+                    color: #2c3e50;
+                }
+                img {
+                    max-width: 100%;
+                    height: auto;
+                }
             </style>
-          </head>
-          <body>
-            <h1>${this.Lightbox.name}</h1>
-            <div>${this.Lightbox.description}</div>
-            <img src="${this.Lightbox.image}" alt="${this.Lightbox.name}">
-          </body>
-        </html>
-      `;
+            </head>
+            <body>
+                <h1>${this.Lightbox.name}</h1>
+                <div>${this.Lightbox.description}</div>
+                <img src="${this.Lightbox.image}" alt="${this.Lightbox.name}">
+            </body>
+            </html>
+        `;
 
                 printWindow.document.write(content);
                 printWindow.document.close();
