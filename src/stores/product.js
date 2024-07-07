@@ -1,40 +1,35 @@
-import { ref, computed } from 'vue'
+// src/stores/product.js
 import { defineStore } from 'pinia'
-import { utcThursday } from 'd3'
 
-export const useProdStore = defineStore('prod', {
+export const useProductStore = defineStore('product', {
   state: () => ({
-    /** @type {{ text: string, id: number, isFinished: boolean }[]} */
-    todos: [],
-    /** @type {'all' | 'finished' | 'unfinished'} */
-    filter: 'all',
-    // type will be automatically inferred to number
-    nextId: 0,
+    products: [],
+    filteredProducts: [],
+    currentFilter: 'all'
   }),
-  getters: {
-    finishedTodos(state) {
-      // autocompletion! ✨
-      return state.todos.filter((todo) => todo.isFinished)
-    },
-    unfinishedTodos(state) {
-      return state.todos.filter((todo) => !todo.isFinished)
-    },
-    /**
-     * @returns {{ text: string, id: number, isFinished: boolean }[]}
-     */
-    filteredTodos(state) {
-      if (this.filter === 'finished') {
-        // call other getters with autocompletion ✨
-        return this.finishedTodos
-      } else if (this.filter === 'unfinished') {
-        return this.unfinishedTodos
-      }
-      return this.todos
-    },
-  },
   actions: {
-    addTodo() {
-      this.todos.push("cat")
+    async fetchProducts() {
+      try {
+        const response = await fetch(`${import.meta.env.BASE_URL}json/productdata.json`)
+        const data = await response.json()
+        this.products = data
+        this.filteredProducts = data
+        console.log(this.filteredProducts)
+        
+      } catch (error) {
+        console.error('Error fetching products:', error)
+      }
     },
-  },
+    setFilter(category) {
+      this.currentFilter = category
+      if (category === 'all') {
+        this.filteredProducts = this.products
+        console.log(this.filteredProducts)
+
+      } else {
+        this.filteredProducts = this.products.filter(item => item.P_CATEGORY === category)
+        console.log(this.filteredProducts)
+      }
+    }
+  }
 })

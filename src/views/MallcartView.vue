@@ -14,7 +14,7 @@
                     <p>小計</p>
                 </div>
             </div>
-            <div class="cart-info" v-for="(item ,index) in productList" :key="index">
+            <div class="cart-info" v-for="(item ,index) in cartItems" :key="index">
                 <div class="item">
                     <p>{{ index + 1 }}</p>
                 </div>
@@ -36,18 +36,18 @@
                 </div>
                 <div class="subtotal">
                     <p>NT$ {{ item.P_PRICE * item.amount }}</p>
-                    <i class="fa-regular fa-circle-xmark" @click="removeFromCart(item)"></i>
+                    <i class="fa-regular fa-circle-xmark" @click="removeFromCart(item.P_ID)"></i>
                 </div>
             </div>
             <div class="cart-price">
                 <div class="text">
-                    <h4>訂單金額 NT$ {{addPrice}}</h4>
+                    <h4>訂單金額 NT$ {{ totalPrice }}</h4>
                     <h4>運費 +NT$60</h4>
                 </div>
             </div>
             <div class="cart-total">
                 <div class="text">
-                    <h4>應付金額 NT$  {{addPrice + 60}}</h4>
+                    <h4>應付金額 NT$ {{ totalPrice + 60}}</h4>
                 </div>
             </div>
         </div>
@@ -64,19 +64,19 @@
             <div class="cart-form">
                 <div class="name">
                     <h4>會員名稱</h4>
-                    <span>{{ store.member.U_NAME }}</span>
+                    <span>{{ memberStore.member.U_NAME }}</span>
                 </div>
                 <div class="phone">
                     <h4>會員電話</h4>
-                    <span>{{ store.member.U_PHONE }}</span>
+                    <span>{{ memberStore.member.U_PHONE }}</span>
                 </div>
                 <div class="email">
                     <h4>會員信箱</h4>
-                    <span>{{ store.member.U_EMAIL }}</span>
+                    <span>{{ memberStore.member.U_EMAIL }}</span>
                 </div>
                 <div class="add">
                     <h4>會員地址</h4>
-                    <span>{{ store.member.U_ADDRESS }}</span>
+                    <span>{{ memberStore.member.U_ADDRESS }}</span>
                 </div>
             </div>
         </div>
@@ -207,7 +207,9 @@
 </template>
 
 <script>
-import { store } from '@/store.js'
+import { useCartStore } from '@/stores/cart';
+import { useMemeberStore } from '@/stores/member';
+import { computed } from 'vue';
 
 export default {
     data() {
@@ -215,99 +217,54 @@ export default {
             input: {
                 checkbox: false
             },
-            cartItems: [],
-            showCartIcon: false,
-            showCartBox: false,
-            sharedCart: [],
-
-            // 該頁存儲localStorage資料
-            productList: [],
+            name: '',
+            phone: '',
+            add: ''
         }
     },
-    mounted() {
-        //登入後取得name並存入localStorage，在初始化layout時取得本機快取中的name 
-        this.productList = JSON.parse(localStorage.getItem("cartItems")) ? JSON.parse(localStorage.getItem("cartItems")) : [];
-        //依照自己需求來監聽對應的key 
-        window.addEventListener("setItemEvent", (e) => {
-            // e.key : 是值改變的key 
-            // e.newValue : 是可以對應的新值
-            if (e.key === "cartItems") {
-                this.productList = JSON.parse(e.newValue) ? JSON.parse(e.newValue) : [];
-            };
-        });
-    },
-    computed: {
-        addPrice() {
-            return this.productList.reduce((total, item) => {
-                return total + item.P_PRICE * item.amount;
-            }, 0);
-        },
-        // 購物車商品數量
-        productCount() {
-            let count = 0;
-            console.log(this.productList)
-            this.productList.forEach(item => {
-                console.log(item.amount)
-                count = count + (item.amount ? item.amount : 1);
-            }); 
-            console.log(count)
-            return count
-        },
-        store() {
-            return store;
-        }
+    setup() {
+        const cartStore = useCartStore();
+        const memberStore = useMemeberStore();
+        
+        const cartItems = computed(() => cartStore.items);
+        const totalPrice = computed(() => cartStore.totalPrice);
+        
+        return {
+            cartStore,
+            memberStore,
+            cartItems,
+            totalPrice
+        };
     },
     watch: {
         'input.checkbox'(newVal) {
             if (newVal) {
-                this.name = store.member.U_NAME;
-                this.phone = store.member.U_PHONE;
-                this.add = store.member.U_ADDRESS;
+                this.name = this.memberStore.member.U_NAME;
+                this.phone = this.memberStore.member.U_PHONE;
+                this.add = this.memberStore.member.U_ADDRESS;
             } else {
                 this.name = '';
                 this.phone = '';
                 this.add = '';
             }
-            }
-        },
+        }
+    },
     methods: {
-        // 點擊購物車Icon
-        toggleCartBox() {
-            // 收折list列表
-            this.showCartBox = !this.showCartBox;
-            if (this.showCartBox) {
-            this.showCartIcon = false; 
-            } else if (this.cartItems.length > 0) {
-            this.showCartIcon = true; 
-            }
-        },
-        removeFromCart(item) {
-            const index = this.productList.findIndex(element => element.id == item.id);
-            this.productList.splice(index, 1);
-            localStorage.setItem('cartItems', JSON.stringify(this.productList));
+        removeFromCart(productId) {
+            this.cartStore.removeFromCart(productId);
         },
         decreaseQuantity(item) {
             if (item.amount > 1) {
-                this.productList.forEach(forItem => {
-                    if (forItem.P_ID == item.P_ID) {
-                        forItem.amount = forItem.amount - 1;
-                    };
-                });
-                localStorage.setItem('cartItems', JSON.stringify(this.productList));
+                this.cartStore.updateQuantity(item.P_ID, item.amount - 1);
             }
         },
         increaseQuantity(item) {
             if (item.amount < 10) {
-                this.productList.forEach(forItem => {
-                    if (forItem.P_ID == item.P_ID) {
-                        forItem.amount = forItem.amount + 1;
-                    };
-                });
-                localStorage.setItem('cartItems', JSON.stringify(this.productList));
+                this.cartStore.updateQuantity(item.P_ID, item.amount + 1);
             }
         },
         getImageUrl(imgUrl) {
-        return `${import.meta.env.BASE_URL}img/shop/${imgUrl}`;
+            return `${import.meta.env.BASE_URL}img/shop/${imgUrl}`;
         }
     }
 }

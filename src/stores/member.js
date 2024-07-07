@@ -11,6 +11,7 @@ export const useMemeberStore = defineStore('member', {
   }),
   actions: {
     login(member) {
+      console.log(member)
         this.member = member
         this.isLogging = true
         // 設置 Cookie，有效期為 7 天
