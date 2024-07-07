@@ -3,7 +3,7 @@ import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
 import { Chart, registerables } from 'chart.js';
 import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
-// import { _vertical } from 'gsap/Observer';
+import axios from 'axios';
 
 // 使用 ref 定義響應式數據變量
 const apiData = ref(null);  // 儲存水質數據
@@ -135,6 +135,7 @@ const indicators = [
 //     "大崛溪口",
 //     "老街溪口"
 // ]
+
 const labelstxt = [
     "高雄市1",
     "高雄市2",
@@ -146,17 +147,6 @@ const labelstxt = [
     "桃園市1",
     "桃園市2"
 ]
-
-
-
-
-// // 設置數據並初始化圖表
-// function setupData() {
-//     // 將數據按時間排序
-//     const sortedData = jsonData.sort((a, b) => new Date(b.UPDATE_TIME) - new Date(a.UPDATE_TIME));
-//     apiData.value = sortedData;  // 設置 API 數據
-//     setupChart();  // 初始化圖表
-// }
 
 function setupData() {
     fetch(`${import.meta.env.BASE_URL}json/海域水質.json`)// 使用 fetch 抓 JSON 文件
@@ -255,7 +245,7 @@ function changeIndicator(event) {
     selectedIndicator.value = event.target.value;  // 更新選中指標
     setupChart();  // 重新設置圖表
 }
-// -----------------------------------------------------------------------------------------------------------------地圖
+// -------------------------------------------------------------------------------------------------地圖
 let svg;
 const mapColor ='#7FB285';
 
@@ -366,8 +356,6 @@ function resizeMap() {
     initMap();  // 重新初始化地圖
 }
 
-//-----------------------------------------------------------垃圾數據
-// 顯示全台灣總計數據
 const ShowAll = function () {
     // 重置所有路徑的顏色
     svg.selectAll('path').attr('fill', function (d) {
@@ -376,14 +364,14 @@ const ShowAll = function () {
         }
         return mapColor;
     });
-
-
     const regionName = '總計';
     updateChartForRegion(regionName);
-}
+    }
+//-----------------------------------------------------------垃圾數據
+// 顯示全台灣總計數據
 
-const hebrisData = ref(null);  // 儲存垃圾數據
-
+const hebrisData = ref([null]);  // 儲存垃圾數據
+const DD_AREA = ref(null);
 // 定義垃圾分類標籤
 const hebrisSortLabels = [
     "清理數量分類(噸)_寶特瓶",
@@ -433,7 +421,6 @@ const hebristrash = [
 // 定義垃圾來源標籤
 const hebrissourceLabels = [
     "海洋廢棄物來源(噸)_海漂",
-    // "海洋廢棄物來源(噸)_海底",
     "海洋廢棄物來源(噸)_淨灘",
     "海洋廢棄物來源(噸)_船舶人員產出",
     "海洋廢棄物來源(噸)_岸上定點設置垃圾桶",
@@ -443,44 +430,73 @@ const hebrissourceLabels = [
 // 定義垃圾來源標籤
 const hebrissource = [
     "海洋漂流物",
-    // "深海底",
     "沙灘",
     "船舶人員產出",
     "海邊垃圾桶",
 ];
 
+// -----引用json檔案
+// onMounted(() => {
+//     fetch(`${import.meta.env.BASE_URL}json/海洋委員會公務統計報表-海洋廢棄物清理-113.01.json`)
+//         .then(res => res.json())
+//         .then(jsonData => {
+//             hebrisData.value = jsonData;
+//             // console.log(hebrisData.value);
+//         });
+// });
 
-// 組件掛載時加載垃圾數據
-onMounted(() => {
-    fetch(`${import.meta.env.BASE_URL}json/海洋委員會公務統計報表-海洋廢棄物清理-113.01.json`)
-        .then(res => res.json())
-        .then(jsonData => {
-            hebrisData.value = jsonData;
-            // console.log(hebrisData.value);
-        });
+
+
+// ------使用 Axios 从 PHP API 得到
+onMounted(async () => {
+    try {
+        const response = await axios.post('http://localhost/cid101/g1/api/DebrisData.php');
+        console.log(response.data); 
+        if (response.data && response.data.DEBRIS_DATA) {
+            hebrisData.value = response.data.DEBRIS_DATA;
+            DD_AREA.value = response.data.DD_AREA;
+            updateChartForRegion(DD_AREA.value);
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
 });
 
 // 監視垃圾數據變化
 watch(hebrisData, () => {
     if (hebrisData.value) {
-        ShowAll();
+        updateChartForRegion(DD_AREA);
+    } else {
+        console.error('hebrisData is not loaded or is not an array');
     }
 });
 
-// 更新圖表數據根據選中地區
-// function updateChartForRegion(regionName) {
-//   const filteredData = hebrisData.value.find(item => item["縣市別"] === regionName);
-//   const displayData = hebrisSortLabels.map(key => filteredData[key]);
 
+// function updateChartForRegion(regionName) {
+//     const filteredData = hebrisData.value.find(item => {
+//         const region = item["縣市別"];
+//         return region === regionName;
+//     });
+
+//     const displayData = hebrisSortLabels.map(key => filteredData[key]);
 function updateChartForRegion(regionName) {
-    const filteredData = hebrisData.value.find(item => {
-        const region = item["縣市別"];
-        return region === regionName;
-    });
+    if (!hebrisData.value || !Array.isArray(hebrisData.value)) {
+        console.error('hebrisData is not loaded or is not an array');
+        return;
+    }
+
+    const filteredData = hebrisData.value.find(item => item["縣市別"] === regionName);
+
+    if (!filteredData) {
+        console.error(`No data found for region: ${regionName}`);
+        return;
+    }
 
     const displayData = hebrisSortLabels.map(key => filteredData[key]);
 
-    if (twChart) {twChart.destroy();}
+    if (twChart) {
+        twChart.destroy();
+    }
 
     const ctx = document.getElementById('twChart');
     const isMobile = window.innerWidth <= 768; // 檢測平板裝置
