@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { googleLogout, googleSdkLoaded } from 'vue3-google-login'
 import Cookies from 'js-cookie'
 
-export const useMemeberStore = defineStore('member', {
+export const useMemberStore = defineStore('member', {
   state: () => ({
     //判斷是否登入
     isLogging: false,
@@ -28,20 +28,27 @@ export const useMemeberStore = defineStore('member', {
     Cookies.remove('name')
     },
     getCookie() {
-        // 獲取 Cookie
-        const cookieValue = Cookies.get('name')
-        if (cookieValue) {
-          // 如果 Cookie 存在，將其解析為 JSON 對象並更新 member 和 isLogging
-          this.member = JSON.parse(cookieValue)
-          this.isLogging = true
-          console.log('Cookie found:', this.member)
-        } else {
+      // 獲取 Cookie
+      const cookieValue = Cookies.get('name')
+      if (cookieValue) {
+          try {
+              // 如果 Cookie 存在，將其解析為 JSON 對象並更新 member 和 isLogging
+              this.member = JSON.parse(cookieValue)
+              this.isLogging = true
+              console.log('Cookie found:', this.member)
+          } catch (error) {
+              console.error('Failed to parse JSON from cookie:', error)
+              // 如果解析失敗，重置 member 並設置 isLogging 為 false
+              this.member = {}
+              this.isLogging = false
+          }
+      } else {
           // 如果 Cookie 不存在，設置 isLogging 為 false
           this.member = {}
           this.isLogging = false
           console.log('No Cookie found for "name"')
-        }
-    },
+      }
+  },
     updateMember(updates) {
       if (this.member) {
         // 更新 member 對象的屬性

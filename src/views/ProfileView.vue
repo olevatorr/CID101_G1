@@ -253,7 +253,7 @@
 
 <script>
 import { ref, computed, onMounted, watch } from 'vue'
-import { useMemeberStore } from '@/stores/member';
+import { useMemberStore } from '@/stores/member';
 import {storeToRefs} from 'pinia'
 import { useValidationStore } from '@/stores/validation'
 import axios from 'axios';
@@ -261,7 +261,7 @@ import Swal from 'sweetalert2';
 export default {
   setup() {
     const imageHostUrl = import.meta.env.VITE_IMAGE_URL
-    const store = useMemeberStore();
+    const store = useMemberStore();
     const { member } = storeToRefs(store)
     
     const imageSrc = ref(''); // Initial image source
