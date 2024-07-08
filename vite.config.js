@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => {
     : '/cid101/g1/upload/img'
 
   return {
-    base: '/cid101/g1/front',
+    base: '/cid101/g1/front/',
     build: {
       outDir: 'front'
     },

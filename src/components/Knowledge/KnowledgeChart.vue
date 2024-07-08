@@ -482,7 +482,7 @@ const hebrissource = [
 // ------使用 Axios 从 PHP API 得到
 onMounted(async () => {
     try {
-        const response = await axios.post('http://localhost/cid101/g1/api/DebrisData.php');
+        const response = await axios.post(`${__API_BASE_URL__}/DebrisData.php`);
         console.log(response.data);
         if (response.data && response.data.DEBRIS_DATA) {
             hebrisData.value = response.data.DEBRIS_DATA;
