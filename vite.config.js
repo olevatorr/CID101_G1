@@ -5,6 +5,8 @@ import VueDevTools from 'vite-plugin-vue-devtools'
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
+  console.log('Mode:', mode)
+  console.log('ENV:', env)
   return {
     base: '/cid101/g1/front/',
     build: {
