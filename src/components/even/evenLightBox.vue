@@ -4,7 +4,7 @@ import Swal from 'sweetalert2'
 import { useRouter } from 'vue-router'
 import { useEventsStore } from '@/stores/events'
 import {storeToRefs} from 'pinia'
-import { useMemeberStore } from '@/stores/member'
+import { useMemberStore } from '@/stores/member'
 import axios from 'axios'
 
 const events = useEventsStore()
@@ -12,7 +12,7 @@ const {selectedEventCard} = storeToRefs(events)
 const peopleNum = ref(1);
 const router = useRouter();
 const openConfirm = ref(null)
-const memberStore = useMemeberStore()
+const memberStore = useMemberStore()
 
 
 
