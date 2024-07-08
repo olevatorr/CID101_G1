@@ -84,7 +84,7 @@ import { defineComponent, ref, computed, onMounted } from 'vue';
 import ShopCart from '@/components/ShopCart.vue';
 import Swal from 'sweetalert2'; // 引入sweetalert2
 import { useRouter, useRoute } from 'vue-router';
-import { useMemeberStore } from '@/stores/member'; // 引入Pinia store
+import { useMemberStore } from '@/stores/member'; // 引入Pinia store
 import { useCartStore } from '@/stores/cart'; // 引入Pinia store
 import { useProductStore } from '@/stores/product'; // 引入Pinia store
 
@@ -93,7 +93,7 @@ export default defineComponent({
         ShopCart,
     },
     setup() {
-        const memberStore = useMemeberStore();
+        const memberStore = useMemberStore();
         const cartStore = useCartStore();
         const productStore = useProductStore();
         const router = useRouter();

@@ -208,7 +208,7 @@
 
 <script>
 import { useCartStore } from '@/stores/cart';
-import { useMemeberStore } from '@/stores/member';
+import { useMemberStore } from '@/stores/member';
 import { computed } from 'vue';
 
 export default {
@@ -224,7 +224,7 @@ export default {
     },
     setup() {
         const cartStore = useCartStore();
-        const memberStore = useMemeberStore();
+        const memberStore = useMemberStore();
         
         const cartItems = computed(() => cartStore.items);
         const totalPrice = computed(() => cartStore.totalPrice);

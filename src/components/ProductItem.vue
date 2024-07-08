@@ -30,7 +30,7 @@
 <script>
 import { ref } from 'vue';
 import { useCartStore } from '@/stores/cart';
-import { useMemeberStore } from '@/stores/member';
+import { useMemberStore } from '@/stores/member';
 import { storeToRefs } from 'pinia';
 import Swal from 'sweetalert2';
 import { useRouter } from 'vue-router';
@@ -39,7 +39,7 @@ export default {
     props: ['productInfo'],
     setup(props) {
         const cartStore = useCartStore();
-        const memberStore = useMemeberStore();
+        const memberStore = useMemberStore();
         const { isLogging } = storeToRefs(memberStore);
         const router = useRouter();
 
