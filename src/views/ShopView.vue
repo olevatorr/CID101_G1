@@ -32,8 +32,12 @@
             <div class="container">
                 <div class="row">
                     <!-- 每一個商品卡 -->
-                    <ProductItem v-for=" paginatedProdItem in paginatedProdList" :key="paginatedProdItem.P_ID"
-                        :productInfo="paginatedProdItem" @add-to-cart="addToCart(paginatedProdItem)" />
+                    <ProductItem
+                        v-for="product in paginatedProdList"
+                        :key="product.P_ID"
+                        :productInfo="product"
+                        @add-to-cart="addToCart"
+                    />
                 </div>
             </div>
         </section>
@@ -42,150 +46,90 @@
             <div class="container">
                 <div class="button">
                     <a href="#" @click.prevent="changePage(1)">1</a>
-                    <a href="#" @click.prevent="changePage(2)"
-                        v-if="prodList.length > 16 && prodList.length === product.length">2</a>
+                    <a href="#" @click.prevent="changePage(2)" v-if="isPages">2</a>
+                
                 </div>
             </div>
             <div class="sea-img">
                 <img src="/img/shop/sea.png" alt="">
             </div>
         </section>
-        <ProductInfoView @add-to-cart="handleAddToCart" :sharedCart="sharedCart" />
         <ShopCart v-if="$route.path === '/shop' || $route.path === '/productinfo'" />
     </div>
-    <!-- <button @click="addcat()">123456增加貓貓</button> -->
 </template>
 
 <script>
-import {useProdStore} from '@/stores/product'
-import ProductItem from '../components/ProductItem.vue';
-import ShopCart from '@/components/ShopCart.vue';
+import { ref, computed, onMounted } from 'vue'
+import { useProductStore } from '@/stores/product'
+import { useCartStore } from '@/stores/cart'
+import ProductItem from '../components/ProductItem.vue'
+import ShopCart from '@/components/ShopCart.vue'
+import { flatRollup } from 'd3'
 
 export default {
     components: {
         ProductItem,
         ShopCart,
     },
-    data() {
-        return {
-            product: [],
-            prodList: [],
-            cart: [],
-            currentPage: 1,
-            cartCount: 0,
-            cartItems: [],
-            showCartIcon: false,
-            showCartBox: false,
-            sharedCart: [],
-            activeIndex: null,
-            dog:useProdStore(),
+    setup() {
+        const productStore = useProductStore()
+        const cartStore = useCartStore()
+
+        const currentPage = ref(1)
+        const activeIndex = ref('all')
+
+        const isPages = ref(false)
+
+        const paginatedProdList = computed(() => {
+        const startIndex = (currentPage.value - 1) * 16
+        const endIndex = startIndex + 16
+        console.log(productStore.filteredProducts)
+        productStore.filteredProducts.forEach(element => {
+            element.amount = 1;
+        });
+        if(productStore.filteredProducts.length > 16){
+            isPages.value = true
+        }else{
+            isPages.value = false
         }
-    },
-    computed: {
-        paginatedProdList() {
-            const startIndex = (this.currentPage - 1) * 16;
-            const endIndex = startIndex + 16;
-            console.log(this.prodList.slice(startIndex, endIndex));
-            return this.prodList.slice(startIndex, endIndex);
-        },
-        totalPrice() {
-            return this.quantity * this.productdetail.P_PRICE;
-        },
-        addPrice() {
-            return this.cartItems.reduce((total, item) => {
-                return total + item.P_PRICE * item.quantity;
-            }, 0);
-        },
-    },
-    mounted() {
-        fetch(`${import.meta.env.BASE_URL}json/shop.json`)
-            .then(data => data.json())
-            .then(data => {
-                // 備份原始數據
-                this.product = data
+        return productStore.filteredProducts.slice(startIndex, endIndex)
+        })
 
-                // 處理圖片路徑並更新 productList
-                this.prodList = data
+        onMounted(() => {
+        console.log(productStore)
 
-                // console.log(this.productList);
-            })
-            .catch(error => {
-                console.error('Error fetching products:', error);
-            });
-        },
-    methods: {
-        clear() {
-            this.prodList = this.product;
-            this.currentPage = 1;
-        },
-        filter(dog) {
-            // console.log(dog);
-            this.prodList = this.product.filter(item => item.P_CATEGORY === dog);
-            this.currentPage = 1;
-        },
-        changePage(page) {
-            this.currentPage = page;
-            window.scrollTo(0, 0);
-        },
-        addToCart(product) {
-            this.cartCount++;
-            const existingProduct = this.cartItems.find(item => item.id === product.id);
-            if (existingProduct) {
-                existingProduct.quantity++;
-            } else {
-                this.cartItems.push({ ...product, quantity: 1 });
+            productStore.fetchProducts()
+        })
+
+        const handleClick = (category) => {
+            activeIndex.value = category
+            productStore.setFilter(category)
+            currentPage.value = 1
+        }
+
+        const changePage = (page) => {
+            currentPage.value = page
+            window.scrollTo(0, 0)
+        }
+
+        const addToCart = (product) => {
+            cartStore.addToCart(product)
+        }
+
+        const getImageUrl = (imgUrl) => {
+            return `${import.meta.env.BASE_URL}img/shop/${imgUrl}`
+        }
+
+        return {
+            currentPage,
+            activeIndex,
+            paginatedProdList,
+            handleClick,
+            changePage,
+            addToCart,
+            getImageUrl,
+            isPages
             }
-            this.showCartIcon = true;
-        },
-        removeFromCart(item) {
-            const index = this.cartItems.indexOf(item);
-            if (index !== -1) {
-                this.cartItems.splice(index, 1);
-                this.cartIndex--;
-                this.cartCount--;
-                if (this.cartItems.length === 0) {
-                    this.showCartIcon = false;
-                    this.showCartBox = false;
-                }
-            }
-        },
-        decreaseQuantity(item) {
-            if (item.quantity > 1) {
-                item.quantity--;
-            }
-        },
-        increaseQuantity(item) {
-            if (item.quantity < 10) {
-                item.quantity++;
-            }
-        },
-        toggleCartBox() {
-            this.showCartBox = !this.showCartBox;
-            if (this.showCartBox) {
-                this.showCartIcon = false;
-            } else if (this.cartItems.length > 0) {
-                this.showCartIcon = true;
-            }
-        },
-        handleAddToCart(localCart) {
-            this.sharedCart = [...this.sharedCart, ...localCart]
-        },
-        handleClick(category) {
-            this.activeIndex = category;
-            if (category === 'all') {
-                this.clear();
-            } else {
-                this.filter(category);
-            }
-        },
-        getImageUrl(imgUrl) {
-            return `${import.meta.env.BASE_URL}img/shop/${imgUrl}`;
-        },
-        // addcat(){
-        //     console.log("fifolijsgiohdrnlsg")
-        //     console.log(this.dog.todos)
-        //     this.dog.addTodo()
-        // }
+        }
     }
-}
 </script>

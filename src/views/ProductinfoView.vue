@@ -29,8 +29,7 @@
                         <div class="content">
                             <p>{{ productdetail.P_SUBTITLE }}</p>
                         </div>
-                        <div class="line">
-                        </div>
+                        <div class="line"></div>
                         <div class="amount">
                             <span>數量 : </span>
                             <button @click="decreaseQuantity" :disabled="productdetail.amount <= 1">-</button>
@@ -81,124 +80,104 @@
 </template>
 
 <script>
+import { defineComponent, ref, computed, onMounted } from 'vue';
 import ShopCart from '@/components/ShopCart.vue';
-import Cookies from 'js-cookie';
-import { mapState } from 'pinia'; // 引入登入判斷
-import {useMemeberStore} from '@/stores/member'
 import Swal from 'sweetalert2'; // 引入sweetalert2
+import { useRouter, useRoute } from 'vue-router';
+import { useMemberStore } from '@/stores/member'; // 引入Pinia store
+import { useCartStore } from '@/stores/cart'; // 引入Pinia store
+import { useProductStore } from '@/stores/product'; // 引入Pinia store
 
-export default {
-    data() {
-        return {
-            largeSrc: "",
-            quantity: 1,
-            //商品細節資訊
-            productdetail: {},
-        };
-    },
+export default defineComponent({
     components: {
         ShopCart,
     },
-    computed: {
-        ...mapState(useMemeberStore,['isLogging']),
-        totalPrice() {
-            return this.productdetail.amount * this.productdetail.P_PRICE;
-        }
-    },
-    methods: {
-        showLarge(src) {
-            this.largeSrc = src;
-        },
-        decreaseQuantity() {
-            if (this.productdetail.amount > 1) {
-                this.productdetail.amount--;
+    setup() {
+        const memberStore = useMemberStore();
+        const cartStore = useCartStore();
+        const productStore = useProductStore();
+        const router = useRouter();
+        const route = useRoute();
+
+        const largeSrc = ref("");
+        const productdetail = ref({});
+        const amount = ref(1);
+
+        const totalPrice = computed(() => {
+            return productdetail.value.amount * productdetail.value.P_PRICE;
+        });
+
+        const showLarge = (src) => {
+            largeSrc.value = src;
+        };
+
+        const decreaseQuantity = () => {
+            if (productdetail.value.amount > 1) {
+                productdetail.value.amount--;
             }
-        },
-        increaseQuantity() {
-            if (this.productdetail.amount < 10) {
-                this.productdetail.amount++;
+        };
+
+        const increaseQuantity = () => {
+            if (productdetail.value.amount < 10) {
+                productdetail.value.amount++;
             }
-        },
-        addToCart(item) {
-            // 檢查localStorage裡有無資料
-            console.log(localStorage.getItem('cartItems'));
-            console.log(item)
+        };
 
-            // localStorage.getItem是取得localStorage資料
-            if (!localStorage.getItem('cartItems')) {
-                console.log(localStorage.getItem('cartItems'));
-                let arr = [];
-                let obj = { ...item }
-                obj.amount = obj.amount ? obj.amount : 1;
-                arr.push(obj);
-                // 把資料存在localStorage
-                localStorage.setItem('cartItems', JSON.stringify(arr));
-            } else {
-                // 找到已存在購物車裡的商品列表,透過localsrortage方式取得
-                let productList = JSON.parse(localStorage.getItem('cartItems'));
-                console.log(productList)
+        const addToCart = (item) => {
+        console.log(item)
+            cartStore.addToCart(item);
+            Swal.fire({
+                icon: 'success',
+                title: '已加入購物車',
+                showConfirmButton: false,
+                timer: 1500
+            });
+        };
 
-                // 檢查商品列表裡有無資料
-                if (!productList || !productList.length) {
-                    let arr = [];
-                    let obj = { ...item }
-                    obj.amount = obj.amount ? obj.amount : 1;
-                    arr.push(obj);
-                    // 把資料存在localStorage
-                    localStorage.setItem('cartItems', JSON.stringify(arr));
-                } else {
-                    let isReduce = false;
-
-                    productList.forEach(element => {
-                        if (item.P_ID == element.P_ID) {
-                            if (!element.amount) {
-                                element.amount = 1;
-                            }
-                            element.amount = element.amount + 1;
-                            isReduce = true;
-                        }
-                    });
-
-
-                    // 判斷isReduce有沒有在購物車裡面,沒有商品要push
-                    if (!isReduce) {
-                        let obj = { ...item }
-                        obj.amount = obj.amount ? obj.amount : 1;
-                        productList.push(obj);
-                        // 把資料存在localStorage
-                    }
-                    localStorage.setItem('cartItems', JSON.stringify(productList));
-                }
-            }
-        },
-        getImageUrl(imgUrl) {
+        const getImageUrl = (imgUrl) => {
             return `${import.meta.env.BASE_URL}img/productioninfo/${imgUrl}`;
-        },
-        submitBuy() {
-            if (!this.isLogging) {
+        };
+
+        const submitBuy = () => {
+            if (!memberStore.isLogging) {
                 Swal.fire({
-                icon: 'error',
-                title: '未登入',
-                text: '請先登入會員才能進行購買'
+                    icon: 'error',
+                    title: '未登入',
+                    text: '請先登入會員才能進行購買'
                 }).then(() => {
-                this.$router.push('/Member');
-                // 未登入跳轉至會員登入頁面
+                    router.push('/Member');
                 });
                 return;
-            } else{
-                this.$router.push('/mallcart');
+            } else {
+                router.push('/mallcart');
             }
-        }
-    },
-        mounted() {
-        console.log( this.$route.query.P_ID)
-        fetch(`${import.meta.env.BASE_URL}json/productdata.json`)
-        .then(data => data.json())
-        .then(data => {
-            this.productdetail = data.find(item=>item.P_ID==this.$route.query.id);
-            this.productdetail.amount = 1;
-            this.largeSrc = this.productdetail.P_MAIN_IMG[0];
-        })
-    },
-}
+        };
+
+        onMounted(async () => {
+            await productStore.fetchProducts();
+            const product = productStore.products.find(item => item.P_ID == route.query.id);
+            console.log(product)
+            if (product) {
+                productdetail.value = product;
+                productdetail.value.amount = 1;
+                largeSrc.value = product.P_MAIN_IMG[0];
+            } else {
+                console.error('Product not found with ID:', route.query.id);
+            }
+        });
+
+        return {
+            largeSrc,
+            productdetail,
+            amount,
+            totalPrice,
+            showLarge,
+            decreaseQuantity,
+            increaseQuantity,
+            addToCart,
+            getImageUrl,
+            submitBuy
+        };
+    }
+});
 </script>

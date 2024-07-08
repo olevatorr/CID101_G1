@@ -1,33 +1,48 @@
 <script setup>
-import { ref,onMounted  } from 'vue'
+import { ref,onMounted,watch   } from 'vue'
 import { RouterLink } from 'vue-router'
-import { useMemeberStore } from '@/stores/member';
+import { useMemberStore } from '@/stores/member';
 import {storeToRefs} from 'pinia'
-//從member.js調用useMemeberStore方法
-const store = useMemeberStore();
+import { useRouter } from 'vue-router';
+
+//從member.js調用useMemberStore方法
+const store = useMemberStore();
 //響應式資料 (包括 computed) 要使用的話要用 storeToRefs 來做提取
 const { isLogging ,member } = storeToRefs(store)
 //圖片路徑
 const imageHostUrl = import.meta.env.VITE_IMAGE_URL
-
+const imageSrc = ref('');
 const isMenuOpen = ref(false)
 const isSubmenuDropDown = ref(false)
+const router = useRouter();
 
+const logout = () => {
+    store.logout();
+    router.push('/')
+}
 const toggleMenu = () => {
     isMenuOpen.value = !isMenuOpen.value;
 }
 const toggleSubmenuDropDown = () => {
     isSubmenuDropDown.value = !isSubmenuDropDown.value
 }
-const navlogout = () => {
-    store.logout()  // Call the logout method from the store
-}
 
+// 設置頭像
+const setAvatar = () => {
+    if (member.value && member.value.U_AVATAR) {
+        imageSrc.value = `${imageHostUrl}/${member.value.U_AVATAR}`;
+    } else {
+        imageSrc.value = `${imageHostUrl}/member15.jpg`; // 預設圖片
+    }
+};
 onMounted(() => {
-    store.getCookie()  // Call the getCookie method from the store
-})
+    store.getCookie(); // 調用 store 中的 getCookie 方法
+    setAvatar();
+});
 
+watch(member, setAvatar);
 </script>
+
 <template>
     <header>
         <nav>
@@ -70,15 +85,17 @@ onMounted(() => {
                 <li><router-link to="/news" @click="toggleMenu">最新消息</router-link></li>
                 <li class="nav-member">
                     <RouterLink v-if="isLogging" to="/ProfileView" @click="toggleMenu">
-                        <img v-if="member" :src="`${imageHostUrl}/member/${member.U_AVATAR}`" alt="User Avatar"  class="member-avatar">
+                        <!-- <img v-if="member" :src="`${imageHostUrl}/member/${member.U_AVATAR}`" alt="User Avatar"  class="member-avatar"> -->
+                        <img v-if="member" :src="imageSrc" alt="User Avatar"  class="member-avatar">
                         <p>{{ member.U_NAME }}</p>
                     </RouterLink>
-                    <RouterLink v-else to="/Member" @click="toggleMenu">會員登入</RouterLink>
+                    <RouterLink v-else to="/Member" @click="toggleMenu">
+                        會員登入
+                    </RouterLink>
                 </li>
                 <li v-if="isLogging" class="logoutbutton">
-                    <RouterLink to="/Member">
-                        <button @click="navlogout">登出</button>
-                    </RouterLink></li>
+                        <button @click="logout">登出</button>
+                </li>
             </ul>
         </nav>
     </header>

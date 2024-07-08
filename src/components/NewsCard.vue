@@ -1,16 +1,18 @@
 <template>
-    <div class="col-6 col-md-4 col-lg-3" v-for="news in filterNewsList" :key="news.id"> <!--改成filterNewsList-->
-        <RouterLink v-if="news" :to="`/Newsinner/${news.id}`">
+    <div class="col-6 col-md-4 col-lg-3" v-for="news in filterNewsList" :key="news.N_ID"> <!--改成filterNewsList-->
+        <RouterLink v-if="news" :to="`/Newsinner/${news.N_ID}`">
             <!-- 放入app -->
             <div class="news-card">
                 <div class="news-card-pic">
-                    <img :src="getImageUrl(news.imgUrl)" alt="">
+                    <img :src="getImageUrl(news.N_IMG)" alt="">
                 </div>
                 <div class="news-card-txt">
-                    <p class="news-cards-time">{{ news.time }}</p>
-                    <h4 class="news-cards-title b">{{ news.title }}</h4>
-                    <p class="news-card-content">{{ news.content }}</p>
-                    <p class="filter-name">{{ news.filter }}</p>
+                    <p class="news-cards-time">{{ news.N_TIME }}</p>
+                    <h4 class="news-cards-title b">{{ news.N_TITLE }}</h4>
+                    <p class="news-card-content">{{ news.N_CONTENT }}</p>
+                    <p class="filter-name">{{ categoryNames[news.NS_ID] }}</p>
+
+
                 </div>
             </div>
         </RouterLink>
@@ -23,6 +25,12 @@ export default {
     props: ["filterNewsList"], // 創建接收父組件容器
     data() {
         return {
+            categoryNames: {
+                1: '全部',
+                2: '環保商品',
+                3: '環保議題',
+                4: '淨灘活動'
+            }
         }
     },
     methods: {
@@ -32,39 +40,3 @@ export default {
     },
 }
 </script>
-<!-- <template>
-    <div>
-        <div class="col-6 col-md-4 col-lg-3" v-for="news in filteredNews" :key="news.id">
-            <RouterLink v-if="news" :to="`/Newsinner/${news.id}`">
-                <div class="news-card">
-                    <div class="news-card-pic">
-                        <img :src="news.imgUrl" alt="">
-                    </div>
-                    <div class="news-card-txt">
-                        <p class="news-cards-time">{{ news.time }}</p>
-                        <h4 class="news-cards-title b">{{ news.title }}</h4>
-                        <p class="news-card-content">{{ news.content }}</p>
-                        <p class="filter-name">{{ news.filter }}</p>
-                    </div>
-                </div>
-            </RouterLink>
-        </div>
-    </div>
-</template>
-
-<script>
-
-export default {
-    props: ["newsitem"],
-    data() {
-        return {
-            responseData: [],
-            displayData: [],
-        }
-    },
-    mounted() {
-        // this.filterNews(this.selectedCategory);
-
-    },
-}
-</script> -->

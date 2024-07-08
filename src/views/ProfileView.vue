@@ -5,9 +5,9 @@
         <!-- 側邊欄 -->
         <div class="profile-box col-12 col-sm-4 col-md-3">
           <div class="avatra">
-            <img v-if="member" :src="`${imageHostUrl}/member/${member.U_AVATAR}`" alt="User Avatar" id="image" />
-            <input type="file" id="theFile" @change="fileChange" ref="fileIn put">
-            <button>Upload</button>
+            <img v-if="member" :src="imageSrc" alt="User Avatar" id="image"/>
+            <input type="file" id="theFile" @change="fileChange" ref="fileInput">
+            <button @click="uploadImage">Upload</button>
             <p>{{ member?.U_NAME }}</p>
             <RouterLink to="/Member">
               <button class=" logouts" @click="logout">會員登出</button>
@@ -253,7 +253,7 @@
 
 <script>
 import { ref, computed, onMounted, watch } from 'vue'
-import { useMemeberStore } from '@/stores/member';
+import { useMemberStore } from '@/stores/member';
 import {storeToRefs} from 'pinia'
 import { useValidationStore } from '@/stores/validation'
 import axios from 'axios';
@@ -261,10 +261,10 @@ import Swal from 'sweetalert2';
 export default {
   setup() {
     const imageHostUrl = import.meta.env.VITE_IMAGE_URL
-    const store = useMemeberStore();
+    const store = useMemberStore();
     const { member } = storeToRefs(store)
     
-    const imageSrc = ref(member.value?.U_AVATAR); // Initial image source
+    const imageSrc = ref(''); // Initial image source
     const fileInput = ref(null);
     const currentSection = ref('profile');
     const selectedOption = ref('profile');
@@ -286,6 +286,7 @@ export default {
     const confirmPassword = ref('');
     //會員資料修改
     const validAll = () => {
+      clearErrors();
       validateField('name', { name: member.value.U_NAME });
       validateField('account', { account: member.value.U_ACCOUNT });
       validateField('email', { email: member.value.U_EMAIL });
@@ -295,7 +296,11 @@ export default {
     //會員資料表單修改
     const saveData = async () => {
       validAll();
+      console.log('Errors:', errors);
       if (Object.keys(errors).length > 0) {
+        // 如果存在錯誤訊息，就不送出表單，直接返回
+        return;
+      }
         try {
       const response = await axios.post('http://localhost/cid101/g1/api/memberUpdate.php', member.value, {
         headers: {
@@ -329,10 +334,11 @@ export default {
             confirmButtonText: '確認'
           });
         }
-      }
     };
+
     //顯示修改密碼錯誤資訊
     const validate = () => {
+      clearErrors();
       validateField('newPassword', { newPassword: newPassword.value });
       validateField('confirmPassword', { newPassword: newPassword.value, confirmPassword: confirmPassword.value });
 
@@ -342,7 +348,6 @@ export default {
 
       // 檢查是否有錯誤
       if (Object.keys(errors).length > 0) {
-        console.log('Validation errors:', errors);
         return; // 如果有錯誤，阻止提交
       }
 
@@ -358,7 +363,6 @@ export default {
           }
         });
 
-        console.log('Form submitted successfully:', response.data);
         // 在這裡處理成功後的邏輯，比如重置表單、顯示成功消息等
         store.updateMember({
           U_PSW: newPassword.value, // 更新密碼
@@ -373,8 +377,6 @@ export default {
           text: response.data.message
         });
       } catch (error) {
-        console.error('Form submission error:', error);
-
         Swal.fire({
           icon: 'error',
           title: '系統錯誤',
@@ -382,11 +384,22 @@ export default {
         });
       }
     };
+
     const editData = () => {
       // 移除所有 會員資料readonly 屬性
       document.querySelectorAll('input').forEach(input => input.removeAttribute('readonly'));
     };
+    //生命週期
+    onMounted(() => {
+      // 根據會員資料設置頭像
+      if (member.value && member.value.U_AVATAR) {
+        imageSrc.value = `${imageHostUrl}/${member.value.U_AVATAR}`;
+      } else {
+        imageSrc.value = `${imageHostUrl}/member15.jpg`; // 預設圖片
+      }
+    })
 
+    // 處理文件選擇和圖片預覽
     const fileChange = (event) => {
       const file = event.target.files[0];
       if (file) {
@@ -397,6 +410,38 @@ export default {
         reader.readAsDataURL(file);
       }
     };
+
+    // 處理圖片上傳
+    const uploadImage = async () => {
+      const file = fileInput.value.files[0];
+      const uId = store.member.U_ID;
+      if (file) {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('U_ID', uId);
+        try {
+          const response = await axios.post('http://localhost/cid101/g1/api/memberUpload.php', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          });
+
+          if (response.data.error === false) {
+            Swal.fire('成功', '圖片上傳成功', 'success');
+            // 更新圖片源
+            const newAvatar = response.data.fileName;
+            imageSrc.value = `${imageHostUrl}/${newAvatar}`;
+            store.updateMember({ U_AVATAR: newAvatar });
+          } else {
+            Swal.fire('錯誤', response.data.message, 'error');
+          }
+        } catch (error) {
+          Swal.fire('錯誤', '上傳過程中發生錯誤', 'error');
+        }
+      }
+    };
+
+    //處理登出
     const logout = () => {
       store.logout();
     }
@@ -503,11 +548,11 @@ export default {
     })
 
     return {
-      imageHostUrl,
-      fileInput,
-      imageSrc,
-      fileChange,
-      imageLoaded: true,
+      imageHostUrl,//圖片路徑
+      fileInput,//讀取圖片檔案
+      imageSrc,//預設圖片
+      fileChange,//圖片切換
+      uploadImage,//上傳圖片
       currentSection,
       changeSection,
       selectedOption,
