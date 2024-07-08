@@ -140,18 +140,18 @@ export default {
             this.isLightboxVisible = true; // 顯示 Lightbox
             this.disableBodyScroll(); //  禁用頁面滾動
 
-                  // 发送请求到 DonateAdd.php
-            axios.post('http://localhost/cid101/g1/api/DonateAdd.php', {
-                DO_AMOUNT: this.donationAmount,
-                DO_DATE: this.donationDate,
-                U_ID: this.store.member.U_ID
-            })
-            .then(response => {
-                console.log('捐款資料已儲存', response.data);
-            })
-            .catch(error => {
-                console.error('捐款資料儲存失敗', error);
-            });
+            axios.post('http://localhost/cid101/g1/api/DonateAdd.php', new URLSearchParams({
+    DO_AMOUNT: this.donationAmount,
+    DO_DATE: this.donationDate,
+    U_ID: this.store.member.U_ID
+}))
+.then(response => {
+    console.log('捐款資料已儲存', response.data);
+})
+.catch(error => {
+    console.error('捐款資料儲存失敗', error);
+});
+
         },
         closeLightbox() {
             this.isLightboxVisible = false; // 隱藏 Lightbox
