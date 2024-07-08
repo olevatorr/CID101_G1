@@ -31,7 +31,7 @@ const handleEventCard = (event)=>{
                 <span>截止日期:{{ card.E_DEADLINE }}</span>
             </div>
             <div class="pic">
-                <img :src="card.E_IMG" />
+                <img :src="`__IMG_BASE_URL__/events/${card.E_IMG}`" />
                 <div class="add">報名活動</div>
             </div>
             <div class="people">
