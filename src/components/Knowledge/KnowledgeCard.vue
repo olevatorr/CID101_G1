@@ -57,7 +57,7 @@ export default {
     },
     methods: {
         fetchCardsData() {
-            axios.get('http://localhost/cid101/g1/api/knowledge.php') // 獲取卡片數據的 API 請求
+            axios.get(`${import.meta.env.VITE_API_URL}/knowledge.php`) // 獲取卡片數據的 API 請求
                 .then(response => {
                     this.cards = response.data.knowledge; // 將獲取到的數據存儲在 cards 中
                     console.log(this.cards);
