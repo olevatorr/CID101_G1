@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import axios from 'axios';
 export const useEventsStore = defineStore('events', {
     state: () => ({
         selectedEventCard: null,
@@ -6,23 +7,30 @@ export const useEventsStore = defineStore('events', {
         currentPage: 1,
         eventPage: 1,
         eventList: [],
-        eventContent:[],
+        eventContent: [],
         isLoading: false,
-        peopleNum: 1,
+        peopleNum: 1
     }),
     actions: {
         handleRegionChangeForLocation(event) {
-            this.selectedRegion = event;
-            this.currentPage = 1;
+            this.selectedRegion = event
+            this.currentPage = 1
         },
-        fetchEventData() {
-            fetch(`${import.meta.env.BASE_URL}json/event.json`)
-                .then(res => res.json())
-                .then(jsonData => {
-                    this.eventList = jsonData
-                    this.eventContent = jsonData
-            })
-        },
-    },
+        async fetchEventData() {
+            try {
+                const response = await axios.get('http://localhost/cid101/g1/api/events.php');
+                if (!response.data.error) {
+                    this.events = response.data.events;
+                    this.eventContent = response.data.events;
+                    // console.log(this.events);
+                } else {
+                    this.error = true;
+                    this.errorMsg = response.data.msg;
+                }
+            } catch (error) {
+                this.error = true;
+                this.errorMsg = error.message;
+            }
+        }
+    }
 })
-
