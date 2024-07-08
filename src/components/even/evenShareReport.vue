@@ -50,6 +50,7 @@ const submitForm = () => {
 
 const closeShareModal = () => {
   selectedShareCard.value = null
+  showReportModal.value = false
 }
 </script>
 <template>
@@ -57,7 +58,7 @@ const closeShareModal = () => {
     <div class="container">
       <form @submit.prevent="submitForm">
         <div class="CancelBtn">
-          <span @click="closeExamine">取消</span>
+          <span @click="closeShareModal">取消</span>
         </div>
         <h2>您檢舉此文章的理由是?</h2>
         <div class="box" v-for="(reason, index) in reasons" :key="index">
