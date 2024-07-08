@@ -3,16 +3,8 @@ import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import VueDevTools from 'vite-plugin-vue-devtools'
 
-// https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
-  const apiBaseUrl = mode === 'development' 
-    ? 'http://localhost/cid101/g1/api'
-    : '/cid101/g1/api/'
-  const imgBaseUrl = mode === 'development' 
-    ? 'http://localhost/cid101/g1/upload/img'
-    : '/cid101/g1/upload/img'
-
   return {
     base: '/cid101/g1/front/',
     build: {
@@ -28,11 +20,12 @@ export default defineConfig(({ mode }) => {
       }
     },
     define: {
-      __API_BASE_URL__: JSON.stringify(apiBaseUrl),
-      __IMG_BASE_URL__: JSON.stringify(imgBaseUrl)
+      'import.meta.env.VITE_IMG_URL': JSON.stringify(env.VITE_IMG_URL),
+      'import.meta.env.VITE_API_URL': JSON.stringify(env.VITE_API_URL),
     }
   }
 })
+
 // --------------------------------------------------------------------------------------------------------
 // import { fileURLToPath, URL } from 'node:url'
 // import { defineConfig } from 'vite'

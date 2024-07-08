@@ -10,7 +10,7 @@
                     <div v-else v-for="card in cards" :key="card.id" class=" col-6 col-md-3 col-sm-4">
                         <div class="card">
                             <h3 class="card-title cardh2">{{ card.title }}</h3>
-                            <img :src="card.imgSrc" alt="Card Image"/>
+                            <img :src="convertURL(card.imgSrc)" alt="Card Image"/>
                             <div class="card-body info">
                                 <p class="card-text">{{ card.description }}</p>
                                 <button @click="openLightbox(card)">Read More</button>
@@ -72,6 +72,9 @@ export default {
         },
         closeLightbox() {
             this.isLightboxOpen = false; // 關閉 Lightbox
+        },
+        convertURL(url){
+            return `${import.meta.env.VITE_IMG_URL}/knowledge/${url}`
         }
     }
 }
