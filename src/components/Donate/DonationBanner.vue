@@ -3,7 +3,8 @@
 import Cookies from 'js-cookie';
 import { ref, watch,} from 'vue';
 import { useRouter } from 'vue-router';
-import { store } from '@/stores/member.js'; // 引入store
+import { useMemberStore } from '@/stores/member'; // 引入store
+import {storeToRefs } from 'pinia';
 import Swal from 'sweetalert2'; // 引入sweetalert2
 import 'aos/dist/aos.css';
 
@@ -16,6 +17,9 @@ export default {
         const customAmount = ref(null); // 自訂捐款金額
         const router = useRouter();
 
+
+        const store = useMemberStore();
+        const { isLogging } = storeToRefs(store)
 
         // 選擇預設捐款金額
         const selectAmount = (amount) => { 
@@ -38,7 +42,7 @@ export default {
 
         // 提交捐款金額
         const submitDonation = () => {
-            if (!store.isLoging) {
+            if (!isLogging.value) {
                 Swal.fire({
                     icon: 'error',
                     title: '未登入',
