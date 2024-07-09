@@ -64,7 +64,6 @@ import { useProductStore } from '@/stores/product'
 import { useCartStore } from '@/stores/cart'
 import ProductItem from '../components/ProductItem.vue'
 import ShopCart from '@/components/ShopCart.vue'
-import { flatRollup } from 'd3'
 
 export default {
     components: {
@@ -81,24 +80,27 @@ export default {
         const isPages = ref(false)
 
         const paginatedProdList = computed(() => {
-        const startIndex = (currentPage.value - 1) * 16
-        const endIndex = startIndex + 16
-        console.log(productStore.filteredProducts)
-        productStore.filteredProducts.forEach(element => {
-            element.amount = 1;
+            if (!Array.isArray(productStore.filteredProducts)) {
+                console.error('filteredProducts is not an array:', productStore.filteredProducts);
+                return [];
+            }
+
+            const startIndex = (currentPage.value - 1) * 16;
+            const endIndex = startIndex + 16;
+
+            const productsWithAmount = productStore.filteredProducts.map(product => ({
+                ...product,
+                amount: 1
+            }));
+
+            isPages.value = productsWithAmount.length > 16;
+
+            return productsWithAmount.slice(startIndex, endIndex);
         });
-        if(productStore.filteredProducts.length > 16){
-            isPages.value = true
-        }else{
-            isPages.value = false
-        }
-        return productStore.filteredProducts.slice(startIndex, endIndex)
-        })
 
-        onMounted(() => {
-        console.log(productStore)
-
-            productStore.fetchProducts()
+        onMounted(async () => {
+            console.log(productStore);
+            await productStore.fetchProducts();
         })
 
         const handleClick = (category) => {
