@@ -1,13 +1,18 @@
 <script>
-import { store } from '@/store.js';
+import { useMemberStore } from '@/stores/member'; // 引入store
+import { storeToRefs } from 'pinia';
 import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 import { ref } from 'vue'
+import axios from 'axios';
 
 export default {
     name: 'DonatePage',
     setup() {
         const contentToConvert = ref(null)
+
+        const store = useMemberStore();
+        const { isLogging, member } = storeToRefs(store)
 
         const printContent = () => {
             const printWindow = window.open('', '', 'height=600,width=800')
@@ -92,7 +97,10 @@ export default {
 
         return {
             contentToConvert,
-            printContent
+            printContent,
+            isLogging,
+            member,
+            store
         }
     },
     data() {
@@ -107,11 +115,7 @@ export default {
     },
     mounted() {
         this.donationAmount = Cookies.get('donationAmount');
-    },
-    computed: {
-        store() {
-            return store;
-        }
+        this.store.getCookie();
     },
     methods: {
         // 確認捐款按鈕的處理函數
@@ -135,6 +139,19 @@ export default {
             this.donationDate = new Date().toLocaleString(); // 獲取當前日期和時間
             this.isLightboxVisible = true; // 顯示 Lightbox
             this.disableBodyScroll(); //  禁用頁面滾動
+
+            axios.post(`${import.meta.env.VITE_API_URL}/DonateAdd.php`, new URLSearchParams({
+                DO_AMOUNT: this.donationAmount,
+                DO_DATE: this.donationDate,
+                U_ID: this.store.member.U_ID
+            }))
+                .then(response => {
+                    console.log('捐款資料已儲存', response.data);
+                })
+                .catch(error => {
+                    console.error('捐款資料儲存失敗', error);
+                });
+
         },
         closeLightbox() {
             this.isLightboxVisible = false; // 隱藏 Lightbox
@@ -145,7 +162,7 @@ export default {
         },
         enableBodyScroll() {
             document.body.style.overflow = 'auto'; // 啟用頁面滾動
-        }
+        },
     }
 };
 </script>
@@ -198,13 +215,13 @@ export default {
             <div class="cart-confirm">
                 <div>
                     <input type="checkbox" id="scales" name="scales" v-model="isChecked" />
-                    <label
+                    <label class="labelpp"
                         for="scales">為保障彼此之權益,捐款一經送出即無法退款。在您完成捐款程序後,我們將視為您已確認並同意捐款金額無法退回。敬請在送出捐款前,仔細確認您欲捐款之金額及相關信息,一旦完成捐款流程,我們將無法為您辦理退款。您的每一筆善款都將被謹慎使用於海洋保護相關工作,感謝您的慷慨解囊與支持。若您對捐款使用有任何疑問,歡迎隨時與我們聯繫,我們將竭誠為您提供所需之資訊。</label>
                 </div>
             </div>
         </div>
     </section>
-    
+
     <section class="section section-CheckoutButton">
         <div class="container">
             <div class="row">
@@ -270,9 +287,12 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* 半透明黑色背景 */
-    z-index: 998; /* 确保遮罩在内容之上 */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* 半透明黑色背景 */
+    z-index: 998;
+    /* 确保遮罩在内容之上 */
 }
+
 /* Lightbox 的樣式 */
 .lightbox {
     position: fixed;
@@ -377,6 +397,10 @@ export default {
 
 .stamp img {
     height: 40px;
+}
+
+.labelpp {
+    font-size: 15px;
 }
 
 .stamp p {

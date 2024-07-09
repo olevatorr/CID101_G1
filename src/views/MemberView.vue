@@ -1,14 +1,14 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { useMemeberStore } from '@/stores/member';
+import { useMemberStore } from '@/stores/member';
 import Swal from 'sweetalert2'
 import axios from 'axios';
 import {storeToRefs } from 'pinia'
 import { decodeCredential } from "vue3-google-login"
 
 
-const store = useMemeberStore();
+const store = useMemberStore();
 const { isLogging } = storeToRefs(store)
 
 
@@ -69,11 +69,24 @@ const ProcessingLogin = async () => {
             store.login(response.data.user); // 使用从后端返回的用户信息
             router.push('/');
         } else {
-            // Login failed
-            Swal.fire({
-                icon: "error",
-                title: "使用者名稱或密碼無效!"
-            });
+            // 根据错误信息显示不同的提示
+            if (response.data.msg === '用戶名不存在') {
+                Swal.fire({
+                    icon: 'error',
+                    title: '用戶名不存在'
+                });
+            } else if (response.data.msg === '用戶帳號已被停權') {
+                Swal.fire({
+                    icon: 'error',
+                    title: '帳號已被停權'
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: '登入失敗',
+                    text: response.data.msg
+                });
+            }
         }
     } catch (error) {
         console.error('Error during login', error);

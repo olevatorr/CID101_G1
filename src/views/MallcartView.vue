@@ -213,7 +213,7 @@
 
 <script>
 import { useCartStore } from '@/stores/cart';
-import { useMemeberStore } from '@/stores/member';
+import { useMemberStore } from '@/stores/member';
 import { computed } from 'vue';
 import axios from 'axios';
 

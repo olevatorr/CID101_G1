@@ -1,12 +1,12 @@
 <script setup>
 import { ref,onMounted,watch   } from 'vue'
 import { RouterLink } from 'vue-router'
-import { useMemeberStore } from '@/stores/member';
+import { useMemberStore } from '@/stores/member';
 import {storeToRefs} from 'pinia'
 import { useRouter } from 'vue-router';
 
-//從member.js調用useMemeberStore方法
-const store = useMemeberStore();
+//從member.js調用useMemberStore方法
+const store = useMemberStore();
 //響應式資料 (包括 computed) 要使用的話要用 storeToRefs 來做提取
 const { isLogging ,member } = storeToRefs(store)
 //圖片路徑
@@ -89,7 +89,9 @@ watch(member, setAvatar);
                         <img v-if="member" :src="imageSrc" alt="User Avatar"  class="member-avatar">
                         <p>{{ member.U_NAME }}</p>
                     </RouterLink>
-                    <RouterLink v-else to="/Member" @click="toggleMenu">會員登入</RouterLink>
+                    <RouterLink v-else to="/Member" @click="toggleMenu">
+                        會員登入
+                    </RouterLink>
                 </li>
                 <li v-if="isLogging" class="logoutbutton">
                         <button @click="logout">登出</button>

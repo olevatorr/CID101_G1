@@ -7,15 +7,15 @@
                     <!-- 顯示加載中的狀態 -->
                     <div v-if="isLoading" class="loading col-12">Loading...</div>
                     <!-- 遍歷每個卡片並顯示 -->
-                    <div v-else v-for="card in cards" :key="card.id" class=" col-6 col-md-3 col-sm-4">
+                    <div v-else v-for="card in cards" :key="card.id" class="col-6 col-md-3 col-sm-4">
                         <div class="card">
-                            <h3 class="card-title cardh2">{{ card.title }}</h3>
-                            <img :src="card.imgSrc" alt="Card Image"/>
+                            <h3 class="card-title cardh2">{{ card.K_TITLE }}</h3>
+                            <img :src="convertURL(card.K_URL)" alt="Card Image"/>
                             <div class="card-body info">
-                                <p class="card-text">{{ card.description }}</p>
+                                <p class="card-text">{{ card.K_CONTENT}}</p>
                                 <button @click="openLightbox(card)">Read More</button>
                                 <div class="btnc">
-                                    <span class="card-source">來源: {{ card.source }}</span>
+                                    <span class="card-source">來源: {{ card.K_FROM }}</span>
                                 </div>
                             </div>
                         </div>
@@ -27,13 +27,13 @@
         <!-- Lightbox 顯示區域 -->
         <section v-if="isLightboxOpen" class="section sectionlightbox">
             <div class="lightbox-content">
-                <i class="fa-regular fa-circle-xmark close"  @click="closeLightbox"></i>
+                <i class="fa-regular fa-circle-xmark close" @click="closeLightbox"></i>
                 <!-- 顯示當前選中卡片的圖片和文字 -->
-                <img :src="selectedCard.imgSrc" alt="Sample Image" class="lightbox-img"/>
-                <h3>{{ selectedCard.title }}</h3>
-                <p>{{ selectedCard.description }}</p>
+                <img :src="convertURL(selectedCard.K_URL)" alt="Sample Image" class="lightbox-img"/>
+                <h3>{{ selectedCard.K_TITLE }}</h3>
+                <p>{{ selectedCard.K_CONTENT }}</p>
                 <div class="spanlightbox">
-                    <span class="">來源: {{ selectedCard.source }}</span>
+                    <span class="">來源: {{ selectedCard.K_FROM }}</span>
                 </div>
             </div>
         </section>
@@ -41,6 +41,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     data() {
         return {
@@ -55,10 +57,10 @@ export default {
     },
     methods: {
         fetchCardsData() {
-            fetch(`${import.meta.env.BASE_URL}json/oceanCard.json`) // 獲取卡片數據的 API 請求
-                .then(response => response.json())
-                .then(data => {
-                    this.cards = data; // 將獲取到的數據存儲在 cards 中
+            axios.get(`${import.meta.env.VITE_API_URL}/knowledge.php`) // 獲取卡片數據的 API 請求
+                .then(response => {
+                    this.cards = response.data.knowledge; // 將獲取到的數據存儲在 cards 中
+                    console.log(this.cards);
                     this.isLoading = false; // 設置加載狀態為完成
                 })
                 .catch(error => {
@@ -72,6 +74,9 @@ export default {
         },
         closeLightbox() {
             this.isLightboxOpen = false; // 關閉 Lightbox
+        },
+        convertURL(url) {
+            return `${import.meta.env.VITE_IMG_URL}/knowledge/${url}`
         }
     }
 }
