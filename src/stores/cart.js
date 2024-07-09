@@ -11,7 +11,7 @@ export const useCartStore = defineStore('cart', {
             if (existingProduct) {
                 existingProduct.amount++
             } else {
-                this.items.push({ ...product,amount: 1})
+                this.items.push({ ...product})
             }
             this.saveCartToLocalStorage(); 
             // 每次添加商品後保存到 localStorage
