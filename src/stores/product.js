@@ -1,5 +1,6 @@
 // src/stores/product.js
 import { defineStore } from 'pinia'
+import axios from 'axios';
 
 export const useProductStore = defineStore('product', {
   state: () => ({
@@ -8,19 +9,29 @@ export const useProductStore = defineStore('product', {
     currentFilter: 'all'
   }),
   actions: {
-    async fetchProducts() {
+    // 在您的 product store 中
+  async fetchProducts() {
       try {
-        const response = await fetch(`${import.meta.env.BASE_URL}json/productdata.json`)
-        const data = await response.json()
-        this.products = data
-        this.filteredProducts = data
-        this.saveProductsToLocalStorage(); // 保存到 localStorage
-        console.log(this.filteredProducts)
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/product.php`);
+        const data = response.data;
         
+        if (data && !data.error && Array.isArray(data.product)) {
+            this.products = data.product;
+            this.filteredProducts = data.product;
+            console.log('Products loaded:', this.products.length);
+        } else {
+            console.error('Unexpected API response:', data);
+            this.products = [];
+            this.filteredProducts = [];
+        }
+        
+        this.saveProductsToLocalStorage();
       } catch (error) {
-        console.error('Error fetching products:', error)
+        console.error('Error fetching products:', error);
+        this.products = [];
+        this.filteredProducts = [];
       }
-    },
+  },
     setFilter(category) {
       this.currentFilter = category
       if (category === 'all') {
