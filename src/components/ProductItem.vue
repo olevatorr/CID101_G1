@@ -90,7 +90,7 @@ export default {
         };
 
         const getImageUrl = (imgUrl) => {
-            return `${import.meta.env.BASE_URL}img/shop/${imgUrl}`;
+            return `${import.meta.env.VITE_IMG_URL}/shop/${imgUrl}`;
         };
 
         return {
