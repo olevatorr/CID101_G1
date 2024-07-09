@@ -20,7 +20,7 @@
                 </div>
                 <div class="content">
                     <div class="pic">
-                        <img :src="Array.isArray(item.P_IMG1) ? getImageUrl(item.P_IMG1[0]) : getImageUrl(item.P_IMG1)" alt="">
+                        <img :src="Array.isArray(item.P_MAIN_IMG) ? getImageUrl(item.P_MAIN_IMG) : getImageUrl(item.P_MAIN_IMG)" alt="">
                     </div>
                     <div class="title">
                         <p>{{ item.P_NAME }}</p>

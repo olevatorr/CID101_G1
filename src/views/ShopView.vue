@@ -80,35 +80,38 @@ export default {
         const isPages = ref(false)
 
         const paginatedProdList = computed(() => {
-            if (!Array.isArray(productStore.filteredProducts)) {
-                console.error('filteredProducts is not an array:', productStore.filteredProducts);
-                return [];
-            }
+        console.log('Calculating paginated list, filtered products:', productStore.filteredProducts.length);
+        const startIndex = (currentPage.value - 1) * 16;
+        const endIndex = startIndex + 16;
 
-            const startIndex = (currentPage.value - 1) * 16;
-            const endIndex = startIndex + 16;
+        const productsToShow = productStore.filteredProducts;
 
-            const productsWithAmount = productStore.filteredProducts.map(product => ({
-                ...product,
-                amount: 1
-            }));
+        isPages.value = productsToShow.length > 16;
 
-            isPages.value = productsWithAmount.length > 16;
-
-            return productsWithAmount.slice(startIndex, endIndex);
-        });
+        return productsToShow.slice(startIndex, endIndex).map(product => ({
+            ...product,
+            amount: 1
+        }));
+    });
 
         onMounted(async () => {
-            console.log(productStore);
+            console.log('Mounting component...');
             await productStore.fetchProducts();
+            console.log('Products fetched, total:', productStore.products.length);
+            console.log('Sample product:', productStore.products[0]);
         })
 
         const handleClick = (category) => {
-            activeIndex.value = category
-            productStore.setFilter(category)
-            currentPage.value = 1
+            console.log('Category clicked:', category);
+            activeIndex.value = category;
+            if (category === 'all') {
+                productStore.resetFilter();
+            } else {
+                productStore.setFilter(category);
+            }
+            currentPage.value = 1;
+            console.log('Filtered products after click:', productStore.filteredProducts.length);
         }
-
         const changePage = (page) => {
             currentPage.value = page
             window.scrollTo(0, 0)
