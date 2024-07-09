@@ -754,7 +754,8 @@ export default {
     async submitForm() {
       if (this.isFormValid()) {
         try {
-          const response = await axios.post('http://localhost/cid101/g1/api/submit_inquiry.php', this.formData);
+          const response = await axios.post(`${import.meta.env.VITE_API_URL}/submit_inquiry.php`, this.formData)
+          //('http://localhost/cid101/g1/api/submit_inquiry.php', this.formData);
           if (response.data.success) {
             Swal.fire({
               title: '表單已提交',
