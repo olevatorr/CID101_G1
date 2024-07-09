@@ -610,7 +610,7 @@ function updateChartForRegion(regionName) {
     attendChart = new Chart(ctx1, {
         type: 'doughnut',  // 設置圖表類型為甜甜圈圖
         data: {
-            labels: hebrisAttendLabels ,  // 設置圖表標籤
+            labels: hebrisAttendLabels,  // 設置圖表標籤
             datasets: [{
                 data: displayAttendData,  // 設置圖表數據
                 backgroundColor: [

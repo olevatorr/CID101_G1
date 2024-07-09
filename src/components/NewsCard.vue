@@ -35,7 +35,7 @@ export default {
     },
     methods: {
         getImageUrl(imgUrl) {
-            return `${import.meta.env.BASE_URL}img/news/${imgUrl}`;
+            return `${import.meta.env.VITE_IMG_URL}/news/${imgUrl}`;
         }
     },
 }
