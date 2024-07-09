@@ -135,7 +135,7 @@ export default defineComponent({
         };
 
         const getImageUrl = (imgUrl) => {
-            return `${import.meta.env.BASE_URL}img/productioninfo/${imgUrl}`;
+            return `${import.meta.env.VITE_IMG_URL}/productinfo/${imgUrl}`;
         };
 
         const submitBuy = () => {
