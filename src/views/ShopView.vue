@@ -101,17 +101,11 @@ export default {
         console.log('Filtered products:', productStore.filteredProducts.length);
     })
 
-        const handleClick = (category) => {
+    const handleClick = (category) => {
             activeIndex.value = category;
-            
-
-            if (activeIndex.value === 'all') {
-                productStore.setFilter();
-                console.log('Category clicked:', activeIndex.value);
-            } else {
-                productStore.setFilter(category);
-            }
+            productStore.setFilter(category);
             currentPage.value = 1;
+            console.log('Category clicked:', category);
             console.log('Filtered products after click:', productStore.filteredProducts.length);
         }
         const changePage = (page) => {

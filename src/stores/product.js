@@ -14,7 +14,7 @@ export const useProductStore = defineStore('product', {
       try {
         const response = await axios.get(`${import.meta.env.VITE_API_URL}/product.php`);
         const data = response.data;
-        console.log(data)
+        
         if (data && !data.error && Array.isArray(data.product)) {
             this.products = data.product;
             this.filteredProducts = data.product;
@@ -37,7 +37,12 @@ export const useProductStore = defineStore('product', {
       if (category === 'all' || !category) {
         this.filteredProducts = this.products;
       } else {
-        this.filteredProducts = this.products.filter(item => item.P_NAME.includes(category));
+        console.log(category)
+        console.log(this.products)
+        this.filteredProducts = this.products.filter(dog => {
+          return (dog['P_NAME'].toString()).indexOf(category) !== -1
+        });
+
       }
       this.saveProductsToLocalStorage();
     },
