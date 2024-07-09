@@ -19,11 +19,11 @@
                 <div class="category">
                     <ul>
                         <li>商品分類</li>
-                        <li @click="handleClick('all')" :class="{ active: activeIndex === 'all' }">全部商品</li>
-                        <li @click="handleClick('杯套')" :class="{ active: activeIndex === '杯套' }">杯套類</li>
-                        <li @click="handleClick('上衣')" :class="{ active: activeIndex === '上衣' }">上衣類</li>
-                        <li @click="handleClick('包包')" :class="{ active: activeIndex === '包包' }">包包類</li>
-                        <li @click="handleClick('馬克杯')" :class="{ active: activeIndex === '馬克杯' }">馬克杯</li>
+                        <li @click=" handleClick('all')" :class="{ active: activeIndex === 'all' }">全部商品</li>
+                        <li @click=" handleClick('飲料杯套')" :class="{ active: activeIndex === '飲料杯套' }">杯套類</li>
+                        <li @click=" handleClick('大學衛衣')" :class="{ active: activeIndex === '大學衛衣' }">上衣類</li>
+                        <li @click=" handleClick('側背包')" :class="{ active: activeIndex === '側背包' }">包包類</li>
+                        <li @click=" handleClick('馬克杯')" :class="{ active: activeIndex === '馬克杯' }">馬克杯</li>
                     </ul>
                 </div>
             </div>
@@ -94,18 +94,20 @@ export default {
         }));
     });
 
-        onMounted(async () => {
-            console.log('Mounting component...');
-            await productStore.fetchProducts();
-            console.log('Products fetched, total:', productStore.products.length);
-            console.log('Sample product:', productStore.products[0]);
-        })
+    onMounted(async () => {
+        console.log('Mounting component...');
+        await productStore.initializeStore();
+        console.log('Products fetched, total:', productStore.products.length);
+        console.log('Filtered products:', productStore.filteredProducts.length);
+    })
 
         const handleClick = (category) => {
-            console.log('Category clicked:', category);
             activeIndex.value = category;
-            if (category === 'all') {
-                productStore.resetFilter();
+            
+
+            if (activeIndex.value === 'all') {
+                productStore.setFilter();
+                console.log('Category clicked:', activeIndex.value);
             } else {
                 productStore.setFilter(category);
             }
@@ -126,6 +128,7 @@ export default {
         }
 
         return {
+            productStore,
             currentPage,
             activeIndex,
             paginatedProdList,
