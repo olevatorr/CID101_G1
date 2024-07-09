@@ -403,10 +403,15 @@ export default {
     const fileChange = (event) => {
       const file = event.target.files[0];
       if (file) {
+        //創建一個 FileReader 對象，用於讀取文件內容
         const reader = new FileReader();
+        //設置 FileReader 的 onload 事件處理函數。當文件讀取完成時，會調用這個函數
         reader.onload = (e) => {
+          //將讀取到的文件數據（以 Base64 格式）賦值給 imageSrc.value。這通常用於顯示圖片預覽
           imageSrc.value = e.target.result;
         };
+        //使用 FileReader 的 readAsDataURL 方法來讀取文件
+        //並以 Base64 編碼的數據 URL 形式返回。這使得圖片可以在前端顯示預覽。
         reader.readAsDataURL(file);
       }
     };
@@ -417,6 +422,8 @@ export default {
       const uId = store.member.U_ID;
       if (file) {
         const formData = new FormData();
+        //將文件附加到 FormData 對象中，'file' 是字段名，file 是要上傳的文件
+        //將用戶 ID 附加到 FormData 對象中，'U_ID' 是字段名，uId 是用戶 ID。
         formData.append('file', file);
         formData.append('U_ID', uId);
         try {

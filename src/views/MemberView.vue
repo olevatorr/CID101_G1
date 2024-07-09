@@ -113,22 +113,64 @@ const togglePasswordVisibility = () => {
 
 //google預設按鈕
 const callback = async (response) => {
-    // decodeCredential will retrive the JWT payload from the credential
-    console.log(response.credential)
-    const userData = decodeCredential(response.credential)
-    console.log("Handle the userData", userData)
-    const userEmail = userData.email
-    console.log(userEmail)
-    // const res = await fetch('checkUserInfo.php', {//php檢查信箱有沒有存在
-    //     data: JSON.stringify({ email: userEmail })//取會員資料
-    // })
-    // const resJson = await res.json()
-    store.login({
-        email: userEmail,
-        picture: userData.picture
-    })
-
-}
+    try {
+        console.log('Google response:', response);
+        
+        // Ensure decodeCredential is defined and works as expected
+        const userData = decodeCredential(response.credential);
+        console.log("Handle the userData:", userData);
+        
+        const userEmail = userData.email;
+        const userName = userData.name;
+        const googleindex = userEmail.indexOf('@');
+        const thirdpart = userEmail.substring(0,googleindex);
+        
+        // Send request to backend to check if user exists or create new user
+        const res = await axios.post(
+            'http://localhost/cid101/g1/api/memberGoogle.php',
+            JSON.stringify({
+                email: userEmail,
+                name: userName,
+                account: thirdpart
+            }),
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
+        
+        const resData = res.data;
+        
+        if (resData.success) {
+            // User logged in or registered successfully
+            store.login({
+                U_EMAIL: userEmail,
+                U_NAME: userName,
+                U_ACCOUNT: thirdpart
+            });
+            Swal.fire({
+                icon: "success",
+                title: resData.message
+            });
+            router.push('/');
+        } else {
+            // Error occurred
+            Swal.fire({
+                icon: "error",
+                title: "登入錯誤",
+                text: resData.message
+            });
+        }
+    } catch (error) {
+        console.error('Error handling Google login callback:', error);
+        Swal.fire({
+            icon: "error",
+            title: "登入錯誤",
+            text: "處理登入時發生錯誤，請稍後再試。"
+        });
+    }
+};
 
 </script>
 
@@ -186,8 +228,6 @@ const callback = async (response) => {
                             size: 'large',
                             shape: 'pill'
                         }"/>
-                        <!-- <a href="#" @click.prevent="logins"><img src="/img/member/google.png" alt=""
-                                class="fa-google"></a> -->
                         <a href="#"><i class="fa-brands fa-facebook"></i></a>
                         <a href="#"><img src="/img/member/line.ico" alt="" class="fa-line"></a>
                     </div>
