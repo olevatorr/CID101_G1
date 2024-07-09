@@ -1,7 +1,7 @@
 <template>
   <eveBanner />
   <evenApply @scroll-click="scrollToEventList"/>
-  <calendar @card-click="handleEventCardClick" />
+  <calendar />
   <evenList ref="eventListSection"/>
   <evenShareList />
   <eventAgree />

@@ -659,6 +659,9 @@
     }
     .title {
         font-size: 7rem;
+        @media screen and (max-width: 767px) {
+            font-size: 3.5rem;
+        }
         span {
             position: relative;
             display: inline-block;
@@ -667,6 +670,9 @@
             img {
                 height: 150px;
                 vertical-align: middle;
+                @media screen and (max-width: 767px) {
+                    height: 100px;
+                }
             }
         }
         span:nth-child(1) {

@@ -4,12 +4,16 @@ import Swal from 'sweetalert2'
 import { useRouter } from 'vue-router'
 import { useEventsStore } from '@/stores/events'
 import {storeToRefs} from 'pinia'
+import { useMemberStore } from '@/stores/member'
+import axios from 'axios'
 
 const events = useEventsStore()
 const {selectedEventCard} = storeToRefs(events)
 const peopleNum = ref(1);
 const router = useRouter();
 const openConfirm = ref(null)
+const memberStore = useMemberStore()
+
 
 
 
@@ -32,7 +36,7 @@ const registrationFull = computed(() => {
     return false;
 });
 const handleRegistration = () => {
-    if (!store.isLoging) {
+    if (!memberStore.isLogging) {
         Swal.fire({
             icon: 'error',
             title: '未登入',
@@ -40,6 +44,7 @@ const handleRegistration = () => {
         }).then(() => {
             router.push('/Member');
         });
+        closeEventModal();
     } else {
         showConfirmModal();
     }
@@ -53,23 +58,38 @@ const closeConfirm = () => {
     openConfirm.value = selectedEventCard.value;
     selectedEventCard.value = null;
 };
-const SubmitEvent = () => {
-    Swal.fire({
-        icon: 'success',
-        title: '報名成功',
-        html: `${openConfirm.value.E_TITLE}</div>
-        <div>活動日期:${openConfirm.value.E_DATE}</div>`,
-        showConfirmButton: true,
-        confirmButtonText: "確認",
-        cancelButtonText: "<h1>Close</h1>",
-        timer: 5000,
-        timerProgressBar: true
-    }).then(() => {
-        router.push({ name: 'home' });
-    })
-    closeConfirm();
-    closeEventModal();
+const SubmitEvent = async () => {
+    try {
+        const formData = new FormData();
+        formData.append('E_ID', openConfirm.value.E_ID);
+        formData.append('U_ID', memberStore.member.U_ID);
+        formData.append('EO_attend', peopleNum.value);
+        
+        const response = await axios.post('http://localhost/cid101/g1/api/evenApplyAdd.php', formData)
+        if(!response.data.error){
+             Swal.fire({
+            icon: 'success',
+            title: '報名成功',
+            html: `${openConfirm.value.E_TITLE}</div>
+            <div>活動日期:${openConfirm.value.E_DATE}</div>`,
+            showConfirmButton: true,
+            confirmButtonText: "確認",
+            cancelButtonText: "<h1>Close</h1>",
+            timer: 5000,
+            timerProgressBar: true})
+            closeConfirm();
+            closeEventModal();
+        } 
+    }catch(error) {
+            console.error('Error:', error);
+            Swal.fire({
+                icon: 'error',
+                title: '報名失敗',
+                text: '請稍後再試'
+            });
+        };
 };
+
 
 </script>
 
@@ -139,7 +159,7 @@ const SubmitEvent = () => {
                     <p>活動日期：{{ openConfirm.E_DATE }}</p>
                     <p>截止日期：{{ openConfirm.E_DEADLINE }}</p>
                     <p>報名人數：{{ openConfirm.E_SIGN_UP }}/{{ openConfirm.E_MAX_ATTEND }}</p>
-                    <p>會員名稱:{{ store.member.U_NAME }}</p>
+                    <p>會員名稱:{{ memberStore.member.U_NAME }}</p>
                     <p>報名人數:{{ peopleNum }}人</p>
                 </div>
             </div>

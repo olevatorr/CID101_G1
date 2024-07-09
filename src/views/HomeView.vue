@@ -8,7 +8,14 @@ import HomeDonation from '@/components/Home/HomeDonation.vue'
 import HomeEvent from '@/components/Home/HomeEvent.vue'
 import HomeNews from '@/components/Home/HomeNews.vue'
 import HomeFeedback from '@/components/Home/HomeFeedback.vue'
+import {ref, onMounted } from 'vue'
+const apiUrl = ref(import.meta.env.VITE_API_URL)
+const imgBaseUrl = ref(import.meta.env.VITE_IMG_URL)
 
+onMounted(() => {
+  console.log('API URL:', apiUrl.value)
+  console.log('Image Base URL:', imgBaseUrl.value)
+})
 </script>
 <template>
   <main>

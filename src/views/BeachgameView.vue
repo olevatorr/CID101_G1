@@ -12,7 +12,8 @@
                     <i class="fa-solid fa-rotate-right" @click="gameHome"></i>
                 </div>
                 <!-- 顯示角色頭貼 -->
-                <div v-show="showImgPosition" class="show-img-position">
+                <!-- 當 showImgPosition 為true時(初始為false)，加上class 'slide-in' -->
+                <div v-if="showImgPosition" class="show-img-position">
                     <div class="showCharacterImg">
                         <div v-show="showBirdimage" class="character-oneset-pic">
                             <img src="/img/beachgame/birdImg.png" alt="海鷗鷗">
@@ -284,20 +285,20 @@ export default {
         return {
             // 出現重來遊戲
             showResetGame: false,
-            //角色頭貼
-            showImgPosition: false,
+            showImgPosition: false,//角色頭貼滑入畫面
             isPortrait: true, // 初始化為 true，預設顯示警告
             beachgameText: false,
             rulesLightbox: false,
             rulesLightboxcc: false,
-            characterLightbox: false,
+            characterLightbox: false,//角色選項的彈窗顯示
             characterChoosed: null, // 定義選哪一張圖，出現什麼值
-            characterSelect: false, // 選取後整張大圖消失，選去角色視窗
-            showBirdimage: false, // 出現選擇相應的角色頁面
-            showTurtleimage: false, // 出現選擇相應的角色頁面
-            showShark: false, // 出現選擇相應的角色頁面
+            characterSelect: false, // 選取後整張大圖消失，選取角色視窗
+            showBirdimage: false, // 出現選擇鳥的角色頁面
+            showTurtleimage: false, // 出現選擇烏龜角色頁面
+            showShark: false, // 出現選擇鯊魚角色頁面
             //出現選選擇角色大頭貼
             characterCheck: false,
+            slidingIn: false,//滑入角色標示
             showTrashContainer: false,// 控制垃圾圖片顯示
             // 點選垃圾後出現的彈窗後，滑入工具隱藏button 和文字敘述
             showTrashText: true, // 初始化為true，顯示敘述文字
@@ -426,7 +427,6 @@ export default {
             }
         },
         choseTurtle() {
-            // console.log(34);
             this.characterChoosed = 2;
             if (this.characterChoosed == 2) {
                 this.characterSelect = true;
@@ -444,19 +444,24 @@ export default {
         },
         finishCharacter() {
             this.characterCheck = false;
+            // this.slidingIn = true;//滑入頁面
             this.showTrashContainer = true; // 顯示垃圾圖片容器
-            this.showImgPosition = true;//顯示選擇角色頭貼
+            // this.showImgPosition = true;//顯示選擇角色頭貼
         },
 
         // 點選垃圾圖片
+        // 在choseTrash陣列中找到 id 與參數 id 相符的垃圾項目，並將其賦值給 selectedTrash
+        // 用find()陣列方法，在 choseTrash 陣列中找到第一個符合條件的元素
+        // v 是回呼函式中的參數，代表陣列中的每個元素
         handleTrashClick(id) {
             this.selectedTrash = this.choseTrash.find(v => v.id === id)
-            //顯示沒有變成false
+            //沒有顯示是false，就隱藏垃圾容器
             this.showTrashContainer = false;
             // 取出陣列裡的垃圾id值，要用在對應工具上
-            this.getTrashId = id
-            // 推進陣列中
-            this.hideItem.push(id)
+            // 將參數 id 賦值給 getTrashId，用於記錄當前選中的垃圾項目的 id
+            this.getTrashId = id;
+            // 將參數 id 推入 hideItem 陣列，用於記錄隱藏的垃圾項目
+            this.hideItem.push(id);
         },
         // 滑入工具列可選取
         showSlidePage() {

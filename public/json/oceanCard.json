@@ -1,112 +1,112 @@
 [
     {
         "id": 1,
-        "imgSrc": "@/../img/knowledge/1.jpg",
+        "imgSrc": "1.jpg",
         "title": "海洋塑料污染",
         "description": "每年數百萬噸塑料污染物流入海洋,對海洋生物造成嚴重威脅。",
         "source": "世界自然基金會"
     },
     {
         "id": 2,
-        "imgSrc": "@/../img/knowledge/2.jpg",
+        "imgSrc": "2.jpg",
         "title": "海龜誤食塑料",
         "description": "許多海龜誤食了漂浮在海面上的塑料袋,導致體內積聚塑料而死亡。",
         "source": "海洋生物保護協會"
     },
     {
         "id": 3,
-        "imgSrc": "@/../img/knowledge/3.jpg",
+        "imgSrc": "3.jpg",
         "title": "海灘清理活動",
         "description": "志願者定期組織海灘清理活動,清除海灘上的塑料垃圾和其他污染物。",
         "source": "環境保護組織"
     },
     {
         "id": 4,
-        "imgSrc": "@/../img/knowledge/4.jpg",
+        "imgSrc": "4.jpg",
         "title": "珊瑚白化現象",
         "description": "由於海水溫度上升和污染,珊瑚礁正在經歷大規模白化,生態系統受到嚴重威脅。",
         "source": "海洋研究所"
     },
     {
         "id": 5,
-        "imgSrc": "@/../img/knowledge/5.jpg",
+        "imgSrc": "5.jpg",
         "title": "鯨魚纏繞垃圾",
         "description": "一些鯨魚被棄置在海洋中的魚網或繩索纏繞,導致活動受限甚至窒息死亡。",
         "source": "海洋保護組織"
     },
     {
         "id": 6,
-        "imgSrc": "@/../img/knowledge/6.jpg",
+        "imgSrc": "6.jpg",
         "title": "塑料回收利用",
         "description": "通過回收和再利用塑料,我們可以減少塑料垃圾流入海洋的數量。",
         "source": "環境部"
     },
     {
         "id": 7,
-        "imgSrc": "@/../img/knowledge/7.jpg",
+        "imgSrc": "7.jpg",
         "title": "海鳥誤食塑料",
         "description": "許多海鳥誤食了漂浮在海面上的塑料製品,導致體內積聚塑料而死亡。",
         "source": "野生動物保護組織"
     },
     {
         "id": 8,
-        "imgSrc": "@/../img/knowledge/8.jpg",
+        "imgSrc": "8.jpg",
         "title": "海洋垃圾污染",
         "description": "各種類型的垃圾,如塑料袋、瓶罐和魚網,被棄置在海洋中,對海洋生態系統構成嚴重威脅。",
         "source": "國際海事組織"
     },
     {
         "id": 9,
-        "imgSrc": "@/../img/knowledge/9.jpg",
+        "imgSrc": "9.jpg",
         "title": "海馬環境受損",
         "description": "由於水質污染和棲息地破壞,許多海馬物種正面臨著滅絕的危險。",
         "source": "自然保護區管理局"
     },
     {
         "id": 10,
-        "imgSrc": "@/../img/knowledge/10.jpg",
+        "imgSrc": "10.jpg",
         "title": "紅樹林砍伐",
         "description": "紅樹林的砍伐導致許多海洋生物失去了棲息地,生態系統受到破壞。",
         "source": "林業部"
     },
     {
         "id": 11,
-        "imgSrc": "@/../img/knowledge/11.jpg",
+        "imgSrc": "11.jpg",
         "title": "過度捕撈",
         "description": "過度捕撈正在嚴重威脅著許多魚類和海洋生物的存活,導致物種瀕臨滅絕。",
         "source": "水產部"
     },
     {
         "id": 12,
-        "imgSrc": "@/../img/knowledge/12.jpg",
+        "imgSrc": "12.jpg",
         "title": "海洋酸化",
         "description": "由於大氣中二氧化碳濃度上升,海洋吸收了過多的二氧化碳,導致酸化,對珊瑚礁和貝類生物造成威脅。",
         "source": "海洋科學研究所"
     },
     {
         "id": 13,
-        "imgSrc": "@/../img/knowledge/13.jpg",
+        "imgSrc": "13.jpg",
         "title": "海龜保護",
         "description": "海龜是瀕危物種,需要通過保護其產卵地和減少捕捉來保護它們免於滅絕。",
         "source": "野生動物保護組織"
     },
     {
         "id": 14,
-        "imgSrc": "@/../img/knowledge/14.jpg",
+        "imgSrc": "14.jpg",
         "title": "海洋保護區",
         "description": "設立海洋保護區可以為海洋生物提供安全的棲息地,保護海洋生態系統的完整性。",
         "source": "環境保護部"
     },
     {
         "id": 15,
-        "imgSrc": "@/../img/knowledge/15.jpg",
+        "imgSrc": "15.jpg",
         "title": "海草床復育",
         "description": "海草床是重要的海洋生態系統,但由於人為活動而遭到破壞。復育海草床有助於保護海洋生物。",
         "source": "海洋生態學家"
     },
     {
         "id": 16,
-        "imgSrc": "@/../img/knowledge/16.jpg",
+        "imgSrc": "16.jpg",
         "title": "可持續捕撈",
         "description": "通過採用可持續的捕撈方式,我們可以保護魚類資源,確保漁業的長期發展。",
         "source": "水產管理機構"

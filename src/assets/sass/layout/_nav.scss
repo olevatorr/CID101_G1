@@ -144,6 +144,7 @@ nav .logoutbutton {
     nav .hb {
         cursor: pointer;
         height: 40px;
+        width: 40px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -193,7 +194,7 @@ nav .logoutbutton {
         max-height: 0;
         overflow: hidden;
         transition: .5s;
-        background: rgba(92, 92, 92, 0.438);
+        background: rgb(42, 34, 164);
         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         backdrop-filter: blur(7.8px);
         box-sizing: border-box;
