@@ -14,7 +14,7 @@ export const useProductStore = defineStore('product', {
       try {
         const response = await axios.get(`${import.meta.env.VITE_API_URL}/product.php`);
         const data = response.data;
-        
+        console.log(data)
         if (data && !data.error && Array.isArray(data.product)) {
             this.products = data.product;
             this.filteredProducts = data.product;
