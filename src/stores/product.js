@@ -31,18 +31,15 @@ export const useProductStore = defineStore('product', {
         this.products = [];
         this.filteredProducts = [];
       }
-  },
+    },
     setFilter(category) {
-      this.currentFilter = category
-      if (category === 'all') {
-        this.filteredProducts = this.products
-        console.log(this.filteredProducts)
-
+      this.currentFilter = category;
+      if (category === 'all' || !category) {
+        this.filteredProducts = this.products;
       } else {
-        this.filteredProducts = this.products.filter(item => item.P_CATEGORY === category)
-        console.log(this.filteredProducts)
+        this.filteredProducts = this.products.filter(item => item.P_NAME.includes(category));
       }
-      this.saveProductsToLocalStorage(); // 保存到 localStorage
+      this.saveProductsToLocalStorage();
     },
     saveProductsToLocalStorage() {
       localStorage.setItem('productsData', JSON.stringify({

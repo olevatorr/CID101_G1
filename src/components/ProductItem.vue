@@ -17,8 +17,8 @@
                     <span>NT$ {{ productInfo.P_PRICE }}</span> 
                 </div>
             </router-link>
-            <div class="collect" @click="toggleClicked" @mouseenter="toggleHover(true)" @mouseleave="toggleHover(false)">
-                <a href="javascript:void(0)">{{ isClicked ? '🩵' : '🤍' }}</a>
+            <div class="collect" @click="toggleFavorite" @mouseenter="toggleHover(true)" @mouseleave="toggleHover(false)">
+                <a href="javascript:void(0)">{{ isFavorite ? '🩵' : '🤍' }}</a>
             </div>
             <div class="hot" v-if="productInfo.P_ID < 9">  
                 <span>熱銷商品</span>
