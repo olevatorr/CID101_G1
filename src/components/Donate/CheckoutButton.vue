@@ -1,6 +1,6 @@
 <script>
 import { useMemberStore } from '@/stores/member'; // 引入store
-import {storeToRefs } from 'pinia';
+import { storeToRefs } from 'pinia';
 import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 import { ref } from 'vue'
@@ -140,17 +140,17 @@ export default {
             this.isLightboxVisible = true; // 顯示 Lightbox
             this.disableBodyScroll(); //  禁用頁面滾動
 
-            axios.post('http://localhost/cid101/g1/api/DonateAdd.php', new URLSearchParams({
-    DO_AMOUNT: this.donationAmount,
-    DO_DATE: this.donationDate,
-    U_ID: this.store.member.U_ID
-}))
-.then(response => {
-    console.log('捐款資料已儲存', response.data);
-})
-.catch(error => {
-    console.error('捐款資料儲存失敗', error);
-});
+            axios.post(`${import.meta.env.VITE_API_URL}/DonateAdd.php`, new URLSearchParams({
+                DO_AMOUNT: this.donationAmount,
+                DO_DATE: this.donationDate,
+                U_ID: this.store.member.U_ID
+            }))
+                .then(response => {
+                    console.log('捐款資料已儲存', response.data);
+                })
+                .catch(error => {
+                    console.error('捐款資料儲存失敗', error);
+                });
 
         },
         closeLightbox() {
@@ -221,7 +221,7 @@ export default {
             </div>
         </div>
     </section>
-    
+
     <section class="section section-CheckoutButton">
         <div class="container">
             <div class="row">
@@ -287,9 +287,12 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* 半透明黑色背景 */
-    z-index: 998; /* 确保遮罩在内容之上 */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* 半透明黑色背景 */
+    z-index: 998;
+    /* 确保遮罩在内容之上 */
 }
+
 /* Lightbox 的樣式 */
 .lightbox {
     position: fixed;
@@ -395,9 +398,11 @@ export default {
 .stamp img {
     height: 40px;
 }
-.labelpp{
+
+.labelpp {
     font-size: 15px;
 }
+
 .stamp p {
     text-align: end;
 }

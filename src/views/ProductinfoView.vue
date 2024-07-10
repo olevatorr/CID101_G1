@@ -11,12 +11,22 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="big-pic">
-                                <img :src="getImageUrl(largeSrc)" alt="" />
+                                <img :src="largeSrc" alt="" />
                             </div>
                         </div>
-                        <div class="col-4" v-for="(src, index) in productdetail.P_MAIN_IMG" :key="index">
+                        <div class="col-4">
                             <div class="pic-s">
-                                <img :src="getImageUrl(src)" alt="" @click="showLarge(src)" />
+                                <img :src="getImageUrl(productdetail.P_MAIN_IMG)" alt="" @click="showLarge(productdetail.P_MAIN_IMG)" />
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="pic-s">
+                                <img :src="getImageUrl(productdetail.P_IMG1)" alt="" @click="showLarge(productdetail.P_IMG1)" />
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="pic-s">
+                                <img :src="getImageUrl(productdetail.P_IMG2)" alt="" @click="showLarge(productdetail.P_IMG2)" />
                             </div>
                         </div>
                     </div>
@@ -108,7 +118,8 @@ export default defineComponent({
         });
 
         const showLarge = (src) => {
-            largeSrc.value = src;
+            const newURL= getImageUrl(src)
+            largeSrc.value = newURL;
         };
 
         const decreaseQuantity = () => {
@@ -135,7 +146,7 @@ export default defineComponent({
         };
 
         const getImageUrl = (imgUrl) => {
-            return `${import.meta.env.BASE_URL}img/productioninfo/${imgUrl}`;
+            return `${import.meta.env.VITE_IMG_URL}/productinfo/${imgUrl}`;
         };
 
         const submitBuy = () => {
@@ -160,7 +171,7 @@ export default defineComponent({
             if (product) {
                 productdetail.value = product;
                 productdetail.value.amount = 1;
-                largeSrc.value = product.P_MAIN_IMG[0];
+                largeSrc.value = getImageUrl(product.P_MAIN_IMG);
             } else {
                 console.error('Product not found with ID:', route.query.id);
             }

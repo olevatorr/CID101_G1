@@ -11,7 +11,7 @@ const { shareContent, selectedShareCard, showReportModal } = storeToRefs(shares)
 const sharePage = ref(1);    //活動分享
 
 onMounted(() => {
-    shares.fetchShare()
+    shares.fetchselectedShareCardData()
 })
 const paginatedShare = computed(() => {
     const startIndex = (sharePage.value - 1) * 4;

@@ -89,7 +89,7 @@ export default {
         async fetchData(category = 1) {
             try {
                 //獲取後端資料來源
-                let url = 'http://localhost/cid101/g1/api/news.php';
+                let url = `${import.meta.env.VITE_API_URL}/news.php`;
                 if (category !== 1) {
                     // 完整的網址後?接資料，獲取對應(特定)的分類資訊
                     url += `?NS_ID=${category}`;

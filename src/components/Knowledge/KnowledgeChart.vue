@@ -483,7 +483,7 @@ const hebrissource = [
 onMounted(async () => {
     try {
         const response = await axios.post(`${import.meta.env.VITE_API_URL}/DebrisData.php`);
-        console.log(response.data);
+        // console.log(response.data);
         if (response.data && response.data.DEBRIS_DATA) {
             hebrisData.value = response.data.DEBRIS_DATA;
             DD_AREA.value = response.data.DD_AREA;
@@ -610,7 +610,7 @@ function updateChartForRegion(regionName) {
     attendChart = new Chart(ctx1, {
         type: 'doughnut',  // 設置圖表類型為甜甜圈圖
         data: {
-            labels: hebrisAttendLabels ,  // 設置圖表標籤
+            labels: hebrisAttendLabels,  // 設置圖表標籤
             datasets: [{
                 data: displayAttendData,  // 設置圖表數據
                 backgroundColor: [
@@ -794,6 +794,7 @@ function updateChartForRegion(regionName) {
                     <div class="col-12 col-md-6 bgTwMap">
                         <div id="map" ref="myMap" class="map-container" style="width: 100%; height: 474px"></div>
                         <p class="map-guide">點擊縣市看詳細</p>
+                        
                         <!-- 海廢來源 -->
                         <div class="col-12 col-md-12 chart-outside flg">
                             <div class="box boxSource">

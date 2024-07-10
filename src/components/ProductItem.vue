@@ -3,7 +3,7 @@
         <div class="shop-card" @mouseenter="showCart" @mouseleave="hideCart"> 
             <router-link :to="'/productinfo?id=' + productInfo.P_ID">
                 <div class="img"> 
-                    <img :src="getImageUrl(productInfo.P_IMG1)" alt="">
+                    <img :src="getImageUrl(productInfo.P_MAIN_IMG)" alt="">
                 </div>
             </router-link>    
             <div class="cart-wrapper">
@@ -90,7 +90,7 @@ export default {
         };
 
         const getImageUrl = (imgUrl) => {
-            return `${import.meta.env.BASE_URL}img/shop/${imgUrl}`;
+            return `${import.meta.env.VITE_IMG_URL}/shop/${imgUrl}`;
         };
 
         return {
