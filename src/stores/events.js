@@ -18,7 +18,7 @@ export const useEventsStore = defineStore('events', {
         },
         async fetchEventData() {
             try {
-                const response = await axios.get('http://localhost/cid101/g1/api/events.php');
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/events.php`);
                 if (!response.data.error) {
                     this.events = response.data.events;
                     this.eventContent = response.data.events;
