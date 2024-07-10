@@ -51,7 +51,7 @@ export default {
     },
     computed: {
         isFormValid() {
-            return !['account', 'email', 'newPassword', 'confirmPassword'].every(field => this.errors[field]);
+            return Object.keys(this.errors).length === 0;
         }
     },
     methods: {
@@ -82,7 +82,7 @@ export default {
             if (!this.isFormValid) return;
 
             try {
-                const response = await axios.post('http://localhost/cid101/g1/api/memberForget.php', {
+                const response = await axios.post(`${import.meta.env.VITE_API_URL}/memberForget.php`, {
                     account: this.account,
                     email: this.email,
                     newPassword: this.newPassword

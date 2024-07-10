@@ -51,7 +51,7 @@ const ProcessingLogin = async () => {
     }
 
     try {
-        const response = await axios.post('http://localhost/cid101/g1/api/memberLogin.php', {
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/memberLogin.php`, {
             username: username.value,
             password: password.value
         }, {
@@ -127,7 +127,7 @@ const callback = async (response) => {
         
         // Send request to backend to check if user exists or create new user
         const res = await axios.post(
-            'http://localhost/cid101/g1/api/memberGoogle.php',
+            `${import.meta.env.VITE_API_URL}/memberGoogle.php`,
             JSON.stringify({
                 email: userEmail,
                 name: userName,
