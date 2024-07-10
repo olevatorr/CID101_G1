@@ -213,7 +213,7 @@ function resizeMap() {
                         <span class="debris-num" ref="totalSessions"></span>
                         <span class="debris-word">場次</span>
                     </div>
-                    <p>*皆為本年度資訊,與海洋委員會海洋保育署資料同步</p>
+                    <p>*為最新月份資訊,與海洋委員會海洋保育署資料同步</p>
                 </div>
             </div>
         </div>

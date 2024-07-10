@@ -1,10 +1,10 @@
 <script setup>
 import { RouterLink } from 'vue-router'
 import { Chart } from 'chart.js/auto'
-import { ref, onMounted } from 'vue'
-import axios from 'axios';
+import { ref, onMounted, computed } from 'vue'
+import axios from 'axios'
 
-const error = ref('')
+const error = ref(false)
 const errorMsg = ref('')
 const donateList = ref(null)
 const expenditure = ref(null)
@@ -16,62 +16,81 @@ const fetchDonateData = async () => {
   try {
     const response = await axios.get(`${import.meta.env.VITE_API_URL}/Donate.php`)
     if (!response.data.error) {
-        donateAmount.value = response.data.data.reduce((acc, cur) => acc+=cur.DO_AMOUNT,0)
-        donateList.value = response.data.data.sort((a, b) => b.DO_ID - a.DO_ID).slice(0,6)
+      donateAmount.value = response.data.data.reduce((acc, cur) => acc + Number(cur.DO_AMOUNT), 0)
+      donateList.value = response.data.data.sort((a, b) => b.DO_ID - a.DO_ID).slice(0, 6)
     } else {
       error.value = true
       errorMsg.value = response.data.msg
     }
   } catch (error) {
-    console.error(error) // 打印错误信息
+    console.error(error)
     error.value = true
     errorMsg.value = error.message
   }
 }
+
 
 const fetchExpenditureData = async () => {
   try {
     const response = await axios.get(`${import.meta.env.VITE_API_URL}/Expenditure.php`)
     if (!response.data.error) {
-        expenditureAmount.value = response.data.reduce((acc, cur) => acc+=cur.EL_OUTLAY,0)
-      expenditure.value = response.data.sort((a, b) => b.EL_ID - a.EL_ID).slice(0,6)
+      expenditureAmount.value = response.data.reduce((acc, cur) => acc + Number(cur.EL_OUTLAY), 0)
+      expenditure.value = response.data.sort((a, b) => b.EL_ID - a.EL_ID).slice(0, 6)
       expenditureList.value = response.data
-      console.log('expenditure:' ,expenditureList.value);
+      console.log('expenditure:', expenditureList.value)
     } else {
       error.value = true
       errorMsg.value = response.data.msg
     }
   } catch (error) {
-    console.error(error) // 打印错误信息
+    console.error(error)
     error.value = true
     errorMsg.value = error.message
   }
 }
 
-const converDate = (date) => {
-    return date.slice(0,10).replace(/-/g, '/')
+const formatNumber = (num) => {
+    return String(num).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
 
+const converDate = (date) => {
+  return date.slice(0, 10).replace(/-/g, '/')
+}
 
+const colors = ['#6CE5E8', '#41B8D5', '#2D8BBA', '#2F5F98', '#31356E', '#5E17EB']
 
+const donateDistribution = computed(() => {
+  if (!expenditureList.value) return []
 
-const donateDistribution = [
-  { id: 1, sort: '海洋生態保育專案', data: 30, color: '#6CE5E8' },
-  { id: 2, sort: '相關研究計畫', data: 20, color: '#41B8D5' },
-  { id: 3, sort: '淨攤活動', data: 18, color: '#2D8BBA' },
-  { id: 4, sort: '教育宣導活動', data: 15, color: '#2F5F98' },
-  { id: 5, sort: '行政及人事開支', data: 15, color: '#31356E' },
-  { id: 6, sort: '網站維護', data: 5, color: '5E17EB' }
-]
+  const groupedData = expenditureList.value.reduce((acc, curr) => {
+    if (!acc[curr.EL_NAME]) {
+      acc[curr.EL_NAME] = 0
+    }
+    acc[curr.EL_NAME] += Number(curr.EL_OUTLAY)
+    return acc
+  }, {})
+
+  const totalOutlay = Object.values(groupedData).reduce((sum, value) => sum + value, 0)
+
+  const result = Object.entries(groupedData).map(([sort, outlay], index) => ({
+    id: index + 1,
+    sort,
+    data: Math.round((outlay / totalOutlay) * 100),
+    color: colors[index % colors.length]
+  }))
+
+  return result.sort((a, b) => b.data - a.data)
+})
 
 const donateChart = ref(null)
 
 onMounted(async () => {
-    await fetchDonateData()
-    await fetchExpenditureData()
-  const dataNum = donateDistribution.map((item) => item.data)
-  const labels = donateDistribution.map((item) => item.sort + ' ' + item.data + '%')
-  const colors = donateDistribution.map((item) => item.color)
+  await fetchDonateData()
+  await fetchExpenditureData()
+
+  const dataNum = donateDistribution.value.map((item) => item.data)
+  const labels = donateDistribution.value.map((item) => item.sort + ' ' + item.data + '%')
+  const chartColors = donateDistribution.value.map((item) => item.color)
 
   const ctx = donateChart.value.getContext('2d')
   new Chart(ctx, {
@@ -81,7 +100,7 @@ onMounted(async () => {
       datasets: [
         {
           data: dataNum,
-          backgroundColor: colors,
+          backgroundColor: chartColors,
           borderColor: 'rgba(0,0,0,0.1)'
         }
       ]
@@ -117,14 +136,14 @@ onMounted(async () => {
         <div class="col-12 col-lg-6 donate-num">
           <div class="clean-tons">
             <span class="debris-word">總金額</span>
-            <span class="debris-num">9,309,090</span>
+            <span class="debris-num">{{ formatNumber(donateAmount) }}</span>
             <span class="debris-word">元</span>
           </div>
         </div>
         <div class="col-12 col-lg-6 donate-num">
           <div class="clean-tons donate-balance">
             <span class="debris-word">剩餘</span>
-            <span class="debris-num">920,090</span>
+            <span class="debris-num">{{formatNumber(donateAmount-expenditureAmount)}}</span>
             <span class="debris-word">元</span>
           </div>
         </div>

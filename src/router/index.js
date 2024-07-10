@@ -24,7 +24,7 @@ const router = createRouter({
       path: '/events',
       name: 'events',
       component: () => import('../views/EventsView.vue'),
-      meta: {title:"活動頁面"}
+      meta: {title:"淨灘活動"}
     },
     {
       path: '/Member',
@@ -99,21 +99,16 @@ const router = createRouter({
       meta: {title:"消息頁面"}
     },
     {
-      path: '/TestView',
-      name: 'TestView',
-      component: () => import('../views/TestView.vue')
-    },
-    {
       path: '/DonatePage',
       name: 'DonatePage',
       component: () => import('../views/DonatePage.vue'), // 捐款確認頁面
-      meta: {title:"捐款頁面"}
+      meta: {title:"捐款結帳"}
     },
     {
       path: '/Donate',
       name: 'Donate',
       component: () => import('../views/DonateView.vue'),// 捐款表單頁面
-      meta: {title:"捐款專區"} 
+      meta: {title:"愛心捐款"} 
     },
   ]
 });
