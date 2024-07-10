@@ -65,8 +65,8 @@ export default {
                 });
                 return;
             }
-            // 計算過期時間為10秒
-            const expires = new Date(new Date().getTime() + 10 * 1000);
+            // 計算過期時間為100秒
+            const expires = new Date(new Date().getTime() + 100 * 1000);
             Cookies.set('donationAmount', amountToDonate, { expires }); // 將捐款金額儲存到 Cookie 中，有效期為10秒
             router.push('/DonatePage'); // 跳轉至捐款頁面
         };

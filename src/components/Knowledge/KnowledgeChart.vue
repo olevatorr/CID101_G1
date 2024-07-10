@@ -370,12 +370,9 @@ const ShowAll = function () {
 //-----------------------------------------------------------垃圾數據
 // 顯示全台灣總計數據
 const dates = ref([]);
-const hebrisData = ref([]);
+const hebrisData = ref([{data:null}]);
 const DD_AREA = ref(null);
-
-const selectedYear = ref(null);
 const selectedMonth = ref(null);
-const yearList = ref([]);
 // const dateList = ref([]);
 // 定義垃圾分類標籤
 // const hebrisSortLabels = [
@@ -480,115 +477,41 @@ const hebrissource = [
 //             // console.log(hebrisData.value);
 //         });
 // });
-
-const fetchData = async ()=>{
-    try {
-        // 獲取日期列表
-        const dateResponse = await axios.get(`${import.meta.env.VITE_API_URL}/Debris.php`);
-        if (dateResponse.data) {
-            dates.value = dateResponse.data.map(date => ({
-                name: date.DDL_DATE.slice(0, 4) + '年' + date.DDL_DATE.slice(5, 7) + '月',
-                value: date.DDL_DATE.slice(0, 7)
-            }));
-            // console.log(dates.value);
-
-            // let curYear = '';
-            // dates.value.forEach(date => {
-            //     if (date.value.slice(0, 4) !== curYear) {
-            //         yearList.value.push(date.value.slice(0, 4));
-            //         curYear = date.value.slice(0, 4);
-            //     }
-            // });
-            // // console.log(curYear);        
-            // let curdate = '';
-            // dates.value.forEach(date => {
-            //     if (date.value.slice(5, 7) !== curdate) {
-            //         dateList.value.push(date.value.slice(5, 7));
-            //         curdate = date.value.slice(5, 7);
-            //     }
-            // });
-            // console.log(curdate);
-        }
-
-        
-        const response = await axios.post(`${import.meta.env.VITE_API_URL}/Debris.php`);
-        if (response) {
-            hebrisData.value = response.data;
-            console.log(hebrisData.value);
-            DD_AREA.value = response.data.DD_AREA;
-            updateChartForRegion(DD_AREA.value);
-        }
-    } catch (error) {
-        console.error(error);
-    }
-}
-
 // ------使用 Axios 从 PHP API 得到
 onMounted(async () => {
     try {
-        // 獲取日期列表
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/Debris.php`);
+        if (response) {
+            hebrisData.value = response.data
+            console.log(hebrisData.value);
+            DD_AREA.value = response.data.DD_AREA;
+            updateChartForRegion(DD_AREA.value);
+        }
+        } catch (error) {
+            console.error(error);
+        }
         const dateResponse = await axios.get(`${import.meta.env.VITE_API_URL}/Debris.php`);
         if (dateResponse.data) {
             dates.value = dateResponse.data.map(date => ({
                 name: date.DDL_DATE.slice(0, 4) + '年' + date.DDL_DATE.slice(5, 7) + '月',
                 value: date.DDL_DATE.slice(0, 7)
             }));
-            // console.log(dates.value);
-
-            // let curYear = '';
-            // dates.value.forEach(date => {
-            //     if (date.value.slice(0, 4) !== curYear) {
-            //         yearList.value.push(date.value.slice(0, 4));
-            //         curYear = date.value.slice(0, 4);
-            //     }
-            // });
-            // // console.log(curYear);        
-            // let curdate = '';
-            // dates.value.forEach(date => {
-            //     if (date.value.slice(5, 7) !== curdate) {
-            //         dateList.value.push(date.value.slice(5, 7));
-            //         curdate = date.value.slice(5, 7);
-            //     }
-            // });
-            // console.log(curdate);
+            selectedMonth.value = dateResponse.data.map(date => ({
+                name: date.DDL_DATE.slice(0, 4) + '年' + date.DDL_DATE.slice(5, 7) + '月',
+                value: date.DDL_DATE.slice(0, 7)
+            }))[0].value
         }
-
-        
-        const response = await axios.post(`${import.meta.env.VITE_API_URL}/Debris.php`);
-        if (response) {
-            hebrisData.value = response.data;
-            console.log(hebrisData.value);
-            DD_AREA.value = response.data.DD_AREA;
-            updateChartForRegion(DD_AREA.value);
-        }
-    } catch (error) {
-        console.error(error);
-    }
 });
 
 const selectData = computed(() => {
     if (selectedMonth.value) {
-        return hebrisData.value.filter(data => {
-            console.log(selectedMonth.value);
+        return Object.values(hebrisData.value.filter(data => {
             return data.DDL_DATE.slice(0, 7) === selectedMonth.value;
-        })[0].data;
+        })[0].data);
     }
-    return [];
+    return hebrisData.value[0].data;
 });
 
-// const fetchDebrisData = async () => {
-//     try {
-//         const response = await axios.get(`${import.meta.env.VITE_API_URL}/Debris.php`, {
-//             params: { ddl_id: selectedYear.value +'-'+selectedMonth.value }
-//         });
-//         if (response.data) {
-//             hebrisData.value = response.data.DEBRIS_DATA;
-//             updateChartForRegion("總計");
-//         }
-//     } catch (error) {
-//         console.error(error);
-//     }
-// };
 
 // 監視垃圾數據變化
 watch(selectData, () => {
@@ -597,28 +520,14 @@ watch(selectData, () => {
     }
 });
 
-// function updateChartForRegion(regionName) {
-//     const filteredData = hebrisData.value.find(item => {
-//         const region = item["縣市別"];
-//         return region === regionName;
-//     });
 
 function updateChartForRegion(regionName) {
-    console.log(selectData.value)
     if (!selectData.value || !Array.isArray(selectData.value)) {
         console.error('hebrisData is not loaded or is not an array');
         return;
     }
-    console.log(selectData.value);
     const filteredData = selectData.value.find(item => item.DD_AREA === regionName);
-
-    // if (!filteredData) {
-    //     console.error(`No data found for region: ${regionName}`);
-    //     return;
-    // }
-
     const displayData = hebrisSortLabels.value.map(key => filteredData[key] !== undefined ? filteredData[key] : 0);
-
 
     if (twChart) {
         twChart.destroy();
@@ -878,12 +787,6 @@ function updateChartForRegion(regionName) {
                     <h2>各縣市海洋廢棄物清理數據</h2>
                 </div>
                 <button class="select-all" @click="ShowAll">全台灣總計</button>
-
-                <select v-model="selectedYear">
-                    <option v-for="year in yearList" :key="year" :value="year">
-                        {{ year }}
-                    </option>
-                </select>
 
                 <select v-model="selectedMonth">
                     <option v-for="date in dates
