@@ -1,11 +1,12 @@
 .news-card {
+    border-radius: 2%;
     color:#333;
     position:relative;
-    padding: 10px;
     background-color: #fff;
     margin-top: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     .news-card-pic{
+        border-radius: 2% 2% 0 0;
         overflow: hidden;//超出部分遮掉
         // 設定同樣圖片比例
         aspect-ratio: 4/3;
@@ -23,6 +24,7 @@
         }
     }
     .news-card-txt{
+        padding: 10px;
         .news-card-content {
             overflow: hidden;
             text-overflow: ellipsis;
@@ -31,6 +33,7 @@
             -webkit-line-clamp: 2;
             box-sizing:border-box;
             margin: 5px 0;
+            
         }
         .filter-name {
             // 定去new-card上
