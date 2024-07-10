@@ -184,6 +184,9 @@
 // ----------------------------------------------------------------------------捐款用途
 .section-donation{
     .donation-list{
+        .row {
+            gap: 20px 0;
+        }
         h3{
             margin: 10px 0;
         }
@@ -194,7 +197,9 @@
                 border: 1px solid #E7A600;
                 border-radius: 40px;
                 padding-bottom: 20px;
-                margin: 10px;
+                padding: 20px;
+                height: 100%;
+                box-sizing: border-box;
                 h3{
                     color: #E7A600;
                 }
@@ -208,34 +213,17 @@
 
     }
 }
-@media screen and (max-width:768px) {
+@media screen and (max-width:575px) {
     .donation-box{
         h3{
             text-align: center;
         }
-        .universal-access {
-            display: flex;
-            justify-content: center;
-        }
-        .person-chalkboard {
-            display: flex;
-            justify-content: center;
-        }
-        .recycle {
-            display: flex;
-            justify-content: center;
-        }
-        .school {
-            display: flex;
-            justify-content: center;
-        }
-        .flask-vial {
-            display: flex;
-            justify-content: center;
-        }
-        .display {
+        .icon {
             display: flex;
             justify-content: center;
         }
     }
 }
+
+
+

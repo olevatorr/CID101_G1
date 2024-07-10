@@ -3,12 +3,14 @@
       <div class="container donation-list">
         <h3>DISTRIBUTION OF DONATION<br />捐款用途</h3>
         <div class="row donation-item">
-          <div class="donation-box col-lg-3 col-sm-12" ref="txt1" v-for="(item, index) in donationItems" :key="index">
-            <div :class="item.iconClass">
-              <i :class="item.icon"></i>
+          <div class="col-lg-4 col-sm-6 col-12" v-for="(item, index) in donationItems" :key="index">
+            <div class="donation-box">
+              <div class="icon">
+                <i :class="item.icon"></i>
+              </div>
+              <h3 class="donation-subtitle">{{ item.title }}</h3>
+              <p class="donation-description">{{ item.description }}</p>
             </div>
-            <h3 class="donation-subtitle">{{ item.title }}</h3>
-            <p class="donation-description">{{ item.description }}</p>
           </div>
         </div>
       </div>
