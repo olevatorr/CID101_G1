@@ -90,6 +90,9 @@ const SubmitEvent = async () => {
         };
 };
 
+const convertURL = (url) => {
+    return `${import.meta.env.VITE_IMG_URL}/events/${url}`;
+};
 
 </script>
 
@@ -102,7 +105,7 @@ const SubmitEvent = async () => {
                     <div class="row">
                         <div class="col-12 col-lg-6">
                             <div class="pic">
-                                <img :src="selectedEventCard.E_IMG" />
+                                <img :src="convertURL(selectedEventCard.E_IMG)" />
                             </div>
                             <div class="description">
                                 <h3>活動敘述</h3>
