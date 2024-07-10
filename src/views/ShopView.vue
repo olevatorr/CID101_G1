@@ -19,11 +19,11 @@
                 <div class="category">
                     <ul>
                         <li>商品分類</li>
-                        <li @click="handleClick('all')" :class="{ active: activeIndex === 'all' }">全部商品</li>
-                        <li @click="handleClick('杯套')" :class="{ active: activeIndex === '杯套' }">杯套類</li>
-                        <li @click="handleClick('上衣')" :class="{ active: activeIndex === '上衣' }">上衣類</li>
-                        <li @click="handleClick('包包')" :class="{ active: activeIndex === '包包' }">包包類</li>
-                        <li @click="handleClick('馬克杯')" :class="{ active: activeIndex === '馬克杯' }">馬克杯</li>
+                        <li @click=" handleClick('all')" :class="{ active: activeIndex === 'all' }">全部商品</li>
+                        <li @click=" handleClick('飲料杯套')" :class="{ active: activeIndex === '飲料杯套' }">杯套類</li>
+                        <li @click=" handleClick('大學衛衣')" :class="{ active: activeIndex === '大學衛衣' }">上衣類</li>
+                        <li @click=" handleClick('側背包')" :class="{ active: activeIndex === '側背包' }">包包類</li>
+                        <li @click=" handleClick('馬克杯')" :class="{ active: activeIndex === '馬克杯' }">馬克杯</li>
                     </ul>
                 </div>
             </div>
@@ -43,17 +43,23 @@
         </section>
 
         <section class="section section-pagination">
-            <div class="container">
-                <div class="button">
-                    <a href="#" @click.prevent="changePage(1)">1</a>
-                    <a href="#" @click.prevent="changePage(2)" v-if="isPages">2</a>
-                
-                </div>
-            </div>
-            <div class="sea-img">
-                <img src="/img/shop/sea.png" alt="">
-            </div>
-        </section>
+    <div class="container">
+      <div class="button">
+        <a 
+          v-for="page in totalPages" 
+          :key="page" 
+          href="#" 
+          @click.prevent="changePage(page)"
+          :class="{ active: currentPage === page }"
+        >
+          {{ page }}
+        </a>
+      </div>
+    </div>
+    <div class="sea-img">
+      <img src="/img/shop/sea.png" alt="">
+    </div>
+  </section>
         <ShopCart v-if="$route.path === '/shop' || $route.path === '/productinfo'" />
     </div>
 </template>
@@ -64,7 +70,6 @@ import { useProductStore } from '@/stores/product'
 import { useCartStore } from '@/stores/cart'
 import ProductItem from '../components/ProductItem.vue'
 import ShopCart from '@/components/ShopCart.vue'
-import { flatRollup } from 'd3'
 
 export default {
     components: {
@@ -79,48 +84,61 @@ export default {
         const activeIndex = ref('all')
 
         const isPages = ref(false)
+        const itemsPerPage = 16
+    
+    const totalPages = computed(() => {
+      return Math.ceil(productStore.filteredProducts.length / itemsPerPage)
+    })
 
-        const paginatedProdList = computed(() => {
-        const startIndex = (currentPage.value - 1) * 16
-        const endIndex = startIndex + 16
-        console.log(productStore.filteredProducts)
-        productStore.filteredProducts.forEach(element => {
-            element.amount = 1;
-        });
-        if(productStore.filteredProducts.length > 16){
-            isPages.value = true
-        }else{
-            isPages.value = false
+    const paginatedProdList = computed(() => {
+      console.log('Calculating paginated list, filtered products:', productStore.filteredProducts);
+      const startIndex = (currentPage.value - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
+
+      let productsToShow = productStore.filteredProducts;
+
+      if (typeof productsToShow === 'object' && productsToShow !== null && Array.isArray(productsToShow.product)) {
+        productsToShow = productsToShow.product;
+      }
+
+      if (!Array.isArray(productsToShow)) {
+        console.error('productsToShow is not an array:', productsToShow);
+        return [];
+      }
+
+      return productsToShow.slice(startIndex, endIndex).map(product => ({
+        ...product,
+        amount: 1
+      }));
+    });
+
+    const changePage = (page) => {
+      currentPage.value = page
+      window.scrollTo(0, 0)
+    }
+    onMounted(async () => {
+        await productStore.fetchProducts();
+    })
+
+    const handleClick = (category) => {
+            activeIndex.value = category;
+            productStore.setFilter(category);
+            currentPage.value = 1;
+            console.log('Category clicked:', category);
+            console.log('Filtered products after click:', productStore.filteredProducts.length);
         }
-        return productStore.filteredProducts.slice(startIndex, endIndex)
-        })
 
-        onMounted(() => {
-        console.log(productStore)
-
-            productStore.fetchProducts()
-        })
-
-        const handleClick = (category) => {
-            activeIndex.value = category
-            productStore.setFilter(category)
-            currentPage.value = 1
-        }
-
-        const changePage = (page) => {
-            currentPage.value = page
-            window.scrollTo(0, 0)
-        }
 
         const addToCart = (product) => {
             cartStore.addToCart(product)
         }
 
         const getImageUrl = (imgUrl) => {
-            return `${import.meta.env.BASE_URL}img/shop/${imgUrl}`
+            return `${import.meta.env.BASE__IMG_URL}/shop/${imgUrl}`
         }
 
         return {
+            productStore,
             currentPage,
             activeIndex,
             paginatedProdList,
@@ -128,7 +146,8 @@ export default {
             changePage,
             addToCart,
             getImageUrl,
-            isPages
+            isPages,
+            totalPages
             }
         }
     }

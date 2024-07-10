@@ -30,6 +30,9 @@ const closeCard = () => {
 const reportClicked = () => {
   emit('report-click')
 }
+const convertURL = (url) => {
+    return `${import.meta.env.VITE_IMG_URL}/events/${url}`;
+};
 </script>
 <template>
   <!--使用v-for渲染多張卡片-->
@@ -42,7 +45,7 @@ const reportClicked = () => {
     >
       <div class="share-card">
         <div class="pic">
-          <img :src="card.F_IMG" />
+          <img :src="convertURL(card.F_IMG)" />
         </div>
         <div class="text">
           <div class="theme">
@@ -72,7 +75,7 @@ const reportClicked = () => {
       </div>
       <div class="leftBar">
         <div class="pic">
-          <img :src="shareContent[0].F_IMG" />
+          <img :src="convertURL(shareContent[0].F_IMG)" />
         </div>
         <div class="report">
           <span @click.stop="reportClicked"

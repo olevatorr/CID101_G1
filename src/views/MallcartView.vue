@@ -14,13 +14,13 @@
                     <p>小計</p>
                 </div>
             </div>
-            <div class="cart-info" v-for="(item ,index) in cartItems" :key="index">
+            <div class="cart-info" v-for="(item, index) in cartItems" :key="index">
                 <div class="item">
                     <p>{{ index + 1 }}</p>
                 </div>
                 <div class="content">
                     <div class="pic">
-                        <img :src="Array.isArray(item.P_IMG1) ? getImageUrl(item.P_IMG1[0]) : getImageUrl(item.P_IMG1)" alt="">
+                        <img :src="Array.isArray(item.P_MAIN_IMG) ? getImageUrl(item.P_MAIN_IMG) : getImageUrl(item.P_MAIN_IMG)" alt="">
                     </div>
                     <div class="title">
                         <p>{{ item.P_NAME }}</p>
@@ -47,7 +47,7 @@
             </div>
             <div class="cart-total">
                 <div class="text">
-                    <h4>應付金額 NT$ {{ totalPrice + 60}}</h4>
+                    <h4>應付金額 NT$ {{ totalPrice + 60 }}</h4>
                 </div>
             </div>
         </div>
@@ -124,21 +124,21 @@
             <div class="cart-receive">
                 <div class="title">
                     <h3>04</h3>
-                    <h3>收件人資料 <input  type="checkbox" v-model="input.checkbox">同會員資料</h3>
+                    <h3>收件人資料 <input type="checkbox" v-model="input.checkbox">同會員資料</h3>
                 </div>
             </div>
             <div class="cart-receiveinfo">
                 <div class="name">
                     <h4>收件人姓名</h4>
-                    <input type="text" v-model="name" id="name" name="name" :readonly="input.checkbox"/>
+                    <input type="text" v-model="name" id="name" name="name" :readonly="input.checkbox" />
                 </div>
                 <div class="phone">
                     <h4>收件人聯絡電話</h4>
-                    <input type="text" v-model="phone" id="phone" name="phone" :readonly="input.checkbox"/>
+                    <input type="text" v-model="phone" id="phone" name="phone" :readonly="input.checkbox" />
                 </div>
                 <div class="add">
                     <h4>收件人地址</h4>
-                    <input type="text" v-model="add" id="add" name="add" :readonly="input.checkbox"/>
+                    <input type="text" v-model="add" id="add" name="add" :readonly="input.checkbox" />
                 </div>
             </div>
         </div>
@@ -198,18 +198,24 @@
         <div class="container">
             <div class="cart-checkout">
                 <router-link to="/shop" tag="div" event="click" class="button">
-                <button>返回商品頁面</button>
+                    <button>返回商品頁面</button>
                 </router-link>
-                <button class="pay">確定下單</button>
+                <button class="pay" @click="submitEcpayForm">確定下單</button>
             </div>
         </div>
     </section>
+    <!-- 綠界支付表單提交後的跳轉頁面 -->
+    <div v-if="showEcpayRedirect" class="ecpay-redirect-overlay">
+        <div class="ecpay-redirect-container" v-html="ecpayRedirectForm"></div>
+    </div>
 </template>
 
 <script>
 import { useCartStore } from '@/stores/cart';
 import { useMemberStore } from '@/stores/member';
 import { computed } from 'vue';
+import axios from 'axios';
+
 
 export default {
     data() {
@@ -219,21 +225,25 @@ export default {
             },
             name: '',
             phone: '',
-            add: ''
+            add: '',
+            showEcpayRedirect: false,
+            ecpayRedirectForm: ''
         }
     },
     setup() {
         const cartStore = useCartStore();
         const memberStore = useMemberStore();
-        
+
         const cartItems = computed(() => cartStore.items);
         const totalPrice = computed(() => cartStore.totalPrice);
-        
+
+
         return {
             cartStore,
             memberStore,
             cartItems,
             totalPrice
+
         };
     },
     watch: {
@@ -246,6 +256,7 @@ export default {
                 this.name = '';
                 this.phone = '';
                 this.add = '';
+
             }
         }
     },
@@ -264,8 +275,118 @@ export default {
             }
         },
         getImageUrl(imgUrl) {
-            return `${import.meta.env.BASE_URL}img/shop/${imgUrl}`;
+            return `${import.meta.env.VITE_IMG_URL}/shop/${imgUrl}`;
+        },
+
+        // 綠界支付表單
+        async submitEcpayForm() {
+            try {
+                let itemsString = this.cartItems.map(item =>
+                    `${item.P_NAME} $${item.P_PRICE} x ${item.amount}`
+                ).join('#');
+
+                const response = await axios.post('http://localhost/cid101/g1/api/ecpay.php', {
+                    itemName: itemsString,
+                    itemPrice: this.totalPrice + 60,
+                    itemQuantity: 1,
+                }, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    withCredentials: false
+                });
+
+                if (response.status !== 200) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = response.data;
+                if (result.form) {
+                    this.showEcpayRedirect = true;
+                    this.ecpayRedirectForm = result.form;
+                    this.$nextTick(() => {
+                        const formContainer = document.createElement('div');
+                        formContainer.innerHTML = result.form;
+                        document.body.appendChild(formContainer);
+                        formContainer.querySelector('form').submit();
+                    });
+                } else {
+                    throw new Error('綠界支付回應中沒有表單');
+                }
+            } catch (error) {
+                console.error('發送綠界支付請求時發生錯誤', error);
+                alert('處理付款時發生錯誤，請稍後再試。');
+            }
+        },
+
+        //送訂單資訊到後台
+        async submitOrder() {
+            try {
+                // 檢查是否選擇了付款和配送方式
+                if (!this.selectedPaymentMethod || !this.selectedShippingMethod) {
+                    throw new Error('請選擇付款方式和配送方式');
+                }
+
+                // 檢查收件人信息是否完整
+                if (!this.name || !this.phone || !this.add) {
+                    throw new Error('請填寫完整的收件人信息');
+                }
+
+                // 準備訂單數據
+                const orderData = {
+                    PO_NAME: this.name,
+                    PO_ADDR: this.add,
+                    PO_PHONE: this.phone,
+                    PO_AMOUNT: this.totalPrice + 60,  // 總價加運費
+                    PM_ID: this.selectedPaymentMethod,
+                    PO_TRANS: this.selectedShippingMethod,
+                    S_STATUS: 0,  // 初始狀態：未處理
+                    items: this.cartItems.map(item => ({
+                        P_NAME: item.P_NAME,
+                        P_PRICE: item.P_PRICE,
+                        PO_QTY: item.amount
+                    }))
+                };
+
+                // 發送訂單數據到後端 API
+                const response = await axios.post(`${import.meta.env.VITE_API_URL}/cid101/g1/api/createOrder.php`, orderData);
+
+                if (response.data.success) {  // 注意這裡使用 success 而不是 error
+                    // 訂單創建成功
+                    alert('訂單已成功提交！');
+                    this.cartStore.clearCart();  // 清空購物車
+                    this.$router.push('/orderConfirmation');  // 導航到訂單確認頁面
+                } else {
+                    throw new Error(response.data.message);  // 使用 message 而不是 msg
+                }
+            } catch (error) {
+                console.error('提交訂單時發生錯誤：', error);
+                alert(error.message || '提交訂單失敗，請稍後再試。');
+            }
         }
     }
 }
+
 </script>
+
+<style scoped>
+.ecpay-redirect-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.ecpay-redirect-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+</style>

@@ -4,6 +4,7 @@ import * as topojson from 'topojson-client'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ref, onMounted, onBeforeUnmount, watch, computed } from 'vue'
+import axios from 'axios'
 
 // 卷軸動畫
 gsap.registerPlugin(ScrollTrigger)
@@ -38,24 +39,30 @@ const totalWeight = ref(null)
 const totalParticipants = ref(null)
 const totalSessions = ref(null)
 
-onMounted(() => {
-    fetch(`${import.meta.env.BASE_URL}json/海洋委員會公務統計報表-海洋廢棄物清理-113.01.json`)
-        .then(res => res.json())
-        .then(jsonData => {
-            hebrisData.value = jsonData
-        })
+onMounted(async () => {
+    try {
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/DebrisData.php`);
+        if (response.data) {
+            console.log(response.data.DEBRIS_DATA);
+            hebrisData.value = response.data.DEBRIS_DATA;
+            // console.log(hebrisData.value);
+            console.log(new Date(hebrisData.value[0].DDL_DATE));
+        }
+    } catch (error) {
+        console.error(error);
+    }
 })
 
 const filteredData = computed(() => {
     if (hebrisData.value) {
-        return hebrisData.value.find(data => data['縣市別'] === selectedArea.value) || {}
+        return hebrisData.value.find(data => data.DD_AREA === selectedArea.value) || {}
     }
     return {}
 })
 watch(filteredData, () => {
-    const weightValue = filteredData.value['清理數量分類(噸)_總計'] || '0';
-    const participantsValue = removeCommas(filteredData.value['參與人數(人次)'] || '0');
-    const sessionsValue = removeCommas(filteredData.value['清理次數(次)'] || '0');
+    const weightValue = filteredData.value.DD_BEACH_CLEANING || '0';
+    const participantsValue = removeCommas(filteredData.value.DD_ATTENDANCE_TOTAL || '0');
+    const sessionsValue = removeCommas(filteredData.value.DD_CLEANING_TIMES || '0');
 
     animateNumber(totalWeight.value, weightValue);
     animateNumber(totalParticipants.value, participantsValue);

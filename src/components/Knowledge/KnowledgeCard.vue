@@ -60,7 +60,7 @@ export default {
             axios.get(`${import.meta.env.VITE_API_URL}/knowledge.php`) // 獲取卡片數據的 API 請求
                 .then(response => {
                     this.cards = response.data.knowledge; // 將獲取到的數據存儲在 cards 中
-                    console.log(this.cards);
+                    // console.log(this.cards);
                     this.isLoading = false; // 設置加載狀態為完成
                 })
                 .catch(error => {

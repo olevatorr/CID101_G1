@@ -594,6 +594,7 @@ const isFormValid = () => {
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -626,7 +627,7 @@ export default {
     },
     teamAnimation() {
       const teamCards = gsap.utils.toArray('.team-card');
-      
+
       teamCards.forEach((card, index) => {
         gsap.from(card, {
           y: 100,
@@ -733,20 +734,54 @@ export default {
       const b = Math.floor(Math.random() * 256);
       return `rgb(${r}, ${g}, ${b})`;
     },
-    submitForm() {
-      if (this.isFormValid()) {
-        Swal.fire({
-          title: '表單已提交',
-          text: '感謝您的回饋，將跳轉至首頁...',
-          icon: 'success',
-          timer: 3000,
-          timerProgressBar: true,
-        });
-        console.log('表單已提交:', this.formData);
+    // submitForm() {
+    //   if (this.isFormValid()) {
+    //     Swal.fire({
+    //       title: '表單已提交',
+    //       text: '感謝您的回饋，將跳轉至首頁...',
+    //       icon: 'success',
+    //       timer: 3000,
+    //       timerProgressBar: true,
+    //     });
+    //     console.log('表單已提交:', this.formData);
 
-        setTimeout(() => {
-          this.$router.push('/');
-        }, 5000);
+    //     setTimeout(() => {
+    //       this.$router.push('/');
+    //     }, 5000);
+    //   }
+    // },
+
+    async submitForm() {
+      if (this.isFormValid()) {
+        try {
+          const response = await axios.post(`${import.meta.env.VITE_API_URL}/submit_inquiry.php`, this.formData)
+          //('http://localhost/cid101/g1/api/submit_inquiry.php', this.formData);
+          if (response.data.success) {
+            Swal.fire({
+              title: '表單已提交',
+              text: '感謝您的回饋，將跳轉至首頁...',
+              icon: 'success',
+              timer: 3000,
+              timerProgressBar: true,
+            });
+            setTimeout(() => {
+              this.$router.push('/');
+            }, 3000);
+          } else {
+            Swal.fire({
+              title: '錯誤',
+              text: response.data.message || '提交失敗，請稍後再試',
+              icon: 'error',
+            });
+          }
+        } catch (error) {
+          console.error('提交表單時出錯:', error);
+          Swal.fire({
+            title: '錯誤',
+            text: '提交失敗，請稍後再試',
+            icon: 'error',
+          });
+        }
       }
     },
     isFormValid() {

@@ -66,12 +66,13 @@ export default {
     },
     methods: {
         getImageUrl(imgUrl) {
-            return imgUrl ? `${import.meta.env.BASE_URL}img/news/${imgUrl}` : '';
+            // return imgUrl ? `${import.meta.env.BASE_URL}img/news/${imgUrl}` : '';
+            return imgUrl ? `${import.meta.env.VITE_IMG_URL}/news/${imgUrl}` : '';
         },
         async fetchData() {
             try {
                 const newsId = this.$route.params.id;
-                const response = await axios.get(`http://localhost/cid101/g1/api/news.php?N_ID=${newsId}`);
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/news.php?N_ID=${newsId}`);
                 if (response.data && !response.data.error && response.data.news) {
                     const newsItem = response.data.news.find(item => item.N_ID == newsId);//陣列中查找 N_ID 等於 newsId 的新聞項目。find 方法返回第一個符合條件的元素。
                     if (newsItem) {

@@ -26,7 +26,6 @@ const productStore = useProductStore()
 
 // 初始化 stores
 cartStore.initializeStore()
-productStore.initializeStore()
 
 app.use(vue3GoogleLogin, {
     clientId: '93978604812-d3d8681fgbufoa1gfl2tcirlos73nokc.apps.googleusercontent.com'
