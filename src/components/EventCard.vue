@@ -1,6 +1,6 @@
 <script setup>
 import { useEventsStore } from '@/stores/events';
-import {storeToRefs} from 'pinia'
+import {storeToRefs} from 'pinia';
 const events = useEventsStore()
 
 
@@ -13,6 +13,9 @@ const props = defineProps({
 const handleEventCard = (event)=>{
     selectedEventCard.value = event
 }
+const convertURL = (url) => {
+    return `${import.meta.env.VITE_IMG_URL}/events/${url}`;
+};
 
 
 </script>
@@ -31,7 +34,7 @@ const handleEventCard = (event)=>{
                 <span>截止日期:{{ card.E_DEADLINE }}</span>
             </div>
             <div class="pic">
-                <img :src="`__IMG_BASE_URL__/events/${card.E_IMG}`" />
+                <img :src="convertURL(card.E_IMG)" />
                 <div class="add">報名活動</div>
             </div>
             <div class="people">
