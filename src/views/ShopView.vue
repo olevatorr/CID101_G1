@@ -43,17 +43,23 @@
         </section>
 
         <section class="section section-pagination">
-            <div class="container">
-                <div class="button">
-                    <a href="#" @click.prevent="changePage(1)">1</a>
-                    <a href="#" @click.prevent="changePage(2)" v-if="isPages">2</a>
-                
-                </div>
-            </div>
-            <div class="sea-img">
-                <img src="/img/shop/sea.png" alt="">
-            </div>
-        </section>
+    <div class="container">
+      <div class="button">
+        <a 
+          v-for="page in totalPages" 
+          :key="page" 
+          href="#" 
+          @click.prevent="changePage(page)"
+          :class="{ active: currentPage === page }"
+        >
+          {{ page }}
+        </a>
+      </div>
+    </div>
+    <div class="sea-img">
+      <img src="/img/shop/sea.png" alt="">
+    </div>
+  </section>
         <ShopCart v-if="$route.path === '/shop' || $route.path === '/productinfo'" />
     </div>
 </template>
@@ -78,40 +84,40 @@ export default {
         const activeIndex = ref('all')
 
         const isPages = ref(false)
+        const itemsPerPage = 16
+    
+    const totalPages = computed(() => {
+      return Math.ceil(productStore.filteredProducts.length / itemsPerPage)
+    })
 
-        const paginatedProdList = computed(() => {
-        console.log('Calculating paginated list, filtered products:', productStore.filteredProducts);
-        const startIndex = (currentPage.value - 1) * 16;
-        const endIndex = startIndex + 16;
+    const paginatedProdList = computed(() => {
+      console.log('Calculating paginated list, filtered products:', productStore.filteredProducts);
+      const startIndex = (currentPage.value - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
 
-        let productsToShow = productStore.filteredProducts;
+      let productsToShow = productStore.filteredProducts;
 
-        // 檢查 productsToShow 是否為對象，如果是，則使用其 product 屬性
-        if (typeof productsToShow === 'object' && productsToShow !== null && Array.isArray(productsToShow.product)) {
-            productsToShow = productsToShow.product;
-        }
+      if (typeof productsToShow === 'object' && productsToShow !== null && Array.isArray(productsToShow.product)) {
+        productsToShow = productsToShow.product;
+      }
 
-        // 如果 productsToShow 不是數組，則使用空數組
-        if (!Array.isArray(productsToShow)) {
-            console.error('productsToShow is not an array:', productsToShow);
-            return [];
-        }
+      if (!Array.isArray(productsToShow)) {
+        console.error('productsToShow is not an array:', productsToShow);
+        return [];
+      }
 
-        isPages.value = productsToShow.length > 16;
-
-        return productsToShow.slice(startIndex, endIndex).map(product => ({
-            ...product,
-            amount: 1
-        }));
+      return productsToShow.slice(startIndex, endIndex).map(product => ({
+        ...product,
+        amount: 1
+      }));
     });
 
+    const changePage = (page) => {
+      currentPage.value = page
+      window.scrollTo(0, 0)
+    }
     onMounted(async () => {
-        try {
-            await productStore.initializeStore();
-            console.log('Products fetched, total:', productStore.products.length);
-        } catch (error) {
-            console.error('Failed to initialize store:', error);
-        }
+        await productStore.fetchProducts();
     })
 
     const handleClick = (category) => {
@@ -121,10 +127,7 @@ export default {
             console.log('Category clicked:', category);
             console.log('Filtered products after click:', productStore.filteredProducts.length);
         }
-        const changePage = (page) => {
-            currentPage.value = page
-            window.scrollTo(0, 0)
-        }
+
 
         const addToCart = (product) => {
             cartStore.addToCart(product)
@@ -143,7 +146,8 @@ export default {
             changePage,
             addToCart,
             getImageUrl,
-            isPages
+            isPages,
+            totalPages
             }
         }
     }
