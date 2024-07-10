@@ -19,7 +19,7 @@ export const useSharesStore = defineStore('shares', {
         // },
         async fetchselectedShareCardData() {
             try {
-                const response = await axios.get('http://localhost/cid101/g1/api/eventShare.php');
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/eventShare.php`);
                 if (!response.data.error) {
                     this.shareContent = response.data.FEEDBACK ;
                     console.log(this.shareContent);

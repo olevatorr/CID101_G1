@@ -80,11 +80,22 @@ export default {
         const isPages = ref(false)
 
         const paginatedProdList = computed(() => {
-        console.log('Calculating paginated list, filtered products:', productStore.filteredProducts.length);
+        console.log('Calculating paginated list, filtered products:', productStore.filteredProducts);
         const startIndex = (currentPage.value - 1) * 16;
         const endIndex = startIndex + 16;
 
-        const productsToShow = productStore.filteredProducts;
+        let productsToShow = productStore.filteredProducts;
+
+        // 檢查 productsToShow 是否為對象，如果是，則使用其 product 屬性
+        if (typeof productsToShow === 'object' && productsToShow !== null && Array.isArray(productsToShow.product)) {
+            productsToShow = productsToShow.product;
+        }
+
+        // 如果 productsToShow 不是數組，則使用空數組
+        if (!Array.isArray(productsToShow)) {
+            console.error('productsToShow is not an array:', productsToShow);
+            return [];
+        }
 
         isPages.value = productsToShow.length > 16;
 
@@ -95,10 +106,12 @@ export default {
     });
 
     onMounted(async () => {
-        console.log('Mounting component...');
-        await productStore.initializeStore();
-        console.log('Products fetched, total:', productStore.products.length);
-        console.log('Filtered products:', productStore.filteredProducts.length);
+        try {
+            await productStore.initializeStore();
+            console.log('Products fetched, total:', productStore.products.length);
+        } catch (error) {
+            console.error('Failed to initialize store:', error);
+        }
     })
 
     const handleClick = (category) => {
@@ -118,7 +131,7 @@ export default {
         }
 
         const getImageUrl = (imgUrl) => {
-            return `${import.meta.env.BASE_URL}img/shop/${imgUrl}`
+            return `${import.meta.env.BASE__IMG_URL}/shop/${imgUrl}`
         }
 
         return {
