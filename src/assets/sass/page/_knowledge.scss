@@ -50,10 +50,13 @@
     .container {
         h2 {
             color: #fff;
+            margin-bottom: 1rem;
         }
         .select-all {
             border-radius: 10px;
             margin-bottom: 10px;
+            margin-right: 10px;
+            padding: 8px 30px;
         }
         .row {
             @media screen and (max-width:768px) {
@@ -165,26 +168,26 @@
 
 .news-filter {
     margin-left: 10px;
+    select {
+        background: rgba(255, 255, 255, 0.16);
+        border-radius: 10px;
+        color: #ffffff;
+        margin-top: 10px;
+        border: 2px solid #ffffff;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        padding: 6px 20px;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+    option {
+        background: rgba(187, 187, 187, 0.26);
+        color: #3b3939;
+    }
+    option:hover{
+        color: #fff;
+    }
 }
 
-.news-filter select {
-    background: rgba(255, 255, 255, 0.16);
-    border-radius: 10px;
-    color: #111111;
-    margin-top: 10px;
-    border: 2px solid #ffffff;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-}
-.news-filter option {
-    background: rgba(187, 187, 187, 0.26);
-    color: #3b3939;
-}
-option:hover{
-    color: #fff;
-}
 // ------------------------------------基隆垃圾處理方式
 .trash-card {
     text-align: center;
@@ -329,23 +332,27 @@ select {
         /* overflow: auto; */
         .close {
             position: absolute;
-            top: 5px;
-            right: 5px;
-            font-size: 18px;
+            top: 105%;
+            right: 50%;
+            font-size: 30px;
             cursor: pointer;
+            color: white;
         }
         i:hover{
             scale: 1.1;
             color: #E7A600;
+            transition: 0.3s;
         }
         .lightbox-img {
             max-width: 100%;
             max-height: 50vh;
             width: 100%;
+            padding: 10px 0;
             height: auto;
         }
         .spanlightbox{
             text-align: end;
+            margin: 20px 0 0 0;
         }
     }
 }
@@ -362,7 +369,7 @@ select {
         margin: 40px;
         padding: 20px;
         text-align: center;
-        box-shadow: 0 0 6.5px 3px #00000030;
+        box-shadow: 0 0 2.8px 1px #0000001f;
 
         .card-content {
             display: flex;
