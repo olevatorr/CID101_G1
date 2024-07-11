@@ -148,14 +148,22 @@ const labelstxt = [
     "桃園市2"
 ]
 
-function setupData() {
-    fetch(`${import.meta.env.BASE_URL}json/海域水質.json`)// 使用 fetch 抓 JSON 文件
-        .then(response => response.json())
-        .then(data => {
-            const sortedData = data.sort((a, b) => new Date(b.UPDATE_TIME) - new Date(a.UPDATE_TIME));// 將數據按時間排序
-            apiData.value = sortedData;  // 設置 API 數據
-            setupChart();  // 初始化圖表
-        })
+const setupData = async () => {
+    try {
+        const response = await axios.get('https://iocean.oca.gov.tw/oca_datahub/WebService/GetData.ashx', {
+            headers: {
+                'API-KEY': '4c420a99-1509-4cf5-83b4-f73874d68920'
+            }
+        });
+        
+        if (response) {
+            apiData.value = response.data;
+            console.log(apiData.value);
+            setupChart();
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error.response ? error.response.data : error.message);
+    }
 }
 
 // Vue 組件掛載時執行
