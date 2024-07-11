@@ -20,7 +20,8 @@
                 </div>
                 <div class="content">
                     <div class="pic">
-                        <img :src="Array.isArray(item.P_MAIN_IMG) ? getImageUrl(item.P_MAIN_IMG) : getImageUrl(item.P_MAIN_IMG)" alt="">
+                        <img :src="Array.isArray(item.P_MAIN_IMG) ? getImageUrl(item.P_MAIN_IMG) : getImageUrl(item.P_MAIN_IMG)"
+                            alt="">
                     </div>
                     <div class="title">
                         <p>{{ item.P_NAME }}</p>
@@ -284,7 +285,8 @@ export default {
                 let itemsString = this.cartItems.map(item =>
                     `${item.P_NAME} $${item.P_PRICE} x ${item.amount}`
                 ).join('#');
-                const response = await axios.post(`${import.meta.env.VITE_API_URL}/ecpay.php`, {
+
+                const response = await axios.post('http://localhost/cid101/g1/api/ecpay.php', {
                     itemName: itemsString,
                     itemPrice: this.totalPrice + 60,
                     itemQuantity: 1,
@@ -294,7 +296,7 @@ export default {
                     },
                     withCredentials: false
                 });
-
+                this.submitOrder()
                 if (response.status !== 200) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
