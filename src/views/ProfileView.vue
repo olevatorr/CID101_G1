@@ -39,27 +39,27 @@
           <ul>
             <li>
               <label for="">會員姓名</label>
-              <input type="text" maxlength="20" v-model="member.U_NAME" @blur="validate('name')" readonly>
+              <input type="text" maxlength="20" v-model="member.U_NAME" @blur="validAll('name')" readonly>
               <span v-if="errors.name">{{ errors.name }}</span>
             </li>
             <li>
               <label for="">會員帳號</label>
-              <input type="text" maxlength="20" v-model="member.U_ACCOUNT" @blur="validate('account')" readonly>
+              <input type="text" maxlength="20" v-model="member.U_ACCOUNT" @blur="validAll('account')" readonly>
               <span v-if="errors.account">{{ errors.account }}</span>
             </li>
             <li>
               <label for="">會員信箱</label>
-              <input type="text" v-model="member.U_EMAIL" @blur="validate('email')" readonly>
+              <input type="text" v-model="member.U_EMAIL" @blur="validAll('email')" readonly>
               <span v-if="errors.email">{{ errors.email }}</span>
             </li>
             <li>
               <label for="">會員電話</label>
-              <input type="tel" maxlength="10" v-model="member.U_PHONE" @blur="validate('phone')" readonly>
+              <input type="tel" maxlength="10" v-model="member.U_PHONE" @blur="validAll('phone')" readonly>
               <span v-if="errors.phone">{{ errors.phone }}</span>
             </li>
             <li>
               <label for="">會員地址</label>
-              <input type="text" v-model="member.U_ADDRESS" @blur="validate('address')" readonly>
+              <input type="text" v-model="member.U_ADDRESS" @blur="validAll('address')" readonly>
               <span v-if="errors.address">{{ errors.address }}</span>
             </li>
           </ul>
@@ -208,7 +208,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for=" donate in donates.data" :key="donate.DO_ID">
+              <tr v-for=" donate in paginatedData" :key="donate.DO_ID">
                 <td data-label="捐款訂單">{{ donate.DO_ID }}</td>
                 <td data-label="捐款日期">{{ donate.DO_DATE }}</td>
                 <td data-label="捐款金額">{{ donate.DO_AMOUNT }}</td>
