@@ -150,9 +150,9 @@ const labelstxt = [
 
 const setupData = async () => {
     try {
-        const response = await axios.get('https://iocean.oca.gov.tw/oca_datahub/WebService/GetData.ashx', {
+        const response = await axios.get('https://iocean.oca.gov.tw/oca_datahub/WebService/GetData.ashx?id=c1f1c6d4-536b-49bc-90eb-a9442799641b', {
             headers: {
-                'API-KEY': '4c420a99-1509-4cf5-83b4-f73874d68920'
+                'API-KEY': 'e0943fb9-24b0-4a34-b1c5-21c366c92432'
             }
         });
         
