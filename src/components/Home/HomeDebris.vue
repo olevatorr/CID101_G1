@@ -41,11 +41,9 @@ const totalSessions = ref(null)
 
 onMounted(async () => {
     try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/DebrisData.php`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/Debris.php`);
         if (response.data) {
-            console.log(response.data.DEBRIS_DATA);
-            hebrisData.value = response.data.DEBRIS_DATA;
-            console.log(hebrisData.value);
+            hebrisData.value = response.data[0].data;
         }
     } catch (error) {
         console.error(error);
