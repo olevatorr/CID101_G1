@@ -5,7 +5,7 @@
         <!-- 側邊欄 -->
         <div class="profile-box col-12 col-sm-4 col-md-3">
           <div class="avatra">
-            <img v-if="member" :src="imageSrc" alt="User Avatar" id="image"/>
+            <img v-if="member" :src="imageSrc" alt="User Avatar" id="image" />
             <input type="file" id="theFile" @change="fileChange" ref="fileInput">
             <button @click="uploadImage">Upload</button>
             <p>{{ member?.U_NAME }}</p>
@@ -39,37 +39,27 @@
           <ul>
             <li>
               <label for="">會員姓名</label>
-              <input type="text" maxlength="20" v-model="member.U_NAME"
-              @blur="validate('name')"
-              readonly>
+              <input type="text" maxlength="20" v-model="member.U_NAME" @blur="validate('name')" readonly>
               <span v-if="errors.name">{{ errors.name }}</span>
             </li>
             <li>
               <label for="">會員帳號</label>
-              <input type="text" maxlength="20" v-model="member.U_ACCOUNT" 
-              @blur="validate('account')"
-              readonly>
+              <input type="text" maxlength="20" v-model="member.U_ACCOUNT" @blur="validate('account')" readonly>
               <span v-if="errors.account">{{ errors.account }}</span>
             </li>
             <li>
               <label for="">會員信箱</label>
-              <input type="text"  v-model="member.U_EMAIL" 
-              @blur="validate('email')"
-              readonly>
+              <input type="text" v-model="member.U_EMAIL" @blur="validate('email')" readonly>
               <span v-if="errors.email">{{ errors.email }}</span>
             </li>
             <li>
               <label for="">會員電話</label>
-              <input type="tel"  maxlength="10" v-model="member.U_PHONE" 
-              @blur="validate('phone')"
-              readonly>
+              <input type="tel" maxlength="10" v-model="member.U_PHONE" @blur="validate('phone')" readonly>
               <span v-if="errors.phone">{{ errors.phone }}</span>
             </li>
             <li>
               <label for="">會員地址</label>
-              <input type="text"  v-model="member.U_ADDRESS" 
-              @blur="validate('address')"
-              readonly>
+              <input type="text" v-model="member.U_ADDRESS" @blur="validate('address')" readonly>
               <span v-if="errors.address">{{ errors.address }}</span>
             </li>
           </ul>
@@ -94,7 +84,7 @@
               </tr>
             </thead>
             <tbody>
-              <template v-for="list in order.productOrder" :key="list.PO_ID">
+              <template v-for="list in order.data" :key="list.PO_ID">
                 <tr>
                   <td data-label="訂單編號">{{ list.PO_ID }}</td>
                   <td data-label="訂單狀況">{{ list.S_STATUS }}</td>
@@ -106,8 +96,7 @@
                 </tr>
                 <!-- 商品資訊最後要放進div做成toggle -->
                 <!--currentPoId的值等於list.PO_ID 和 isShopTableVisible開啟的狀態 -->
-                <div v-if="currentPoId === `${list.PO_ID}` && isShopTableVisible"
-                  class="shoptable">
+                <div v-if="currentPoId === `${list.PO_ID}` && isShopTableVisible" class="shoptable">
                   <table class="shop">
                     <caption>訂單明細</caption>
                     <tr>
@@ -120,7 +109,7 @@
                       <td data-label="商品編號">{{ shops.P_ID }}</td>
                       <td data-label="商品名稱">{{ shops.P_NAME }}</td>
                       <td data-label="商品數量">{{ shops.PO_QTY }}</td>
-                      <td data-label="單價">{{ shops.PO_PRICE }}</td>
+                      <td data-label="單價">{{ shops.P_PRICE }}</td>
                     </tr>
                   </table>
                   <button @click="toggleShopTable()">關閉</button>
@@ -151,7 +140,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for=" act in activities.event_order" :key="act.E_ID">
+              <tr v-for=" act in activities.data" :key="act.E_ID">
                 <td data-label="活動訂單">{{ act.E_ID }}</td>
                 <td data-label="活動名稱">{{ act.E_TITLE }}</td>
                 <td data-label="活動日期">{{ act.E_DATE }}</td>
@@ -228,16 +217,14 @@
             </li>
             <li>
               <label>修改密碼</label>
-              <input type="text" v-model="newPassword" maxlength="10" 
-              placeholder="請輸入密碼" 
-              @blur="validate('newPassword')">
+              <input type="text" v-model="newPassword" maxlength="10" placeholder="請輸入密碼"
+                @blur="validate('newPassword')">
               <span v-if="errors.newPassword">{{ errors.newPassword }}</span>
             </li>
             <li>
               <label>再輸入一次密碼</label>
-              <input class="inputs" v-model="confirmPassword" type="text" maxlength="10" 
-              placeholder="請輸入密碼"
-              @blur="validate('confirmPassword')">
+              <input class="inputs" v-model="confirmPassword" type="text" maxlength="10" placeholder="請輸入密碼"
+                @blur="validate('confirmPassword')">
               <span v-if="errors.confirmPassword">{{ errors.confirmPassword }}</span>
             </li>
           </ul>
@@ -251,7 +238,7 @@
 <script>
 import { ref, computed, onMounted, watch } from 'vue'
 import { useMemberStore } from '@/stores/member';
-import {storeToRefs} from 'pinia'
+import { storeToRefs } from 'pinia'
 import { useValidationStore } from '@/stores/validation'
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -259,7 +246,7 @@ export default {
   setup() {
     const store = useMemberStore();
     const { member } = storeToRefs(store)
-    
+
     const imageSrc = ref(''); // Initial image source
     const fileInput = ref(null);
     const currentSection = ref('profile');
@@ -276,7 +263,7 @@ export default {
     const isShopTableVisible = ref(false);
     const currentPoId = ref('')
     //修改密碼驗證
-    const validationStore  = useValidationStore();
+    const validationStore = useValidationStore();
     const { errors, validateField, clearErrors } = validationStore;
     const newPassword = ref('');
     const confirmPassword = ref('');
@@ -297,46 +284,46 @@ export default {
         // 如果存在錯誤訊息，就不送出表單，直接返回
         return;
       }
-        try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/memberUpdate.php`, member.value, {
-        headers: {
-          'Content-Type': 'application/json' 
-        }
-      });
-          if (response.data.status === 'success') {
-            //如果請求成功，調用 store.updateMember 方法來更新前端的會員資料
-            store.updateMember(member.value);
-            //將所有表單中的 input 元素設置為只讀，防止用戶在成功更新後修改資料。
-            document.querySelectorAll('input').forEach(input => input.setAttribute('readonly', true));
-            Swal.fire({
-              icon: 'success',
-              title: '成功',
-              text: '會員資料已更新',
-              confirmButtonText: '確認'
-            });
-          } else {
-            Swal.fire({
-              icon: 'error',
-              title: '錯誤',
-              text: response.data.message,
-              confirmButtonText: '確認'
-            });
+      try {
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/memberUpdate.php`, member.value, {
+          headers: {
+            'Content-Type': 'application/json'
           }
-        } catch (error) {
+        });
+        if (response.data.status === 'success') {
+          //如果請求成功，調用 store.updateMember 方法來更新前端的會員資料
+          store.updateMember(member.value);
+          //將所有表單中的 input 元素設置為只讀，防止用戶在成功更新後修改資料。
+          document.querySelectorAll('input').forEach(input => input.setAttribute('readonly', true));
+          Swal.fire({
+            icon: 'success',
+            title: '成功',
+            text: '會員資料已更新',
+            confirmButtonText: '確認'
+          });
+        } else {
           Swal.fire({
             icon: 'error',
             title: '錯誤',
-            text: '發生錯誤，請稍後再試',
+            text: response.data.message,
             confirmButtonText: '確認'
           });
         }
+      } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: '錯誤',
+          text: '發生錯誤，請稍後再試',
+          confirmButtonText: '確認'
+        });
+      }
     };
 
     //顯示修改密碼錯誤資訊
     const validate = (field) => {
-      validationStore.validateField(field, { 
-        newPassword: newPassword.value, 
-        confirmPassword: confirmPassword.value 
+      validationStore.validateField(field, {
+        newPassword: newPassword.value,
+        confirmPassword: confirmPassword.value
       });
     };
     const submitForm = async () => {
@@ -367,7 +354,7 @@ export default {
         });
         newPassword.value = '';
         confirmPassword.value = '';
-        
+
         Swal.fire({
           icon: 'success',
           title: '成功',
@@ -388,11 +375,11 @@ export default {
     };
     // 設置頭像
     const setAvatar = () => {
-    if (member.value && member.value.U_AVATAR) {
-        imageSrc.value =`${import.meta.env.VITE_IMG_URL}/member/${member.value.U_AVATAR}`;
-    } else {
-        imageSrc.value ="member15.jpg"; // 預設圖片
-    }
+      if (member.value && member.value.U_AVATAR) {
+        imageSrc.value = `${import.meta.env.VITE_IMG_URL}/member/${member.value.U_AVATAR}`;
+      } else {
+        imageSrc.value = "member15.jpg"; // 預設圖片
+      }
     };
 
     const getStatusDescription = (status) => {
@@ -472,61 +459,10 @@ export default {
     //從後端取得表單資料
     const endpoints = [
       { name: 'memberDonate', ref: donates },
+      { name: 'memberProduct', ref: order },
       { name: 'memberEven', ref: activities },
       // { name: 'favorites', ref: favorites },
     ];
-
-    async function fetchOrderAndMemberList() {
-    try {
-    // First, fetch the list of PO_IDs for the current user
-    const orderIdsResponse = await axios.get(`${import.meta.env.VITE_API_URL}/memberProduct.php`, {
-      params: { U_ID: member.value.U_ID }
-    });
-    console.log(`Response for MemberOrderIds:`, orderIdsResponse.data);
-
-    if (orderIdsResponse.data && Array.isArray(orderIdsResponse.data) && orderIdsResponse.data.length > 0) {
-      const poIds = orderIdsResponse.data;
-      
-      // Now fetch the order details for each PO_ID
-      const orderPromises = poIds.map(poId => 
-        axios.get(`${import.meta.env.VITE_API_URL}/MemberProduct.php`, {
-          params: { PO_ID: poId }
-        })
-      );
-
-      const orderResponses = await Promise.all(orderPromises);
-      order.value = orderResponses.flatMap(response => response.data);
-      console.log(`Data for memberProduct:`, order.value);
-
-      // Fetch the member list data
-      const memberListResponse = await axios.get(`${import.meta.env.VITE_API_URL}/memberList.php`, {
-        params: { PO_ID: poIds.join(',') }
-      });
-      console.log(`Response for memberList:`, memberListResponse.data);
-
-      if (memberListResponse.data && Array.isArray(memberListResponse.data)) {
-        shoplists.value = memberListResponse.data;
-        console.log(`Data for memberList:`, shoplists.value);
-      } else {
-        console.error(`Error fetching memberList:`, memberListResponse.data.msg || 'Unknown error');
-        shoplists.value = [];
-      }
-    } else {
-      console.error(`Error fetching MemberOrderIds: Empty or invalid data`);
-      order.value = [];
-      shoplists.value = [];
-    }
-  } catch (error) {
-    console.error('Failed to fetch memberProduct or memberList:', error);
-    Swal.fire({
-      icon: 'error',
-      title: 'Data Fetch Error',
-      text: `無法載入會員訂單或會員列表資料。請稍後再試。`
-    });
-    order.value = [];
-    shoplists.value = [];
-  }
-}
 
     async function fetchOtherData() {
       for (const endpoint of endpoints) {
@@ -555,7 +491,6 @@ export default {
     }
 
     async function fetchData() {
-      await fetchOrderAndMemberList();
       await fetchOtherData();
     }
 
@@ -574,78 +509,51 @@ export default {
       setAvatar();
       await fetchData();
     });
-    // onMounted(async () => {
-    //   try {
-    //     // 使用 Promise.all 来并行获取多个 JSON 数据
-    //     const responses = await Promise.all([
-    //       fetch(`${import.meta.env.BASE_URL}json/donatemoney.json`),
-    //       fetch(`${import.meta.env.BASE_URL}json/activities.json`),
-    //       fetch(`${import.meta.env.BASE_URL}json/favorite.json`),
-    //       fetch(`${import.meta.env.BASE_URL}json/orders.json`),
-    //       fetch(`${import.meta.env.BASE_URL}json/shoplist.json`),
 
-    //     ]);
-    //     // 檢查每個響應的狀態
-    //     const jsonDatas = await Promise.all(responses.map(async (response) => {
-    //       if (!response.ok) {
-    //         throw new Error('Network response was not ok');
-    //       }
-    //       return response.json();
-    //     }));
+    const totalPages = computed(() => {
+      let dataLength = 0;
+      if (currentSection.value === 'donations') {
+        dataLength = donates.value.data.length;
+      } else if (currentSection.value === 'activity') {
+        dataLength = activities.value.data.length;
+      } else if (currentSection.value === 'favorites') {
+        dataLength = favorites.value.data.length;
+      } else if (currentSection.value === 'orders') {
+        dataLength = order.value.data.length;
+      }
+      return Math.ceil(dataLength / perPage);
+    });
 
-    //     // 將每個 JSON 資料整合到一個數組中，或根據需要進行其他處理
-    //     donates.value = jsonDatas[0];
-    //     activities.value = jsonDatas[1];
-    //     favorites.value = jsonDatas[2];
-    //     order.value = jsonDatas[3];
-    //     shoplists.value = jsonDatas[4];
-    //   } catch (error) {
-    //     console.error('Failed to fetch donation data:', error);
-    //   }
-    // });
+    const paginatedData = computed(() => {
+      let data = [];
+      if (currentSection.value === 'donations') {
+        data = donates.value.data;
+      } else if (currentSection.value === 'activity') {
+        data = activities.value.data;
+      } else if (currentSection.value === 'favorites') {
+        data = favorites.value.data;
+      } else if (currentSection.value === 'orders') {
+        data = order.value.data;
+      }
+      const startIndex = (currentPage.value - 1) * perPage;
+      const endIndex = startIndex + perPage;
+      return data.slice(startIndex, endIndex);
+    });
+    console.log('Initial paginatedData:', paginatedData.value);
 
-  const totalPages = computed(() => {
-  let dataLength = 0;
-  if (currentSection.value === 'donations') {
-    dataLength = Array.isArray(donates.value) ? donates.value.length : 0;
-  } else if (currentSection.value === 'activity') {
-    dataLength = Array.isArray(activities.value) ? activities.value.length : 0;
-  } else if (currentSection.value === 'favorites') {
-    dataLength = Array.isArray(favorites.value) ? favorites.value.length : 0;
-  } else if (currentSection.value === 'orders') {
-    dataLength = Array.isArray(order.value) ? order.value.length : 0;
-  }
-  return Math.ceil(dataLength / perPage);
-  });
+    const goToPage = (page) => {
+      if (page >= 1 && page <= totalPages.value) {
+        currentPage.value = page;
+      }
+    };
 
-  const paginatedData = computed(() => {
-  let data = [];
-  if (currentSection.value === 'donations') {
-    data = Array.isArray(donates.value) ? donates.value : [];
-  } else if (currentSection.value === 'activity') {
-    data = Array.isArray(activities.value) ? activities.value : [];
-  } else if (currentSection.value === 'favorites') {
-    data = Array.isArray(favorites.value) ? favorites.value : [];
-  } else if (currentSection.value === 'orders') {
-    data = Array.isArray(order.value) ? order.value : [];
-  }
-  const startIndex = (currentPage.value - 1) * perPage;
-  const endIndex = startIndex + perPage;
-  return data.slice(startIndex, endIndex);
-  });
-  console.log('Initial paginatedData:', paginatedData.value);
-
-  const goToPage = (page) => {
-    if (page >= 1 && page <= totalPages.value) {
-      currentPage.value = page;
-    }
-  };
-    
 
     //顯示清單明細 
     const filteredShoplists = computed(() => {
       if (!currentPoId.value) return [];
-      return shoplists.value.filter(shop => shop.PO_ID === currentPoId.value);
+      console.log(order.value.data[0].details)
+      return order.value.data[0].details
+        .filter((order) => order.PO_ID == currentPoId.value);
     });
 
     const toggleShopTable = (poId) => {
@@ -701,7 +609,7 @@ export default {
       editData,//移除所有 readonly 屬性
       saveData,//送出會員資料變更
       getStatusDescription
-      
+
     }
   }
 }
