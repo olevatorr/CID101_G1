@@ -275,7 +275,7 @@ export default {
             }
         },
         getImageUrl(imgUrl) {
-            return `${import.meta.env.VITE_IMG_URL}/shop/${imgUrl}`;
+            return `${import.meta.env.VITE_IMG_URL}/product/${imgUrl}`;
         },
 
         // 綠界支付表單
@@ -284,8 +284,7 @@ export default {
                 let itemsString = this.cartItems.map(item =>
                     `${item.P_NAME} $${item.P_PRICE} x ${item.amount}`
                 ).join('#');
-
-                const response = await axios.post('http://localhost/cid101/g1/api/ecpay.php', {
+                const response = await axios.post(`${import.meta.env.VITE_API_URL}/ecpay.php`, {
                     itemName: itemsString,
                     itemPrice: this.totalPrice + 60,
                     itemQuantity: 1,

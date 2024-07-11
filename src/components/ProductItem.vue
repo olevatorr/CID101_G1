@@ -20,7 +20,7 @@
             <div class="collect" @click="toggleCollect" :class="{ 'collected': isCollected }">
                 <a href="javascript:void(0)">{{ isCollected ? '🩵' : '🤍' }}</a>
             </div>
-            <div class="hot" v-if="productInfo.P_ID < 9">
+            <div class="hot" v-if="productInfo.P_HOT === 1">
                 <span>熱銷商品</span>
             </div>
         </div>
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { ref,onMounted  } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useCartStore } from '@/stores/cart';
 import { useMemberStore } from '@/stores/member';
 import { storeToRefs } from 'pinia';
@@ -91,7 +91,7 @@ export default {
             try {
                 const userId = memberStore.member.U_ID;
                 const productId = props.productInfo.P_ID;
-                const url = isCollected.value ?  `${import.meta.env.VITE_API_URL}/collectDelete.php` : `${import.meta.env.VITE_API_URL}/collectAdd.php`;
+                const url = isCollected.value ? `${import.meta.env.VITE_API_URL}/collectDelete.php` : `${import.meta.env.VITE_API_URL}/collectAdd.php`;
 
                 const response = await axios.post(url, {
                     U_ID: userId,
@@ -105,7 +105,7 @@ export default {
                         title: response.data.msg,
                         showConfirmButton: false,
                         timer: 1500
-                });
+                    });
                 } else {
                     throw new Error(response.data.msg);
                 }
@@ -124,7 +124,7 @@ export default {
         });
 
         const addToCart = (item) => {
-        // console.log(item)
+            // console.log(item)
             cartStore.addToCart(item);
             Swal.fire({
                 icon: 'success',
