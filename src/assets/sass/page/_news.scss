@@ -30,20 +30,21 @@
         }
         .row{
             .news-pagination{
-                margin:0 auto;
+                // margin:0 auto;
                 ul{
                     display:flex;
+                    justify-content: center;
                     li{
                         border:1px solid #333;
                         margin: 50px 10px;
                         padding: 5px;
+                        cursor: pointer;
                         &:hover{
                             background-color:$color-subprimary;
                             color:$color-white;
                             border:1px solid $color-subprimary;
                         }
                     }
-                
                 }
             }
         }

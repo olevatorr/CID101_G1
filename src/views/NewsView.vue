@@ -25,7 +25,8 @@
                 <newsCard :filterNewsList="currentNewsList" />
 
                 <!-- 分頁 -->
-                <div class="news-pagination">
+                <!-- 占滿整欄col-12 -->
+                <div class="col-12 news-pagination">
                     <ul class="pagination">
                         <!-- 用貼文數量來推測目前頁數 -->
                         <!-- 用v-for生成頁碼列表，從page1到全部 -->
