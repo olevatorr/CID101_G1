@@ -493,7 +493,7 @@ export default {
     async function fetchOtherData() {
       for (const endpoint of endpoints) {
         try {
-          const response = await axios.get(`${import.meta.env.VITE_API_URL}/${endpoint.name.charAt(0).toUpperCase() + endpoint.name.slice(1)}.php`, {
+          const response = await axios.get(`${import.meta.env.VITE_API_URL}/${endpoint.name}.php`, {
             params: { U_ID: member.value.U_ID }
           });
           if (response.data && !response.data.error) {
