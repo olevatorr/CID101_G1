@@ -523,6 +523,8 @@
         }
     }
     .section-pagination {
+        position: relative;
+        z-index: 10;
         .turtle-img {
             width: 100%;
             overflow: hidden;
