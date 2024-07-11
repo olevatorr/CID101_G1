@@ -1,7 +1,7 @@
 .section-news-banner {
     // 資訊量少
     height: 45vh;
-    background: url(/img/news/news-banner.png) no-repeat 50% 50% / cover;
+    background: url(/img/news/news-banner.webp) no-repeat 50% 50% / cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,7 +22,7 @@
 .section-news-content {
     color:#333;
     height: auto;
-    background-image: url(/img/news/news-background.png);
+    background-image: url(/img/news/news-background.webp);
     .recent-news-container{
         color:#333;
     

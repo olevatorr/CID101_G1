@@ -2,6 +2,14 @@
 import { ref, onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import Chart from 'chart.js/auto'
+import Swal from 'sweetalert2'
+
+const subscribeBtn = ()=>{
+    Swal.fire({
+        icon: 'success',
+        title: '訂閱成功'
+    })
+}
 
 const data = [
     { label: '捐款', data: 30, color: '#6CE5E8' },
@@ -83,12 +91,12 @@ onMounted(() => {
                     <h3>訂閱電子報</h3>
                     <p>馬上訂閱讓您不錯過任何最新活動與其他資訊</p>
                     <div class="sub-input" placeholder="請輸入電子信箱">
-                        <input type="text" />
-                        <button>立即訂閱</button>
+                        <input type="email" />
+                        <button @click="subscribeBtn">立即訂閱</button>
                     </div>
                     <h3 class="footer-h3">為大家的海洋</h3>
                     <p>小額捐款</p>
-                    <button>立即捐款</button>
+                    <router-link to="/Donate"><button>立即捐款</button></router-link>
                 </div>
             </div>
             <div class="footer-guide">
@@ -96,12 +104,12 @@ onMounted(() => {
                     <h3>快速導覽</h3>
                     <ul class="guide">
                         <li><router-link to="/">首頁</router-link></li>
-                        <li><a href="">教育中心</a></li>
-                        <li><a href="">最新消息</a></li>
-                        <li><a href="">商城</a></li>
-                        <li><a href="">捐款</a></li>
-                        <li><a href="">活動</a></li>
-                        <li><a href="">關於我們&聯絡我們</a></li>
+                        <li><router-link to="/Knowledge">教育中心</router-link></li>
+                        <li><router-link to="/news">最新消息</router-link></li>
+                        <li><router-link to="/shop">商城</router-link></li>
+                        <li><router-link to="/Donate">捐款</router-link></li>
+                        <li><router-link to="/events">活動</router-link></li>
+                        <li><router-link to="/about">關於我們&聯絡我們</router-link></li>
                     </ul>
                 </div>
             </div>

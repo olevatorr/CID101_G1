@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
+import { ref, onMounted, onBeforeUnmount, watch, computed } from 'vue';
 import { Chart, registerables } from 'chart.js';
 import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
@@ -15,7 +15,6 @@ let attendChart = null;
 let trash = null;
 let source = null;
 const myMap = ref(null);  // 地圖容器引用
-
 
 
 // 定義海水指標內容
@@ -370,9 +369,11 @@ const ShowAll = function () {
 }
 //-----------------------------------------------------------垃圾數據
 // 顯示全台灣總計數據
-
-const hebrisData = ref([]);
+const dates = ref([]);
+const hebrisData = ref([{data:null}]);
 const DD_AREA = ref(null);
+const selectedMonth = ref(null);
+// const dateList = ref([]);
 // 定義垃圾分類標籤
 // const hebrisSortLabels = [
 //     "清理數量分類(噸)_寶特瓶",
@@ -386,7 +387,7 @@ const DD_AREA = ref(null);
 //     "清理數量分類(噸)_無法分類廢棄物",
 // ];
 //定義垃圾分類標籤
-const hebrisSortLabels = [
+const hebrisSortLabels = ref([
     "DD_BOTTLE",
     "DD_IRON_CAN",
     "DD_ALUMINUM_CAN",
@@ -396,7 +397,7 @@ const hebrisSortLabels = [
     "DD_POLYSTYRENE",
     "DD_FISHING_GEAR",
     "DD_UNCLASSIFIED_WASTE",
-];
+])
 
 // 定義垃圾分類名稱
 const hebrisLabels = [
@@ -476,53 +477,57 @@ const hebrissource = [
 //             // console.log(hebrisData.value);
 //         });
 // });
-
-
-
 // ------使用 Axios 从 PHP API 得到
 onMounted(async () => {
     try {
-        const response = await axios.post(`${import.meta.env.VITE_API_URL}/DebrisData.php`);
-        // console.log(response.data);
-        if (response.data && response.data.DEBRIS_DATA) {
-            hebrisData.value = response.data.DEBRIS_DATA;
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/Debris.php`);
+        if (response) {
+            hebrisData.value = response.data
+            console.log(hebrisData.value);
             DD_AREA.value = response.data.DD_AREA;
             updateChartForRegion(DD_AREA.value);
         }
-    } catch (error) {
-        console.error(error);
-    }
+        } catch (error) {
+            console.error(error);
+        }
+        const dateResponse = await axios.get(`${import.meta.env.VITE_API_URL}/Debris.php`);
+        if (dateResponse.data) {
+            dates.value = dateResponse.data.map(date => ({
+                name: date.DDL_DATE.slice(0, 4) + '年' + date.DDL_DATE.slice(5, 7) + '月',
+                value: date.DDL_DATE.slice(0, 7)
+            }));
+            selectedMonth.value = dateResponse.data.map(date => ({
+                name: date.DDL_DATE.slice(0, 4) + '年' + date.DDL_DATE.slice(5, 7) + '月',
+                value: date.DDL_DATE.slice(0, 7)
+            }))[0].value
+        }
 });
 
+const selectData = computed(() => {
+    if (selectedMonth.value) {
+        return Object.values(hebrisData.value.filter(data => {
+            return data.DDL_DATE.slice(0, 7) === selectedMonth.value;
+        })[0].data);
+    }
+    return hebrisData.value[0].data;
+});
+
+
 // 監視垃圾數據變化
-watch(hebrisData, () => {
-    if (hebrisData.value) {
+watch(selectData, () => {
+    if (selectData.value) {
         updateChartForRegion("總計");
     }
 });
 
 
-// function updateChartForRegion(regionName) {
-//     const filteredData = hebrisData.value.find(item => {
-//         const region = item["縣市別"];
-//         return region === regionName;
-//     });
-
 function updateChartForRegion(regionName) {
-    if (!hebrisData.value || !Array.isArray(hebrisData.value)) {
+    if (!selectData.value || !Array.isArray(selectData.value)) {
         console.error('hebrisData is not loaded or is not an array');
         return;
     }
-
-    const filteredData = hebrisData.value.find(item => item["DD_AREA"] === regionName);
-
-    // if (!filteredData) {
-    //     console.error(`No data found for region: ${regionName}`);
-    //     return;
-    // }
-
-    const displayData = hebrisSortLabels.map(key => filteredData[key] !== undefined ? filteredData[key] : 0);
-
+    const filteredData = selectData.value.find(item => item.DD_AREA === regionName);
+    const displayData = hebrisSortLabels.value.map(key => filteredData[key] !== undefined ? filteredData[key] : 0);
 
     if (twChart) {
         twChart.destroy();
@@ -592,7 +597,6 @@ function updateChartForRegion(regionName) {
         }
     });
 
-
     // -------------------------------------------------------------------------------------------------------淨灘人數與次數
 
     const displayAttendData = hebrisAttend.map(key => {
@@ -656,9 +660,6 @@ function updateChartForRegion(regionName) {
         }
     });
 
-
-
-
     // -----------------------------------------------------------------------------------------垃圾處理方式
     const displaytrashdData = hebristrashLabels.map(key => {
         const value = filteredData[key];
@@ -719,9 +720,6 @@ function updateChartForRegion(regionName) {
             }
         }
     });
-
-
-
 
     //------------------------------------------------------------------------------------------------------垃圾來源數據
 
@@ -789,12 +787,19 @@ function updateChartForRegion(regionName) {
                     <h2>各縣市海洋廢棄物清理數據</h2>
                 </div>
                 <button class="select-all" @click="ShowAll">全台灣總計</button>
+
+                <select v-model="selectedMonth">
+                    <option v-for="date in dates
+                    " :key="date.value" :value="date.value">
+                        {{ date.name }}
+                    </option>
+                </select>
+
                 <div class="row">
                     <!-- 台灣地圖 -->
                     <div class="col-12 col-md-6 bgTwMap">
                         <div id="map" ref="myMap" class="map-container" style="width: 100%; height: 474px"></div>
                         <p class="map-guide">點擊縣市看詳細</p>
-                        
                         <!-- 海廢來源 -->
                         <div class="col-12 col-md-12 chart-outside flg">
                             <div class="box boxSource">

@@ -5,7 +5,7 @@
             <div class="card">
                 <div class="row">
                     <div class="card-content col-12 col-md-3">
-                        <img src="/img/beachgame/beachgame-background.png" width="250px" height="250px">
+                        <img src="/img/beachgame/beachgame-background.webp" width="250px" height="250px">
                     </div>
                     <div class="card-content col-12 col-md-6">
                         <h3>海廢小遊戲</h3>

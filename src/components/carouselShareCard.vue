@@ -57,35 +57,39 @@
         </div>
     </div>
     <!-- 只渲染一張卡片 -->
-    <div v-else-if="shareContent.length" class="col-12">
-        <div class="lightBox-share">
-            <div class="close">
-                <i class="fa-regular fa-circle-xmark" @click="closeCard"></i>
-            </div>
-            <div class="leftBar">
-                <div class="pic">
-                    <img :src="shareContent[0].F_IMG" />
-                </div>
-                <div class="report">
-                    <span @click.stop="reportClicked"><i class="fa-solid fa-triangle-exclamation"></i>檢舉此貼文</span>
-                </div>
-            </div>
-            <div class="text">
-                <div class="event-name">
-                    <h3>活動名稱：{{ shareContent[0].E_TITLE }}</h3>
-                </div>
-                <span>活動地點：{{ shareContent[0].E_ADDRESS }}</span>
-                <span>活動日期：{{ shareContent[0].E_DATE }}</span>
-                <span>分享人：{{ shareContent[0].U_NAME }}</span>
-                <p>參加心得:<br />{{ shareContent[0].F_CONTENT }}</p>
-            </div>
+    <div v-else-if="shareContent.length" class="share-bg">
+    <div class="lightBox-share">
+      <div class="close">
+        <i class="fa-regular fa-circle-xmark" @click="closeCard"></i>
+      </div>
+      <div class="leftBar">
+        <div class="pic">
+          <img :src="shareContent[0].F_IMG" />
         </div>
+        <div class="report">
+          <span @click.stop="reportClicked"
+            ><i class="fa-solid fa-triangle-exclamation"></i>檢舉此貼文</span
+          >
+        </div>
+      </div>
+      <div class="text">
+        <div class="event-name">
+          <h3>活動名稱：{{ shareContent[0].E_TITLE }}</h3>
+        </div>
+        <span>活動地點：{{ shareContent[0].E_ADDRESS }}</span>
+        <span>活動日期：{{ shareContent[0].E_DATE }}</span>
+        <span>分享人：{{ shareContent[0].U_NAME }}</span>
+        <p>參加心得:<br />{{ shareContent[0].F_CONTENT }}</p>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
 import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue';
 import { gsap } from 'gsap';
+import { useSharesStore } from '@/stores/shares.js'
+import { storeToRefs } from 'pinia'
 
 export default {
     props: {
@@ -104,21 +108,32 @@ export default {
         const carouselVisible = ref(false);
         let animation = null;
         let clonedItems = [];
+        
+        const sharesStore = useSharesStore()
+        const { selectedShareCard } = storeToRefs(sharesStore)
 
         const startCarousel = () => {
-            if (props.carouselEnabled && carousel.value) {
-                const duration = 40;
-                const repeat = -1;
-                const carouselItems = carousel.value.children;
-                const carouselWidth = carousel.value.scrollWidth;
+            if (props.carouselEnabled && carousel.value && !selectedShareCard.value) {
+                nextTick(() => {
+                    if (carousel.value && carousel.value.children.length > 0) {
+                        const duration = 40;
+                        const repeat = -1;
+                        const carouselItems = carousel.value.children;
+                        const carouselWidth = carousel.value.scrollWidth;
 
-                animation = gsap.to(carouselItems, {
-                    duration: duration,
-                    ease: 'none',
-                    x: `-=${carouselWidth}`,
-                    repeat: repeat,
-                    modifiers: {
-                        x: gsap.utils.unitize(x => parseFloat(x) % carouselWidth)
+                        if (animation) {
+                            animation.kill();
+                        }
+
+                        animation = gsap.to(carouselItems, {
+                            duration: duration,
+                            ease: 'none',
+                            x: `-=${carouselWidth}`,
+                            repeat: repeat,
+                            modifiers: {
+                                x: gsap.utils.unitize(x => parseFloat(x) % carouselWidth)
+                            }
+                        });
                     }
                 });
             }
@@ -142,9 +157,25 @@ export default {
             emit('report-click');
         };
 
+        const initializeCarousel = () => {
+            if (carousel.value && carousel.value.children.length > 0) {
+                gsap.set(carousel.value.children, {
+                    x: (i) => i * carousel.value.offsetWidth
+                });
+
+                clonedItems = Array.from(carousel.value.children).map(item => item.cloneNode(true));
+                clonedItems.forEach(item => carousel.value.appendChild(item));
+
+                startCarousel();
+            }
+        };
+
         onMounted(() => {
             if (props.carouselEnabled) {
                 carouselVisible.value = true;
+                nextTick(() => {
+                    initializeCarousel();
+                });
             }
         });
 
@@ -157,27 +188,26 @@ export default {
         watch(carouselVisible, (newVal) => {
             if (newVal) {
                 nextTick(() => {
-                    gsap.set(carousel.value.children, {
-                        x: (i) => i * carousel.value.offsetWidth
-                    });
-
-                    // 複製卡片並添加到輪播容器的末尾
-                    clonedItems = Array.from(carousel.value.children).map(item => item.cloneNode(true));
-                    clonedItems.forEach(item => carousel.value.appendChild(item));
-
-                    startCarousel();
+                    initializeCarousel();
                 });
+            }
+        });
+
+        watch(selectedShareCard, (newVal) => {
+            if (newVal) {
+                pauseCarousel();
+            } else {
+                startCarousel();
             }
         });
 
         return {
             carousel,
             carouselVisible,
-            startCarousel,
-            pauseCarousel,
             cardClicked,
             closeCard,
-            reportClicked
+            reportClicked,
+            selectedShareCard
         };
     }
 };
