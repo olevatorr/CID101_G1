@@ -97,7 +97,6 @@ export default {
                 this.newPassword = '';
                 this.confirmPassword = '';
             } catch (error) {
-                console.error('Error:', error);
                 Swal.fire({
                     icon: 'error',
                     title: '系統錯誤',

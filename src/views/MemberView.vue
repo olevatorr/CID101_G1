@@ -88,7 +88,6 @@ const ProcessingLogin = async () => {
             }
         }
     } catch (error) {
-        console.error('Error during login', error);
         Swal.fire({
             icon: "warning",
             title: "登入錯誤",
@@ -113,11 +112,9 @@ const togglePasswordVisibility = () => {
 //google預設按鈕
 const callback = async (response) => {
     try {
-        console.log('Google response:', response);
         
         // Ensure decodeCredential is defined and works as expected
         const userData = decodeCredential(response.credential);
-        console.log("Handle the userData:", userData);
         
         const userEmail = userData.email;
         const userName = userData.name;
@@ -138,16 +135,13 @@ const callback = async (response) => {
                 }
             }
         );
-        
+
         const resData = res.data;
         
         if (resData.success) {
+            const { user } = resData;
             // User logged in or registered successfully
-            store.login({
-                U_EMAIL: userEmail,
-                U_NAME: userName,
-                U_ACCOUNT: thirdpart
-            });
+            store.login(user)
             Swal.fire({
                 icon: "success",
                 title: resData.message
@@ -162,7 +156,6 @@ const callback = async (response) => {
             });
         }
     } catch (error) {
-        console.error('Error handling Google login callback:', error);
         Swal.fire({
             icon: "error",
             title: "登入錯誤",

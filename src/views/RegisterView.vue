@@ -143,7 +143,6 @@ export default {
           });
         }
       } else {
-        console.log("表單無效。請更正錯誤。");
         const firstErrorField = Object.keys(this.errorMessage).find(field => this.errorMessage[field] !== "");
         if (firstErrorField) {
           this.$refs[firstErrorField].$el.focus();

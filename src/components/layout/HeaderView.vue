@@ -1,5 +1,5 @@
 <script setup>
-import { ref,onMounted,watch   } from 'vue'
+import { ref,onMounted,computed,watch} from 'vue'
 import { RouterLink } from 'vue-router'
 import { useMemberStore } from '@/stores/member';
 import {storeToRefs} from 'pinia'
@@ -11,7 +11,6 @@ const store = useMemberStore();
 const { isLogging ,member } = storeToRefs(store)
 //圖片路徑
 
-const imageSrc = ref('');
 const isMenuOpen = ref(false)
 const isSubmenuDropDown = ref(false)
 const router = useRouter();
@@ -33,19 +32,18 @@ const toggleSubmenuDropDown = () => {
 }
 
 // 設置頭像
-const setAvatar = () => {
-    if (member.value && member.value.U_AVATAR) {
-        imageSrc.value =`${import.meta.env.VITE_IMG_URL}/member/${member.value.U_AVATAR}`;
-    } else {
-        imageSrc.value ="member15.jpg"; // 預設圖片
-    }
-};
+const imageSrc = computed(() => {
+  if (member.value && member.value.U_AVATAR) {
+    return `${import.meta.env.VITE_IMG_URL}/member/${member.value.U_AVATAR}`;
+  } else {
+    return `${import.meta.env.VITE_IMG_URL}/member/member15.jpg`; // Default image
+  }
+});
 onMounted(() => {
     store.getCookie(); // 調用 store 中的 getCookie 方法
-    setAvatar();
 });
+watch(member);
 
-watch(member, setAvatar);
 </script>
 
 <template>

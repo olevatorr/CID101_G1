@@ -291,7 +291,6 @@ export default {
     //會員資料表單修改
     const saveData = async () => {
       validAll();
-      console.log('Errors:', errors);
       if (Object.keys(errors).length > 0) {
         // 如果存在錯誤訊息，就不送出表單，直接返回
         return;
@@ -390,7 +389,7 @@ export default {
       if (member.value && member.value.U_AVATAR) {
         imageSrc.value = `${import.meta.env.VITE_IMG_URL}/member/${member.value.U_AVATAR}`;
       } else {
-        imageSrc.value = "member15.jpg"; // 預設圖片
+        imageSrc.value = `${import.meta.env.VITE_IMG_URL}/member/member15.jpg`; // 預設圖片
       }
     };
     //活動狀態
@@ -461,7 +460,6 @@ export default {
             Swal.fire('成功', '圖片上傳成功', 'success');
             // 更新圖片源
             const newAvatar = response.data.fileName;
-            imageSrc.value = `${import.meta.env.VITE_IMG_URL}/member/${newAvatar}`;
             store.updateMember({ U_AVATAR: newAvatar });
           } else {
             Swal.fire('錯誤', response.data.message, 'error');
@@ -498,16 +496,12 @@ export default {
           const response = await axios.get(`${import.meta.env.VITE_API_URL}/${endpoint.name.charAt(0).toUpperCase() + endpoint.name.slice(1)}.php`, {
             params: { U_ID: member.value.U_ID }
           });
-          console.log(`Response for ${endpoint.name}:`, response.data);
           if (response.data && !response.data.error) {
             endpoint.ref.value = response.data
-            console.log(`Data for ${endpoint.name}:`, endpoint.ref.value);
           } else {
-            console.error(`Error fetching ${endpoint.name}:`, response.data.msg || 'Unknown error');
             endpoint.ref.value = [];
           }
         } catch (error) {
-          console.error(`Failed to fetch ${endpoint.name}:`, error);
           Swal.fire({
             icon: 'error',
             title: 'Data Fetch Error',
@@ -525,7 +519,6 @@ export default {
     //生命週期
     onMounted(async () => {
       if (!member.value || !member.value.U_ID) {
-        console.error('No member ID available');
         Swal.fire({
           icon: 'error',
           title: '身份驗證錯誤',
@@ -567,7 +560,6 @@ export default {
       const endIndex = startIndex + perPage;
       return data.slice(startIndex, endIndex);
     });
-    console.log('Initial paginatedData:', paginatedData.value);
 
     const goToPage = (page) => {
       if (page >= 1 && page <= totalPages.value) {
@@ -627,7 +619,6 @@ export default {
           });
         }
       } catch (error) {
-        console.error('有錯誤發生', error);
         Swal.fire({
           icon: 'error',
           title: '有錯誤發生',
@@ -669,7 +660,6 @@ const removeFavorites = async (p_id, u_id) => {
       });
     }
   } catch (error) {
-    console.error('請求發生錯誤:', error);
     // 顯示錯誤的 SweetAlert2 提示框
     Swal.fire({
       icon: 'error',
@@ -699,7 +689,6 @@ const removeFavorites = async (p_id, u_id) => {
       throw new Error(response.data.msg);
     }
   } catch (error) {
-    console.error('有錯誤發生', error);
     Swal.fire({
       icon: 'error',
       title: '刪除失敗',
