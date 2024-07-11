@@ -7,7 +7,7 @@ import { storeToRefs } from 'pinia'
 
 
 const shares = useSharesStore()
-const { shareContent, selectedShareCard, showReportModal } = storeToRefs(shares)
+const { shareContent, selectedShareCard, showReportModal, reportDetails } = storeToRefs(shares)
 const sharePage = ref(1);    //活動分享
 
 onMounted(() => {
@@ -22,6 +22,7 @@ const changeSharePage = (pageNumber) => {
     sharePage.value = pageNumber;
 };
 const handleShareCardClick = (card) => {
+    reportDetails.value = card;
     selectedShareCard.value = card;
 }
 </script>

@@ -7,7 +7,8 @@ export const useSharesStore = defineStore('shares', {
         selectedShareCard: '',
         showReportModal: false,
         error: false,
-        errorMsg: ''
+        errorMsg: '',
+        reportDetails: '',
     }),
     actions: {
         // fetchShare() {
