@@ -60,12 +60,13 @@ const closeConfirm = () => {
 };
 const SubmitEvent = async () => {
     try {
-        const formData = new FormData();
-        formData.append('E_ID', openConfirm.value.E_ID);
-        formData.append('U_ID', memberStore.member.U_ID);
-        formData.append('EO_attend', peopleNum.value);
+        const data = {
+            E_ID: openConfirm.value.E_ID,
+            U_ID: memberStore.member.U_ID,
+            EO_ATTEND: peopleNum.value
+        }
         
-        const response = await axios.post('http://localhost/cid101/g1/api/evenApplyAdd.php', formData)
+        const response = await axios.post('http://localhost/cid101/g1/api/evenApplyAdd.php', data)
         if(!response.data.error){
              Swal.fire({
             icon: 'success',
@@ -79,6 +80,7 @@ const SubmitEvent = async () => {
             timerProgressBar: true})
             closeConfirm();
             closeEventModal();
+            events.fetchEventData()
         } 
     }catch(error) {
             console.error('Error:', error);

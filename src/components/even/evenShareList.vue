@@ -7,7 +7,7 @@ import { storeToRefs } from 'pinia'
 
 
 const shares = useSharesStore()
-const { shareContent, selectedShareCard, showReportModal, reportDetails } = storeToRefs(shares)
+const { shareContent, selectedShareCard, reportDetails } = storeToRefs(shares)
 const sharePage = ref(1);    //活動分享
 
 onMounted(() => {
@@ -25,14 +25,14 @@ const handleShareCardClick = (card) => {
     reportDetails.value = card;
     selectedShareCard.value = card;
 }
+
 </script>
 <template>
     <section class="section section-event-share">
         <h2>活動分享</h2>
         <div class="container">
             <div class="row">
-                <ShareCard :shareContent="paginatedShare" @card-click="handleShareCardClick"
-                    @report-click="showReportModal = true" />
+                <ShareCard :shareContent="paginatedShare" @card-click="handleShareCardClick"/>
             </div>
             <eventPagination :totalItems="shareContent.length" :itemsPerPage="4" :currentPage="sharePage"
                 @page-changed="changeSharePage" />

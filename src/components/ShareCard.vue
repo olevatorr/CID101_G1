@@ -53,9 +53,6 @@ const convertURL = (url) => {
             <div class="event-name">
               <h3>{{ card.E_TITLE }}</h3>
             </div>
-            <div class="report" @click.stop="reportClicked">
-              <i class="fa-solid fa-triangle-exclamation"></i>
-            </div>
           </div>
           <span>活動地點：{{ card.E_ADDRESS }}</span>
           <span>活動日期：{{ card.E_DATE }}</span>
