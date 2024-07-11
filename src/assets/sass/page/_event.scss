@@ -3,6 +3,7 @@
     background: url('/public/img/event/1.png');
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
     width: 100%;
     height: 80vh;
     aspect-ratio: 16/9;
@@ -218,9 +219,15 @@
     transform: translate(-50%,-50%);
     width: 50%;
     z-index: 21;
-    box-shadow: 2px 2px 10px $color-border;
+    // box-shadow: 2px 2px 10px $color-border;
     background-color: #fff;
     padding-bottom: 20px;
+    @media screen and (max-width:768px){
+        width:60%;
+    }
+    @media screen and (max-width:576px){
+        width:70%;
+    }
 
     .apply-wrap {
         .close {
@@ -337,7 +344,7 @@
 
 //section-examine
 .section-examine {
-    width: 50%;
+    width: 40%;
     margin: auto;
     position: fixed;
     z-index: 35;
@@ -350,8 +357,8 @@
     @media screen and (max-width:768px) {
         width: 70%;
     }
-    @media screen and (max-width:768px) {
-        width: 80%;
+    @media screen and (max-width:576px) {
+        width: 100%;
     }
     .container {
         form {
@@ -364,10 +371,10 @@
             padding: 20px 0;
             .CancelBtn {
                 position: absolute;
-                top: 2%;
-                right: 2%;
+                top: 20px;
+                right: 20px;
                 span {
-                    font-size: 2rem;
+                    font-size: 1.7rem;
                     color: #000;
                     display: inline-block;
                     cursor: pointer;
@@ -381,6 +388,7 @@
             h2 {
                 text-align: center;
                 margin-top: 20px;
+                font-size: 1.7rem;
             }
             .box {
                 width: 50%;

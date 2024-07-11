@@ -28,7 +28,8 @@ const closeCard = () => {
   emit('close-click')
 }
 const reportClicked = () => {
-  emit('report-click')
+  emit('report-click');
+  closeCard();
 }
 const convertURL = (url) => {
     return `${import.meta.env.VITE_IMG_URL}/events/${url}`;
