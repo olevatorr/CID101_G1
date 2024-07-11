@@ -275,7 +275,7 @@ export default {
             }
         },
         getImageUrl(imgUrl) {
-            return `${import.meta.env.VITE_IMG_URL}/shop/${imgUrl}`;
+            return `${import.meta.env.VITE_IMG_URL}/product/${imgUrl}`;
         },
 
         // 綠界支付表單
