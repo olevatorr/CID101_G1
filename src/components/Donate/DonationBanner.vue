@@ -92,7 +92,7 @@ export default {
                 <h1>熱心捐款</h1>
                 <span>用愛灌溉<br>讓海洋生生不息</span>
             </div>
-            <div class="container-donate">
+            <div class="container-donate col-12">
                 <div class="row">
                     <!-- 左側描述 -->
                     <div data-aos="fade-right"  data-aos-duration="3000" class="col-12 col-md-5">

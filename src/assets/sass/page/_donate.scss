@@ -67,8 +67,15 @@
                     margin-bottom: 15px;
                     color: #fff;
                     margin-right: 10px;
+                    @media screen and (max-width: 836px) {
+                        margin-right: 2px;
+                    }
                     @media screen and (max-width: 767px) {
                         margin-right: 1px;
+                    }
+                    @media screen and (max-width: 436px) {
+                        margin-right: 1px;
+                        padding: 0px 1vw;
                     }
                     input {
                         display: none;
@@ -85,6 +92,9 @@
                         display: flex;
                         overflow: hidden;
                         margin-right: 25px;
+                        @media screen and (max-width: 857px) {
+                            margin-right: 20px;
+                        }
                         input{
                             border: none;
                             outline: none;
@@ -118,6 +128,9 @@
                         a{
                             text-decoration: none;
                             color:$color-highlight;
+                        }
+                        @media screen and (max-width: 930px) {
+                            font-size: 1.2rem;
                         }
                     }
                 }

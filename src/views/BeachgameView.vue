@@ -31,8 +31,6 @@
                         <i class="fa-solid fa-house"></i>
                     </RouterLink>
                 </div>
-
-
                 <div class="show-window-outside">
                     <div class="beachgame-text" :class="{ '-viewClose': beachgameText }">
                         <span class="beachgame-title">
@@ -182,7 +180,6 @@
                             </transition>
                         </div>
                     </div>
-
                     <!-- 撿取成功 -->
                     <div class="col success-lightbox" :class="{ '-viewShow': successLightbox }">
                         <h2 class="ori">撿取垃圾成功</h2>
@@ -265,12 +262,11 @@
             </section>
         </div>
         <!-- 出現角色的圖片固定的圖像位置 -->
-
     </main>
 </template>
 
 <script>
-
+// 設全域目前也只有一個要套用
 const shuffle = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
@@ -278,13 +274,10 @@ const shuffle = (array) => {
     }
     return array
 }
-
 export default {
-
     data() {
         return {
-            // 出現重來遊戲
-            showResetGame: false,
+            showResetGame: false,  // 出現重來遊戲
             showImgPosition: false,//角色頭貼滑入畫面
             isPortrait: true, // 初始化為 true，預設顯示警告
             beachgameText: false,
@@ -303,7 +296,6 @@ export default {
             // 點選垃圾後出現的彈窗後，滑入工具隱藏button 和文字敘述
             showTrashText: true, // 初始化為true，顯示敘述文字
             showToolButton: true,   // 初始化為 true，默認顯示選擇淨灘工具按鈕
-
             // 用在生成 trashItem 陣列的url(垃圾圖片路徑)
             trashImage: [
                 `${import.meta.env.BASE_URL}img/beachgame/trash01.png`,
@@ -444,9 +436,8 @@ export default {
         },
         finishCharacter() {
             this.characterCheck = false;
-            // this.slidingIn = true;//滑入頁面
             this.showTrashContainer = true; // 顯示垃圾圖片容器
-            // this.showImgPosition = true;//顯示選擇角色頭貼
+            this.showImgPosition = true;//顯示選擇角色頭貼
         },
 
         // 點選垃圾圖片
@@ -570,7 +561,8 @@ export default {
         window.addEventListener('resize', this.checkOrientation);
         // 當組件創建時立即檢查一次方向
         this.checkOrientation();
-
+        // 移除 nav
+        document.querySelector('nav').classList.add('hidden-nav');
         // 移除footer隱藏，在組件掛載後隱藏 footer
         document.querySelector('footer').classList.add('hidden-footer');
     },
@@ -578,7 +570,8 @@ export default {
     beforeUnmount() {
         // 是指向當前組件內定義的 checkOrientation 方法
         window.removeEventListener('resize', this.checkOrientation);
-
+        //移除 nav
+        document.querySelector('nav').classList.remove('hidden-nav');
         // 移除footer隱藏，在組件卸載前移除隱藏樣式，避免影響其他頁面
         document.querySelector('footer').classList.remove('hidden-footer');
     },

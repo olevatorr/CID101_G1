@@ -135,7 +135,7 @@ export default defineComponent({
         };
 
         const addToCart = (item) => {
-        console.log(item)
+        // console.log(item)
             cartStore.addToCart(item);
             Swal.fire({
                 icon: 'success',
@@ -167,7 +167,7 @@ export default defineComponent({
         onMounted(async () => {
             await productStore.fetchProducts();
             const product = productStore.products.find(item => item.P_ID == route.query.id);
-            console.log(product)
+            // console.log(product)
             if (product) {
                 productdetail.value = product;
                 productdetail.value.amount = 1;

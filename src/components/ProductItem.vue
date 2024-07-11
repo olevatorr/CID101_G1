@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref,onMounted  } from 'vue';
 import { useCartStore } from '@/stores/cart';
 import { useMemberStore } from '@/stores/member';
 import { storeToRefs } from 'pinia';
@@ -45,7 +45,6 @@ export default {
         const router = useRouter();
 
         const isHovered = ref(false);
-        const isClicked = ref(false);
         const isCollected = ref(false);
 
         const showCart = (event) => {
@@ -103,12 +102,15 @@ export default {
                     isCollected.value = !isCollected.value;
                     Swal.fire({
                         icon: 'success',
-                        title: isCollected.value ? '已成功加入收藏' : '已成功取消收藏',
-                    });
+                        title: response.data.msg,
+                        showConfirmButton: false,
+                        timer: 1500
+                });
                 } else {
                     throw new Error(response.data.msg);
                 }
             } catch (error) {
+                console.error('收藏操作失敗:', error);
                 Swal.fire({
                     icon: 'error',
                     title: '操作失敗',
@@ -117,8 +119,12 @@ export default {
             }
         };
 
+        onMounted(() => {
+            checkCollectionStatus();
+        });
+
         const addToCart = (item) => {
-        console.log(item)
+        // console.log(item)
             cartStore.addToCart(item);
             Swal.fire({
                 icon: 'success',
@@ -134,14 +140,13 @@ export default {
 
         return {
             isHovered,
-            isClicked,
             isLogging,
+            isCollected,
             showCart,
             hideCart,
             toggleHover,
             addToCart,
             getImageUrl,
-            checkCollectionStatus,
             toggleCollect
         };
     }

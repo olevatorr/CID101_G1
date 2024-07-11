@@ -148,14 +148,22 @@ const labelstxt = [
     "桃園市2"
 ]
 
-function setupData() {
-    fetch(`${import.meta.env.BASE_URL}json/海域水質.json`)// 使用 fetch 抓 JSON 文件
-        .then(response => response.json())
-        .then(data => {
-            const sortedData = data.sort((a, b) => new Date(b.UPDATE_TIME) - new Date(a.UPDATE_TIME));// 將數據按時間排序
-            apiData.value = sortedData;  // 設置 API 數據
-            setupChart();  // 初始化圖表
-        })
+const setupData = async () => {
+    try {
+        const response = await axios.get('https://iocean.oca.gov.tw/oca_datahub/WebService/GetData.ashx', {
+            headers: {
+                'API-KEY': '4c420a99-1509-4cf5-83b4-f73874d68920'
+            }
+        });
+        
+        if (response) {
+            apiData.value = response.data;
+            console.log(apiData.value);
+            setupChart();
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error.response ? error.response.data : error.message);
+    }
 }
 
 // Vue 組件掛載時執行
@@ -215,8 +223,9 @@ function setupChart() {
                     display: true,
                     text: '海水污染指標',
                     font: {
-                        size: 20  // 設置標題字體大小
-                    }
+                        size: 20,  // 設置標題字體大小
+                    },
+                    color: '#fff'
                 },
                 legend: {
                     position: 'top',  // 設置圖例位置
@@ -638,7 +647,8 @@ function updateChartForRegion(regionName) {
                     text: '淨灘各縣市人數與次數 - ' + regionName,
                     font: {
                         size: 20  // 設置標題字體大小
-                    }
+                    },
+                    color: '#fff'
                 },
                 legend: {
                     display: isMobile ? false : true,
@@ -700,7 +710,8 @@ function updateChartForRegion(regionName) {
                     text: '垃圾處理方法 - ' + regionName,
                     font: {
                         size: 20  // 設置標題字體大小
-                    }
+                    },
+                    color: '#fff'
                 },
                 legend: {
                     display: isMobile ? false : true,
@@ -764,11 +775,12 @@ function updateChartForRegion(regionName) {
                     text: '垃圾來源數據 - ' + regionName,
                     font: {
                         size: 20  // 設置標題字體大小
-                    }
+                    },
+                    color: '#fff'
                 },
                 legend: {
                     display: false
-                }
+                },
             }
         },
         animation: {
@@ -786,14 +798,15 @@ function updateChartForRegion(regionName) {
                 <div class="datah2">
                     <h2>各縣市海洋廢棄物清理數據</h2>
                 </div>
-                <button class="select-all" @click="ShowAll">全台灣總計</button>
-
+                <div class="news-filter">
+                    <button class="select-all" @click="ShowAll">全台灣總計</button>
                 <select v-model="selectedMonth">
-                    <option v-for="date in dates
-                    " :key="date.value" :value="date.value">
+                    <option v-for="date in dates" :key="date.value" :value="date.value">
                         {{ date.name }}
                     </option>
                 </select>
+                </div>
+
 
                 <div class="row">
                     <!-- 台灣地圖 -->
