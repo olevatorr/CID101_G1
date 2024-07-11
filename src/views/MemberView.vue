@@ -59,7 +59,6 @@ const ProcessingLogin = async () => {
                 'Content-Type': 'application/json'
             }
         });
-        console.log('Response:', response.data);
         if (!response.data.error) {
             // Login successful
             Swal.fire({

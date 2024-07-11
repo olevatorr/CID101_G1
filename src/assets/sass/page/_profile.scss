@@ -322,6 +322,10 @@
 
                 td {
                     height: 5rem;
+                    .close{
+                        background-color: #bbb;
+                        cursor: not-allowed;
+                    }
                 }
             }
         }
@@ -333,6 +337,11 @@
     
                 td {
                     height: 5rem;
+                    img{
+                        padding-top: 1rem;
+                        padding-bottom: 1rem;
+                        width: 10rem;
+                    }
                 }
             }
     

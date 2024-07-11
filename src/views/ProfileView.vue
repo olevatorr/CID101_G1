@@ -84,15 +84,19 @@
               </tr>
             </thead>
             <tbody>
-              <template v-for="list in order.data" :key="list.PO_ID">
+              <template v-for="(list,index) in paginatedData" :key="list.PO_ID">
                 <tr>
                   <td data-label="訂單編號">{{ list.PO_ID }}</td>
-                  <td data-label="訂單狀況">{{ list.S_STATUS }}</td>
+                  <td data-label="訂單狀況">{{ orderStatus(list.S_STATUS) }}</td>
                   <td data-label="訂單日期">{{ list.PO_DATE }}</td>
                   <td data-label="總金額">{{ list.PO_AMOUNT }} </td>
                   <td data-label="付款方式">{{ list.PM_ID}}</td>
                   <td><button class="view" @click="toggleShopTable(list.PO_ID)">檢視</button></td>
-                  <td data-label="功能"><button>完成訂單</button></td>
+                  <td data-label="功能">
+                    <button class="cancel" v-if="list.S_STATUS === 2 || list.S_STATUS === 3">完成訂單</button>
+                    <button v-if="list.S_STATUS === 0 || list.S_STATUS === 1"
+                    @click="deleteOrder(list.PO_ID)">取消訂單</button>
+                  </td>
                 </tr>
                 <!-- 商品資訊最後要放進div做成toggle -->
                 <!--currentPoId的值等於list.PO_ID 和 isShopTableVisible開啟的狀態 -->
@@ -105,7 +109,7 @@
                       <th>商品數量</th>
                       <th>單價</th>
                     </tr>
-                    <tr v-for="shops in filteredShoplists" :key="shops.PO_ID">
+                    <tr v-for="shops in filteredShoplists(index)" :key="shops.PO_ID">
                       <td data-label="商品編號">{{ shops.P_ID }}</td>
                       <td data-label="商品名稱">{{ shops.P_NAME }}</td>
                       <td data-label="商品數量">{{ shops.PO_QTY }}</td>
@@ -140,14 +144,20 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for=" act in activities.data" :key="act.E_ID">
+              <tr v-for=" act in paginatedData" :key="act.E_ID">
                 <td data-label="活動訂單">{{ act.E_ID }}</td>
                 <td data-label="活動名稱">{{ act.E_TITLE }}</td>
                 <td data-label="活動日期">{{ act.E_DATE }}</td>
                 <td data-label="截止日期">{{ act.E_DEADLINE }}</td>
                 <td data-label="地點">{{ act.E_ADDRESS }}</td>
-                <td data-label="活動狀態">{{ getStatusDescription(act.E_STATUS) }}</td>
-                <td data-label="功能"><button>活動留言</button></td>
+                <td data-label="活動狀態">{{ getStatusDescription(act.EO_STATUS) }}</td>
+                <td data-label="功能">
+                  <button v-if="act.EO_STATUS === 0 || act.EO_STATUS === 1"
+                  @click="cancelEvent(act.EO_ID, act.U_ID )">
+                    報名取消</button>
+                  <button class="close" v-else-if="act.EO_STATUS === 2">活動結束</button>
+                  <button v-else-if="new Date(act.E_DATE) < new Date()">活動留言</button>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -163,8 +173,8 @@
             <thead>
               <tr>
                 <th>商品編號</th>
+                <th>商品圖片</th>
                 <th>商品名稱</th>
-                <th>商品類別</th>
                 <th>單價</th>
                 <th>功能</th>
               </tr>
@@ -172,10 +182,12 @@
             <tbody>
               <tr v-for=" love in paginatedData" :key="love.P_ID">
                 <td data-label="商品編號">{{ love.P_ID }}</td>
+                <td data-label="商品圖片"><img :src="getImageUrl(love.P_MAIN_IMG)"
+                alt="商品圖片"></td>
                 <td data-label="商品名稱">{{ love.P_NAME }}</td>
-                <td data-label="商品類別">{{ love.PS_ID }}</td>
                 <td data-label="單價">{{ love.P_PRICE }}</td>
-                <td data-label="功能"><button>{{ love.collect }}</button></td>
+                <td data-label="功能">
+                  <button @click="removeFavorites(love.P_ID, love.U_ID)">取消收藏</button></td>
               </tr>
             </tbody>
           </table>
@@ -391,7 +403,23 @@ export default {
         case 2:
           return '活動取消';
         default:
-          return '未知狀態';
+          return '活動結束';
+      }
+    }
+
+    //訂單狀態
+    const orderStatus = (status) =>{
+      switch (status) {
+        case 0:
+          return '未處理';
+        case 1:
+          return '配送中';
+        case 2:
+          return '訂單完成';
+        case 3:
+          return '訂單取消';
+        default:
+          return '系統錯誤';
       }
     }
 
@@ -461,7 +489,7 @@ export default {
       { name: 'memberDonate', ref: donates },
       { name: 'memberProduct', ref: order },
       { name: 'memberEven', ref: activities },
-      // { name: 'favorites', ref: favorites },
+      { name: 'memberFavorite', ref: favorites },
     ];
 
     async function fetchOtherData() {
@@ -549,12 +577,9 @@ export default {
 
 
     //顯示清單明細 
-    const filteredShoplists = computed(() => {
-      if (!currentPoId.value) return [];
-      console.log(order.value.data[0].details)
-      return order.value.data[0].details
-        .filter((order) => order.PO_ID == currentPoId.value);
-    });
+    const filteredShoplists = (index) => {
+      return order.value.data[index].details
+    };
 
     const toggleShopTable = (poId) => {
       if (!poId) {
@@ -575,6 +600,113 @@ export default {
         currentPoId.value = ''
       }
     })
+
+    //購物清單刪除
+    const deleteOrder = async (po_id) => {
+      try {
+        const response = await axios.delete(`${import.meta.env.VITE_API_URL}/memberProductDelete.php`, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          },
+          params: {
+            PO_ID: po_id
+          }
+        });
+        if (!response.data.error) {
+          order.value.data = order.value.data.filter(orderItem => orderItem.PO_ID !== po_id);
+          Swal.fire({
+            icon: 'success',
+            title: '成功',
+            text: '訂單刪除成功'
+          });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: '刪除失敗',
+            text: response.data.msg
+          });
+        }
+      } catch (error) {
+        console.error('有錯誤發生', error);
+        Swal.fire({
+          icon: 'error',
+          title: '有錯誤發生',
+          text: error.message
+        });
+      }
+    };
+    //收藏圖片路徑
+    const getImageUrl = (imgUrl) => {
+            return `${import.meta.env.VITE_IMG_URL}/product/${imgUrl}`;
+        };
+
+    //取消收藏
+const removeFavorites = async (p_id, u_id) => {
+  try {
+    // 發送 POST 請求到後端
+    const response = await axios.post(`${import.meta.env.VITE_API_URL}/memberFavoriteDelet.php`, {
+      P_ID: p_id,
+      U_ID: u_id,
+    });
+
+    if (!response.data.error) {
+      // 顯示成功的 SweetAlert2 提示框
+      Swal.fire({
+        icon: 'success',
+        title: '成功',
+        text: response.data.msg,
+      });
+
+      // 更新 favorites.data，從列表中移除已取消收藏的項目
+      favorites.value.data = favorites.value.data.filter(item => item.P_ID !== p_id);
+
+    } else {
+      // 顯示錯誤的 SweetAlert2 提示框
+      Swal.fire({
+        icon: 'error',
+        title: '錯誤',
+        text: response.data.msg,
+      });
+    }
+  } catch (error) {
+    console.error('請求發生錯誤:', error);
+    // 顯示錯誤的 SweetAlert2 提示框
+    Swal.fire({
+      icon: 'error',
+      title: '請求錯誤',
+      text: '請求發生錯誤，請稍後再試。',
+    });
+  }
+};
+
+    //活動清單刪除
+    const cancelEvent = async (Eo_id, U_id) => {
+  try {
+    const response = await axios.delete(`${import.meta.env.VITE_API_URL}/memberCancelEvent.php`, {
+      params: {
+        EO_ID: Eo_id,
+        U_ID: U_id
+      }
+    });
+    if (!response.data.error) {
+      activities.value.data = activities.value.data.filter(activitiesItem => activitiesItem.EO_ID !== Eo_id);
+      Swal.fire({
+        icon: 'success',
+        title: '成功',
+        text: '訂單刪除成功'
+      });
+    } else {
+      throw new Error(response.data.msg);
+    }
+  } catch (error) {
+    console.error('有錯誤發生', error);
+    Swal.fire({
+      icon: 'error',
+      title: '刪除失敗',
+      text: error.message || '未知錯誤'
+    });
+  }
+};
 
     return {
       fileInput,//讀取圖片檔案
@@ -608,8 +740,12 @@ export default {
       submitForm,//送出密碼變更
       editData,//移除所有 readonly 屬性
       saveData,//送出會員資料變更
-      getStatusDescription
-
+      getStatusDescription,//活動訂單狀態
+      orderStatus, //商品訂單狀態
+      deleteOrder, //訂單刪除
+      getImageUrl, //圖片路徑
+      removeFavorites, //取消收藏
+      cancelEvent //活動清單刪除
     }
   }
 }
