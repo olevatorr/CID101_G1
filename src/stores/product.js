@@ -10,41 +10,41 @@ export const useProductStore = defineStore('product', {
   }),
   actions: {
     // 在您的 product store 中
-    async fetchProducts() { 
+    async fetchProducts() {
       try {
-          let url = `${import.meta.env.VITE_API_URL}/product.php`
-          const response = await axios.get(url);
-          const data = response.data;
-          
-          if (data && !data.error && Array.isArray(data.product)) {
-              this.products = data.product;
-              this.filteredProducts = data.product;
-              // console.log('Products loaded:', this.products.length);
-          } else {
-              console.error('Unexpected API response:', data);
-              this.products = [];
-              this.filteredProducts = [];
-          }
-          
-          // this.saveProductsToLocalStorage();
-      } catch (error) {
-          console.error('Error fetching products:', error);
+        let url = `${import.meta.env.VITE_API_URL}/product.php`
+        const response = await axios.get(url);
+        const data = response.data;
+
+        if (data && !data.error && Array.isArray(data.product)) {
+          this.products = data.product.filter(prod => prod.P_STATUS === 1);
+          this.filteredProducts = data.product.filter(prod => prod.P_STATUS === 1);
+          // console.log('Products loaded:', this.products.length);
+        } else {
+          console.error('Unexpected API response:', data);
           this.products = [];
           this.filteredProducts = [];
+        }
+
+        // this.saveProductsToLocalStorage();
+      } catch (error) {
+        console.error('Error fetching products:', error);
+        this.products = [];
+        this.filteredProducts = [];
       }
     },
     setFilter(category) {
       this.currentFilter = category;
       let productsToFilter = Array.isArray(this.products) ? this.products : (this.products.product || []);
-      
+
       if (category === 'all' || !category) {
-          this.filteredProducts = productsToFilter;
+        this.filteredProducts = productsToFilter;
       } else {
-          // console.log(category);
-          // console.log(productsToFilter);
-          this.filteredProducts = productsToFilter.filter(dog => {
-              return (dog['P_NAME'].toString()).indexOf(category) !== -1
-          });
+        // console.log(category);
+        // console.log(productsToFilter);
+        this.filteredProducts = productsToFilter.filter(dog => {
+          return (dog['P_NAME'].toString()).indexOf(category) !== -1
+        });
       }
       // console.log('Filtered products:', this.filteredProducts);
       // this.saveProductsToLocalStorage();
