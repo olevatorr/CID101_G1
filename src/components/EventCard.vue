@@ -21,7 +21,7 @@ const convertURL = (url) => {
 </script>
 
 <template>
-    <div class="col-6 col-sm-4 col-md-4 col-lg-3" v-for="card in filteredEvents" :key="card.E_ID" @click="handleEventCard(card)">   
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3" v-for="card in filteredEvents" :key="card.E_ID" @click="handleEventCard(card)">   
         <div class="event-card">
             <div class="text">
                 <div class="theme">
