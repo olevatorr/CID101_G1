@@ -15,18 +15,14 @@
             font-size: 2rem;
             font-weight: 600;
         }
-
     }
-    
     .section-beachgame {
-        // overflow-y: hidden; // 添加這行來鎖定 y 軸
         height: 100vh;
         // 最外層100視窗高度顯示在畫面上，子層顯示70%，所以周圍有空間
         padding: 0;
         background: url(/img/beachgame/beachgame-background.webp);
         background-size: cover;
         background-position: 50% 50%;
-        z-index: 99999;
         // 讓回復固定在上面
         position: relative;
         display: flex;
@@ -93,7 +89,6 @@
                 color: #fff;
             }
         }
-        
         .show-window-outside{
             //壓住頭貼
             z-index: 20;
@@ -120,9 +115,7 @@
                     font-size: clamp(1.5rem, 2vw, 3rem);
                     
                 }
-            
             }
-        
             .rules-lightbox {
                 display: none;
                 box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, .15);
@@ -225,7 +218,6 @@
                     }
                 }
             }
-        
             // 垃圾彈窗
             .trash-lightbox {
                 color: #fff;
@@ -274,7 +266,6 @@
             .slidepage-up{
                 margin: 10px auto 0 auto;
                 .slide-tool-page {
-                    // max-height:200px;
                     width:70%;
                     margin: 0 auto;
                     transform: translateY(0);
@@ -476,6 +467,5 @@
             }
         }
     }
-
 }
 
