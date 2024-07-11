@@ -124,7 +124,7 @@ export default {
         });
 
         const addToCart = (item) => {
-        console.log(item)
+        // console.log(item)
             cartStore.addToCart(item);
             Swal.fire({
                 icon: 'success',

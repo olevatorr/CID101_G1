@@ -18,7 +18,7 @@ export const useProductStore = defineStore('product', {
           if (data && !data.error && Array.isArray(data.product)) {
               this.products = data.product;
               this.filteredProducts = data.product;
-              console.log('Products loaded:', this.products.length);
+              // console.log('Products loaded:', this.products.length);
           } else {
               console.error('Unexpected API response:', data);
               this.products = [];
@@ -39,13 +39,13 @@ export const useProductStore = defineStore('product', {
       if (category === 'all' || !category) {
           this.filteredProducts = productsToFilter;
       } else {
-          console.log(category);
-          console.log(productsToFilter);
+          // console.log(category);
+          // console.log(productsToFilter);
           this.filteredProducts = productsToFilter.filter(dog => {
               return (dog['P_NAME'].toString()).indexOf(category) !== -1
           });
       }
-      console.log('Filtered products:', this.filteredProducts);
+      // console.log('Filtered products:', this.filteredProducts);
       // this.saveProductsToLocalStorage();
     },
   }

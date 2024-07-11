@@ -43,23 +43,23 @@
         </section>
 
         <section class="section section-pagination">
-    <div class="container">
-      <div class="button">
-        <a 
-          v-for="page in totalPages" 
-          :key="page" 
-          href="#" 
-          @click.prevent="changePage(page)"
-          :class="{ active: currentPage === page }"
-        >
-          {{ page }}
-        </a>
-      </div>
-    </div>
-    <div class="sea-img">
-      <img src="/img/shop/sea.png" alt="">
-    </div>
-  </section>
+            <div class="container">
+            <div class="button">
+                <a 
+                v-for="page in totalPages" 
+                :key="page" 
+                href="#" 
+                @click.prevent="changePage(page)"
+                :class="{ active: currentPage === page }"
+                >
+                {{ page }}
+                </a>
+            </div>
+            </div>
+            <div class="sea-img">
+            <img src="/img/shop/sea.webp" alt="">
+            </div>
+        </section>
         <ShopCart v-if="$route.path === '/shop' || $route.path === '/productinfo'" />
     </div>
 </template>
@@ -87,34 +87,34 @@ export default {
         const itemsPerPage = 16
     
     const totalPages = computed(() => {
-      return Math.ceil(productStore.filteredProducts.length / itemsPerPage)
-    })
+        return Math.ceil(productStore.filteredProducts.length / itemsPerPage)
+})
 
     const paginatedProdList = computed(() => {
-      console.log('Calculating paginated list, filtered products:', productStore.filteredProducts);
-      const startIndex = (currentPage.value - 1) * itemsPerPage;
-      const endIndex = startIndex + itemsPerPage;
+    // console.log('Calculating paginated list, filtered products:', productStore.filteredProducts);
+    const startIndex = (currentPage.value - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
 
-      let productsToShow = productStore.filteredProducts;
+    let productsToShow = productStore.filteredProducts;
 
-      if (typeof productsToShow === 'object' && productsToShow !== null && Array.isArray(productsToShow.product)) {
+    if (typeof productsToShow === 'object' && productsToShow !== null && Array.isArray(productsToShow.product)) {
         productsToShow = productsToShow.product;
-      }
+    }
 
-      if (!Array.isArray(productsToShow)) {
+    if (!Array.isArray(productsToShow)) {
         console.error('productsToShow is not an array:', productsToShow);
         return [];
-      }
+    }
 
-      return productsToShow.slice(startIndex, endIndex).map(product => ({
+    return productsToShow.slice(startIndex, endIndex).map(product => ({
         ...product,
         amount: 1
-      }));
-    });
+    }));
+});
 
     const changePage = (page) => {
-      currentPage.value = page
-      window.scrollTo(0, 0)
+    currentPage.value = page
+    window.scrollTo(0, 0)
     }
     onMounted(async () => {
         await productStore.fetchProducts();
@@ -124,8 +124,8 @@ export default {
             activeIndex.value = category;
             productStore.setFilter(category);
             currentPage.value = 1;
-            console.log('Category clicked:', category);
-            console.log('Filtered products after click:', productStore.filteredProducts.length);
+            // console.log('Category clicked:', category);
+            // console.log('Filtered products after click:', productStore.filteredProducts.length);
         }
 
 

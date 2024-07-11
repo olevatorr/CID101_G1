@@ -3,7 +3,7 @@
         <div class="container">
             <div class="carticon" @click="toggleCartBox" v-if="!showCartBox">
                 <div class="pic">
-                    <img src="/img/shop/cart.png" alt="">
+                    <img src="/img/shop/cart.webp" alt="">
                 </div>
                 <div class="icon">
                     <span>{{ cartStore.totalItems }}</span>
@@ -24,7 +24,7 @@
                         <button @click="increaseQuantity(item)" :disabled="item.amount >= 10">+</button>
                         <span class="price">NT$ {{ item.P_PRICE * item.amount }}</span>
                         <div class="delete">
-                            <img src="/img/shop/delete2.png" alt="" @click="removeFromCart(item)">
+                            <img src="/img/shop/delete2.webp" alt="" @click="removeFromCart(item)">
                         </div>
                     </div>
                 </div>
