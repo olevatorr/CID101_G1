@@ -436,9 +436,8 @@ export default {
         },
         finishCharacter() {
             this.characterCheck = false;
-            // this.slidingIn = true;//滑入頁面
             this.showTrashContainer = true; // 顯示垃圾圖片容器
-            // this.showImgPosition = true;//顯示選擇角色頭貼
+            this.showImgPosition = true;//顯示選擇角色頭貼
         },
 
         // 點選垃圾圖片

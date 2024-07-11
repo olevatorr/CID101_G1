@@ -48,7 +48,7 @@
         //角色大頭貼位置
         .show-img-position{
             position: absolute;
-            z-index: 15;
+            z-index: 20;
             top: 10px;
             left:85%;
             .showCharacterImg{
@@ -91,7 +91,7 @@
         }
         .show-window-outside{
             //壓住頭貼
-            z-index: 20;
+            z-index: 15;
             // 依父層的寬度70%
             width: 70%;
             // RWD有設定，阻止寬度隨畫面變大一直擴展

@@ -4,11 +4,9 @@
     }
     .newsinner-container{
         width:50%;
-
         .newsinner-pic{
             aspect-ratio: 4/3;
             img{
-                // aspect-ratio: 4/3;
                 width:100%;
             }
         }
@@ -17,10 +15,8 @@
         }
     }
 }
-
 .section-newsinner-breadcrumb{
     .breadcrumb-wrap{
-    
         .newsinner-breadcrumb{
             display: flex;
             li{
