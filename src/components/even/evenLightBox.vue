@@ -66,7 +66,7 @@ const SubmitEvent = async () => {
             EO_ATTEND: peopleNum.value
         }
         
-        const response = await axios.post('http://localhost/cid101/g1/api/evenApplyAdd.php', data)
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/evenApplyAdd.php`, data)
         if(!response.data.error){
              Swal.fire({
             icon: 'success',
