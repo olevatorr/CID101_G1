@@ -97,7 +97,7 @@ export default {
       event.preventDefault();
       if (this.validateForm()) {
         try {
-          const response = await axios.post('http://localhost/cid101/g1/api/memberRegister.php', 
+          const response = await axios.post(`${import.meta.env.VITE_API_URL}/memberRegister.php`, 
             JSON.stringify({
               account: this.account,
               name: this.name,
@@ -210,7 +210,11 @@ export default {
                         <div class="other-login">
                             <p>其他登入方式</p>
                             <div class="third-party">
-                            <a href="#"><img src="/img/member/google.png" alt="" class="fa-google"></a>
+                              <GoogleLogin :key="isLogging" :callback="callback" :button-config="{
+                            type: 'icon',
+                            size: 'large',
+                            shape: 'pill'
+                            }"/>
                             <a href="#"><i class="fa-brands fa-facebook"></i></a>
                             <a href="#"><img src="/img/member/line.ico" alt="" class="fa-line"></a>
                         </div>

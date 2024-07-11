@@ -41,12 +41,11 @@ const totalSessions = ref(null)
 
 onMounted(async () => {
     try {
-        const response = await axios.post(`${import.meta.env.VITE_API_URL}/DebrisData.php`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/DebrisData.php`);
         if (response.data) {
             console.log(response.data.DEBRIS_DATA);
             hebrisData.value = response.data.DEBRIS_DATA;
-            // console.log(hebrisData.value);
-            console.log(new Date(hebrisData.value[0].DDL_DATE));
+            console.log(hebrisData.value);
         }
     } catch (error) {
         console.error(error);
@@ -60,9 +59,10 @@ const filteredData = computed(() => {
     return {}
 })
 watch(filteredData, () => {
+    console.log(filteredData.value);
     const weightValue = filteredData.value.DD_BEACH_CLEANING || '0';
-    const participantsValue = removeCommas(filteredData.value.DD_ATTENDANCE_TOTAL || '0');
-    const sessionsValue = removeCommas(filteredData.value.DD_CLEANING_TIMES || '0');
+    const participantsValue = filteredData.value.DD_ATTENDANCE_TOTAL || '0';
+    const sessionsValue = filteredData.value.DD_CLEANING_TIMES || '0';
 
     animateNumber(totalWeight.value, weightValue);
     animateNumber(totalParticipants.value, participantsValue);
@@ -79,10 +79,6 @@ function animateNumber(element, targetValue) {
             element.innerHTML = formatNumber(element.textContent);
         },
     });
-}
-
-function removeCommas(value) {
-    return value.replace(/,/g, '');
 }
 
 function formatNumber(value) {
@@ -217,7 +213,7 @@ function resizeMap() {
                         <span class="debris-num" ref="totalSessions"></span>
                         <span class="debris-word">場次</span>
                     </div>
-                    <p>*皆為本年度資訊,與海洋委員會海洋保育署資料同步</p>
+                    <p>*為最新月份資訊,與海洋委員會海洋保育署資料同步</p>
                 </div>
             </div>
         </div>

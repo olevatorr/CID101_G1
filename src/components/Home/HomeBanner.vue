@@ -49,16 +49,16 @@ onMounted(() => {
             </div>
         </div>
         <div ref="smokeLeft" class="smoke-left">
-            <img src="/img/index/smoke-left.png" alt="">
+            <img src="/img/index/smoke-left.webp" alt="">
         </div>
         <div ref="smokeRight" class="smoke-right">
-            <img src="/img/index/smoke-right.png" alt="">
+            <img src="/img/index/smoke-right.webp" alt="">
         </div>
         <div ref="trashLeft" class="trash-left">
-            <img src="/img/index/trash-left.png" alt="">
+            <img src="/img/index/trash-left.webp" alt="">
         </div>
         <div ref="trashRight" class="trash-right">
-            <img src="/img/index/trash-right.png" alt="">
+            <img src="/img/index/trash-right.webp" alt="">
         </div>
     </section>
 
