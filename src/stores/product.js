@@ -10,9 +10,10 @@ export const useProductStore = defineStore('product', {
   }),
   actions: {
     // 在您的 product store 中
-    async fetchProducts() {
+    async fetchProducts() { 
       try {
-          const response = await axios.get(`${import.meta.env.VITE_API_URL}/product.php`);
+          let url = `${import.meta.env.VITE_API_URL}/product.php`
+          const response = await axios.get(url);
           const data = response.data;
           
           if (data && !data.error && Array.isArray(data.product)) {
