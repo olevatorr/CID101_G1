@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import vue3GoogleLogin from 'vue3-google-login'
 import Cookies from 'js-cookie'
-
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 
 import App from './App.vue'

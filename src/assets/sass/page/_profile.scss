@@ -197,7 +197,7 @@
                     height: 4rem;
                     vertical-align: middle;
                     white-space: wrap;
-                    text-align: left;
+                    text-align: center;
                     button{
                         padding:0.75rem 2rem;
                     }
@@ -233,16 +233,14 @@
                     width: 80px;
                 }
                 td:nth-child(4){
-                    padding-left: 4rem;
-                    text-align: left;
+                    text-align: center;
                     @media screen and (max-width:576px) {
                         text-align: right;
                     }
                 }
                 td:nth-child(5)
                 {
-                    text-align: left;
-                    padding-left: 2rem;
+                    text-align: center;
                     
                     @media screen and (max-width:576px) {
                         text-align: right;
