@@ -90,7 +90,7 @@
                   <td data-label="訂單狀況">{{ list.S_STATUS }}</td>
                   <td data-label="訂單日期">{{ list.PO_DATE }}</td>
                   <td data-label="總金額">{{ list.PO_AMOUNT }} </td>
-                  <td data-label="付款方式">{{ list.PO_ORDER }}</td>
+                  <td data-label="付款方式">{{ list.PM_ID}}</td>
                   <td><button class="view" @click="toggleShopTable(list.PO_ID)">檢視</button></td>
                   <td data-label="功能"><button>完成訂單</button></td>
                 </tr>
@@ -381,7 +381,7 @@ export default {
         imageSrc.value = "member15.jpg"; // 預設圖片
       }
     };
-
+    //活動狀態
     const getStatusDescription = (status) => {
       switch (status) {
         case 0:
