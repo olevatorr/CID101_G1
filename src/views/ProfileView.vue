@@ -122,7 +122,6 @@
             </tbody>
           </table>
           <div class="button">
-            <!-- <p>{{ totalPages }}</p> 顯示總頁數 -->
             <a href="#" v-for="pageNum in totalPages" :key="pageNum" @click.prevent="goToPage(pageNum)"
               :class="{ active: pageNum === currentPage }">{{ pageNum }}</a>
           </div>
@@ -152,11 +151,16 @@
                 <td data-label="地點">{{ act.E_ADDRESS }}</td>
                 <td data-label="活動狀態">{{ getStatusDescription(act.EO_STATUS) }}</td>
                 <td data-label="功能">
-                  <button v-if="act.EO_STATUS === 0 || act.EO_STATUS === 1"
-                  @click="cancelEvent(act.EO_ID, act.U_ID )">
-                    報名取消</button>
-                  <button class="close" v-else-if="act.EO_STATUS === 2">活動結束</button>
-                  <button v-else-if="new Date(act.E_DATE) < new Date()">活動留言</button>
+                  <button v-if="new Date(act.E_DATE) > new Date() && (act.EO_STATUS === 0 || act.EO_STATUS === 1)"
+                  @click="cancelEvent(act.E_ID, act.U_ID)">
+                    報名取消
+                  </button>
+                  <button v-else-if="new Date(act.E_DATE) < new Date() && act.EO_STATUS !== 2">
+                    活動留言
+                  </button>
+                  <button class="close" v-else>
+                    活動結束
+                  </button>
                 </td>
               </tr>
             </tbody>
