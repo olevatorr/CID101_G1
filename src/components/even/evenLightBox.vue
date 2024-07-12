@@ -9,8 +9,8 @@ import axios from 'axios'
 
 const events = useEventsStore()
 const {selectedEventCard} = storeToRefs(events)
-const peopleNum = ref(1);
-const router = useRouter();
+const peopleNum = ref(1)
+const router = useRouter()
 const openConfirm = ref(null)
 const memberStore = useMemberStore()
 

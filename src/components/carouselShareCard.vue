@@ -61,7 +61,7 @@
       </div>
       <div class="leftBar">
         <div class="pic">
-          <img :src="shareContent[0].F_IMG" />
+          <img :src="convertImg(shareContent[0].F_IMG)" />
         </div>
         <div class="report">
           <span @click.stop="reportClicked"
