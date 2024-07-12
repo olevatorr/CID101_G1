@@ -44,7 +44,7 @@ onMounted(async () => {
         const response = await axios.get(`${import.meta.env.VITE_API_URL}/Debris.php`);
         if (response.data) {
             const sortedData = response.data.sort((a, b) => a.DDL_ID - b.DDL_ID)[0];
-            hebrisData.value = Array.isArray(sortedData) ? sortedData.data : [sortedData.data];
+            hebrisData.value = Array.isArray(sortedData) ? sortedData.data : [...sortedData.data];
         }
     } catch (error) {
         console.error(error);
