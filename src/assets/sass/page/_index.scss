@@ -2,7 +2,7 @@
     width: 100%;
     height: 100vh;
     overflow: hidden;
-    background: url(../img/index/banner1.png) no-repeat 50% 50% / cover;
+    background: url(/img/index/banner1.webp) no-repeat 50% 50% / cover;
     .container {
             display: flex;
             flex-direction: column;
@@ -101,7 +101,7 @@
     width: 100%;
     height: 100vh;
     overflow: hidden;
-    background: url(../img/index/banner2.png) no-repeat 50% 50% / cover;
+    background: url(/img/index/banner2.webp) no-repeat 50% 50% / cover;
     .container {
         display: flex;
         flex-direction: column;
@@ -248,7 +248,7 @@
 .section-survey {
     background-color: #fff;
     .survey-card {
-        box-shadow: 0 0 6.5px 3px #0000004D;
+        box-shadow: 0 0 28px 1px #0000001f;
         padding: 20px 30px;
         display: flex;
         flex-direction: column;
@@ -300,8 +300,13 @@
                 gap:30px;
             }
             .survey-result {
-                text-align-last: center;
-
+                text-align: center;
+                .score-area {
+                    padding: 10px;
+                    border-radius: 10px;
+                    border: 2px solid #ccc;
+                    margin-bottom: 30px;
+                }
                 .score {
                     font-size: 1.6rem;
                     span {
@@ -310,7 +315,12 @@
                         color: $color-highlight;
                     }
                 }
-
+                i {
+                    animation: loading 2s linear  infinite;
+                    font-size: 3rem;
+                    margin-top: 20px;
+                    color: #757575;
+                }
             }
         }
     }
@@ -343,6 +353,12 @@
         
     }
 }
+
+@keyframes loading {
+    0% { rotate: 0deg }
+    100% { rotate: 360deg }
+}
+
 .section-donation-summary {
     background-color: #fff;
     h3 {
@@ -426,8 +442,22 @@
         }
     }
 }
+
+.section-index-event {
+    .row {
+        gap: 30px 0px;
+    }
+    button {
+        display: block;
+        margin: 20px auto;
+    }
+}
 .section-index-news {
     background-color: $color-subprimary;
+    button {
+        display: block;
+        margin: 20px auto;
+    }
 }
 
 .gotop {
@@ -443,4 +473,271 @@
     font-size: 2rem;
     z-index: 20;
     cursor: pointer;
+}
+
+.loading {
+    z-index: 999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    background-color: #fff;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    .boxes {
+        height: 200px;
+        width: 200px;
+        position: relative;
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+        -webkit-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+        margin-top: 32px;
+        -webkit-transform: rotateX(60deg) rotateZ(45deg) rotateY(0deg) translateZ(0px);
+        transform: rotateX(60deg) rotateZ(45deg) rotateY(0deg) translateZ(0px);
+    }
+
+    .boxes .box {
+        width: 32px;
+        height: 32px;
+        top: 0px;
+        left: 0;
+        position: absolute;
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+    }
+
+
+
+    .boxes .box:nth-child(1) {
+        -webkit-transform: translate(100%, 0);
+        transform: translate(100%, 0);
+        -webkit-animation: box1 1s linear infinite;
+        animation: box1 1s linear infinite;
+    }
+
+    .boxes .box:nth-child(2) {
+        -webkit-transform: translate(0, 100%);
+        transform: translate(0, 100%);
+        -webkit-animation: box2 1s linear infinite;
+        animation: box2 1s linear infinite;
+    }
+
+    .boxes .box:nth-child(3) {
+        -webkit-transform: translate(100%, 100%);
+        transform: translate(100%, 100%);
+        -webkit-animation: box3 1s linear infinite;
+        animation: box3 1s linear infinite;
+    }
+
+    .boxes .box:nth-child(4) {
+        -webkit-transform: translate(200%, 0);
+        transform: translate(200%, 0);
+        -webkit-animation: box4 1s linear infinite;
+        animation: box4 1s linear infinite;
+    }
+
+
+
+    .boxes .box>div {
+        background: #5C8DF6;
+        --translateZ: 15.5px;
+        --rotateY: 0deg;
+        --rotateX: 0deg;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #5C8DF6;
+        top: auto;
+        right: auto;
+        bottom: auto;
+        left: auto;
+        -webkit-transform: rotateY(var(--rotateY)) rotateX(var(--rotateX)) translateZ(var(--translateZ));
+        transform: rotateY(var(--rotateY)) rotateX(var(--rotateX)) translateZ(var(--translateZ));
+    }
+
+    .boxes .box>div:nth-child(1) {
+        top: 0;
+        left: 0;
+        background: #5c8df6;
+        
+    }
+
+    .boxes .box>div:nth-child(2) {
+        background:#145af2;
+        right: 0;
+        --rotateY: 90deg;
+    }
+
+    .boxes .box>div:nth-child(3) {
+        background: #447cf5;
+        --rotateX: -90deg;
+    }
+
+    .boxes .box>div:nth-child(4) {
+        background: #848484;
+        // border: 1px solid #cccccc90;
+        filter: blur(7px);
+        top: 0;
+        left: 0;
+        --translateZ: -90px;
+    }
+
+
+    @keyframes box1 {
+
+        0%,
+        50% {
+            transform: translate(100%, 0);
+        }
+
+        100% {
+            transform: translate(200%, 0);
+        }
+    }
+
+    @keyframes box2 {
+        0% {
+            transform: translate(0, 100%);
+        }
+
+        50% {
+            transform: translate(0, 0);
+        }
+
+        100% {
+            transform: translate(100%, 0);
+        }
+    }
+
+    @keyframes box3 {
+
+        0%,
+        50% {
+            transform: translate(100%, 100%);
+        }
+
+        100% {
+            transform: translate(0, 100%);
+        }
+    }
+
+    @keyframes box4 {
+        0% {
+            transform: translate(200%, 0);
+        }
+
+        50% {
+            transform: translate(200%, 100%);
+        }
+
+        100% {
+            transform: translate(100%, 100%);
+        }
+    }
+    .loadingbar {
+        width: 300px;
+        height: 10px;
+        background-color: #b2e0ff;
+        border-radius: 5px; 
+        overflow: hidden;
+        .run {
+            width: 0;
+            animation: loadingBar 5s ease-out infinite;
+            border-radius: 5px;
+            height: 10px;
+            background-color: rgb(42, 134, 255);
+        }
+        @keyframes loadingBar {
+            0% { min-width: 0;}
+            30% { min-width: 40%;}
+            60% {min-width: 80%;}
+            90% {min-width: 95%;}
+            100% {min-width: 100%;}
+        }
+    }
+    .title {
+        font-size: 7rem;
+        @media screen and (max-width: 767px) {
+            font-size: 3.5rem;
+        }
+        span {
+            position: relative;
+            display: inline-block;
+            animation: wave2 3s ease-in-out infinite;
+            margin: 10px;
+            img {
+                height: 150px;
+                vertical-align: middle;
+                @media screen and (max-width: 767px) {
+                    height: 100px;
+                }
+            }
+        }
+        span:nth-child(1) {
+            animation-delay: 0s;
+        }
+        span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        span:nth-child(4) {
+            animation-delay: 0.6s;
+        }
+        span:nth-child(5) {
+            animation-delay: 0.6s;
+        }
+        
+        @keyframes wave2 {
+            0% {
+                transform: translateY(0px);
+                color: #5C8DF6;
+            }
+            20% {
+                transform: translateY(-20px) rotate(10deg);
+                color: #145af2;
+            }
+            40% {
+                transform: translateY(0px) rotate(-10deg);
+                color: #447cf5;
+            }
+            60% {
+                transform: translateY(-10px) rotate(5deg);
+                color: #145af2;
+            }
+            80% {
+                transform: translateY(0px) rotate(-5deg);
+                color: #447cf5;
+            }
+            100% {
+                transform: translateY(0px);
+                color: #5C8DF6;
+            }
+        }
+    }
+}
+.section-index-event-feedback {
+    h3 {
+        margin-bottom: 20px;
+    }
+    button {
+        display: block;
+        margin: auto;
+    }
+    .carousel {
+        display: flex;
+      overflow: hidden;
+        .carousel-card {
+            flex: 0 0 auto;
+      width: 250px;
+      margin: 20px;
+      box-sizing: border-box;
+        }
+    }
 }

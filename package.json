@@ -8,22 +8,24 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "prod": "vite build --mode prod"
   },
   "dependencies": {
     "@fullcalendar/vue3": "^6.1.13",
-    "animejs": "^3.2.2",
-    "aos": "^3.0.0-beta.6",
+    "axios": "^1.7.2",
     "chart.js": "^4.4.3",
-    "countup.js": "^2.8.0",
     "d3": "^7.9.0",
     "fullcalendar": "^6.1.13",
     "gsap": "^3.12.5",
+    "js-cookie": "^3.0.5",
+    "jspdf": "^2.5.1",
     "pinia": "^2.1.7",
     "sweetalert2": "^11.11.0",
     "topojson-client": "^3.1.0",
     "vue": "^3.4.21",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "vue3-google-login": "^2.0.26"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.8.0",
@@ -31,6 +33,7 @@
     "@vue/eslint-config-prettier": "^9.0.0",
     "eslint": "^8.57.0",
     "eslint-plugin-vue": "^9.23.0",
+    "google-auth-library": "^9.11.0",
     "prettier": "^3.2.5",
     "sass": "^1.77.2",
     "vite": "^5.2.8",

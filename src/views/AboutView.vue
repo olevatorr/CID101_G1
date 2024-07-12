@@ -1,26 +1,37 @@
-<script setup>
-import { onMounted, ref, computed } from 'vue';
-import AOS from 'aos';
+<!-- <script setup>
+import { onMounted, ref, computed, reactive } from 'vue';
 import 'aos/dist/aos.css';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Swal from 'sweetalert2'
+import { useRouter } from 'vue-router';
+//import axios from 'axios';
 
 //team member animation
 gsap.registerPlugin(ScrollTrigger);
 
 onMounted(() => {
-  AOS.init()
-  initGsapAnimation()
+  teamAnimation()
+  purposeAnimation()
+  donationAnimation()
 })
 
-
+//定義GSAP動畫
 const director = ref(null)
 const techManager = ref(null)
 const marketingManager = ref(null)
 const educationManager = ref(null)
 
-function initGsapAnimation() {
+const purposeLine1 = ref(null)
+const purposeLine2 = ref(null)
+const purposeLine3 = ref(null)
+
+const donationCard1 = ref(null)
+const donationCard2 = ref(null)
+const donationCard3 = ref(null)
+
+
+function teamAnimation() {
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: '.section-team',
@@ -30,25 +41,55 @@ function initGsapAnimation() {
     },
   });
 
-
-  tl.from(director.value, { x: -100, y: 200, opacity: 0, duration: 3 }, 0)
+  tl
+    .from(director.value, { x: -100, y: 200, opacity: 0, duration: 3 }, 0)
     .from(techManager.value, { x: 200, y: 200, opacity: 0, duration: 3 }, 1)
     .from(marketingManager.value, { x: 100, y: 200, opacity: 0, duration: 3 }, 2)
     .from(educationManager.value, { y: -100, opacity: 0, duration: 3 }, 3)
 }
 
+function purposeAnimation() {
+  const t2 = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.section-purpose',
+      start: 'top 90%',
+      end: 'bottom 70%',
+      scrub: true,
+    },
+  });
+
+  t2
+    .from(purposeLine1.value, { x: 300, y: 200, opacity: 0, duration: 4 }, 0)
+    .from(purposeLine2.value, { x: 300, y: 200, opacity: 0, duration: 4 }, 1)
+    .from(purposeLine3.value, { x: 300, y: 200, opacity: 0, duration: 4 }, 2)
+}
+
+function donationAnimation() {
+  const t3 = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.section-donation-intro',
+      start: 'top 90%',
+      end: 'bottom 70%',
+      scrub: true,
+    },
+  });
+
+  t3
+    .from(donationCard1.value, { x: 300, y: 200, opacity: 0, duration: 4 }, 0)
+    .from(donationCard2.value, { x: 300, y: 200, opacity: 0, duration: 4 }, 1)
+    .from(donationCard3.value, { x: 300, y: 200, opacity: 0, duration: 4 }, 2)
+}
+
+
 
 //驗證碼
-
 const enteredCaptcha = ref('');
 const captchaText = ref('');
 const captchaCanvas = ref(null);
-
-onMounted(() => {drawCaptcha();});
-
-const isCaptchaValid = computed(() => {
-  return enteredCaptcha.value.toLowerCase() === captchaText.value.toLowerCase();
+onMounted(() => {
+  drawCaptcha();
 });
+
 
 function drawCaptcha() {
   const canvas = captchaCanvas.value;
@@ -57,30 +98,30 @@ function drawCaptcha() {
   const ctx = canvas.getContext('2d');
   captchaText.value = generateCaptchaText();
 
-  // 清除 canvas 内容
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+//清除 canvas 内容
+ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // 添加背景噪點
-  for (let i = 0; i < 100; i++) {
-    const x = Math.random() * canvas.width;
-    const y = Math.random() * canvas.height;
-    ctx.fillStyle = getRandomColor();
-    ctx.fillRect(x, y, 1, 1);
-  }
-
-  // 對驗證碼文本應用隨機的字體大小、顏色和旋轉角度
-  const fontSize = 30;
-  ctx.font = `${fontSize}px serif`;
+//添加背景噪點
+for (let i = 0; i < 100; i++) {
+  const x = Math.random() * canvas.width;
+  const y = Math.random() * canvas.height;
   ctx.fillStyle = getRandomColor();
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.translate(canvas.width / 2, canvas.height / 2);
-  ctx.rotate((Math.random() - 0.5) * Math.PI / 12); // 減小旋轉角度
-  ctx.fillText(captchaText.value, 0, 0);
-  ctx.rotate(-(Math.random() - 0.5) * Math.PI / 12); // 減小旋轉角度
-  ctx.translate(-canvas.width / 2, -canvas.height / 2);
+  ctx.fillRect(x, y, 1, 1);
+}
 
-  // 添加干擾線
+//對驗證碼文本應用隨機的字體大小、顏色和旋轉角度
+const fontSize = 30;
+ctx.font = `${fontSize}px serif`;
+ctx.fillStyle = getRandomColor();
+ctx.textAlign = 'center';
+ctx.textBaseline = 'middle';
+ctx.translate(canvas.width / 2, canvas.height / 2);
+ctx.rotate((Math.random() - 0.5) * Math.PI / 12); // 減小旋轉角度
+ctx.fillText(captchaText.value, 0, 0);
+ctx.rotate(-(Math.random() - 0.5) * Math.PI / 12); // 減小旋轉角度
+ctx.translate(-canvas.width / 2, -canvas.height / 2);
+
+//添加干擾線
   for (let i = 0; i < 4; i++) {
     ctx.strokeStyle = getRandomColor();
     ctx.beginPath();
@@ -89,16 +130,11 @@ function drawCaptcha() {
     ctx.stroke();
   }
 }
-// 重新產生驗證碼
+//重新產生驗證碼
 function refreshCaptcha() {
   drawCaptcha();
   enteredCaptcha.value = '';
 }
-
-function checkCaptcha() {
-  return isCaptchaValid.value;
-}
-
 //產生隨機驗證碼五個數字
 function generateCaptchaText() {
   const chars = '0123456789';
@@ -115,10 +151,13 @@ function getRandomColor() {
   const b = Math.floor(Math.random() * 256);
   return `rgb(${r}, ${g}, ${b})`;
 }
+const isCaptchaValid = computed(() => {
+  return enteredCaptcha.value.toLowerCase() === captchaText.value.toLowerCase();
+});
+
 
 //表單
-
-const formData = ref({
+const formData = reactive({
   name: '',
   phone: '',
   email: '',
@@ -127,68 +166,93 @@ const formData = ref({
 });
 
 
-const showConfirmModal = () => {
-  Swal.fire({
-    title: '確認提交表單?',
-    text: '請檢查您的表單數據是否正確。',
-    icon: 'question',
-    showCancelButton: true,
-    confirmButtonText: '確認',
-    cancelButtonText: '取消'
-  }).then(async (result) => {
-    if (result.isConfirmed) {
-      submitForm()
-    }
-  })
-}
+//手機驗證
+const isPhoneValid = computed(() => {
+  const phoneRegex = /^[0][9][0-9]{8}$/
+  return phoneRegex.test(formData.phone)
+})
 
-// 表單驗證
+//信箱驗證
+const isEmailValid = computed(() => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  return emailRegex.test(formData.email)
+})
 
-const submitForm = async (e) => {
-  e.preventDefault()
-  try {
-    const response = await fetch('/submit-form.php', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData.value)
-    })
-
-    if (response.ok) {
-      const data = await response.json()
-      Swal.fire({
-        title: '表單提交成功!',
-        text: data.message,
-        icon: 'success'
-      })
-      window.location.href = '/'
-      // 執行其他操作,如重置表單
-      } else {
-        Swal.fire({
-          title: '表單提交失敗',
-          text: '請稍後再試',
-          icon: 'error'
-      })
-    }
-  } catch (error) {
+//表單提交
+const router = useRouter();
+const submitForm = () => {
+  if (isFormValid()) {
     Swal.fire({
-      title: '發生錯誤',
-      text: error.message,
-      icon: 'error'
-    })
+      title: '表單已提交',
+      text: '感謝您的回饋，將跳轉至首頁...',
+      icon: 'success',
+      timer: 5000, 
+      timerProgressBar: true, 
+    });
+    console.log('表單已提交:', formData);
+
+    setTimeout(()=>{
+      router.push('/');
+    },5000)
   }
-}
+};
+
+const isFormValid = () => {
+  let isValid = true;
+
+  if (!formData.name) {
+    isValid = false;
+    Swal.fire({
+      title: '錯誤',
+      text: '請輸入姓名',
+      icon: 'error',
+    });
+  }
+
+  if (!isPhoneValid.value) {
+    isValid = false;
+    Swal.fire({
+      title: '錯誤',
+      text: '請輸入正確的手機號碼',
+      icon: 'error',
+    });
+  }
+
+  if (!isEmailValid.value) {
+    isValid = false;
+    Swal.fire({
+      title: '錯誤',
+      text: '請輸入正確的電子郵件地址',
+      icon: 'error',
+    });
+  }
+
+  if (!formData.message) {
+    isValid = false;
+    Swal.fire({
+      title: '錯誤',
+      text: '請輸入訊息內容',
+      icon: 'error',
+    });
+  }
+
+  if (!isCaptchaValid.value) {
+    isValid = false;
+    Swal.fire({
+      title: '錯誤',
+      text: '請輸入正確的驗證碼',
+      icon: 'error',
+    });
+  }
+
+  return isValid;
+};
 
 
-console.log(formData.value);
-
-submitForm();
 
 
 
-</script>
-
+</script> -->
 
 <template>
 
@@ -233,7 +297,7 @@ submitForm();
         </div>
         <div class="col-12 col-lg-9">
           <!-- 第一條 -->
-          <div class="row purpose-line" data-aos="fade-left" data-aos-duration="2000">
+          <div class="row purpose-line" ref="purposeLine1">
             <div class="col-12 col-lg-3 purpose-circle">
               <span class="material-symbols-outlined"> cognition </span>
               <span>01</span>
@@ -246,7 +310,7 @@ submitForm();
             </div>
           </div>
           <!-- 第二條 -->
-          <div class="row purpose-line" data-aos="fade-left" data-aos-duration="2000">
+          <div class="row purpose-line" ref="purposeLine2">
             <div class="col-12 col-lg-3 purpose-circle">
               <span class="material-symbols-outlined"> keyboard_command_key </span>
               <span>02</span>
@@ -259,7 +323,7 @@ submitForm();
             </div>
           </div>
           <!-- 第三條 -->
-          <div class="row purpose-line" data-aos="fade-left" data-aos-duration="2000">
+          <div class="row purpose-line" ref="purposeLine3">
             <div class="col-12 col-lg-3 purpose-circle">
               <span class="material-symbols-outlined"> moving </span>
               <span>03</span>
@@ -288,7 +352,7 @@ submitForm();
       <div class="row">
         <div class="col-12  col-lg-4 group">
           <!-- 第一張卡片 -->
-          <div class="donation-card" data-aos="fade-up" data-aos-duration="1000">
+          <div class="donation-card" ref="donationCard1">
             <div class="donation-line">
               <span class="material-symbols-outlined"> event </span>
               <div class="donation-txt">
@@ -321,7 +385,7 @@ submitForm();
         </div>
         <div class="col-12  col-lg-4 group">
           <!-- 第二張卡片 -->
-          <div class="donation-card tp" data-aos="fade-up" data-aos-duration="2000">
+          <div class="donation-card tp" ref="donationCard2">
             <div class="donation-line">
               <span class="material-symbols-outlined"> contactless </span>
               <div class="donation-txt">
@@ -347,7 +411,7 @@ submitForm();
         </div>
         <div class="col-12  col-lg-4 group">
           <!-- 第三張卡片 -->
-          <div class="donation-card top up" data-aos="fade-up" data-aos-duration="3000">
+          <div class="donation-card top up" ref="donationCard3">
             <div class="donation-line">
               <span class="material-symbols-outlined"> workspace_premium </span>
               <div class="donation-txt">
@@ -369,7 +433,7 @@ submitForm();
           </div>
         </div>
       </div>
-      <button>立即捐款</button>
+      <button><router-link to="/donate">立即捐款</router-link></button>
     </div>
   </section>
   <!-- 成員介紹 -->
@@ -455,19 +519,26 @@ submitForm();
                 referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
           </div>
-          <form action="" method="post" class="col-12" @submit.prevent="showConfirmModal">
+          <form action="" method="post" class="col-12" @submit.prevent="submitForm">
             <h3>傳送訊息給我們</h3>
             <div class="row">
               <div class="col-12 col-md-6">
                 <div class="form-item">
                   <label for="">姓名</label>
-                  <input type="text" name="name" required v-model="formData.name" />
+                  <input type="text" name="name" required v-model="formData.name" placeholder="請輸入姓名" />
+
                 </div>
               </div>
               <div class="col-12 col-md-6">
                 <div class="form-item">
                   <label for="">手機</label>
-                  <input type="text" name="phone" required v-model="formData.phone" />
+                  <input type="tel" name="phone" required v-model="formData.phone" placeholder="請輸入手機以09開頭" />
+                  <span v-if="!isPhoneValid" class="material-symbols-outlined" style="color:red">
+                    error
+                  </span>
+                  <span v-else class="material-symbols-outlined" style="color:green">
+                    check_circle
+                  </span>
                 </div>
               </div>
             </div>
@@ -475,7 +546,13 @@ submitForm();
               <div class="col-12 col-md-6">
                 <div class="form-item">
                   <label for="">信箱</label>
-                  <input type="email" name="email" required v-model="formData.email" />
+                  <input type="email" name="email" required v-model="formData.email" placeholder="請輸入電子信箱包含@" />
+                  <span v-if="!isEmailValid" class="material-symbols-outlined" style="color:red">
+                    error
+                  </span>
+                  <span v-else class="material-symbols-outlined" style="color:green">
+                    check_circle
+                  </span>
                 </div>
               </div>
             </div>
@@ -489,9 +566,13 @@ submitForm();
               <div class="form-auth col-12 col-lg-6">
                 <div class="auth-out">
                   <label for="">驗證碼</label>
-                  <input type="text" class="auth-input" v-model="enteredCaptcha" />
-                  <span v-if="isCaptchaValid" style="color:green;">驗證碼正確</span>
-                  <span v-else style="color:red;">驗證碼錯誤</span>
+                  <input type="text" class="auth-input" v-model="enteredCaptcha" placeholder="請輸入驗證碼" />
+                  <span v-if="isCaptchaValid" style="color:green;" class="material-symbols-outlined">
+                    check_circle
+                  </span>
+                  <span v-else class="material-symbols-outlined" style="color:red;">
+                    error
+                  </span>
                 </div>
               </div>
               <div id="app" class="col-12 col-lg-6 ">
@@ -501,10 +582,271 @@ submitForm();
                 </div>
               </div>
             </div>
-            <button type="submit" @click.prevent="showConfirmModal">送出</button>
+            <button type="submit">送出</button>
           </form>
         </div>
       </div>
     </div>
   </section>
 </template>
+
+<script>
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Swal from 'sweetalert2';
+import axios from 'axios';
+
+gsap.registerPlugin(ScrollTrigger);
+
+export default {
+  data() {
+    return {
+      enteredCaptcha: '',
+      captchaText: '',
+      captchaCanvas: null,
+      formData: {
+        name: '',
+        phone: '',
+        email: '',
+        message: '',
+        captcha: ''
+      }
+    };
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.initAnimations();
+      this.drawCaptcha();
+    });
+  },
+  methods: {
+    initAnimations() {
+      this.teamAnimation();
+      this.purposeAnimation();
+      this.donationAnimation();
+    },
+    teamAnimation() {
+      const teamCards = gsap.utils.toArray('.team-card');
+
+      teamCards.forEach((card, index) => {
+        gsap.from(card, {
+          y: 100,
+          opacity: 0,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 80%',
+            end: 'bottom 20%',
+            toggleActions: 'play reverse play reverse'
+          }
+        });
+      });
+    },
+    purposeAnimation() {
+      const purposeLines = gsap.utils.toArray('.purpose-line');
+      purposeLines.forEach((line, index) => {
+        gsap.from(line, {
+          x: 300,
+          opacity: 0,
+          duration: 1,
+          scrollTrigger: {
+            trigger: line,
+            start: 'top 80%',
+            end: 'bottom 20%',
+            toggleActions: 'play reverse play reverse'
+          }
+        });
+      });
+    },
+    donationAnimation() {
+      const donationCards = gsap.utils.toArray('.donation-card');
+      donationCards.forEach((card, index) => {
+        gsap.from(card, {
+          x: 300,
+          opacity: 0,
+          duration: 1,
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 80%',
+            end: 'bottom 20%',
+            toggleActions: 'play reverse play reverse'
+          }
+        });
+      });
+    },
+    drawCaptcha() {
+      const canvas = this.$refs.captchaCanvas;
+      if (!canvas) {
+        console.error('Captcha canvas not found');
+        return;
+      }
+
+      const ctx = canvas.getContext('2d');
+      this.captchaText = this.generateCaptchaText();
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // 繪製背景噪點
+      for (let i = 0; i < 100; i++) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        ctx.fillStyle = this.getRandomColor();
+        ctx.fillRect(x, y, 1, 1);
+      }
+
+      // 繪製驗證碼文字
+      const fontSize = 30;
+      ctx.font = `${fontSize}px serif`;
+      ctx.fillStyle = this.getRandomColor();
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.translate(canvas.width / 2, canvas.height / 2);
+      ctx.rotate((Math.random() - 0.5) * Math.PI / 12);
+      ctx.fillText(this.captchaText, 0, 0);
+      ctx.rotate(-(Math.random() - 0.5) * Math.PI / 12);
+      ctx.translate(-canvas.width / 2, -canvas.height / 2);
+
+      // 繪製干擾線
+      for (let i = 0; i < 4; i++) {
+        ctx.strokeStyle = this.getRandomColor();
+        ctx.beginPath();
+        ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
+        ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
+        ctx.stroke();
+      }
+    },
+    refreshCaptcha() {
+      this.drawCaptcha();
+      this.enteredCaptcha = '';
+    },
+    generateCaptchaText() {
+      const chars = '0123456789';
+      let text = '';
+      for (let i = 0; i < 5; i++) {
+        text += chars[Math.floor(Math.random() * chars.length)];
+      }
+      return text;
+    },
+    getRandomColor() {
+      const r = Math.floor(Math.random() * 256);
+      const g = Math.floor(Math.random() * 256);
+      const b = Math.floor(Math.random() * 256);
+      return `rgb(${r}, ${g}, ${b})`;
+    },
+    // submitForm() {
+    //   if (this.isFormValid()) {
+    //     Swal.fire({
+    //       title: '表單已提交',
+    //       text: '感謝您的回饋，將跳轉至首頁...',
+    //       icon: 'success',
+    //       timer: 3000,
+    //       timerProgressBar: true,
+    //     });
+    //     console.log('表單已提交:', this.formData);
+
+    //     setTimeout(() => {
+    //       this.$router.push('/');
+    //     }, 5000);
+    //   }
+    // },
+
+    async submitForm() {
+      if (this.isFormValid()) {
+        try {
+          const response = await axios.post(`${import.meta.env.VITE_API_URL}/submit_inquiry.php`, this.formData)
+          //('http://localhost/cid101/g1/api/submit_inquiry.php', this.formData);
+          if (response.data.success) {
+            Swal.fire({
+              title: '表單已提交',
+              text: '感謝您的回饋，將跳轉至首頁...',
+              icon: 'success',
+              timer: 3000,
+              timerProgressBar: true,
+            });
+            setTimeout(() => {
+              this.$router.push('/');
+            }, 3000);
+          } else {
+            Swal.fire({
+              title: '錯誤',
+              text: response.data.message || '提交失敗，請稍後再試',
+              icon: 'error',
+            });
+          }
+        } catch (error) {
+          console.error('提交表單時出錯:', error);
+          Swal.fire({
+            title: '錯誤',
+            text: '提交失敗，請稍後再試',
+            icon: 'error',
+          });
+        }
+      }
+    },
+    isFormValid() {
+      let isValid = true;
+
+      if (!this.formData.name) {
+        isValid = false;
+        Swal.fire({
+          title: '錯誤',
+          text: '請輸入姓名',
+          icon: 'error',
+        });
+      }
+
+      if (!this.isPhoneValid) {
+        isValid = false;
+        Swal.fire({
+          title: '錯誤',
+          text: '請輸入正確的手機號碼',
+          icon: 'error',
+        });
+      }
+
+      if (!this.isEmailValid) {
+        isValid = false;
+        Swal.fire({
+          title: '錯誤',
+          text: '請輸入正確的電子郵件地址',
+          icon: 'error',
+        });
+      }
+
+      if (!this.formData.message) {
+        isValid = false;
+        Swal.fire({
+          title: '錯誤',
+          text: '請輸入訊息內容',
+          icon: 'error',
+        });
+      }
+
+      if (!this.isCaptchaValid) {
+        isValid = false;
+        Swal.fire({
+          title: '錯誤',
+          text: '請輸入正確的驗證碼',
+          icon: 'error',
+        });
+      }
+
+      return isValid;
+    }
+  },
+  computed: {
+    isCaptchaValid() {
+      return this.enteredCaptcha.toLowerCase() === this.captchaText.toLowerCase();
+    },
+    isPhoneValid() {
+      const phoneRegex = /^[0][9][0-9]{8}$/;
+      return phoneRegex.test(this.formData.phone);
+    },
+    isEmailValid() {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(this.formData.email);
+    }
+  }
+};
+</script>

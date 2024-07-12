@@ -1,7 +1,7 @@
 
 // ----------------------------------------------------------------------------banner+donate
 .section-banner{
-    background: url(../img/donate/banner1.png)no-repeat 50% 50% /cover;
+    background: url(/img/donate/banner1.png)no-repeat 50% 50% /cover;
     width: 100%;
     height: 100vh;
     padding-bottom: 0;
@@ -12,6 +12,7 @@
         justify-content: center;
         position: relative;
         height: 100%;
+        margin: 0 3vh;
         h1{
             color: white;
             margin-bottom: 10px;
@@ -28,7 +29,7 @@
             position: absolute;
             width: 100%;
             background-color: #E7A600;
-            background-image: url(../../../../public/img/donate/wave.png);
+            background-image: url(/public/img/donate/wave.png);
             background-position: bottom;
             background-size: cover;
             background-repeat: no-repeat;
@@ -39,6 +40,9 @@
             transform: translateY(50%);
             p {
                 color: #fff;
+            }
+            span{
+                margin: 5px;
             }
             .unit-table {
                 display: flex;
@@ -63,12 +67,20 @@
                     margin-bottom: 15px;
                     color: #fff;
                     margin-right: 10px;
+                    @media screen and (max-width: 836px) {
+                        margin-right: 2px;
+                    }
                     @media screen and (max-width: 767px) {
-                        margin-right: 5px;
+                        margin-right: 1px;
+                    }
+                    @media screen and (max-width: 436px) {
+                        margin-right: 1px;
+                        padding: 0px 1vw;
                     }
                     input {
                         display: none;
                     }
+
                 }
                 .donate-submit {
                     width: 100%;
@@ -80,6 +92,9 @@
                         display: flex;
                         overflow: hidden;
                         margin-right: 25px;
+                        @media screen and (max-width: 857px) {
+                            margin-right: 20px;
+                        }
                         input{
                             border: none;
                             outline: none;
@@ -113,6 +128,9 @@
                         a{
                             text-decoration: none;
                             color:$color-highlight;
+                        }
+                        @media screen and (max-width: 930px) {
+                            font-size: 1.2rem;
                         }
                     }
                 }
@@ -165,10 +183,9 @@
     }
 }
 
-section{
+.sectionThanks{
     .container{
         .sx-txt{
-            margin-top: -100px;
             p{
                 text-align: center;
             }
@@ -180,6 +197,9 @@ section{
 // ----------------------------------------------------------------------------捐款用途
 .section-donation{
     .donation-list{
+        .row {
+            gap: 20px 0;
+        }
         h3{
             margin: 10px 0;
         }
@@ -190,7 +210,9 @@ section{
                 border: 1px solid #E7A600;
                 border-radius: 40px;
                 padding-bottom: 20px;
-                margin: 10px;
+                padding: 20px;
+                height: 100%;
+                box-sizing: border-box;
                 h3{
                     color: #E7A600;
                 }
@@ -204,4 +226,17 @@ section{
 
     }
 }
+@media screen and (max-width:575px) {
+    .donation-box{
+        h3{
+            text-align: center;
+        }
+        .icon {
+            display: flex;
+            justify-content: center;
+        }
+    }
+}
+
+
 

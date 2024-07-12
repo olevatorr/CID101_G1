@@ -53,7 +53,15 @@
         }
         .pic{
             margin:auto;
+            width: 20%;
+            img{
+                width: 100%;
+            }
         }
+        .title{
+            margin-right: auto;
+        }
+
     }
     .cart-info .amount {
         display: flex;
@@ -74,6 +82,7 @@
         font-size: 20px;
     }
     .cart-info .subtotal{
+        cursor: pointer;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -84,12 +93,12 @@
     }
     .cart-price{
         text-align: right;
-        padding: 10px 40px 10px 0;
+        padding: 12px 40px 10px 0;
         border-bottom: 1px solid black;
     }
     .cart-total{
         text-align: right;
-        padding: 10px 40px 10px 0;
+        padding: 10px 40px 0 0;
     }
 }
 
@@ -201,6 +210,7 @@
             
         }
         label {
+            cursor: pointer;
             text-align: center;
             box-sizing: border-box;
             padding: 14px;
@@ -300,6 +310,7 @@
             
         }
         label {
+            cursor: pointer;
             text-align: center;
             box-sizing: border-box;
             padding: 14px;
@@ -316,11 +327,18 @@
     }
 }
 
-.section-confirm{
+.section-makesure{
     background-color: white;
     padding: 0;
     .container{
         background-color: white;
+        .cart-checkout{
+        padding: 20px 0 30px 0;
+        text-align: center;
+        }
+        .pay{
+            margin: 0 30px;
+        }
     }
     .cart-confirm{
         padding: 40px 0 40px 0;
@@ -330,9 +348,5 @@
 }
 
 .section-confirm{
-    .cart-checkout{
-        padding-bottom: 40px;
-        text-align: center;
-    }
-
+    display: none;
 }

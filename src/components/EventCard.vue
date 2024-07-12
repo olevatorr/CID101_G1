@@ -1,5 +1,27 @@
+<script setup>
+import { useEventsStore } from '@/stores/events';
+import {storeToRefs} from 'pinia';
+const events = useEventsStore()
+
+
+const {selectedEventCard} = storeToRefs(events)
+
+const props = defineProps({
+    filteredEvents: Array,
+})
+
+const handleEventCard = (event)=>{
+    selectedEventCard.value = event
+}
+const convertURL = (url) => {
+    return `${import.meta.env.VITE_IMG_URL}/events/${url}`;
+};
+
+
+</script>
+
 <template>
-    <div class="col-6 col-sm-4 col-md-4 col-lg-3" v-for="card in filteredEvents" :key="card.E_ID" @click="cardClicked(card)">
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3" v-for="card in filteredEvents" :key="card.E_ID" @click="handleEventCard(card)">   
         <div class="event-card">
             <div class="text">
                 <div class="theme">
@@ -12,23 +34,12 @@
                 <span>截止日期:{{ card.E_DEADLINE }}</span>
             </div>
             <div class="pic">
-                <img :src="card.E_IMG" />
+                <img :src="convertURL(card.E_IMG)" />
+                <div class="add">報名活動</div>
             </div>
             <div class="people">
                 <span>報名人數{{ card.E_SIGN_UP }}/{{ card.E_MAX_ATTEND }}</span>
-                <i class="fa-solid fa-user-plus"></i>
             </div>
         </div>
     </div>
 </template>
-
-<script>
-export default {
-    props: ['filteredEvents'],
-    methods: {
-    cardClicked(card) {
-        this.$emit('card-click', card);
-    },
-    },
-}
-</script>

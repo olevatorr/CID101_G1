@@ -4,6 +4,7 @@ import * as topojson from 'topojson-client'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ref, onMounted, onBeforeUnmount, watch, computed } from 'vue'
+import axios from 'axios'
 
 // 卷軸動畫
 gsap.registerPlugin(ScrollTrigger)
@@ -38,24 +39,28 @@ const totalWeight = ref(null)
 const totalParticipants = ref(null)
 const totalSessions = ref(null)
 
-onMounted(() => {
-    fetch('../../../public/json/海洋委員會公務統計報表-海洋廢棄物清理-113.01.json')
-        .then(res => res.json())
-        .then(jsonData => {
-            hebrisData.value = jsonData
-        })
+onMounted(async () => {
+    try {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/Debris.php`);
+        if (response.data) {
+            hebrisData.value = response.data
+            // hebrisData.value = Array.isArray(sortedData) ? sortedData : [...sortedData.data];
+        }
+    } catch (error) {
+        console.error(error);
+    }
 })
 
 const filteredData = computed(() => {
     if (hebrisData.value) {
-        return hebrisData.value.find(data => data['縣市別'] === selectedArea.value) || {}
+        return Object.values(hebrisData.value[0].data).find(data => data.DD_AREA === selectedArea.value) || {}
     }
     return {}
 })
 watch(filteredData, () => {
-    const weightValue = filteredData.value['清理數量分類(噸)_總計'] || '0';
-    const participantsValue = removeCommas(filteredData.value['參與人數(人次)'] || '0');
-    const sessionsValue = removeCommas(filteredData.value['清理次數(次)'] || '0');
+    const weightValue = filteredData.value.DD_BEACH_CLEANING || '0';
+    const participantsValue = filteredData.value.DD_ATTENDANCE_TOTAL || '0';
+    const sessionsValue = filteredData.value.DD_CLEANING_TIMES || '0';
 
     animateNumber(totalWeight.value, weightValue);
     animateNumber(totalParticipants.value, participantsValue);
@@ -72,10 +77,6 @@ function animateNumber(element, targetValue) {
             element.innerHTML = formatNumber(element.textContent);
         },
     });
-}
-
-function removeCommas(value) {
-    return value.replace(/,/g, '');
 }
 
 function formatNumber(value) {
@@ -115,7 +116,7 @@ async function initMap() {
 
     path = d3.geoPath().projection(projection)
 
-    const topoData = await d3.json('../../public/localjson/map/COUNTY_tw.topo.json')
+    const topoData = await d3.json(`${import.meta.env.BASE_URL}localjson/map/COUNTY_tw.topo.json`)
     const geoData = topojson.feature(topoData, topoData.objects.COUNTY_MOI_1090820)
 
     svg.selectAll('path')
@@ -210,7 +211,7 @@ function resizeMap() {
                         <span class="debris-num" ref="totalSessions"></span>
                         <span class="debris-word">場次</span>
                     </div>
-                    <p>*皆為本年度資訊,與海洋委員會海洋保育署資料同步</p>
+                    <p>*為最新月份資訊,與海洋委員會海洋保育署資料同步</p>
                 </div>
             </div>
         </div>

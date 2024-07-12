@@ -12,6 +12,9 @@
     .breadcrumb a + a::before {
         content: '/';
     }
+    .breadcrumb a{
+        color: black;
+    }
     .big-pic{
         width: 100%;
         overflow: hidden;
@@ -26,8 +29,12 @@
         }
     }
     .info-group .content{
+        font-size: 60px;
         margin-left: 10px;
-        margin-top: 40px;   
+        margin-top: 30px;
+        @media screen and (max-width: 575px) {
+
+        }
     }
     .info-group .line{
         margin-top: 60px;
@@ -43,10 +50,11 @@
         cursor: pointer;
     }
     .info-group .amount {
-        padding:20px 0;
+        padding:20px 14px;
     }
     .info-group .price{
         padding-top: 10px;
+        padding-left: 14px;
     }
     .info-group .button{
         padding-top: 80px;
@@ -56,31 +64,47 @@
     span {
         font-size: 2rem;
         @media screen and (max-width: 767px) {
-            font-size: 1.6rem;
+            font-size: 2rem;
         }
         @media screen and (max-width: 575px) {
-            font-size: 1.2rem;
+            font-size: 1.8rem;
         }
     }
 }
 .section-introduce{
-    background-image: url('../../public/img/productioninfo/sea.png');
+    background-image: url('/img/productioninfo/sea.webp');
     background-size: contain;
     background-position: top;
     background-repeat: no-repeat;
-    img {
+    .text-group img {
         width: 100%;
         vertical-align: top;
     }
     h3 {
-        padding-top:30px;
+        padding-top:80px;
         margin-bottom: 30px;
+        font-size: 1.8rem;
+        @media screen and (max-width: 767px) {
+            font-size: 1.6rem;
+        }
+        @media screen and (max-width: 575px) {
+            font-size: 1.4rem;
+        }
     }
     .container {
         padding: 0 20%;
     }
     .text-group{
         text-align: center;
+    }
+    .text-group p{
+        font-size: 1.8rem;
+        @media screen and (max-width: 767px) {
+            font-size: 1.6rem;
+        }
+        @media screen and (max-width: 575px) {
+            font-size: 1.4rem;
+        }
     }
     .text-group .pic{
         padding-top: 30px;
@@ -99,6 +123,6 @@
     .text-group .disclaimer{
         padding: 10px 20px ;
         background-color: #f0f0f0;
-        margin: 40px auto 0 auto;
+        margin: 40px auto 30px auto;
     }
 }

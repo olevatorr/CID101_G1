@@ -1,8 +1,9 @@
 //section-event-title
 .section-event-title {
-    background: url('../../../../public/img/event/event_title.png');
+    background: url('/public/img/event/1.jpg');
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
     width: 100%;
     height: 80vh;
     aspect-ratio: 16/9;
@@ -40,9 +41,11 @@
         align-items: center;
         padding: 10px 0;
         color: #fff;
-        @media screen and (max-width:768px){
+
+        @media screen and (max-width:768px) {
             flex-wrap: wrap;
             gap: 30px 0;
+
             h2 {
                 flex: 100%;
             }
@@ -72,27 +75,41 @@
             transition: .3s;
         }
         &:hover i {
-            color: $color-highlight-dark
+            color: $color-subprimary
         }
     }
     .fc .fc-daygrid-day.fc-day-today {
         background-color: #005FA140;
     }
+
     .fc-event-main {
         text-align: center;
     }
+
     .area-list {
         overflow-y: auto;
         height: 475px;
 
-        &>div {
+        .show-list {
             height: 100%;
             display: grid;
             grid-template-rows: 20%;
+            ul {
+                width: 100%;
+                li {
+                    width: 100%;
+                    display: grid;
+                    grid-template-columns: 50% 20% 30%;
+                    align-items: center;
+                }
+            }
             span {
                 color: #fff;
-                padding: 3px 10px;
+                padding: 0px 10px;
                 border-radius: 5px;
+                display: block;
+                margin: auto;
+                line-height: 1.6;
             }
             span.end, span.deadline {
                 background-color: grey;
@@ -101,9 +118,27 @@
                 background-color: black;
             }
             span.ongoing {
-                background-color: $color-highlight;
+                background-color: #e60000;
             }
-        }
+            button {
+                border-radius: 5px;
+                padding: 3px 0px;
+                width: 60%;
+                margin: auto;
+                display: block;
+            }
+            }
+            .show-intro{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+            }
+            .intro {
+                font-size: 2.4rem;
+                letter-spacing: .3rem;
+                line-height: 1.5;
+            }
 
         @media screen and (max-width: 992px) {
             margin-top: 20px;
@@ -117,9 +152,9 @@
 
             h3 {
                 color: #fff;
-                padding: 10px 20px;
+                padding: 5px 10px;
                 background-color: $color-subprimary;
-                border-radius: 10PX;
+                border-radius: 5PX;
                 margin-right: 10px;
             }
 
@@ -143,62 +178,21 @@
 
     //軌道背景色
     .area-list::-webkit-scrollbar-track {
-        background: #005FA1;
+        background: $color-primary;
         border-radius: 25px;
     }
 
     //卷軸滑塊、圓角
     .area-list::-webkit-scrollbar-thumb {
-        background: #E7A600;
+        background: $color-highlight;
         border-radius: 25px;
-    }
-}
-
-//section-event-list
-.section-event-list {
-    text-align: center;
-    background-color: #fff;
-
-    .menu select {
-        width: 50%;
-        border-radius: 0;
-        margin-bottom: 30px;
-        padding: 5px 10px;
-        text-align: center;
-        font-family: $font-family-base;
-        padding: 10px 0;
-    }
-
-    .row {
-        gap: 30px 0;
-    }
-}
-
-//section-event-share
-.section-event-share {
-    position: relative;
-    text-align: center;
-    .row {
-        gap: 30px 0;
-    }
-}
-
-//頁碼(共用)
-.pagenumber {
-    margin: 30px 0;
-
-    a {
-        display: inline-block;
-        border: 1px solid #000;
-        padding: 7px 14px;
-        margin: 10px;
     }
 }
 
 //section-event-agree
 .section-event-agree {
     text-align: center;
-    background: url(../../../../public/img/event/event_02.png);
+    background: url('/public/img/event/2.png');
     background-repeat: no-repeat;
     background-size: cover;
 
@@ -206,144 +200,44 @@
         h2 {
             text-align: center;
         }
+
         ul {
             text-align: left;
         }
 
     }
+    .return{
+        margin-top: 20px;
+    }
 }
 
-//section-light-box
-.light-box-bgc {
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background-color: #29292936;
+////event-confirm
+.event-confirm {
     position: fixed;
-    z-index: 20;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.light-box {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 50%;
+    z-index: 21;
+    // box-shadow: 2px 2px 10px $color-border;
     background-color: #fff;
-    padding: 20px;
-    box-shadow: 1px 1px 10px 1px #00000040;
-    border-radius: 10px;
-    .row{
-        position: relative;
-        padding: 10px;
-    .pic {
-        flex: 50%;
-        vertical-align: top;
-            img {
-                width: 100%;
-                border-radius: 5px;
-            }
-            .text{
-                margin-top: 10px;
-                h3{
-                    margin-bottom: 10px;
-                }
-            }
-            
+    padding-bottom: 20px;
+    @media screen and (max-width:768px){
+        width:60%;
     }
-    .content{
-        flex: 50%;
-        display: flex;
-        flex-direction: column;
-        justify-content: start;
-        align-items: center;
-        i{
-            display: inline-block;
-            color: #b6b6b6;
-            font-size: 3rem;
-            cursor: pointer;
-            position: absolute;
-            top: 0;
-            right: 2%;
-        }
-        .activity-area {
-            .text {
-                h3,
-                span {
-                    margin-bottom: 10px;
-                }
-    
-                span {
-                    display: block;
-                    font-size: 1.6rem;
-                    letter-spacing: 0.08em;
-                    line-height: 1.3;
-                    font-weight: normal;
-                    @media screen  and (max-width:992px){
-                        font-size: 1.4rem;
-                        letter-spacing: 0.06em;
-                        line-height: 1.6;
-                    }
-                    @media screen  and (max-width:768px){
-                        font-size: 1.2rem;
-                        letter-spacing: 0.04em;
-                        line-height: 1.4;
-                    }
-                    @media screen  and (max-width:576px){
-                        font-size: 1rem;
-                        letter-spacing: 0.02em;
-                        line-height: 1.2;
-                    }
-                }
-    
-                .join {
-                    select{
-                        font-size: 1.5rem;
-                    }
-                    span {
-                        display: inline-block;
-                    }
-                }
-            }
-        }
-        .state {
-            margin-top: 10%;
-            width: 100%;
-            @media screen  and (max-width:992px){
-                width:25rem;
-                margin-top: 8%;
-            }
-            @media screen  and (max-width:768px){
-                width:20rem;
-                margin-top: 6%;
-            }
-            @media screen  and (max-width:576px){
-                width:15rem;
-                margin-top: 4%;
-            }
-            button{
-                width: 100%;
-            }
-            .stop,
-            .full,
-            .end {
-                display: none;
-            }
-        }
+    @media screen and (max-width:576px){
+        width:70%;
     }
-    }
-}
-
-////section-confirm
-.section-confirm {
-    position: relative;
 
     .apply-wrap {
         .close {
             position: absolute;
-            top: 0;
+            top: 2%;
             right: 2%;
+
             i {
-                color: #b6b6b6;
-                font-size: 3rem;
+                color: $color-border;
+                font-size: 2.5rem;
                 cursor: pointer;
             }
         }
@@ -440,14 +334,6 @@
                 margin-left: 0;
             }
         }
-        // .box-5{
-        //     input[type="file"]{
-        //         display: none;
-        //     }
-        // }
-        .box-6 {
-            align-items: start;
-        }
     }
 
     .shareBtn {
@@ -458,94 +344,88 @@
 
 //section-examine
 .section-examine {
-    .CancelBtn {
-        text-align: right;
-        margin: 10px 0;
-
-        span {
-            font-size: 2rem;
-            color: #b6b6b6;
-            display: inline-block;
-            cursor: pointer;
-        }
+    width: 40%;
+    margin: auto;
+    position: fixed;
+    z-index: 35;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    @media screen and (max-width:992px) {
+        width: 60%;
     }
-
-    h2 {
-        text-align: center;
+    @media screen and (max-width:768px) {
+        width: 70%;
     }
-
-    form {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        .box {
-            width: 50%;
-            padding: 20px 0;
+    @media screen and (max-width:576px) {
+        width: 100%;
+    }
+    .container {
+        form {
+            box-shadow: 2px 2px 10px $color-border;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            font-size: 1.5rem;
-            border-bottom: 1px solid #b6b6b6;
-
-            label {
-                flex: 80%;
-            }
-        }
-
-        input[type="radio"] {
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            border: 1px solid #000;
-
-            &:checked {
-                background: url(../../../../public/img/event/check-solid.svg);
-                background-repeat: no-repeat;
-                background-position: center;
-            }
-        }
-
-        button {
-            width: 35%;
-            margin: 30px 0;
-        }
-    }
-}
-
-//section-detailed
-.section-detailed {
-    .text {
-        .theme {
-            .report {
-                font-size: 2rem;
-                top: 3%;
-
+            position: relative;
+            background-color: #fff;
+            padding: 20px 0;
+            .CancelBtn {
+                position: absolute;
+                top: 20px;
+                right: 20px;
                 span {
+                    font-size: 1.7rem;
+                    color: #000;
                     display: inline-block;
-
-                    i {
-                        display: inline-block;
-                        margin-right: 5px;
+                    cursor: pointer;
+                    &:hover{
+                        color: $color-highlight;
+                        transition: .3s ease;
                     }
                 }
             }
-        }
+    
+            h2 {
+                text-align: center;
+                margin-top: 20px;
+                font-size: 1.7rem;
+            }
+            .box {
+                width: 50%;
+                padding: 10px 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 1.5rem;
+                border-bottom: 1px solid #b6b6b6;
 
-        span {
-            font-size: 1.5rem;
-            display: block;
-            margin: 10px 0;
-            line-height: 1.2;
+                label {
+                    flex: 80%;
+                }
+            }
+
+            input[type="radio"] {
+                appearance: none;
+                width: 20px;
+                height: 20px;
+                border: 1px solid #000;
+
+                &:checked {
+                    background: url('/public/img/event/check-solid.svg');
+                    background-repeat: no-repeat;
+                    background-position: center;
+                }
+            }
+            .warning{
+                color: #f00;
+                font-size: 1.3rem;
+                transform: translateY(10px);
+            }
+
+            button {
+                width: 35%;
+                margin-top: 20px;
+            }
         }
-    }
-    .overlay{
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0); //透明背景
-        z-index: 199;   //保證遮罩層在彈窗之下 
     }
 }

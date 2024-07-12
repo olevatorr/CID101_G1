@@ -1,5 +1,5 @@
 .section-profile {
-    background-image: url(../../../../public/img/member/member12.png);
+    background-image: url(/img/member/member12.png);
     background-size: cover;
     .row{
         padding: 10rem 1rem;
@@ -49,7 +49,7 @@
                     padding: 1rem;
                     color: $color-white;
                 }
-                .logout{
+                .logouts{
                     display: none;
                     @media screen and (max-width: 575px) {
                         margin-top: 0;
@@ -61,7 +61,7 @@
 
             .profile-button {
                 text-align: center;
-                padding-top: 8rem;
+                padding-top: 10rem;
                 margin: 0 -1.5rem;
 
                 button {
@@ -106,7 +106,14 @@
 
                 li {
                     padding-bottom: 2rem;
-
+                    position: relative;
+                    span{
+                        position:absolute;
+                        color: red;
+                        font-size: 1.3rem;
+                        bottom: 0;
+                        left: 21%;
+                    }
 
                     @media screen and (max-width: 575px) {
                         text-align: left;
@@ -115,7 +122,8 @@
 
                 label {
                     padding-right: 2rem;
-                    font-size: 1.4rem;
+                    font-size: 1.6rem;
+                    
 
                 }
 
@@ -163,7 +171,7 @@
             caption{
                 font-size: 2rem;
                 padding-top: 9rem;
-                padding-bottom: 1rem ;
+                padding-bottom: 2rem ;
             }
 
             th {
@@ -189,6 +197,7 @@
                     height: 4rem;
                     vertical-align: middle;
                     white-space: wrap;
+                    text-align: center;
                     button{
                         padding:0.75rem 2rem;
                     }
@@ -212,29 +221,26 @@
             text-decoration: none;
         }
         }
-        .shop{
-            tr{
-            th:nth-child(1),th:nth-child(3)
-            {
-                width: 90px;
-            }
-        }
-        }
+        
         .order {
+            tbody{
+                position: relative;
+
+            }
             tr {
                 th:nth-child(1),th:nth-child(3)
                 {
                     width: 80px;
                 }
                 td:nth-child(4){
-                    padding-left: 4rem;
-                    text-align: left;
-
+                    text-align: center;
+                    @media screen and (max-width:576px) {
+                        text-align: right;
+                    }
                 }
                 td:nth-child(5)
                 {
-                    text-align: left;
-                    padding-left: 2rem;
+                    text-align: center;
                     
                     @media screen and (max-width:576px) {
                         text-align: right;
@@ -242,6 +248,9 @@
                 }
                 th {
                     height: 5rem;
+                    @media screen and (max-width:576px) {
+                        display: none;
+                    }
                 }
 
                 td {
@@ -250,6 +259,42 @@
                         background-color: #bbb;
                         cursor: not-allowed;
                     }
+                    @media screen and (max-width:576px) {
+                        text-align: right;
+                    }
+                }
+            }
+            .shoptable{
+                background-color: #4ecabf;
+                position: absolute;
+
+                
+                width: 100%;
+                z-index: 3;
+                @media screen and (max-width:576px) {
+                    border: 1px solid #000;
+                    background-color: $color-white;
+                    position: relative;
+                    top: -70px;
+                }
+                .shop{
+                    caption{
+                        padding-top: 2rem;
+
+                    }
+                    th{
+                        width: auto;
+                        background-color: #A0F3EC; 
+                    }
+                    td{
+                        @media screen and (max-width:576px) {
+                            padding-right: 1rem;
+                        } 
+                    }
+                }
+                button{
+                    margin-top: 1rem;
+                    margin-bottom: 1rem;
                 }
             }
         }
@@ -259,7 +304,7 @@
             border-collapse: collapse;
 
             tr {
-                td:nth-child(1),td:nth-child(4)
+                td:nth-child(1),td:nth-child(4),td:nth-child(5)
                 {
                     text-align: left;
                     padding-left: 2rem;
@@ -267,7 +312,23 @@
                         text-align: right;
                     }
                 }
-                
+                td:nth-child(6){
+                    text-align: center;
+                    @media screen and (max-width:576px) {
+                        text-align: right;
+                    }
+                }
+                td:nth-child(7){
+                    text-align: center;
+                    @media screen and (max-width:576px) {
+                        text-align: right;
+                    }
+                }
+                td{
+                    @media screen and (max-width:576px) {
+                        text-align: right;
+                    }
+                }
 
                 th {
                     height: 5rem;
@@ -275,6 +336,10 @@
 
                 td {
                     height: 5rem;
+                    .close{
+                        background-color: #bbb;
+                        cursor: not-allowed;
+                    }
                 }
             }
         }
@@ -282,14 +347,37 @@
             tr {
                 th {
                     height: 5rem;
+
                 }
-    
+
                 td {
+                    text-align: right;
                     height: 5rem;
+                    img{
+                        padding-top: 1rem;
+                        padding-bottom: 1rem;
+                        width: 10rem;
+
+                    }
+                }
+                td:nth-child(2) {
+                    @media (max-width: 576px) {
+                    padding-bottom: 8rem;
+                    }
                 }
             }
-    
         }
+
+        .donate {
+            tr {
+                td {
+                    @media (max-width: 576px) {
+                        text-align: right;
+                    }
+                }
+            }
+        }
+
         //破壞表格排列
             @media (max-width: 576px) {
                 table, thead, tbody, th, td, tr {
@@ -299,29 +387,28 @@
                     width:10rem;
                 }
                 thead tr {
-                  display: none;
+                    display: none;
                 }
                 tr {
-                  margin-bottom: 10px;
-                  border-bottom: 2px solid #ddd;
+                    margin-bottom: 10px;
+                    border-bottom: 2px solid #ddd;
                 }
                 td {
-                  text-align: right;
-                  padding-left: 50%;
-                  position: relative;
+                    text-align: right;
+                    padding-left: 50%;
+                    position: relative;
                 }
                 td::before {
-                  content: attr(data-label);
-                  position: absolute;
-                  left: 10px;
-                  width: calc(50% - 20px);
-                  text-align: left;
-                  font-weight: bold;
+                    content: attr(data-label);
+                    position: absolute;
+                    left: 10px;
+                    width: calc(50% - 20px);
+                    text-align: left;
+                    font-weight: bold;
                 }
-              }
+            }
         
         
-
     }
         //修改密碼
     .profile-revise{
@@ -341,13 +428,15 @@
 
             li {
                 padding-bottom: 2rem;
+                position: relative;
         
-        label:first{
-            padding-left: 2.5rem;
-        }
+
         label {
             padding-right: 2rem;
             font-size: 1.4rem;
+        }
+        .inputs{
+            margin-right: 4.5rem;
         }
 
         input {
@@ -360,6 +449,13 @@
             outline: none;
             height: 4rem;
 
+            }
+            span{
+                color: red;
+                font-size: 1.3rem;
+                position: absolute;
+                bottom: -5%;
+                left: 40%;
             }
         }
     }
@@ -396,6 +492,7 @@
                 .store{
                     margin-bottom: 2rem;
                 }
+
             }
         }
 

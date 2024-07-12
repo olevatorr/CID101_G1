@@ -45,6 +45,7 @@ const scrollToTop = () => {
     })
 }
 
+
 </script>
 <template>
     <section class="section section-intro" ref="intro">

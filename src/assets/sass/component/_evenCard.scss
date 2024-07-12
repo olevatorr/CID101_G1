@@ -1,0 +1,139 @@
+.section-event-list {
+  text-align: center;
+
+  .container {
+    .menu {
+      select {
+        width: 30%;
+        border: 2px double #000;
+        border-radius: 5px;
+        margin-bottom: 30px;
+        padding: 5px;
+        text-align: center;
+        font-family: $font-family-base;
+      }
+    }
+
+    .row {
+      gap: 30px 0;
+
+    }
+
+    .pagenumber {
+      margin: 30px 0;
+
+      a {
+        color: #000;
+        display: inline-block;
+        border: 1px solid #000;
+        padding: 7px 14px;
+        margin: 10px;
+      }
+    }
+  }
+}
+
+.event-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  background-color: $color-white;
+  text-align: left;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  box-sizing: border-box;
+  padding: 15px 20px;
+  cursor: pointer;
+
+  &:hover {
+    img {
+      scale: 1.1;
+    }
+
+    .pic {
+      .add {
+        transform: translateY(0%);
+      }
+    }
+  }
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    position: relative;
+
+    .theme {
+      .event-name {
+        h3 {
+          color: $color-subprimary;
+          text-align: left;
+          font-size: 1.7rem;
+
+          @media screen and (max-width:768px) {
+            font-size: 1.3rem;
+          }
+        }
+      }
+    }
+
+    span {
+      font-size: 1.3rem;
+      display: block;
+      margin: 5px 0;
+      line-height: 1.2;
+    }
+  }
+
+  .pic {
+    @include fixed-size-image(100%, 200px);
+    position: relative;
+    overflow: hidden;
+
+    @media screen and (max-width:768px) {
+      height: 200px;
+    }
+
+    @media screen and (max-width:576px) {
+      height: 200px;
+    }
+
+    img {
+      transition: .5s;
+    }
+
+    .add {
+      width: 100%;
+      height: 30px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      transform: translateY(100%);
+      background-color: $color-subprimary;
+      color: #fff;
+      font-size: 1.6rem;
+      letter-spacing: .2rem;
+      line-height: 2;
+      transition: .5s;
+      z-index: 10;
+      text-align: center;
+    }
+  }
+
+  .people {
+    margin-top: 10px;
+    width: 100%;
+    line-height: 2;
+    letter-spacing: .2rem;
+    font-size: 1.3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    span {
+      display: inline-block;
+      font-size: 1.3rem;
+    }
+  }
+
+}
