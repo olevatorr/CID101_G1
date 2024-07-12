@@ -43,7 +43,7 @@ onMounted(async () => {
     try {
         const response = await axios.get(`${import.meta.env.VITE_API_URL}/Debris.php`);
         if (response.data) {
-            hebrisData.value = response.data[0].data;
+            hebrisData.value = response.data.sort((a, b) => b.DDL_ID - a.DDL_ID)[0].data;
         }
     } catch (error) {
         console.error(error);
