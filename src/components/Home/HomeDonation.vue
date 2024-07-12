@@ -37,7 +37,7 @@ const fetchExpenditureData = async () => {
       expenditureAmount.value = response.data.reduce((acc, cur) => acc + Number(cur.EL_OUTLAY), 0)
       expenditure.value = response.data.sort((a, b) => b.EL_ID - a.EL_ID).slice(0, 6)
       expenditureList.value = response.data
-      console.log('expenditure:', expenditureList.value)
+      // console.log('expenditure:', expenditureList.value)
     } else {
       error.value = true
       errorMsg.value = response.data.msg
