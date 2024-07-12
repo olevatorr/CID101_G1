@@ -4,7 +4,7 @@ import ShareReport from '@/components/even/evenShareReport.vue'
 import { useSharesStore } from '@/stores/shares.js'
 import { storeToRefs } from 'pinia'
 const sharesStore = useSharesStore()
-const {selectedShareCard, showReportModal } = storeToRefs(sharesStore)
+const {selectedShareCard, showReportModal, shareContent } = storeToRefs(sharesStore)
 
 import { onMounted, ref, watch } from 'vue';
 
@@ -12,11 +12,8 @@ const homeFeedback = ref([]);
 const carouselEnabled = ref(true); // 添加這行,控制是否啟用輪播功能
 
 onMounted(() => {
-    fetch(`${import.meta.env.BASE_URL}json/Share.json`)
-        .then(res => res.json())
-        .then(jsonData => {
-            homeFeedback.value = jsonData.slice(0, 16);
-        });
+    sharesStore.fetchselectedShareCardData()
+    homeFeedback.value = shareContent.value.slice(0, 4)
 });
 
 

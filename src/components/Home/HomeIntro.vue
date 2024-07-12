@@ -2,7 +2,6 @@
 import { gsap } from 'gsap';
 import { ref, onMounted } from 'vue';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import axios from 'axios';
 
 
 const intro = ref(null)
