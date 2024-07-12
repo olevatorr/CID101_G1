@@ -41,11 +41,10 @@ const totalSessions = ref(null)
 
 onMounted(async () => {
     try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/DebrisData.php`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/Debris.php`);
         if (response.data) {
-            console.log(response.data.DEBRIS_DATA);
-            hebrisData.value = response.data.DEBRIS_DATA;
-            console.log(hebrisData.value);
+            hebrisData.value = response.data
+            // hebrisData.value = Array.isArray(sortedData) ? sortedData : [...sortedData.data];
         }
     } catch (error) {
         console.error(error);
@@ -54,12 +53,11 @@ onMounted(async () => {
 
 const filteredData = computed(() => {
     if (hebrisData.value) {
-        return hebrisData.value.find(data => data.DD_AREA === selectedArea.value) || {}
+        return Object.values(hebrisData.value[0].data).find(data => data.DD_AREA === selectedArea.value) || {}
     }
     return {}
 })
 watch(filteredData, () => {
-    console.log(filteredData.value);
     const weightValue = filteredData.value.DD_BEACH_CLEANING || '0';
     const participantsValue = filteredData.value.DD_ATTENDANCE_TOTAL || '0';
     const sessionsValue = filteredData.value.DD_CLEANING_TIMES || '0';

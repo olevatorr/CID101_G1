@@ -94,25 +94,25 @@
             <div class="row">
                 <div class="ship-method col-12 col-md-6">
                     <label for="express">
-                        <input type="radio" id="express" name="drone" value="express" checked />
+                        <input type="radio" id="express" name="shipping" value="express" v-model="selectedShippingMethod" />
                         宅配
                     </label>
                 </div>
                 <div class="ship-method col-12 col-md-6">
                     <label for="seven">
-                        <input type="radio" id="seven" name="drone" value="seven" checked />
+                        <input type="radio" id="seven" name="shipping" value="express" v-model="selectedShippingMethod" />
                         7-11門市取件
                     </label>
                 </div>
                 <div class="ship-method col-12 col-md-6">
                     <label for="family">
-                        <input type="radio" id="family" name="drone" value="family" checked />
+                        <input type="radio" id="family" name="shipping" value="express" v-model="selectedShippingMethod" />
                         全家門市取件
                     </label>
                 </div>
                 <div class="ship-method col-12 col-md-6">
                     <label for="hilife">
-                        <input type="radio" id="hilife" name="drone" value="hilife" checked />
+                        <input type="radio" id="hilife" name="shipping" value="express" v-model="selectedShippingMethod" />
                         萊爾富門市取件
                     </label>
                 </div>
@@ -157,25 +157,25 @@
                 <div class="row">
                     <div class="ship-method col-12 col-md-6">
                         <label for="credit-card">
-                            <input type="radio" id="credit-card" name="drone" value="credit-card" checked />
+                            <input type="radio" id="credit-card" name="payment" value="credit-card" v-model="selectedPaymentMethod"/>
                             信用卡
                         </label>
                     </div>
                     <div class="ship-method col-12 col-md-6">
                         <label for="line-pay">
-                            <input type="radio" id="line-pay" name="drone" value="line-pay" checked />
+                            <input type="radio" id="line-pay" name="payment" value="line-pay" v-model="selectedPaymentMethod"/>
                             LINE PAY
                         </label>
                     </div>
                     <div class="ship-method col-12 col-md-6">
                         <label for="store-code">
-                            <input type="radio" id="store-code" name="drone" value="store-code" checked />
+                            <input type="radio" id="store-code" name="payment" value="store-code" v-model="selectedPaymentMethod"/>
                             超商代碼
                         </label>
                     </div>
                     <div class="ship-method col-12 col-md-6">
                         <label for="atm">
-                            <input type="radio" id="atm" name="drone" value="atm" checked />
+                            <input type="radio" id="atm" name="payment" value="atm" v-model="selectedPaymentMethod"/>
                             ATM轉帳
                         </label>
                     </div>
@@ -228,7 +228,10 @@ export default {
             phone: '',
             add: '',
             showEcpayRedirect: false,
-            ecpayRedirectForm: ''
+            ecpayRedirectForm: '',
+            selectedShippingMethod: '',
+            selectedPaymentMethod: '',
+
         }
     },
     setup() {
@@ -278,6 +281,12 @@ export default {
         getImageUrl(imgUrl) {
             return `${import.meta.env.VITE_IMG_URL}/product/${imgUrl}`;
         },
+        updateShippingMethod(method) {
+            this.selectedShippingMethod = method;
+        },
+        updatePaymentMethod(method) {
+            this.selectedPaymentMethod = method;
+        },
 
         // 綠界支付表單
         async submitEcpayForm() {
@@ -324,7 +333,7 @@ export default {
         async submitOrder() {
             try {
                 // 檢查是否選擇了付款和配送方式
-                if (!this.selectedPaymentMethod || !this.selectedShippingMethod) {
+                if (!this.selectedShippingMethod  || !this.selectedPaymentMethod) {
                     throw new Error('請選擇付款方式和配送方式');
                 }
 

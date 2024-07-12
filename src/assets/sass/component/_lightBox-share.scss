@@ -51,7 +51,7 @@
                 }
     
                 .pic {
-                    @include fixed-size-image(100%, 90%);
+                    @include fixed-size-image(100%, 200px);
                     display: block;
                     @media screen and (max-width:992px) {
                         margin-top: 30px;
@@ -71,12 +71,7 @@
                     span {
                         font-size: 1.4rem;
                         display: inline-block;
-                        @media screen and (max-width:768px){
-                            font-size: 1.2rem;
-                        }
-                        @media screen and (max-width:576px){
-                            font-size: 0.9rem;
-                        }
+
                         &:hover {
                             cursor: pointer;
                             color: #f00;
@@ -97,28 +92,20 @@
                 .event-name {
                     h3 {
                         color: $color-subprimary;
-                        font-size: 1.4rem;
-                        @media screen and (max-width:768px) {
-                            font-size: 1.2rem;
-                        }
+                        font-size: 1.6rem;
+                        margin-top: 10px;
                     }
                 }
     
                 span {
-                    font-size: 1.1rem;
+                    font-size: 1.4rem;
                     display: block;
                     margin: 10px 0;
                     line-height: 1.2;
-                    @media screen and (max-width:768px) {
-                        font-size: .9rem;
-                    }
                 }
                 p{
-                    font-size: 1.1rem;
+                    font-size: 1.4rem;
                     line-height: 1.5;
-                    @media screen and (max-width:768px) {
-                        font-size: .9rem;
-                    }
                 }
             }
         }

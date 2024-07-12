@@ -7,7 +7,8 @@ export const useSharesStore = defineStore('shares', {
         selectedShareCard: '',
         showReportModal: false,
         error: false,
-        errorMsg: ''
+        errorMsg: '',
+        reportDetails: '',
     }),
     actions: {
         // fetchShare() {
@@ -21,7 +22,7 @@ export const useSharesStore = defineStore('shares', {
             try {
                 const response = await axios.get(`${import.meta.env.VITE_API_URL}/eventShare.php`);
                 if (!response.data.error) {
-                    this.shareContent = response.data.FEEDBACK ;
+                    this.shareContent = response.data.FEEDBACK.filter(share => share.F_STATUS === 0);
                     console.log(this.shareContent);
                 } else {
                     this.error = true;
