@@ -217,7 +217,7 @@ function setupChart() {
             plugins: {
                 title: {
                     display: true,
-                    text: '海水污染指標',
+                    text: '全台灣最新海水污染指標',
                     font: {
                         size: 20,  // 設置標題字體大小
                     },
