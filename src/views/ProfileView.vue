@@ -32,6 +32,7 @@
           <option value="activity">活動查詢</option>
           <option value="orders">訂單查詢</option>
           <option value="donations">捐款查詢</option>
+          <option value="favorites">商品收藏</option>
         </select>
         <div class="profile-txt col-12 col-sm-8  col-md-8" v-if="currentSection === 'profile'">
           <h1>會員專區</h1>
@@ -144,7 +145,7 @@
             </thead>
             <tbody>
               <tr v-for=" act in paginatedData" :key="act.E_ID">
-                <td data-label="活動訂單">{{ act.E_ID }}</td>
+                <td data-label="活動訂單">{{ act.EO_ID }}</td>
                 <td data-label="活動名稱">{{ act.E_TITLE }}</td>
                 <td data-label="活動日期">{{ act.E_DATE }}</td>
                 <td data-label="截止日期">{{ act.E_DEADLINE }}</td>
@@ -152,7 +153,7 @@
                 <td data-label="活動狀態">{{ getStatusDescription(act.EO_STATUS) }}</td>
                 <td data-label="功能">
                   <button v-if="new Date(act.E_DATE) > new Date() && (act.EO_STATUS === 0 || act.EO_STATUS === 1)"
-                  @click="cancelEvent(act.E_ID, act.U_ID)">
+                  @click="cancelEvent(act.EO_ID, act.U_ID)">
                     報名取消
                   </button>
                   <button v-else-if="new Date(act.E_DATE) < new Date() && act.EO_STATUS !== 2">
@@ -161,6 +162,7 @@
                   <button class="close" v-else>
                     活動結束
                   </button>
+                  <!-- 使用 ShareCard 元件 -->
                 </td>
               </tr>
             </tbody>
@@ -674,16 +676,16 @@ const removeFavorites = async (p_id, u_id) => {
 };
 
     //活動清單刪除
-    const cancelEvent = async (Eo_id, U_id) => {
+    const cancelEvent = async (eo_id, u_id) => {
   try {
     const response = await axios.delete(`${import.meta.env.VITE_API_URL}/memberCancelEvent.php`, {
       params: {
-        EO_ID: Eo_id,
-        U_ID: U_id
+        EO_ID: eo_id,
+        U_ID: u_id
       }
     });
     if (!response.data.error) {
-      activities.value.data = activities.value.data.filter(activitiesItem => activitiesItem.EO_ID !== Eo_id);
+      activities.value.data = activities.value.data.filter(activitiesItem => activitiesItem.EO_ID !== eo_id);
       Swal.fire({
         icon: 'success',
         title: '成功',
@@ -738,7 +740,7 @@ const removeFavorites = async (p_id, u_id) => {
       deleteOrder, //訂單刪除
       getImageUrl, //圖片路徑
       removeFavorites, //取消收藏
-      cancelEvent //活動清單刪除
+      cancelEvent, //活動清單刪除
     }
   }
 }
