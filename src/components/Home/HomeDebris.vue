@@ -43,7 +43,8 @@ onMounted(async () => {
     try {
         const response = await axios.get(`${import.meta.env.VITE_API_URL}/Debris.php`);
         if (response.data) {
-            hebrisData.value = response.data.sort((a, b) => b.DDL_ID - a.DDL_ID)[0].data;
+            const sortedData = response.data.sort((a, b) => a.DDL_ID - b.DDL_ID)[0];
+            hebrisData.value = Array.isArray(sortedData) ? sortedData.data : [sortedData.data];
         }
     } catch (error) {
         console.error(error);
@@ -52,12 +53,11 @@ onMounted(async () => {
 
 const filteredData = computed(() => {
     if (hebrisData.value) {
-        return hebrisData.value.find(data => data.DD_AREA === selectedArea.value) || {}
+        return hebrisData.value[0].find(data => data.DD_AREA === selectedArea.value) || {}
     }
     return {}
 })
 watch(filteredData, () => {
-    console.log(filteredData.value);
     const weightValue = filteredData.value.DD_BEACH_CLEANING || '0';
     const participantsValue = filteredData.value.DD_ATTENDANCE_TOTAL || '0';
     const sessionsValue = filteredData.value.DD_CLEANING_TIMES || '0';
