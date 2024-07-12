@@ -4,9 +4,13 @@ import { storeToRefs } from 'pinia'
 import Swal from 'sweetalert2'
 import { useSharesStore } from '@/stores/shares.js'
 import axios from 'axios';
+import { useMemberStore } from '@/stores/member'
+import { useRouter } from 'vue-router'
 
 const shares = useSharesStore()
 const { showReportModal, reportDetails } = storeToRefs(shares)
+const memberStore = useMemberStore()
+const router = useRouter()
 
 // 定義檢舉原因
 const reasons = ref([
@@ -35,37 +39,48 @@ watch(selectedReason, (newValue) => {
 })
 // 顯示警告
 const submitForm = async () => {
-  console.log(reportDetails.value);
   try {
     if (!selectedReason.value) {
-      showWarning.value = true
+      showWarning.value = true;
+    } else if (!memberStore.isLogging) {
+      Swal.fire({
+        icon: 'warning',
+        title: '需要登入',
+        text: '請先登入或加入會員以提交檢舉。',
+        className: 'reportSubmission'
+      }).then(() => {
+        closeShareModal();
+        router.push('/Member');
+      });
     } else {
       showReportModal.value = false;
       const updateData = {
-        ER_Origin: selectedReason.value,
+        ER_ORIGIN: selectedReason.value,
         F_ID: reportDetails.value.F_ID,
         U_ID: reportDetails.value.U_ID,
       };
       console.log(reportDetails);
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/feedReportAdd.php`, updateData)
-      if (!response.error) {
-        Swal.fire({
-          icon: 'success',
-          title: '檢舉成功提交',
-          text: '您的檢舉已成功提交，我們會進行審核。',
-          className: 'reportSubmission'
-        })
-        closeShareModal()
-      }
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/feedReportAdd.php`, updateData);
+      console.log(response);
+      Swal.fire({
+        icon: 'success',
+        title: '檢舉成功提交',
+        text: '您的檢舉已成功提交，我們會進行審核。',
+        className: 'reportSubmission'
+      }).then(() => {
+        router.push('/events');
+      });
+      closeShareModal();
     }
   } catch (error) {
     console.error('檢舉提交失敗:', error);
   }
-}
+};
+
 
 
 const closeShareModal = () => {
-  showReportModal.value = false
+  showReportModal.value = false 
 }
 </script>
 <template>
