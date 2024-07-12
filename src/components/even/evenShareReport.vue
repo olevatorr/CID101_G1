@@ -10,6 +10,7 @@ import { useRouter } from 'vue-router'
 const shares = useSharesStore()
 const { showReportModal, reportDetails } = storeToRefs(shares)
 const memberStore = useMemberStore()
+const { isLogging, member } = storeToRefs(memberStore)
 const router = useRouter()
 
 // 定義檢舉原因
@@ -39,11 +40,8 @@ watch(selectedReason, (newValue) => {
 })
 // 顯示警告
 const submitForm = async () => {
-  try {
-    if (!selectedReason.value) {
-      showWarning.value = true;
-    } else if (!memberStore.isLogging) {
-      Swal.fire({
+  if(!isLogging.value){
+    Swal.fire({
         icon: 'warning',
         title: '需要登入',
         text: '請先登入或加入會員以提交檢舉。',
@@ -52,12 +50,16 @@ const submitForm = async () => {
         closeShareModal();
         router.push('/Member');
       });
-    } else {
+      return
+  }
+  try {
+   
       showReportModal.value = false;
       const updateData = {
         ER_ORIGIN: selectedReason.value,
         F_ID: reportDetails.value.F_ID,
         U_ID: reportDetails.value.U_ID,
+        UR_ID: member.value.U_ID
       };
       console.log(reportDetails);
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/feedReportAdd.php`, updateData);
@@ -71,7 +73,6 @@ const submitForm = async () => {
         router.push('/events');
       });
       closeShareModal();
-    }
   } catch (error) {
     console.error('檢舉提交失敗:', error);
   }
