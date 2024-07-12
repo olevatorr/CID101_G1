@@ -43,8 +43,8 @@ onMounted(async () => {
     try {
         const response = await axios.get(`${import.meta.env.VITE_API_URL}/Debris.php`);
         if (response.data) {
-            const sortedData = response.data.sort((a, b) => a.DDL_ID - b.DDL_ID)[0];
-            hebrisData.value = Array.isArray(sortedData) ? sortedData.data : [...sortedData.data];
+            hebrisData.value = response.data
+            // hebrisData.value = Array.isArray(sortedData) ? sortedData : [...sortedData.data];
         }
     } catch (error) {
         console.error(error);
@@ -53,7 +53,7 @@ onMounted(async () => {
 
 const filteredData = computed(() => {
     if (hebrisData.value) {
-        return hebrisData.value[0].find(data => data.DD_AREA === selectedArea.value) || {}
+        return Object.values(hebrisData.value[0].data).find(data => data.DD_AREA === selectedArea.value) || {}
     }
     return {}
 })
