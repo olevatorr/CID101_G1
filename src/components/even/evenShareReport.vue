@@ -70,7 +70,7 @@ const submitForm = async () => {
         text: '您的檢舉已成功提交，我們會進行審核。',
         className: 'reportSubmission'
       }).then(() => {
-        router.push('/events');
+        shares.fetchselectedShareCardData()
       });
       closeShareModal();
   } catch (error) {
