@@ -150,11 +150,7 @@ const labelstxt = [
 
 const setupData = async () => {
     try {
-        const response = await axios.get('https://iocean.oca.gov.tw/oca_datahub/WebService/GetData.ashx?id=c1f1c6d4-536b-49bc-90eb-a9442799641b', {
-            headers: {
-                'API-KEY': 'e0943fb9-24b0-4a34-b1c5-21c366c92432'
-            }
-        });
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/proxy.php`);
         
         if (response) {
             apiData.value = response.data;
@@ -177,7 +173,7 @@ function setupChart() {
     const ctx = document.getElementById('myChart');
 
     // 過濾數據，只顯示丙類水質數據
-    const filteredData = apiData.value.filter(item => item.BODY_LEVEL === "丙類");// 獲取標籤和指標值
+    const filteredData = apiData.value.filter(item => item.BODY_LEVEL === "丙");// 獲取標籤和指標值
     const indicatorValues = filteredData.map(item => item[selectedIndicator.value]); // 獲取樣本日期
     const sampleDate = filteredData.length > 0 ? filteredData[0].SAMPLE_DATE : '無資料';
 
