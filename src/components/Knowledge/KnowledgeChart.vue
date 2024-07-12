@@ -154,7 +154,6 @@ const setupData = async () => {
         
         if (response) {
             apiData.value = response.data;
-            console.log(apiData.value);
             setupChart();
         }
     } catch (error) {
@@ -217,7 +216,7 @@ function setupChart() {
             plugins: {
                 title: {
                     display: true,
-                    text: '海水污染指標',
+                    text: '全台灣最新海水污染指標',
                     font: {
                         size: 20,  // 設置標題字體大小
                     },
@@ -488,7 +487,6 @@ onMounted(async () => {
         const response = await axios.post(`${import.meta.env.VITE_API_URL}/Debris.php`);
         if (response) {
             hebrisData.value = response.data
-            console.log(hebrisData.value);
             DD_AREA.value = response.data.DD_AREA;
             updateChartForRegion(DD_AREA.value);
         }
