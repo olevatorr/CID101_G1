@@ -6,15 +6,12 @@
                 @mouseenter="pauseCarousel" @mouseleave="startCarousel">
                 <div class="share-card">
                     <div class="pic">
-                        <img :src="card.F_IMG" />
+                        <img :src="convertImg(card.F_IMG)" />
                     </div>
                     <div class="text">
                         <div class="theme">
                             <div class="event-name">
                                 <h3>{{ card.E_TITLE }}</h3>
-                            </div>
-                            <div class="report" @click.stop="reportClicked">
-                                <i class="fa-solid fa-triangle-exclamation"></i>
                             </div>
                         </div>
                         <span>活動地點：{{ card.E_ADDRESS }}</span>
@@ -33,7 +30,7 @@
                 @click="cardClicked(card)">
                 <div class="share-card">
                     <div class="pic">
-                        <img :src="card.F_IMG" />
+                        <img :src="convertImg(card.F_IMG)" />
                     </div>
                     <div class="text">
                         <div class="theme">
@@ -170,6 +167,10 @@ export default {
             }
         };
 
+        const convertImg = (URL) => {
+            return `${import.meta.env.VITE_IMG_URL}/events/${URL}`
+        }
+
         onMounted(() => {
             if (props.carouselEnabled) {
                 carouselVisible.value = true;
@@ -207,7 +208,8 @@ export default {
             cardClicked,
             closeCard,
             reportClicked,
-            selectedShareCard
+            selectedShareCard,
+            convertImg
         };
     }
 };
