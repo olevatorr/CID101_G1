@@ -171,7 +171,7 @@
             caption{
                 font-size: 2rem;
                 padding-top: 9rem;
-                padding-bottom: 1rem ;
+                padding-bottom: 2rem ;
             }
 
             th {
@@ -259,6 +259,9 @@
                         background-color: #bbb;
                         cursor: not-allowed;
                     }
+                    @media screen and (max-width:576px) {
+                        text-align: right;
+                    }
                 }
             }
             .shoptable{
@@ -311,9 +314,20 @@
                 }
                 td:nth-child(6){
                     text-align: center;
+                    @media screen and (max-width:576px) {
+                        text-align: right;
+                    }
                 }
                 td:nth-child(7){
                     text-align: center;
+                    @media screen and (max-width:576px) {
+                        text-align: right;
+                    }
+                }
+                td{
+                    @media screen and (max-width:576px) {
+                        text-align: right;
+                    }
                 }
 
                 th {
@@ -333,19 +347,37 @@
             tr {
                 th {
                     height: 5rem;
+
                 }
-    
+
                 td {
+                    text-align: right;
                     height: 5rem;
                     img{
                         padding-top: 1rem;
                         padding-bottom: 1rem;
                         width: 10rem;
+
+                    }
+                }
+                td:nth-child(2) {
+                    @media (max-width: 576px) {
+                    padding-bottom: 8rem;
                     }
                 }
             }
-    
         }
+
+        .donate {
+            tr {
+                td {
+                    @media (max-width: 576px) {
+                        text-align: right;
+                    }
+                }
+            }
+        }
+
         //破壞表格排列
             @media (max-width: 576px) {
                 table, thead, tbody, th, td, tr {
