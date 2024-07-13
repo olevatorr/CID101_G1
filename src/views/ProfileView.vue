@@ -497,6 +497,7 @@ export default {
             Swal.fire('成功', '圖片上傳成功', 'success');
             // 更新圖片源
             const newAvatar = response.data.fileName;
+            imageSrc.value = `${import.meta.env.VITE_IMG_URL}/member/${newAvatar}`;
             store.updateMember({ U_AVATAR: newAvatar });
           } else {
             Swal.fire('錯誤', response.data.message, 'error');
