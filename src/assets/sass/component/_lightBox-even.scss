@@ -109,19 +109,17 @@
                             }
 
                             h3 {
-                                font-size: 2rem;
+                                font-size: 1.7rem;
                                 color: $color-subprimary;
-                                @media screen and (max-width:992px){
-                                    font-size: 1.8rem;
-                                }
                                 @media screen and (max-width:576px){
-                                    font-size: 1.3rem;
                                     margin: 10px 0;
                                     text-align: center;
                                 }
                             }
 
                             .join {
+                                // display: flex;
+                                // align-items: center;
 
                                 p {
                                     margin: 0;
