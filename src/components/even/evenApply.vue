@@ -1,16 +1,32 @@
 <script setup>
 // import { ref } from 'vue'
 import { useEventsStore } from '@/stores/events'
-const emit = defineEmits(['scroll-click'])
+import { useMemberStore } from '@/stores/member'
+import Swal from 'sweetalert2'
+import { useRouter } from 'vue-router'
 
+const emit = defineEmits(['scroll-click'])
 const locationStore = useEventsStore()
+const memberStore = useMemberStore()
+const router = useRouter()
 
 const getLocation = () => {
-    if (navigator.geolocation) {  //請求當前位置
+    if(memberStore.isLogging){
+        if (navigator.geolocation) {  //請求當前位置
         navigator.geolocation.getCurrentPosition(showPosition, showError);
         emit('scroll-click')
     } else {
         alert('您的瀏覽器不支援地理位置服務')
+    }
+    }else{
+        Swal.fire({
+        icon: 'warning',
+        title: '需要登入',
+        text: '請先登入或加入會員以提交檢舉。',
+        className: 'reportSubmission'
+      }).then(() => {
+        router.push('/Member');
+      });
     }
 }
 

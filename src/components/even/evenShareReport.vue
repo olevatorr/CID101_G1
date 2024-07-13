@@ -52,6 +52,15 @@ const submitForm = async () => {
       });
       return
   }
+  if(!selectedReason.value){
+    Swal.fire({
+        icon: 'warning',
+        title: '請選檢舉原因',
+        text: '您必需選則一個原因。',
+        className: 'reportSubmission'
+      });
+    return;
+  }
   try {
    
       showReportModal.value = false;

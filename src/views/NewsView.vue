@@ -100,7 +100,7 @@ export default {
                 const response = await axios.get(url);
                 // 如果響應資料沒錯誤，將資料給
                 if (!response.data.error) {
-                    this.news = response.data.news;// news，原始的數據
+                    this.news = response.data.news.sort((a, b) => b.N_ID - a.N_ID);// news，原始的數據
                     this.filterNewsList = this.news;// 篩選後的新聞數據
                 } else {
                     this.error = true;

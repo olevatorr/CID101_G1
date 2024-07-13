@@ -5,12 +5,12 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import { useEventsStore } from '@/stores/events.js'
 import { storeToRefs } from 'pinia'
-
+import axios from 'axios';
 
 
 // pinia遷入，因為是compostion寫法所以要用defineStore調用
 const eventsStore = useEventsStore()
-const { selectedEventCard} = storeToRefs(eventsStore)
+const { selectedEventCard } = storeToRefs(eventsStore)
 
 const areas = ref([
     { id: 0, name: '北部' },
@@ -34,6 +34,7 @@ const calendarOptions = ref({
         const eventEl = info.el; // 取得每日的el
         const event = info.event; // 提取當日的event
         const eventDate = event.start.toISOString().slice(0, 10); // 把每日的日期一致化，以利後續判斷
+        eventEl.style.cursor = 'pointer';
 
         if (eventEl.style.display === 'none') { // 若沒有活動就return結束
             return;
@@ -98,23 +99,21 @@ const calendarFilteredEvents = ref([]);
 // 在組件掛載後加載 JSON 文件
 onMounted(async () => {
     try {
-        // 加載 event.json
-        const eventResponse = await fetch(`${import.meta.env.BASE_URL}json/event.json`);
-        if (!eventResponse.ok) {
-            throw new Error('Network response was not ok');
+        // 使用 axios 加載 event.json
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/events.php`);
+        if (!response.data.error) {
+            eventList.value = response.data.events;
+            calendarList.value = response.data.events.map((event) => ({
+                title: event.E_TITLE,
+                start: event.E_DATE,
+                allDay: true,
+                backgroundColor: 'rgba(255,0,0,0)',
+                borderColor: 'rgba(255,0,0,0)',
+                textColor: '#005FA1',
+            }))
         }
-        const jsonData = await eventResponse.json();
-        eventList.value = jsonData;
-        calendarList.value = eventList.value.map((event) => ({
-            title: event.E_TITLE,
-            start: event.E_DATE,
-            allDay: true,
-            backgroundColor: 'rgba(255,0,0,0)',
-            borderColor: 'rgba(255,0,0,0)',
-            textColor: '#005FA1',
-        }));
     } catch (error) {
-        console.error('Error loading JSON:', error);
+        console.log('erroe', error.message);
     }
 });
 const getAreaEvents = (areaId) => {
@@ -151,8 +150,10 @@ const showEventDetails = (event) => {
                                         <li v-for="event in getAreaEvents(area.id)" :key="event.E_ID">
                                             {{ event.E_TITLE }}
                                             <span class="end" v-if="eventEnded(event.E_DATE)">活動結束</span>
-                                            <span class="deadline" v-else-if="registrationClosed(event.E_DEADLINE)">報名截止</span>
-                                            <span class="fullsign" v-else-if="registrationFull(event.E_SIGN_UP, event.E_MAX_ATTEND)">報名額滿</span>
+                                            <span class="deadline"
+                                                v-else-if="registrationClosed(event.E_DEADLINE)">報名截止</span>
+                                            <span class="fullsign"
+                                                v-else-if="registrationFull(event.E_SIGN_UP, event.E_MAX_ATTEND)">報名額滿</span>
                                             <span class="ongoing" v-else>報名中</span>
                                             <button @click="showEventDetails(event)">活動詳情</button>
                                         </li>
