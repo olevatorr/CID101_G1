@@ -3,7 +3,7 @@
         <div class="container">
             <div class="upload">
                 <h2>活動分享</h2>
-                <div class="close">
+                <div class="close" @click="closeUpload">
                     <i class="fa-regular fa-circle-xmark"></i>
                 </div>
             </div>
@@ -30,6 +30,7 @@
                 </div>
                 <div class="box box-5">
                     <label>活動圖片</label>
+                    <img src="" alt="">
                     <input type="file" name="" id="" class="newFile" />
                 </div>
                 <div class="box box-6">
@@ -46,3 +47,13 @@
         </div>
     </div>
 </template>
+
+<script setup>
+import { defineEmits } from 'vue';
+
+const emit = defineEmits(['close']);
+//closeUpload 函數在關閉按鈕被點擊時觸發，並通過 emit('close') 發送 close 事件
+const closeUpload = () => {
+    emit('close');
+};
+</script>

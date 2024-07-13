@@ -1,69 +1,70 @@
 import { defineStore } from 'pinia';
 
-export const useValidationStore = defineStore('validation', {
+export const useValidationStore = defineStore('validation',{
   state: () => ({
     errors: {},
-    account: '',
-    name: '',
-    email: '',
-    newPassword: '',
-    confirmPassword: '',
-    phone: '',
-    address: ''
+    fields: {
+      account: '',
+      name: '',
+      email: '',
+      newPassword: '',
+      confirmPassword: '',
+      phone: '',
+      address: ''
+    }
   }),
   actions: {
     validateField(field) {
       const validators = {
         account: () => {
           const accountRegex = /^[a-zA-Z0-9]{4,10}$/;
-          if (!this.account) {
+          if (!this.fields.account) {
             return '*請輸入帳號';
-          } else if (!accountRegex.test(this.account)) {
+          } else if (!accountRegex.test(this.fields.account)) {
             return '*帳號格式不正確，應為4-10位字母加數字';
           }
           return '';
         },
         name: () => {
-          return !this.name ? '*請輸入會員姓名' : '';
+          return !this.fields.name ? '*請輸入會員姓名' : '';
         },
         email: () => {
           const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          if (!this.email) {
+          if (!this.fields.email) {
             return '*請輸入信箱';
-          } else if (!emailPattern.test(this.email)) {
+          } else if (!emailPattern.test(this.fields.email)) {
             return '*信箱格式不正確';
           }
           return '';
         },
         newPassword: () => {
           const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).{4,}$/;
-          if (!this.newPassword || this.newPassword.trim() === '') {
+          if (!this.fields.newPassword) {
             return '*請輸入新密碼';
-          }
-          if (!passwordRegex.test(this.newPassword)) {
+          } else if (!passwordRegex.test(this.fields.newPassword)) {
             return '*請輸入至少英文加數字4碼';
           }
           return '';
         },
         confirmPassword: () => {
-          if (!this.confirmPassword || this.confirmPassword.trim() === '') {
+          if (!this.fields.confirmPassword) {
             return '*請再輸入一次密碼';
-          } else if (this.confirmPassword !== this.newPassword) {
+          } else if (this.fields.confirmPassword !== this.fields.newPassword) {
             return '*密碼不匹配';
           }
           return '';
         },
         phone: () => {
           const phonePattern = /^[0-9]{10}$/;
-          if (!this.phone) {
+          if (!this.fields.phone) {
             return '*請輸入電話';
-          } else if (!phonePattern.test(this.phone)) {
+          } else if (!phonePattern.test(this.fields.phone)) {
             return '*電話號碼格式不正確';
           }
           return '';
         },
         address: () => {
-          return !this.address ? '*請輸入地址' : '';
+          return !this.fields.address ? '*請輸入地址' : '';
         }
       };
 
@@ -76,6 +77,9 @@ export const useValidationStore = defineStore('validation', {
     },
     clearErrors() {
       this.errors = {};
+    },
+    setField(field, value) {
+      this.fields[field] = value;
     }
   }
 });

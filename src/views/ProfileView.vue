@@ -40,27 +40,37 @@
           <ul>
             <li>
               <label for="">會員姓名</label>
-              <input type="text" maxlength="20" v-model="member.U_NAME" @blur="validAll('name')" readonly>
+              <input type="text" maxlength="20" v-model="member.U_NAME" @blur="validateField('name')" 
+              :readonly="!isEditing"
+              :style="{ backgroundColor: isEditing ? '#fff' : '#ddd', color: isEditing ? '#000' : '' }">
               <span v-if="errors.name">{{ errors.name }}</span>
             </li>
             <li>
               <label for="">會員帳號</label>
-              <input type="text" maxlength="20" v-model="member.U_ACCOUNT" @blur="validAll('account')" readonly>
+              <input type="text" maxlength="20" v-model="member.U_ACCOUNT" @blur="validateField('account')" 
+              :readonly="!isEditing"
+              :style="{ backgroundColor: isEditing ? '#fff' : '#ddd', color: isEditing ? '#000' : '' }">
               <span v-if="errors.account">{{ errors.account }}</span>
             </li>
             <li>
               <label for="">會員信箱</label>
-              <input type="text" v-model="member.U_EMAIL" @blur="validAll('email')" readonly>
+              <input type="text" v-model="member.U_EMAIL" @blur="validateField('email')" 
+              :readonly="!isEditing"
+              :style="{ backgroundColor: isEditing ? '#fff' : '#ddd', color: isEditing ? '#000' : '' }">
               <span v-if="errors.email">{{ errors.email }}</span>
             </li>
             <li>
               <label for="">會員電話</label>
-              <input type="tel" maxlength="10" v-model="member.U_PHONE" @blur="validAll('phone')" readonly>
+              <input type="tel" maxlength="10" v-model="member.U_PHONE" @blur="validateField('phone')" 
+              :readonly="!isEditing"
+              :style="{ backgroundColor: isEditing ? '#fff' : '#ddd', color: isEditing ? '#000' : '' }">
               <span v-if="errors.phone">{{ errors.phone }}</span>
             </li>
             <li>
               <label for="">會員地址</label>
-              <input type="text" v-model="member.U_ADDRESS" @blur="validAll('address')" readonly>
+              <input type="text" v-model="member.U_ADDRESS" @blur="validateField('address')" 
+              :readonly="!isEditing"
+              :style="{ backgroundColor: isEditing ? '#fff' : '#ddd', color: isEditing ? '#000' : '' }">
               <span v-if="errors.address">{{ errors.address }}</span>
             </li>
           </ul>
@@ -156,14 +166,19 @@
                   @click="cancelEvent(act.EO_ID, act.U_ID)">
                     報名取消
                   </button>
-                  <button v-else-if="new Date(act.E_DATE) < new Date() && act.EO_STATUS !== 2">
+                  <button v-else-if="new Date(act.E_DATE) < new Date() && act.EO_STATUS !== 2"
+                  @click="showLightbox">
                     活動留言
                   </button>
                   <button class="close" v-else>
                     活動結束
                   </button>
-                  <!-- 使用 ShareCard 元件 -->
                 </td>
+                <!-- 使用 evenUpload 元件 -->
+                <!-- 當燈箱的 <EvenUpload/> 組件發送 close 事件時，主組件中的 hideLightbox 函數會被觸發，這樣燈箱就會隱藏 -->
+                <div  v-if="isLightboxVisible" class="evenbox">
+                  <evenUpload  @close="hideLightbox"/>
+                </div>
               </tr>
             </tbody>
           </table>
@@ -234,15 +249,17 @@
               <input type="text" maxlength="10" v-model="member.U_PSW">
             </li>
             <li>
-              <label>修改密碼</label>
-              <input type="text" v-model="newPassword" maxlength="10" placeholder="請輸入密碼"
-                @blur="validate('newPassword')">
+              <label for="newPassword">修改密碼</label>
+              <input type="text"  maxlength="10" placeholder="請輸入密碼"
+              v-model="fields.newPassword"
+              @blur="validateField('newPassword')">
               <span v-if="errors.newPassword">{{ errors.newPassword }}</span>
             </li>
             <li>
-              <label>再輸入一次密碼</label>
-              <input class="inputs" v-model="confirmPassword" type="text" maxlength="10" placeholder="請輸入密碼"
-                @blur="validate('confirmPassword')">
+              <label for="confirmPassword">再輸入一次密碼</label>
+              <input class="inputs"  type="text" maxlength="10" placeholder="請輸入密碼"
+              v-model="fields.confirmPassword"
+              @blur="validateField('confirmPassword')">
               <span v-if="errors.confirmPassword">{{ errors.confirmPassword }}</span>
             </li>
           </ul>
@@ -260,7 +277,11 @@ import { storeToRefs } from 'pinia'
 import { useValidationStore } from '@/stores/validation'
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import evenUpload from '@/components/even/evenUpload.vue';
 export default {
+  components: {
+    evenUpload
+  },
   setup() {
     const store = useMemberStore();
     const { member } = storeToRefs(store)
@@ -282,21 +303,29 @@ export default {
     const currentPoId = ref('')
     //修改密碼驗證
     const validationStore = useValidationStore();
-    const { errors, validateField, clearErrors } = validationStore;
+    const { errors, validateField, clearErrors, setField,fields  } = validationStore;
     const newPassword = ref('');
     const confirmPassword = ref('');
-    //會員資料修改
-    const validAll = () => {
-      clearErrors();
-      validateField('name', { name: member.value.U_NAME });
-      validateField('account', { account: member.value.U_ACCOUNT });
-      validateField('email', { email: member.value.U_EMAIL });
-      validateField('phone', { phone: member.value.U_PHONE });
-      validateField('address', { address: member.value.U_ADDRESS });
+    //inout 背景顏色
+    const isEditing = ref(false);
+    //活動留言燈箱
+    const isLightboxVisible = ref(false);
+
+    //會員留言燈箱
+    const showLightbox = () => {
+      isLightboxVisible.value = true; // 顯示燈箱
+    };
+    const hideLightbox = () => {
+      isLightboxVisible.value = false;
     };
     //會員資料表單修改
     const saveData = async () => {
-      validAll();
+      isEditing.value = false;
+      validateField('name');
+      validateField('account');
+      validateField('email');
+      validateField('phone');
+      validateField('address');
       if (Object.keys(errors).length > 0) {
         // 如果存在錯誤訊息，就不送出表單，直接返回
         return;
@@ -336,16 +365,9 @@ export default {
       }
     };
 
-    //顯示修改密碼錯誤資訊
-    const validate = (field) => {
-      validationStore.validateField(field, {
-        newPassword: newPassword.value,
-        confirmPassword: confirmPassword.value
-      });
-    };
     const submitForm = async () => {
-      validate('newPassword');
-      validate('confirmPassword'); // 執行驗證
+      validateField('newPassword');
+      validateField('confirmPassword'); // 執行驗證
 
       // 檢查是否有錯誤
       if (Object.keys(errors).length > 0) {
@@ -355,8 +377,8 @@ export default {
       try {
         // 提交表單數據到 PHP 後端
         const response = await axios.post(`${import.meta.env.VITE_API_URL}/memberChange.php`, {
-          newPassword: newPassword.value,
-          confirmPassword: confirmPassword.value,
+          newPassword: fields.newPassword,
+          confirmPassword: fields.confirmPassword,
           account: member.value.U_ACCOUNT
         }, {
           headers: {
@@ -366,7 +388,7 @@ export default {
 
         // 在這裡處理成功後的邏輯，比如重置表單、顯示成功消息等
         store.updateMember({
-          U_PSW: newPassword.value, // 更新密碼
+          U_PSW: fields.newPassword, // 更新密碼
           // 可以添加更多需要更新的屬性
         });
         newPassword.value = '';
@@ -385,10 +407,19 @@ export default {
         });
       }
     };
+    watch(() => member.value, (newValue) => {
+      setField('account', newValue.U_ACCOUNT);
+      setField('name', newValue.U_NAME);
+      setField('email', newValue.U_EMAIL);
+      setField('phone', newValue.U_PHONE);
+      setField('address', newValue.U_ADDRESS);
+      setField('newPassword', newPassword.value);
+      setField('confirmPassword', confirmPassword.value);
+    }, { deep: true });
 
     const editData = () => {
       // 移除所有 會員資料readonly 屬性
-      document.querySelectorAll('input').forEach(input => input.removeAttribute('readonly'));
+      isEditing.value = true;
     };
     // 設置頭像
     const setAvatar = () => {
@@ -730,7 +761,9 @@ const removeFavorites = async (p_id, u_id) => {
       newPassword,//新密碼
       confirmPassword,//再輸入一次密碼
       errors,//pinia錯誤訊息
-      validate,//修改密碼錯誤訊息
+      fields,
+      validateField,
+      setField, //置字段值並進行驗證
       clearErrors,//清理錯誤訊息
       submitForm,//送出密碼變更
       editData,//移除所有 readonly 屬性
@@ -741,6 +774,10 @@ const removeFavorites = async (p_id, u_id) => {
       getImageUrl, //圖片路徑
       removeFavorites, //取消收藏
       cancelEvent, //活動清單刪除
+      isEditing, //會員讀寫開關
+      isLightboxVisible, //活動留言燈箱
+      showLightbox, //顯示燈箱
+      hideLightbox
     }
   }
 }

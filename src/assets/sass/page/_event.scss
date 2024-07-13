@@ -292,8 +292,6 @@
     }
 
     form {
-        margin: auto;
-        width: 50%;
         margin-bottom: 30px;
 
         .box {
@@ -304,6 +302,7 @@
             width: 100%;
 
             label {
+                display: contents;
                 flex-basis: 40%;
                 font-size: 1.5rem;
                 letter-spacing: .2em;
@@ -327,11 +326,20 @@
             span {
                 display: block;
                 font-size: 1.5rem;
+                text-align: left;
             }
 
             .Experience span,
             textarea {
                 margin-left: 0;
+            }
+        }
+        .box-4{
+            span{
+                margin-left: 9%;
+                @media screen and (max-width:576px) {
+                    margin-left: 11%;
+                }
             }
         }
     }
